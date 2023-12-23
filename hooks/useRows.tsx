@@ -44,7 +44,6 @@ const useRows = () => {
 
 
 
-    console.log("🚀 ~ file: useRows.tsx:11 ~ useRows ~ row:", row)
 
 
 

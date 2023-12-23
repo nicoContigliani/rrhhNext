@@ -11,17 +11,18 @@ import { useEffect, useState } from 'react'
 import { authAsync, selectAuth } from '@/redux/features/auth/authSlice'
 import { readLocalStorage } from '@/services/storage.services';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+
 import Auths from '@/components/Auth/Auth';
 import Icons from '@/components/Icons/Icons';
 import Main from '@/components/Main/Main';
-import Perfil from '@/components/images/perfil.png'
 import Iconf from '@/components/images/flama.png'
+
+const Logo = dynamic(() => import('@/components/Logo/Logo'), { ssr: false })
+
 
 
 export default function Home() {
   const [data, setData] = useState({})
-
-  const [] = useState()
 
   const dispatch = useAppDispatch();
 
@@ -94,26 +95,38 @@ export default function Home() {
     dispatch(authAsync(data))
   }
 
+
+ 
+
+
   return (
     <main className={styles.main}>
+
+
+
+
       {
         isLogins ?
-          <div className={styles.element} >
-            <Main />
+          <div>
+            <div className={styles.element} >
+              <Main />
+            </div>
           </div>
           :
-          <div>
-            <Icons
+          <div className={styles.start}>
+            {/* <Icons
               src={Perfil} alt={''}
               className={styles.perfil}
-            />
+            /> */}
             <div className={styles.element} >
               <div className={styles.logocenter} >
                 <Icons
                   src={Iconf} alt={''}
                   className={styles.logo}
                 />
-                <Main />
+                <div className={styles.textTitle}>
+                  <Main />
+                </div>
               </div>
 
               <div className={styles.auth}>

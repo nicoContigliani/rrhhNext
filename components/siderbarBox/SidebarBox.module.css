@@ -1,0 +1,57 @@
+/* .sidebar {
+    margin-left: 0%;
+}
+
+
+
+.logo {
+    width: 30px;
+    height: 26.429px;
+} */
+
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .sidebar {
+        background-color: red;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 992px) {
+    .box {
+        padding-top: 12%;
+        position: sticky;
+    }
+
+    .todo {
+         padding: 1%;
+    }
+    .image {
+        padding-left: 10%;
+        padding-top: 1%;
+    
+        width: 30px;
+        height: 30px;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .box {
+        padding-top: 15%;
+    }
+
+    .todo {
+         padding: 1%;
+    }
+    .image {
+        padding-left: 10%;
+        padding-top: 5%;
+    
+        width: 35px;
+        height: 35px;
+    }
+
+}

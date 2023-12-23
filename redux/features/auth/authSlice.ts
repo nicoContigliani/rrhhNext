@@ -4,8 +4,6 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "../../store";
 import useAxios from "@/services/useAxios.services";
 import { readLocalStorage, writedLocalStorage } from "@/services/storage.services";
-import dotenv from 'dotenv';
-dotenv.config({ path: '@/.env' });
 
 
 
@@ -53,6 +51,7 @@ const dataSearch: any[] = ["token", "islogin", "user", "id"]
 let dataUser: any | undefined;
 
 
+const API_URL = process.env.API_URL;
 
 
 export const preloadAuthData: any = createAsyncThunk(
@@ -76,13 +75,15 @@ export const preloadAuthData: any = createAsyncThunk(
 
 let insertStore: object | any
 
+
+
 export const authAsync = createAsyncThunk(
     "auth",
     async (userData: any) => {
 
 
         const todo: any = {
-            url: "http://localhost:3001/Auth/Auth",
+            url:` ${API_URL}/Auth/Auth`,
             method: 'PUT', // Use 'GET', 'POST', 'PUT', etc. as needed
             body: userDatas,
             idParams: null,
@@ -92,7 +93,7 @@ export const authAsync = createAsyncThunk(
         let dataUserFormated = response.data[0].User
         dataUserFormated.islogin = response.data[0].login
         dataUserFormated.token = response.data[0].token
-        
+
 
         const LocalSReturn = await writedLocalStorage(dataUserFormated)
 

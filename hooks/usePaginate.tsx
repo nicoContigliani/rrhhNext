@@ -29,13 +29,7 @@ const usePaginate = () => {
     // Change page
     const paginate: (arg: any) => void = (pageNumber: React.SetStateAction<any>) => setCurrentPage(pageNumber);
 
-    console.log("🚀 ~ file: usePaginate.tsx:38 ~ usePaginate ~ posts:", posts)
-    console.log("🚀 ~ file: usePaginate.tsx:41 ~ usePaginate ~ currentPage:", currentPage)
-    console.log("🚀 ~ file: usePaginate.tsx:43 ~ usePaginate ~ postsPerPage:", postsPerPage)
-    console.log("🚀 ~ file: usePaginate.tsx:45 ~ usePaginate ~ currenTPosts:", currenTPosts)
-    
-
-
+ 
 
     return {
         posts, setPosts,

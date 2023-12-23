@@ -9,6 +9,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import ReduxProvider from '@/redux/provider'
 import Navbars from '@/components/navbar'
+import ProtectedRoutes from './ProtectedRoutes'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,12 +23,17 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
+  
   return (
     <html lang="en">
       <body className={inter.className}>
         <ReduxProvider>
-          <Navbars/>
-          <main>{children}</main>
+          <ProtectedRoutes>
+            <Navbars />
+
+            <main>{children}</main>
+          </ProtectedRoutes>
         </ReduxProvider>
       </body>
     </html>

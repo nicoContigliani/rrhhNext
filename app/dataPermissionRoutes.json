@@ -1,0 +1,37 @@
+{
+  "admin": {
+    "routes": [
+      "/",
+      "/about",
+      "/contact",
+      "/services",
+      "/dashboard",
+      "/reports",
+      "/humansrresources",
+      "/talents",
+      "/curriculum"
+    ]
+  },
+  "employes": {
+    "routes": [
+      "/",
+      "/about",
+      "/contact",
+      "/services",
+      "/dashboard",
+      "/humansrresources",
+      "/curriculum"
+    ]
+  },
+  "user": {
+    "routes": [
+      "/",
+      "/about",
+      "/contact",
+      "/services",
+      "/humansrresources",
+      "/talents",
+      "/curriculum"
+    ]
+  }
+}
