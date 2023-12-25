@@ -16,6 +16,7 @@ import Tabletodo from '@/components/tableTodo/Tabletodo';
 import type { ColumnsType, TablePaginationConfig } from 'antd/es/table';
 import type { FilterValue, SorterResult } from 'antd/es/table/interface';
 import { Badge, Button, Dropdown, Space } from 'antd';
+import Spinner from '@/components/spinner/Spinner';
 
 
 const page = () => {
@@ -162,9 +163,6 @@ const page = () => {
         }
 
 
-
-
-
             const todo = async () => {
                 setDatas(cvData)
                 setDataDeleteColumns(HeaderDelete)
@@ -208,7 +206,7 @@ const page = () => {
             {
                 isAdmin ?
                     <Tabletodo todos={todos} />
-                    : "no"
+                    : <Spinner/>
             }
 
         </div>

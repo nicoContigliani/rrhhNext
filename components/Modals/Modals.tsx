@@ -32,14 +32,14 @@ const Transition = React.forwardRef(function Transition(
 
 
 const Modals = (props: any) => {
-    const [data, setData] = useState()
+    const { todo, children } = props
+    const [data, setData] = useState<any | any[] | undefined>()
     const [todos, setTodos] = useState()
     const [open, setOpen] = useState(false);
 
-    const { todo, children } = props
     useEffect(() => {
-        setTodos(todo)
-    }, [])
+        setData(todo)
+    }, [props])
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -48,7 +48,6 @@ const Modals = (props: any) => {
     const handleClose = () => {
         setOpen(false);
     };
-console.log("********************")
 
 
     return (
@@ -64,14 +63,19 @@ console.log("********************")
                 TransitionComponent={Transition}
             >
                 <AppBar
-                         sx={{
-                             position: 'relative', backgroundColor: '#00000019', color: "black",
-
-                     }}
+                    sx={{
+                        position: 'relative', backgroundColor: '#00000019', color: "black", }}
 
                     className={style.body}
                 >
                     <Toolbar>
+                      
+                        <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+                            Todo
+                        </Typography>
+                        {/* <Button autoFocus color="inherit" onClick={handleClose}>
+                            save
+                        </Button> */}
                         <IconButton
                             edge="start"
                             color="inherit"
@@ -80,17 +84,11 @@ console.log("********************")
                         >
                             <CloseIcon />
                         </IconButton>
-                        <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                            Todo
-                        </Typography>
-                        <Button autoFocus color="inherit" onClick={handleClose}>
-                            save
-                        </Button>
                     </Toolbar>
+                    
                 </AppBar>
                 <List>
-                  <Tabss/>
-
+                    <Tabss todo={data} />
                 </List>
             </Dialog>
         </div >

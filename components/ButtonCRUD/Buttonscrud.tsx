@@ -9,19 +9,31 @@ import Deletes from './buttonSerchCRUD/Deletes/Deletes';
 
 const Buttonscrud = ({ todo }: { children: React.ReactNode | any, todo: any }) => {
 
-    const [data, setData] = useState()
+    const [data, setData] = useState<any | any[]>()
     useEffect(() => {
         setData(todo)
-    }, [])
+    }, [todo])
 
 
 
     return (
         <div className={style.body}>
-            <Show todo={data} />
-            <Adds todo={data} />
-            <Updates todo={data} />
-            <Deletes todo={data} />
+            {
+                (data?.length !== 0) ? <Show todo={data} /> : ""
+
+            }
+            {
+                (data?.length !== 0) ? <Adds todo={data} /> : ""
+
+            }
+            {
+                (data?.length !== 0) ? <Updates todo={data} /> : ""
+
+            }
+            {
+                (data?.length !== 0) ? <Deletes todo={data} /> : ""
+
+            }
         </div>
     )
 }

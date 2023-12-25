@@ -5,15 +5,15 @@ import Modals from '@/components/Modals/Modals'
 
 const Show = (props: any) => {
     const { todo } = props
-    const [data, setData] = useState<any | any[] | undefined>()
+    const [data, setData] = useState<any | any[] | undefined>(todo)
     useEffect(() => {
         setData(todo)
-    }, [])
+    }, [props])
 
     return (
         <div className={style.body}>
             <Modals todo={data}>
-                <Search />
+            <Search />
             </Modals>
         </div>
     )

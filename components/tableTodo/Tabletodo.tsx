@@ -9,6 +9,7 @@ import { Button, Input, Space, Table, Pagination } from 'antd';
 import type { ColumnType, ColumnsType } from 'antd/es/table';
 import type { FilterConfirmProps } from 'antd/es/table/interface';
 import Buttonscrud from '../ButtonCRUD/Buttonscrud';
+import Spinner from '../spinner/Spinner';
 
 
 const Tabletodo = (props: any) => {
@@ -51,7 +52,6 @@ const Tabletodo = (props: any) => {
     const [todo, setTodo] = useState()
     const [headers, setHeaders] = useState()
     const [posts, setPosts] = useState<any[] | undefined | any>([]);
-    console.log("🚀 ~ file: Tabletodo.tsx:21 ~ Tabletodo ~ posts:", posts)
 
 
 
@@ -196,7 +196,7 @@ const Tabletodo = (props: any) => {
             render: (_: any, record: {
                 title: ReactNode; name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined;
             }) => (
-                    <Buttonscrud todo={record} children={undefined} />
+                <Buttonscrud todo={record} children={undefined} />
             ),
         },
     ];
@@ -227,29 +227,31 @@ const Tabletodo = (props: any) => {
         <div className={style.body}>
 
 
+            {
+                (posts?.length !== 0) ?
+                    <Table
+                        columns={columns}
+                        dataSource={posts}
+                        pagination={{ pageSize: 2 }} // Adjust the page size as needed
+                        size="small"
+                        bordered
+
+                        expandable={{
+                            expandedRowRender: (record) => <p style={{ margin: 3 }}>{record.title}</p>,
+                            rowExpandable: (record) => record.name !== 'Not Expandable',
+                        }}
+
+                        //   <Modals todo={record} />
+
+                        // rowSelection={rowSelection}
+                        // scroll={{ x: 1500, y: 300 }}
+                        scroll={{ x: 200 }}
+                        rowClassName="editable-row"
+                    />
+                    : <Spinner />
+            }
 
 
-            <Table
-                columns={columns}
-                dataSource={posts}
-                pagination={{ pageSize: 2 }} // Adjust the page size as needed
-                size="small"
-                bordered
-
-                expandable={{
-                    expandedRowRender: (record) => <p style={{ margin: 3 }}>{record.title}</p>,
-                    rowExpandable: (record) => record.name !== 'Not Expandable',
-                }}
-
-                //   <Modals todo={record} />
-
-                // rowSelection={rowSelection}
-                // scroll={{ x: 1500, y: 300 }}
-                scroll={{ x: 200 }}
-                rowClassName="editable-row"
-
-
-            />
         </div>
     )
 }
