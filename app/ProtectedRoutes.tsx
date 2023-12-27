@@ -36,7 +36,6 @@ export interface UserStorage {
 
 
 const ProtectedRoutes: React.FC<ProtectedRouteProps> = ({ children }) => {
-    console.log("si pase")
     const [todo, setTodo] = useState<any>({ id: 1, isLogin: false })
     const [authData, setAutData] = useState()
     const dispatch = useDispatch();

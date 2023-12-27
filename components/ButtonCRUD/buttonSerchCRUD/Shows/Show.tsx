@@ -10,10 +10,13 @@ const Show = (props: any) => {
         setData(todo)
     }, [props])
 
+    //aca va el redux de show y los permisos 
+
+
     return (
         <div className={style.body}>
             <Modals todo={data}>
-            <Search />
+                <Search />
             </Modals>
         </div>
     )

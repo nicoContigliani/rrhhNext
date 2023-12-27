@@ -77,7 +77,6 @@ export default function Home() {
   useEffect(() => {
     const todoR = async () => {
       const datas = await readLocalStorage(dataSearch);
-      console.log("🚀 ~ file: page.tsx:81 ~ todoR ~ datas:", datas)
       if (datas && datas.islogin) { // Asegúrate de verificar correctamente la propiedad
         setIsLogins(true);
       } else {

@@ -57,7 +57,6 @@ const useAuth = () => {
     useEffect(() => {
         const checkLocalStorage = async () => {
             const datas = await readLocalStorage(dataSearch);
-            console.log("🚀 ~ file: useAuth.tsx:60 ~ checkLocalStorage ~ datas:", datas)
 
             const {
                 islogin,

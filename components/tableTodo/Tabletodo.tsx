@@ -236,17 +236,17 @@ const Tabletodo = (props: any) => {
                         size="small"
                         bordered
 
-                        expandable={{
-                            expandedRowRender: (record) => <p style={{ margin: 3 }}>{record.title}</p>,
-                            rowExpandable: (record) => record.name !== 'Not Expandable',
-                        }}
+                        // expandable={{
+                        //     expandedRowRender: (record) => <p style={{ margin: 3 }}>{record.title}</p>,
+                        //     rowExpandable: (record) => record.name !== 'Not Expandable',
+                        // }}
 
                         //   <Modals todo={record} />
 
                         // rowSelection={rowSelection}
                         // scroll={{ x: 1500, y: 300 }}
                         scroll={{ x: 200 }}
-                        rowClassName="editable-row"
+                        // rowClassName="editable-row"
                     />
                     : <Spinner />
             }

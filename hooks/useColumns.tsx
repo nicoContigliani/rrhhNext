@@ -33,7 +33,7 @@ const useColumns = () => {
 
                 if (cvDataR !== undefined) {
                     try {
-                        const newData: any = cvDataR?.map((item: any) => {
+                        const newData: any | undefined = cvDataR?.map((item: any) => {
                             // Filtrar las propiedades basadas en el array 'data'
                             const newItem: any = Object.keys(item)
                                 .filter(key => !data.includes(key))
@@ -67,16 +67,17 @@ const useColumns = () => {
         }
 
         setTodo(todos)
-    }, [width, height,datas])
+    }, [width, height, datas])
 
 
-    return { datas, setDatas,
-             dataDeleteColumns, setDataDeleteColumns, 
-             dataDimention, setDataDimention, 
-             headerColumnsAll, setHeaderColumnsAll, 
-             headerColumns, setHeaderColumns, 
-             todo, setTodo
-     }
+    return {
+        datas, setDatas,
+        dataDeleteColumns, setDataDeleteColumns,
+        dataDimention, setDataDimention,
+        headerColumnsAll, setHeaderColumnsAll,
+        headerColumns, setHeaderColumns,
+        todo, setTodo
+    }
 }
 
 export default useColumns

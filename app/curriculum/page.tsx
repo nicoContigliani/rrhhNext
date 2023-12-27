@@ -26,7 +26,6 @@ const page = () => {
 
     const [data, setData] = useState([])
     const { isOpen, isLogins, infoUser, isAdmin, setIsOpen, setIsLogins } = useAuth();
-    console.log("🚀 ~ file: page.tsx:26 ~ page ~ isAdmin:", isAdmin)
     const { datas, setDatas, dataDeleteColumns, setDataDeleteColumns, dataDimention, setDataDimention, headerColumnsAll, setHeaderColumnsAll, headerColumns, setHeaderColumns, todo, setTodo } = useColumns()
     const { width, height } = useScreenSize()
 

@@ -1,0 +1,38 @@
+.body {
+  font-weight: 700;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@media screen and (max-width: 991px) {
+  .bodyTodo {
+    /* padding: 1%;
+    border-radius: 5%; */
+   
+  }
+
+  .div {
+
+
+  }
+
+  .body:hover {
+    box-shadow: 0 1px 10px #000000a1;
+    transform: scale(1.0);
+    transition: box-shadow 500ms;
+
+  }
+}
+
+@media screen and (min-width: 991px) {
+  .body {
+    border-radius: 5%;
+    margin: 1%;
+  }
+
+  .body:hover {
+    box-shadow: 0 1px 10px #000000a1;
+    transform: scale(1.0);
+    transition: box-shadow 500ms;
+
+  }
+}

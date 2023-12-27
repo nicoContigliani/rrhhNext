@@ -13,8 +13,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
 
-import style from './show.module.css'
+import style from './modals.module.css'
 import Tabss from '../Tabss/Tabss';
+
 
 
 
@@ -51,7 +52,7 @@ const Modals = (props: any) => {
 
 
     return (
-        <div>
+        <div className={style.bodyTodo}>
 
             <div onClick={handleClickOpen}>
                 {children}
@@ -64,12 +65,12 @@ const Modals = (props: any) => {
             >
                 <AppBar
                     sx={{
-                        position: 'relative', backgroundColor: '#00000019', color: "black", }}
+                        position: 'relative', backgroundColor: 'white', color: "black",
+                    }}
 
-                    className={style.body}
                 >
                     <Toolbar>
-                      
+
                         <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
                             Todo
                         </Typography>
@@ -85,9 +86,9 @@ const Modals = (props: any) => {
                             <CloseIcon />
                         </IconButton>
                     </Toolbar>
-                    
+
                 </AppBar>
-                <List>
+                <List className={style.div}>
                     <Tabss todo={data} />
                 </List>
             </Dialog>

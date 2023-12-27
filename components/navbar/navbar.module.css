@@ -107,7 +107,7 @@
         width: 5%;
         height: 60%;
         border: 1px;
-        display: flex;
+        display: flex-;
         flex-wrap: nowrap;
         justify-content: end;
         align-items: center;
