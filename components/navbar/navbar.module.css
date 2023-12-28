@@ -53,7 +53,7 @@
         border: 1px;
         display: flex;
         flex-wrap: nowrap;
-        justify-content: end;
+        justify-content: flex;
         align-items: center;
         align-content: center;
 
@@ -86,7 +86,7 @@
     .presentation {
         padding-left: 5%;
         display: flex;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         justify-content: start;
         align-items: center;
         align-content: center;
