@@ -13,6 +13,18 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
+
+
+const styles = {
+  width: '100%',
+  maxWidth: 360,
+  bgcolor: 'background.paper',
+};
+
 
 
 
@@ -74,24 +86,32 @@ const Tabss = (props: any) => {
     <Container fluid>
 
       <div className={style.body}>
-        <div className={style.sider}>
-          <div
-            className={style.sliderItem}
-            onClick={() => handleSendTodo()}
-            key="alpha">
-            <h3 >Todo</h3>
-          </div>
-          {
-            dataStructure?.map((item: any) => (
+        <List sx={styles} component="nav" aria-label="mailbox folders">
+          <div className={style.sider}>
+            <ListItem button >
               <div
                 className={style.sliderItem}
-                onClick={() => handleSend(item.content)}
-                key={item?.label}>
-                <h3 >{item?.label}</h3>
+                onClick={() => handleSendTodo()}
+                key="alpha">
+                <h3 >Todo</h3>
               </div>
-            ))
-          }
-        </div>
+            </ListItem>
+            {
+              dataStructure?.map((item: any) => (
+                <ListItem button >
+                  <div
+                    className={style.sliderItem}
+                    onClick={() => handleSend(item.content)}
+                    key={item?.label}>
+                    <h3 >{item?.label}</h3>
+                  </div>
+                </ListItem>
+              ))
+            }
+          </div>
+
+        </List>
+
         <div className={style.bodySlice}>
           {
             dataItem?.length > 0 ?

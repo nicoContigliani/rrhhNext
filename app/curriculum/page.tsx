@@ -60,7 +60,7 @@ const page = () => {
         const cvData: any = cvDataOne.length != 0 ? cvDataOne : (cvDataAll.length != 0 ? cvDataAll : "")
 
         const BigHeadArray: any[] | undefined | any = ["id", "title", "description_cv", "status_cv", "createdAt", "updatedAt"]
-        const SmallHeadArray: any[] | undefined | any = ["id", "title", "description_cv", "status_cv"]
+        const SmallHeadArray: any[] | undefined | any = ["id", "title", "description_cv"]
         const HeaderDelete: any[] | undefined | any = ["createdAt", "updatedAt"]
         const win: any | undefined = window
 
@@ -80,100 +80,23 @@ const page = () => {
                 first: string | number | boolean;
                 last: string | number | boolean;
             }
-            action:any
+            action: any
 
 
         }
 
-        const columnsData: ColumnsType<DataType> = [
-            {
-                title: 'id',
-                dataIndex: 'id',
-                sorter: true,
-                render: (id) => `${id.first} ${id.last}`,
-                width: '10%',
-                fixed: 'left',
-                ellipsis: true,
-                
+        const todo = async () => {
+            setDatas(cvData)
+            setDataDeleteColumns(HeaderDelete)
+            setDataDimention(win)
 
-            },
-            {
-                title: 'Title',
-                dataIndex: 'title',
-                sorter: true,
-                render: (title) => `${title.first} ${title.last}`,
-                width: '20%',
-                fixed: 'left',
-                ellipsis: true,
-            },
-            {
-                title: 'Status_cv',
-                dataIndex: 'status_cv',
-                fixed: 'left',
-                filters: [
-                    { text: 'True', value: true },
-                    { text: 'False', value: false },
-                ],
-                ellipsis: true,
-            },
-            {
-                title: 'Action',
-                dataIndex: 'operation',
-                key: 'operation',
-                render: () => (
-                    <Space size="middle">
-                        <a>Pause</a>
-                        <a>Stop</a>
-                    </Space>
-                ),
-            },
-        ];
+            setColumnsS(SmallHeadArray)
 
-
-
-     
-
-
-
-        const expandedRowRender = () => {
-            const columns: any[] = [
-                { title: 'Date', dataIndex: 'date', key: 'date' },
-                { title: 'Name', dataIndex: 'name', key: 'name' },
-                {
-                    title: 'Status',
-                    key: 'state',
-                    render: () => <Badge status="success" text="Finished" />,
-                },
-                { title: 'Upgrade Status', dataIndex: 'upgradeNum', key: 'upgradeNum' },
-                {
-                    title: 'Action',
-                    dataIndex: 'operation',
-                    key: 'operation',
-                    render: () => (
-                        <Space size="middle">
-                            <a>Pause</a>
-                            <a>Stop</a>
-                        </Space>
-                    ),
-                },
-               
-            ];
-
+            setHeaderColumns(SmallHeadArray)
         }
+        todo()
 
-
-            const todo = async () => {
-                setDatas(cvData)
-                setDataDeleteColumns(HeaderDelete)
-                setDataDimention(win)
-
-                setColumnsS(columnsData)
-
-                setHeaderColumns(SmallHeadArray)
-            }
-            todo()
-
-        }, [cvOneData, cvDataAll])
+    }, [cvOneData, cvDataAll])
 
     const [dataAll, setDataAll] = useState()
 
@@ -184,10 +107,6 @@ const page = () => {
     useEffect(() => {
         setDataAll(todos)
     }, [])
-
-
-
-
 
 
     return (
@@ -205,7 +124,7 @@ const page = () => {
             {
                 isAdmin ?
                     <Tabletodo todos={todos} />
-                    : <Spinner/>
+                    : <Spinner />
             }
 
         </div>
