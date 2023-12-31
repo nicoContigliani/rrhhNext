@@ -19,6 +19,7 @@
         font-weight: 700;
         font-family: Arial, Helvetica, sans-serif;
     }
+
     /* display: none; */
     .logo2 {
         width: 50%;
@@ -31,6 +32,7 @@
         align-content: center;
         font-family: Arial, Helvetica, sans-serif;
     }
+
     .logo {
         width: auto;
         height: auto;
@@ -43,8 +45,9 @@
         font-family: Arial, Helvetica, sans-serif;
         display: none;
     }
+
     .crud {
-   
+
         display: flex;
         flex-wrap: wrap;
         justify-content: baseline;
@@ -66,6 +69,15 @@
         font-family: Arial, Helvetica, sans-serif;
     }
 
+    .todo {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: start;
+        align-content: center;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
     .logo2 {
         width: 50%;
         height: 50%;
@@ -78,6 +90,7 @@
         font-family: Arial, Helvetica, sans-serif;
         display: none;
     }
+
     .logo {
         width: auto;
         height: auto;
@@ -100,8 +113,14 @@
         align-content: center;
         font-family: Arial, Helvetica, sans-serif;
     }
+
     .h1 {
         font-weight: 700;
         font-family: Arial, Helvetica, sans-serif;
     }
+    .card{
+      margin: 1%;
+      box-shadow: 5px;  
+    }
+
 }

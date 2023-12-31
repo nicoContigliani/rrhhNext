@@ -34,13 +34,6 @@ const Tabletodo = (props: any) => {
 
 
 
-    const [searchText, setSearchText] = useState('');
-    const [searchedColumn, setSearchedColumn] = useState('');
-    const searchInput = useRef<InputRef>(null);
-
-    const TrueIcon = () => <span>✅</span>;
-
-    const FalseIcon = () => <span>❌</span>;
 
     useEffect(() => {
         const {

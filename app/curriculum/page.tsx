@@ -17,6 +17,16 @@ import type { ColumnsType, TablePaginationConfig } from 'antd/es/table';
 import type { FilterValue, SorterResult } from 'antd/es/table/interface';
 import { Badge, Button, Dropdown, Space } from 'antd';
 import Spinner from '@/components/spinner/Spinner';
+import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+import { Avatar, Card } from 'antd';
+import Meta from 'antd/es/card/Meta';
+import { SettingsOutlined } from '@mui/icons-material';
+
+import Image from 'next/image'
+import Iconf from '@/components/images/icons/cv.png'
+import Stadistic from '@/components/StadisticCard/Stadistic';
+
+
 
 
 const page = () => {
@@ -115,17 +125,44 @@ const page = () => {
                 <h1 className={styles.h1}>Curriculum Vitae</h1>
             </div>
 
-
+            {/* 
             <button
                 className="button button-primary"
                 onClick={() => dispatch(cvIdAsync())}
-            >prueba de Redux</button>
+            >prueba de Redux</button> */}
 
-            {
-                isAdmin ?
-                    <Tabletodo todos={todos} />
-                    : <Spinner />
-            }
+
+
+
+
+            <div className={styles.todo}>
+                <div className={styles.card}>
+               
+                    <Image
+                        src={Iconf} alt={''}
+                        width={160}
+                        height={150}
+                    />
+                  
+
+
+                </div>
+                <Stadistic />
+                <Stadistic />
+
+
+
+            </div>
+            <div>
+                {
+                    isAdmin ?
+                        <Tabletodo todos={todos} />
+                        : <Spinner />
+                }
+            </div>
+
+
+
 
         </div>
     )

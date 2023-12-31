@@ -113,10 +113,7 @@ export default function Home() {
           </div>
           :
           <div className={styles.start}>
-            {/* <Icons
-              src={Perfil} alt={''}
-              className={styles.perfil}
-            /> */}
+         
             <div className={styles.element} >
               <div className={styles.logocenter} >
                 <Icons
