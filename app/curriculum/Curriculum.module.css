@@ -55,12 +55,21 @@
         align-content: center;
         font-family: Arial, Helvetica, sans-serif;
     }
+    .stadistics{
+        padding: 1%;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        font-family: Arial, Helvetica, sans-serif;
+    }
 }
 
 @media only screen and (min-width: 992px) {
     .body {
         padding: 1%;
-        padding-top: 5%;
+        padding-top: 1%;
         display: flex;
         flex-wrap: nowrap;
         justify-content: center;
@@ -74,34 +83,10 @@
         flex-wrap: nowrap;
         justify-content: center;
         align-items: start;
-        align-content: center;
+        align-content: start;
         font-family: Arial, Helvetica, sans-serif;
     }
 
-    .logo2 {
-        width: 50%;
-        height: 50%;
-        flex-shrink: 0;
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: center;
-        align-items: flex-start;
-        align-content: center;
-        font-family: Arial, Helvetica, sans-serif;
-        display: none;
-    }
-
-    .logo {
-        width: auto;
-        height: auto;
-        flex-shrink: 0;
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: center;
-        align-items: flex-start;
-        align-content: center;
-        font-family: Arial, Helvetica, sans-serif;
-    }
 
     .crud {
         padding: 5%;
@@ -118,9 +103,30 @@
         font-weight: 700;
         font-family: Arial, Helvetica, sans-serif;
     }
-    .card{
-      margin: 1%;
-      box-shadow: 5px;  
+
+    .card {
+        margin: 0%;
+        box-shadow: 25px;
     }
 
+    .stadistic {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-around;
+        align-items: center;
+        align-content: start;
+        font-family: Arial, Helvetica, sans-serif;
+        /* display: none; */
+        width: 30%;
+        height: 30%;
+    }
+    .stadistics{
+        padding: 1%;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        font-family: Arial, Helvetica, sans-serif;
+    }
 }

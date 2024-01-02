@@ -6,40 +6,26 @@ import { Card, Col, Row, Statistic } from 'antd';
 
 
 const Stadistic = (props: any) => {
-    const { todo } = props
-    const [data, setData] = useState<any | any[] | undefined>(todo)
+      const [data, setData] = useState<any | any[] | undefined>(props)
     useEffect(() => {
-        setData(todo)
+        if (props.length > 0 || props !== undefined) setData(props)
     }, [props])
+console.log("🚀 ~ file: Stadistic.tsx:11 ~ Stadistic ~ data:", data)
 
     return (
         <div>
-            <Row gutter={16}>
-                <Col span={10}>
-                    <Card bordered={false}>
-                        <Statistic
-                            title="Active"
-                            value={11.28}
-                            precision={2}
-                            valueStyle={{ color: '#3f8600' }}
-                            // prefix={<ArrowUpOutlined />}
-                            suffix="%"
-                        />
-                    </Card>
-                </Col>
-                <Col span={12}>
-                    <Card bordered={false}>
-                        <Statistic
-                            title="Idle"
-                            value={19.3}
-                            precision={2}
-                            valueStyle={{ color: '#cf1322' }}
-                            // prefix={<ArrowDownOutlined />}
-                            suffix="%"
-                        />
-                    </Card>
-                </Col>
-            </Row>
+            <Card bordered={true}>
+                <Statistic
+                    // title="Active"
+                    // value={11.28}
+                    // precision={2}
+                    // valueStyle={{ color: '#3f8600' }}
+                    // // prefix={<ArrowUpOutlined />}
+                    // suffix="%"
+                    {...data}
+                />
+            </Card>
+
         </div>
     )
 }

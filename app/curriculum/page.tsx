@@ -15,16 +15,17 @@ import dynamic from 'next/dynamic';
 import Tabletodo from '@/components/tableTodo/Tabletodo';
 import type { ColumnsType, TablePaginationConfig } from 'antd/es/table';
 import type { FilterValue, SorterResult } from 'antd/es/table/interface';
-import { Badge, Button, Dropdown, Space } from 'antd';
+import { Badge, Button, Dropdown, Space, Flex } from 'antd';
 import Spinner from '@/components/spinner/Spinner';
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 import { Avatar, Card } from 'antd';
 import Meta from 'antd/es/card/Meta';
-import { SettingsOutlined } from '@mui/icons-material';
+import { HdrPlusOutlined, PlusOneOutlined, SettingsOutlined } from '@mui/icons-material';
 
 import Image from 'next/image'
 import Iconf from '@/components/images/icons/cv.png'
 import Stadistic from '@/components/StadisticCard/Stadistic';
+import Stepss from '@/components/steps/Stepss';
 
 
 
@@ -47,9 +48,8 @@ const page = () => {
     const [cvDataAll, setCvDataAll] = useState([])
     const [cvDataOne, setCVDataOne] = useState([])
 
-
     const [conlumnsS, setColumnsS] = useState<any[] | any | undefined>()
-
+    const [showThings, setShowThings] = useState<any[] | any | undefined>(true)
 
 
 
@@ -130,37 +130,55 @@ const page = () => {
                 className="button button-primary"
                 onClick={() => dispatch(cvIdAsync())}
             >prueba de Redux</button> */}
-
-
-
-
-
             <div className={styles.todo}>
-                <div className={styles.card}>
-               
+                {/* <div className={styles.card}>
+
                     <Image
                         src={Iconf} alt={''}
                         width={160}
                         height={150}
                     />
-                  
-
-
-                </div>
-                <Stadistic />
-                <Stadistic />
-
-
-
+                </div> */}
+                {/* <div className={styles.stadistic}>
+                    <Stadistic
+                        hoverable
+                        title="Active"
+                        value="50"
+                        valueStyle={{ color: '#3f8600' }}
+                    />
+                    <Stadistic
+                        hoverable
+                        title="In Process"
+                        value="50"
+                        valueStyle={{ color: '#3f8600' }}
+                    />
+                </div> */}
             </div>
-            <div>
-                {
-                    isAdmin ?
-                        <Tabletodo todos={todos} />
-                        : <Spinner />
-                }
-            </div>
 
+
+            {
+                isAdmin ?
+                    <div>
+                        <div className={styles.stadistics}>
+                            <Button type="primary" onClick={() => setShowThings(false)} >
+                                Crear
+                            </Button>
+                            <Button type="primary" onClick={() => setShowThings(true)}  >
+                                Show
+                            </Button>
+                        </div>
+                    </div>
+                    : ""
+            }
+            {/* {
+                isAdmin ?
+                    <Tabletodo todos={todos} />
+                    : <Spinner />
+            }  */}
+            {
+                showThings ? <Tabletodo todos={todos} /> : 
+                <Stepss/>
+            }
 
 
 
