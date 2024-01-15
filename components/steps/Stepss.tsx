@@ -14,6 +14,7 @@ import ExperienceStep from './componentSteps/ExperienceStep/ExperienceStep';
 import SkillsStep from './componentSteps/SkillsStep/SkillsStep';
 import ReviewStep from './componentSteps/ReviewStep/ReviewStep';
 import { useMediaQuery } from '@mui/material';
+import Forms from '../Forms/Forms';
 
 
 
@@ -27,7 +28,11 @@ const steps = [
 
 // Define un array de componentes correspondientes a cada paso
 const stepComponents = [
-  <PersonalInformationStep />,
+  <PersonalInformationStep
+
+    title='PersonalInformationStep'
+  >
+  </PersonalInformationStep>,
   <EducationStep />,
   <ExperienceStep />,
   <SkillsStep />,

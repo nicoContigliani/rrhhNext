@@ -1,8 +1,9 @@
 import React from 'react'
 import { Input } from '@mui/material';
-
+import style from './Inputs.module.css'
 
 const Inputs = (props:  any) => {
+    console.log("🚀 ~ Inputs ~ props:", props)
     const { data, setData } = props
     const handlechange = (e: any) => {
         setData({
@@ -11,7 +12,7 @@ const Inputs = (props:  any) => {
         })
     }
     return (
-        <Input {...props} onChange={handlechange} />
+        <Input {...props} className={`${props.className}`} onChange={handlechange} />
     )
 }
 
