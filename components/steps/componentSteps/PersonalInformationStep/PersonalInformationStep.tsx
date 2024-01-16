@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { PlusOutlined } from '@ant-design/icons';
 import {
   Button,
@@ -21,9 +21,26 @@ import style from './PersonalInformationStep.module.css'
 
 
 const PersonalInformationStep = (props: any) => {
-  console.log("🚀 ~ PersonalInformationStep ~ props:", props)
-  const [data, setData] = useState<any | any[]>()
-  console.log("🚀 ~ PersonalInformationStep ~ data:", data)
+  const { formData, setFormData } = props
+  const [data, setData] = useState<any | any[] | undefined>()
+  useEffect(() => {
+
+    if (data && data?.fullname && data?.email && data?.phone && data?.birthday){
+      console.log("llega")
+    }
+
+    // if (data?.fullname.length !== 0 &&
+    //   data?.email.length !== 0 &&
+    //   data?.phone.length !== 0 &&
+    //   data?.fullname.length !== 0) {
+      //    console.log("todo",data)
+      // }
+  }, [data])
+
+
+
+
+
 
 
   return (

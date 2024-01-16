@@ -18,30 +18,36 @@ import Forms from '../Forms/Forms';
 
 
 
-const steps = [
-  'Personal Information',
-  'Education',
-  'Experience',
-  'Skills',
-  'Review',
-];
-
-// Define un array de componentes correspondientes a cada paso
-const stepComponents = [
-  <PersonalInformationStep
-
-    title='PersonalInformationStep'
-  >
-  </PersonalInformationStep>,
-  <EducationStep />,
-  <ExperienceStep />,
-  <SkillsStep />,
-  <ReviewStep />,
-];
-
 
 
 const Stepss = () => {
+  const [formData, setFormData] = useState<any | any[]>()
+
+  const steps = [
+    'Personal Information',
+    'Education',
+    'Experience',
+    'Skills',
+    'Review',
+  ];
+
+  const stepComponents = [
+    <PersonalInformationStep
+      title='PersonalInformationStep'
+      formData={formData}
+      setFormData={setFormData}
+    >
+    </PersonalInformationStep>,
+    <EducationStep />,
+    <ExperienceStep />,
+    <SkillsStep />,
+    <ReviewStep />,
+  ];
+
+
+
+
+
   const isMobile = useMediaQuery('(max-width:600px)');
 
   const [activeStep, setActiveStep] = React.useState(0);
