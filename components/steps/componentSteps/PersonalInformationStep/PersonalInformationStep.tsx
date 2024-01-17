@@ -25,24 +25,14 @@ const PersonalInformationStep = (props: any) => {
   const [data, setData] = useState<any | any[] | undefined>()
   useEffect(() => {
 
-    if (data && data?.fullname && data?.email && data?.phone && data?.birthday){
+    if (data && data?.fullname && data?.email && data?.phone && data?.birthday) {
       console.log("llega")
+      setFormData({
+        ...data,
+        formData
+      })
     }
-
-    // if (data?.fullname.length !== 0 &&
-    //   data?.email.length !== 0 &&
-    //   data?.phone.length !== 0 &&
-    //   data?.fullname.length !== 0) {
-      //    console.log("todo",data)
-      // }
   }, [data])
-
-
-
-
-
-
-
   return (
     <div className={style.body}>
       <h3>
@@ -57,7 +47,8 @@ const PersonalInformationStep = (props: any) => {
         name="fullname"
         type={''}
         minLength={''} autoFocus={false} color={''}
-        defaultValue={undefined} disabled={false}
+        defaultValue={formData?.fullname}
+        disabled={false}
         fullWidth={false}
         id={''}
         inputComponent={undefined} multiline={false}
@@ -72,7 +63,8 @@ const PersonalInformationStep = (props: any) => {
         name="email"
         type={'email'}
         minLength={''} autoFocus={false} color={''}
-        defaultValue={undefined} disabled={false}
+        defaultValue={formData?.email}
+        disabled={false}
         fullWidth={false}
         id={''}
         inputComponent={undefined} multiline={false}
@@ -88,7 +80,8 @@ const PersonalInformationStep = (props: any) => {
         name="phone"
         type={''}
         minLength={''} autoFocus={false} color={''}
-        defaultValue={undefined} disabled={false}
+        defaultValue={formData?.phone} 
+        disabled={false}
         fullWidth={false}
         id={''}
         inputComponent={undefined} multiline={false}
@@ -104,7 +97,8 @@ const PersonalInformationStep = (props: any) => {
         name="birthday"
         type={''}
         minLength={''} autoFocus={false} color={''}
-        defaultValue={undefined} disabled={false}
+        defaultValue={formData?.birthday} 
+        disabled={false}
         fullWidth={false}
         id={''}
         inputComponent={undefined} multiline={false}

@@ -22,6 +22,8 @@ import Forms from '../Forms/Forms';
 
 const Stepss = () => {
   const [formData, setFormData] = useState<any | any[]>()
+  const [inputss, setInputss] = useState<any[]>([]);
+
 
   const steps = [
     'Personal Information',
@@ -36,9 +38,15 @@ const Stepss = () => {
       title='PersonalInformationStep'
       formData={formData}
       setFormData={setFormData}
-    >
-    </PersonalInformationStep>,
-    <EducationStep />,
+    />
+    ,
+    <EducationStep
+      title='EducationStep'
+      formData={formData}
+      setFormData={setFormData}
+      inputss={inputss}
+      setInputss={setInputss}
+    />,
     <ExperienceStep />,
     <SkillsStep />,
     <ReviewStep />,
