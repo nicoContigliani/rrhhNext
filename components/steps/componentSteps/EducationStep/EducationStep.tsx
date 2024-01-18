@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import style from './EducationStep.module.css'
 import Inputs from '@/components/inputs/Inputs';
-import Datapicker from '@/components/Datapicked/Datapicker';
+import uuid from 'react-uuid';
+
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+
+
 
 const EducationStep = (props: any) => {
   const { formData, setFormData, inputss, setInputss } = props
   const [data, setData] = useState<any | any[] | undefined>()
-  console.log("🚀 ~ EducationStep ~ data:", data)
   useEffect(() => {
 
     if (data && data?.fullname && data?.email && data?.phone && data?.birthday) {
@@ -21,10 +25,14 @@ const EducationStep = (props: any) => {
   const handleClick = () => {
     const newInput = {
       value: "",
+      id: uuid()
     };
     setInputss([...inputss, newInput]);
   };
-
+  const handleDeleteClick = (idData: any) => {
+    const dataReturn = inputss.filter((idS: any) => idS.id !== idData)
+    setInputss(dataReturn)
+  }
 
 
   return (
@@ -33,7 +41,6 @@ const EducationStep = (props: any) => {
         {props.title}
       </h3>
 
-      <button onClick={handleClick}>Crear input</button>
       {inputss?.map((input: any) => (
         <div>
           <Inputs
@@ -106,9 +113,22 @@ const EducationStep = (props: any) => {
               />
             </label>
           </div>
+
+          <Stack direction="row" spacing={2}>
+            <Button variant="outlined" color="error" size="small"
+              onClick={() => handleDeleteClick(input?.id)}
+            >
+              Delete
+            </Button>
+          </Stack>
         </div>
 
       ))}
+      <div>
+        <hr />
+        <button onClick={handleClick}>Crear input</button>
+        <hr />
+      </div>
 
 
     </div>

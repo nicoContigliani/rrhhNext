@@ -175,9 +175,10 @@ const page = () => {
                     <Tabletodo todos={todos} />
                     : <Spinner />
             }  */}
+
             {
-                showThings ? <Tabletodo todos={todos} /> : 
-                <Stepss/>
+                showThings ? <Tabletodo todos={todos} /> :
+                    <Stepss />
             }
 
 

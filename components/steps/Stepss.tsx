@@ -11,10 +11,12 @@ import styles from './steps.module.css'
 import PersonalInformationStep from './componentSteps/PersonalInformationStep/PersonalInformationStep';
 import EducationStep from './componentSteps/EducationStep/EducationStep';
 import ExperienceStep from './componentSteps/ExperienceStep/ExperienceStep';
-import SkillsStep from './componentSteps/SkillsStep/SkillsStep';
 import ReviewStep from './componentSteps/ReviewStep/ReviewStep';
 import { useMediaQuery } from '@mui/material';
 import Forms from '../Forms/Forms';
+import SkillsStepHard from './componentSteps/SkillsStepHard/SkillsStephard';
+import SkillsStepSoft from './componentSteps/SkillsStepSoft/SkillsStepsoft';
+import Lenguaje from './componentSteps/Lenguaje/Lenguaje';
 
 
 
@@ -24,12 +26,19 @@ const Stepss = () => {
   const [formData, setFormData] = useState<any | any[]>()
   const [inputss, setInputss] = useState<any[]>([]);
 
+  const [inputssSkillS, setInputssSkillS] = useState<any[]>([]);
+  const [inputshSkillS, setInputshSkillS] = useState<any[]>([]);
+
+  const [inputsLenguaje, setInputsLenguaje] = useState<any[]>([]);
+
 
   const steps = [
     'Personal Information',
     'Education',
     'Experience',
-    'Skills',
+    'Soft Skills',
+    'Hard Skills',
+    'Lenguaje',
     'Review',
   ];
 
@@ -47,8 +56,35 @@ const Stepss = () => {
       inputss={inputss}
       setInputss={setInputss}
     />,
-    <ExperienceStep />,
-    <SkillsStep />,
+    <ExperienceStep
+    />,
+    <SkillsStepSoft
+      title='Soft Skills'
+      formData={formData}
+      setFormData={setFormData}
+      inputss={inputss}
+      setInputss={setInputss}
+      inputssSkillS={inputssSkillS}
+      setInputssSkillS={setInputssSkillS}
+    />,
+    <SkillsStepHard
+      title='Hard Skills'
+      formData={formData}
+      setFormData={setFormData}
+
+      inputshSkillS={inputshSkillS}
+      setInputshSkillS={setInputshSkillS}
+
+    />,
+    <Lenguaje
+      title='Lenguaje'
+      formData={formData}
+      setFormData={setFormData}
+
+      inputsLenguaje={inputsLenguaje}
+      setInputsLenguaje={setInputsLenguaje}
+
+    />,
     <ReviewStep />,
   ];
 
@@ -62,7 +98,7 @@ const Stepss = () => {
   const [skipped, setSkipped] = React.useState(new Set<number>());
 
   const isStepOptional = (step: any) => {
-    return step === 3;
+    return step === 9;
   };
 
   const isStepSkipped = (step: any) => {
@@ -126,11 +162,12 @@ const Stepss = () => {
             </Stepper>
           </Box>
         )}
+        <div>
+          <Box className={styles.componentcontainer}>
+            {stepComponents[activeStep]}
+          </Box>
+        </div>
 
-
-        <Box className={styles.componentcontainer}>
-          {stepComponents[activeStep]}
-        </Box>
       </Box>
       <Box className={styles.navigationcontainer}>
         <Button
