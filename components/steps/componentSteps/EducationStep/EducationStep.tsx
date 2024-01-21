@@ -5,35 +5,23 @@ import uuid from 'react-uuid';
 
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import Input from '@mui/material/Input';
 
 
 
 const EducationStep = (props: any) => {
-  const { formData, setFormData, inputss, setInputss } = props
-  const [data, setData] = useState<any | any[] | undefined>()
-  useEffect(() => {
-
-    if (data && data?.fullname && data?.email && data?.phone && data?.birthday) {
-      console.log("llega")
-      setFormData({
-        ...data,
-        formData
-      })
-    }
-  }, [data])
+  const { educationData, onAddEducationEntry, onUpdateEducationEntry, onSave, onDeleteEducationEntry } = props
+  const handleChange = (index: any, field: any, value: any) => {
+    onUpdateEducationEntry(index, field, value);
+  };
 
   const handleClick = () => {
-    const newInput = {
-      value: "",
-      id: uuid()
-    };
-    setInputss([...inputss, newInput]);
+    onAddEducationEntry();
   };
-  const handleDeleteClick = (idData: any) => {
-    const dataReturn = inputss.filter((idS: any) => idS.id !== idData)
-    setInputss(dataReturn)
-  }
 
+  const handleSaveData = () => {
+    onSave(educationData);
+  };
 
   return (
     <div className={style.body}>
@@ -41,98 +29,70 @@ const EducationStep = (props: any) => {
         {props.title}
       </h3>
 
-      {inputss?.map((input: any) => (
-        <div>
-          <Inputs
+      <div className={style.createInputs}>
+        <Button variant="outlined" color="primary" size="small" fullWidth
+          onClick={handleClick}>Agregar input</Button>
+      </div>
+
+      {educationData.map((entry: any, index: any) => (
+        <div key={index}>
+          <Input
             className="inputs"
-            data={data}
-            setData={setData}
-            placeholder="Title"
+            placeholder="title"
             name="title"
-            type={''}
-            minLength={''} autoFocus={false} color={''}
-            defaultValue={formData?.title}
-            disabled={false}
-            fullWidth={false}
-            id={''}
-            inputComponent={undefined} multiline={false}
-            label={''} rows={''}
-            required
+            type="text"
+            value={entry.title || ''}
+            onChange={(e) => handleChange(index, 'title', e.target.value)}
           />
-          <Inputs
+          <Input
             className="inputs"
-            data={data}
-            setData={setData}
-            placeholder="Institute"
+            placeholder="institute"
             name="institute"
-            type={''}
-            minLength={''} autoFocus={false} color={''}
-            defaultValue={formData?.institute}
-            disabled={false}
-            fullWidth={false}
-            id={''}
-            inputComponent={undefined} multiline={false}
-            label={''} rows={''}
-            required
+            type="text"
+            value={entry.institute || ''}
+            onChange={(e) => handleChange(index, 'institute', e.target.value)}
           />
           <div className={style.inputsData}>
-            <label htmlFor="Start">Start:
-              <Inputs
-                className="inputs"
-                data={data}
-                setData={setData}
-                placeholder="start"
-                name="start"
-                type={'Date'}
-                minLength={''} autoFocus={false} color={''}
-                defaultValue={formData?.start}
-                disabled={false}
-                fullWidth={false}
-                id={''}
-                inputComponent={undefined} multiline={false}
-                label={''} rows={''}
-                required
-              />
-            </label>
-            <label htmlFor="Start">Finish:
-              <Inputs
-                className="inputs"
-                data={data}
-                setData={setData}
-                placeholder="finish"
-                name="finish"
-                type={'Date'}
-                minLength={''} autoFocus={false} color={''}
-                defaultValue={formData?.finish}
-                disabled={false}
-                fullWidth={false}
-                id={''}
-                inputComponent={undefined} multiline={false}
-                label={''} rows={''}
-                required
-              />
-            </label>
-          </div>
+            <Input
+              className="inputs"
+              placeholder="start"
+              name="start"
+              type="date"
+              value={entry.start || ''}
+              onChange={(e) => handleChange(index, 'start', e.target.value)}
 
-          <Stack direction="row" spacing={2}>
-            <Button variant="outlined" color="error" size="small"
-              onClick={() => handleDeleteClick(input?.id)}
+            />
+            <Input
+              className="inputs"
+              placeholder="finish"
+              name="finish"
+              type="date"
+              value={entry.finish || ''}
+              onChange={(e) => handleChange(index, 'finish', e.target.value)}
+            />
+          </div>
+          <div className={style.deletes}>
+            <Button variant="outlined" color="error" size="small" fullWidth
+              onClick={() => onDeleteEducationEntry(index)}
+
             >
               Delete
             </Button>
-          </Stack>
+          </div>
         </div>
-
       ))}
-      <div>
-        <hr />
-        <button onClick={handleClick}>Crear input</button>
-        <hr />
+
+      <div className={style.deletes}>
+        <Button variant="outlined" color="primary" size="small" fullWidth
+          onClick={handleSaveData}
+        >
+          Guardar Datos
+        </Button>
       </div>
 
-
     </div>
-  )
-}
+  );
+};
+
 
 export default EducationStep

@@ -17,20 +17,25 @@ import Forms from '../Forms/Forms';
 import SkillsStepHard from './componentSteps/SkillsStepHard/SkillsStephard';
 import SkillsStepSoft from './componentSteps/SkillsStepSoft/SkillsStepsoft';
 import Lenguaje from './componentSteps/Lenguaje/Lenguaje';
+import Disponibility from './componentSteps/DisponibilityStep/Disponibility';
 
+import EducationService from '@/services/EducationServices'; // Adjust path if needed
 
 
 
 
 const Stepss = () => {
   const [formData, setFormData] = useState<any | any[]>()
-  const [inputss, setInputss] = useState<any[]>([]);
+
+  const educationService = EducationService();
+
+
 
   const [inputssSkillS, setInputssSkillS] = useState<any[]>([]);
   const [inputshSkillS, setInputshSkillS] = useState<any[]>([]);
-
+  const [inputsExperience, setInputsExperience] = useState<any[]>([]);
   const [inputsLenguaje, setInputsLenguaje] = useState<any[]>([]);
-
+  const [inputsDisponibility, setInputsDisponibility] = useState<any[]>([]);
 
   const steps = [
     'Personal Information',
@@ -39,8 +44,10 @@ const Stepss = () => {
     'Soft Skills',
     'Hard Skills',
     'Lenguaje',
+    'Disponibility',
     'Review',
   ];
+
 
   const stepComponents = [
     <PersonalInformationStep
@@ -50,20 +57,24 @@ const Stepss = () => {
     />
     ,
     <EducationStep
-      title='EducationStep'
-      formData={formData}
-      setFormData={setFormData}
-      inputss={inputss}
-      setInputss={setInputss}
+      title="Education Details"
+      educationData={educationService.educationData}
+      onAddEducationEntry={educationService.addEducationEntry}
+      onUpdateEducationEntry={educationService.updateEducationEntry}
+      onDeleteEducationEntry={educationService.deleteEducationEntry} // Agregado aquí
+      onSave={educationService.handleSave}
     />,
     <ExperienceStep
+      title='Experience'
+      formData={formData}
+      setFormData={setFormData}
+      inputsExperience={inputsExperience}
+      setInputsExperience={setInputsExperience}
     />,
     <SkillsStepSoft
       title='Soft Skills'
       formData={formData}
       setFormData={setFormData}
-      inputss={inputss}
-      setInputss={setInputss}
       inputssSkillS={inputssSkillS}
       setInputssSkillS={setInputssSkillS}
     />,
@@ -83,7 +94,14 @@ const Stepss = () => {
 
       inputsLenguaje={inputsLenguaje}
       setInputsLenguaje={setInputsLenguaje}
+    />,
+    <Disponibility
+      title='Disponibility'
+      formData={formData}
+      setFormData={setFormData}
 
+      inputsDisponibility={inputsDisponibility}
+      setInputsDisponibility={setInputsDisponibility}
     />,
     <ReviewStep />,
   ];
@@ -98,7 +116,7 @@ const Stepss = () => {
   const [skipped, setSkipped] = React.useState(new Set<number>());
 
   const isStepOptional = (step: any) => {
-    return step === 9;
+    return step === 10;
   };
 
   const isStepSkipped = (step: any) => {

@@ -76,6 +76,7 @@
         align-items: center;
         align-content: center;
         font-family: Arial, Helvetica, sans-serif;
+        
     }
 
     .todo {
@@ -85,6 +86,7 @@
         align-items: start;
         align-content: start;
         font-family: Arial, Helvetica, sans-serif;
+        
     }
 
 

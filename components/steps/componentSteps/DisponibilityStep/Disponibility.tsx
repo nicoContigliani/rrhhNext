@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from 'react'
 
-
-
-import style from './SkillStephard.module.css'
+import style from './Disponibility.module.css'
 import Inputs from '@/components/inputs/Inputs';
 import uuid from 'react-uuid';
 
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
-
-const SkillsStepHard = (props: any) => {
-
-    const { formData, setFormData, inputshSkillS, setInputshSkillS } = props
+const Disponibility = (props: any) => {
+    const { formData, setFormData, inputsDisponibility, setInputsDisponibility } = props
     const [data, setData] = useState<any | any[] | undefined>()
     useEffect(() => {
 
@@ -30,13 +26,12 @@ const SkillsStepHard = (props: any) => {
             value: "",
             id: uuid()
         };
-        setInputshSkillS([...inputshSkillS, newInput]);
+        setInputsDisponibility([...inputsDisponibility, newInput]);
     };
     const handleDeleteClick = (idData: any) => {
-        const dataReturn = inputshSkillS?.filter((idS: any) => idS.id !== idData)
-        setInputshSkillS(dataReturn)
+        const dataReturn = inputsDisponibility.filter((idS: any) => idS.id !== idData)
+        setInputsDisponibility(dataReturn)
     }
-
 
 
 
@@ -46,17 +41,17 @@ const SkillsStepHard = (props: any) => {
                 {props.title}
             </h3>
 
-            {inputshSkillS?.map((input: any) => (
+            {inputsDisponibility?.map((input: any) => (
                 <div>
                     <Inputs
                         className="inputs"
                         data={data}
                         setData={setData}
-                        placeholder="Soft Skill"
-                        name="skillsoft"
+                        placeholder="Disponibility"
+                        name="disponibility"
                         type={''}
                         minLength={''} autoFocus={false} color={''}
-                        defaultValue={formData?.skillsoft}
+                        defaultValue={formData?.disponibility}
                         disabled={false}
                         fullWidth={false}
                         id={''}
@@ -64,6 +59,8 @@ const SkillsStepHard = (props: any) => {
                         label={''} rows={''}
                         required
                     />
+
+
 
 
                     <div className={style.deletes}>
@@ -88,4 +85,4 @@ const SkillsStepHard = (props: any) => {
     )
 }
 
-export default SkillsStepHard
+export default Disponibility

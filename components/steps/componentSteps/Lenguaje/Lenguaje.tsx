@@ -37,7 +37,7 @@ const Lenguaje = (props: any) => {
 
     return (
         <div className={style.body}>
-            <h3>
+            <h3 className={style.titles}>
                 {props.title}
             </h3>
 
@@ -62,20 +62,22 @@ const Lenguaje = (props: any) => {
 
 
 
-                    <Stack direction="row" spacing={2}>
-                        <Button variant="outlined" color="error" size="small"
+                    <div className={style.deletes}>
+                        <Button variant="outlined" color="error" size="small" fullWidth
                             onClick={() => handleDeleteClick(input?.id)}
                         >
                             Delete
                         </Button>
-                    </Stack>
+                    </div>
                 </div>
 
             ))}
             <div>
-                <hr />
-                <button onClick={handleClick}>Crear input</button>
-                <hr />
+                <div className={style.createInputs}>
+                    <Button variant="outlined" color="primary" size="small" fullWidth
+                        onClick={handleClick}>Crear input</Button>
+                </div>
+
             </div>
 
 

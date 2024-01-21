@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import style from './ExperienceStep.module.css'
+import style from './EducationStep.module.css'
 import Inputs from '@/components/inputs/Inputs';
 import uuid from 'react-uuid';
 
@@ -8,33 +8,40 @@ import Button from '@mui/material/Button';
 
 
 
-const ExperienceStep = (props: any) => {
-  const { formData, setFormData, inputsExperience, setInputsExperience } = props
+const EducationStep = (props: any) => {
+  const { formDataEducation, setFormDataEducation, inputss, setInputss } = props
   const [data, setData] = useState<any | any[] | undefined>()
+
+  
   useEffect(() => {
-    if(data){
-      console.log("🚀 ~ useEffect ~ data: 16*******************************************", data)
-      
-    }
-    if (data && data?.company && data?.job && data?.start && data?.finish) {
-      console.log("llega")
-      setFormData({
-        ...data,
-        formData
+    if (
+      data && data.title
+      && data.institute
+      && data.start && data.finish
+      && data?.finish
+      ) {
+        console.log("llega")
+        setFormDataEducation({
+          ...data,
+          formDataEducation
       })
     }
   }, [data])
-
+  console.log("🚀 ~ EducationStep ~ formData:", formDataEducation,"***************************")
+  
   const handleClick = () => {
     const newInput = {
-      value: "",
-      id: uuid()
+      id: uuid(),
+      title: "",
+      institute: "",
+      start: "",
+      finish: "",
     };
-    setInputsExperience([...inputsExperience, newInput]);
+    setInputss([...inputss, newInput]);
   };
   const handleDeleteClick = (idData: any) => {
-    const dataReturn = inputsExperience.filter((idS: any) => idS.id !== idData)
-    setInputsExperience(dataReturn)
+    const dataReturn = inputss.filter((idS: any) => idS.id !== idData)
+    setInputss(dataReturn)
   }
 
 
@@ -44,17 +51,17 @@ const ExperienceStep = (props: any) => {
         {props.title}
       </h3>
 
-      {inputsExperience?.map((input: any) => (
-        <div>
+      {inputss?.map((input: any) => (
+        <div key={input.id}>
           <Inputs
             className="inputs"
             data={data}
             setData={setData}
-            placeholder="Company"
-            name="company"
+            placeholder="Title"
+            name="title"
             type={''}
             minLength={''} autoFocus={false} color={''}
-            defaultValue={formData?.company}
+            defaultValue={formDataEducation?.title}
             disabled={false}
             fullWidth={false}
             id={''}
@@ -66,11 +73,11 @@ const ExperienceStep = (props: any) => {
             className="inputs"
             data={data}
             setData={setData}
-            placeholder="Job"
-            name="job"
+            placeholder="Institute"
+            name="institute"
             type={''}
             minLength={''} autoFocus={false} color={''}
-            defaultValue={formData?.job}
+            defaultValue={formDataEducation?.institute}
             disabled={false}
             fullWidth={false}
             id={''}
@@ -88,7 +95,7 @@ const ExperienceStep = (props: any) => {
                 name="start"
                 type={'Date'}
                 minLength={''} autoFocus={false} color={''}
-                defaultValue={formData?.start}
+                defaultValue={formDataEducation?.start}
                 disabled={false}
                 fullWidth={false}
                 id={''}
@@ -106,7 +113,7 @@ const ExperienceStep = (props: any) => {
                 name="finish"
                 type={'Date'}
                 minLength={''} autoFocus={false} color={''}
-                defaultValue={formData?.finish}
+                defaultValue={formDataEducation?.finish}
                 disabled={false}
                 fullWidth={false}
                 id={''}
@@ -116,7 +123,6 @@ const ExperienceStep = (props: any) => {
               />
             </label>
           </div>
-
           <div className={style.deletes}>
             <Button variant="outlined" color="error" size="small" fullWidth
               onClick={() => handleDeleteClick(input?.id)}
@@ -132,6 +138,7 @@ const ExperienceStep = (props: any) => {
           <Button variant="outlined" color="primary" size="small" fullWidth
             onClick={handleClick}>Crear input</Button>
         </div>
+
       </div>
 
 
@@ -139,4 +146,4 @@ const ExperienceStep = (props: any) => {
   )
 }
 
-export default ExperienceStep
+export default EducationStep

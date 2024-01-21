@@ -169,13 +169,7 @@ const page = () => {
                         </div>
                     </div>
                     : ""
-            }
-            {/* {
-                isAdmin ?
-                    <Tabletodo todos={todos} />
-                    : <Spinner />
-            }  */}
-
+            }     
             {
                 showThings ? <Tabletodo todos={todos} /> :
                     <Stepss />
