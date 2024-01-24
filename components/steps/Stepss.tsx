@@ -16,11 +16,15 @@ import { useMediaQuery } from '@mui/material';
 import Forms from '../Forms/Forms';
 import SkillsStepHard from './componentSteps/SkillsStepHard/SkillsStephard';
 import SkillsStepSoft from './componentSteps/SkillsStepSoft/SkillsStepsoft';
-import Lenguaje from './componentSteps/Lenguaje/Lenguaje';
+import Lenguaje from './componentSteps/Lenguaje/Lenguage';
 import Disponibility from './componentSteps/DisponibilityStep/Disponibility';
 
 import EducationService from '@/services/EducationServices'; // Adjust path if needed
-
+import PersonalInformationServices from '@/services/personalInformation.services';
+import ExperienceService from '@/services/ExperienceServices';
+import SoftSkillsService from '@/services/SoftSkillsService';
+import HardSkillsService from '@/services/HardSkillsService';
+import LenguageService from '@/services/LenguageService';
 
 
 
@@ -28,6 +32,13 @@ const Stepss = () => {
   const [formData, setFormData] = useState<any | any[]>()
 
   const educationService = EducationService();
+  const personInformationServices = PersonalInformationServices()
+  const experienceService = ExperienceService()
+  const softSkillsService = SoftSkillsService()
+  const hardSkillsService = HardSkillsService()
+  const lenguageService = LenguageService()
+
+
 
 
 
@@ -48,12 +59,19 @@ const Stepss = () => {
     'Review',
   ];
 
+  // handleSave, addPersonalInformationEntry, updatePersonalInformationEntry, deletePersonalInformationEntry, personalInformationData 
+
+
+
 
   const stepComponents = [
     <PersonalInformationStep
       title='PersonalInformationStep'
-      formData={formData}
-      setFormData={setFormData}
+      personalInformation={personInformationServices.personalInformationData}
+      onAddPersonalInformationEntry={personInformationServices.addPersonalInformationEntry}
+      onUpdatePersonalInformationEntry={personInformationServices.updatePersonalInformationEntry}
+      onDeletePersonalInformationEntry={personInformationServices.deletePersonalInformationEntry}
+      onSave={personInformationServices.handleSave}
     />
     ,
     <EducationStep
@@ -61,39 +79,40 @@ const Stepss = () => {
       educationData={educationService.educationData}
       onAddEducationEntry={educationService.addEducationEntry}
       onUpdateEducationEntry={educationService.updateEducationEntry}
-      onDeleteEducationEntry={educationService.deleteEducationEntry} // Agregado aquí
+      onDeleteEducationEntry={educationService.deleteEducationEntry}
       onSave={educationService.handleSave}
     />,
     <ExperienceStep
       title='Experience'
-      formData={formData}
-      setFormData={setFormData}
-      inputsExperience={inputsExperience}
-      setInputsExperience={setInputsExperience}
+      experienceData={experienceService.experienceData}
+      onAddExperienceEntry={experienceService.addExperienceEntry}
+      onUpdateExperienceEntry={experienceService.updateExperienceEntry}
+      onDeleteExperienceEntry={experienceService.deleteExperienceEntry}
+      onSave={experienceService.handleSave}
     />,
     <SkillsStepSoft
       title='Soft Skills'
-      formData={formData}
-      setFormData={setFormData}
-      inputssSkillS={inputssSkillS}
-      setInputssSkillS={setInputssSkillS}
+      softSkillsData={softSkillsService.softSkillsData}
+      onAddSoftSkillEntry={softSkillsService.addSoftSkillEntry}
+      onUpdateSoftSkillEntry={softSkillsService.updateSoftSkillEntry}
+      onDeleteSoftSkillEntry={softSkillsService.deleteSoftSkillEntry}
+      onSave={softSkillsService.handleSave}
     />,
     <SkillsStepHard
-      title='Hard Skills'
-      formData={formData}
-      setFormData={setFormData}
-
-      inputshSkillS={inputshSkillS}
-      setInputshSkillS={setInputshSkillS}
-
+      title='Soft Skills'
+      hardSkillsData={hardSkillsService.hardSkillsData}
+      onAddHardSkillEntry={hardSkillsService.addHardSkillEntry}
+      onUpdateHardSkillEntry={hardSkillsService.updateHardSkillEntry}
+      onDeleteHardSkillEntry={hardSkillsService.deleteHardSkillEntry}
+      onSave={hardSkillsService.handleSave}
     />,
     <Lenguaje
       title='Lenguaje'
-      formData={formData}
-      setFormData={setFormData}
-
-      inputsLenguaje={inputsLenguaje}
-      setInputsLenguaje={setInputsLenguaje}
+      lenguageData={lenguageService.lenguageData}
+      onAddLenguageEntry={lenguageService.addLenguageEntry}
+      onUpdateLenguageEntry={lenguageService.updateLenguageEntry}
+      onDeleteLenguageEntry={lenguageService.deleteLengageEntry}
+      onSave={lenguageService.handleSave}
     />,
     <Disponibility
       title='Disponibility'

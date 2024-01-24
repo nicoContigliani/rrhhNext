@@ -1,27 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import style from './SkillStepsoft.module.css'; // Assuming CSS file is named SoftSkillsStep.module.css
+import style from './LenguajeStep.module.css'; // Assuming CSS file is named SoftSkillsStep.module.css
 import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
 
 const SoftSkillsStep = (props: any) => {
   const {
-    softSkillsData,
-    onAddSoftSkillEntry,
-    onUpdateSoftSkillEntry,
+    lenguageData,
+    onAddLenguageEntry,
+    onUpdateLenguageEntry,
     onSave,
-    onDeleteSoftSkillEntry,
+    onDeleteLenguageEntry,
   } = props;
 
   const handleChange = (index: any, field: any, value: any) => {
-    onUpdateSoftSkillEntry(index, field, value);
+    onUpdateLenguageEntry(index, field, value);
   };
 
   const handleClick = () => {
-    onAddSoftSkillEntry();
+    onAddLenguageEntry();
   };
 
   const handleSaveData = () => {
-    onSave(softSkillsData);
+    onSave(lenguageData);
   };
 
   return (
@@ -40,15 +40,15 @@ const SoftSkillsStep = (props: any) => {
         </Button>
       </div>
 
-      {softSkillsData.map((entry: any, index: any) => (
+      {lenguageData?.map((entry: any, index: any) => (
         <div key={index}>
           <Input
             className="inputs"
-            placeholder="soft skill"
-            name="softSkill"
+            placeholder="Lenguage"
+            name="lenguage"
             type="text"
-            value={entry.softSkill || ''}
-            onChange={(e) => handleChange(index, 'softSkill', e.target.value)}
+            value={entry.lenguage || ''}
+            onChange={(e) => handleChange(index, 'lenguage', e.target.value)}
           />
           <div className={style.deletes}>
             <Button
@@ -56,7 +56,7 @@ const SoftSkillsStep = (props: any) => {
               color="error"
               size="small"
               fullWidth
-              onClick={() => onDeleteSoftSkillEntry(index)}
+              onClick={() => onDeleteLenguageEntry(index)}
             >
               Delete
             </Button>

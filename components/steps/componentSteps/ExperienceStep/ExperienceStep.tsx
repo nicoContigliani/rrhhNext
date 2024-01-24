@@ -1,142 +1,109 @@
-import React, { useEffect, useState } from 'react'
-import style from './ExperienceStep.module.css'
-import Inputs from '@/components/inputs/Inputs';
-import uuid from 'react-uuid';
-
-import Stack from '@mui/material/Stack';
+import React, { useState, useEffect } from 'react';
+import style from './ExperienceStep.module.css';
 import Button from '@mui/material/Button';
-
-
+import Input from '@mui/material/Input';
 
 const ExperienceStep = (props: any) => {
-  const { formData, setFormData, inputsExperience, setInputsExperience } = props
-  const [data, setData] = useState<any | any[] | undefined>()
-  useEffect(() => {
-    if(data){
-      console.log("🚀 ~ useEffect ~ data: 16*******************************************", data)
-      
-    }
-    if (data && data?.company && data?.job && data?.start && data?.finish) {
-      console.log("llega")
-      setFormData({
-        ...data,
-        formData
-      })
-    }
-  }, [data])
+  const {
+    experienceData,
+    onAddExperienceEntry,
+    onUpdateExperienceEntry,
+    onSave,
+    onDeleteExperienceEntry,
+  } = props;
+
+  const handleChange = (index: any, field: any, value: any) => {
+    onUpdateExperienceEntry(index, field, value);
+  };
 
   const handleClick = () => {
-    const newInput = {
-      value: "",
-      id: uuid()
-    };
-    setInputsExperience([...inputsExperience, newInput]);
+    onAddExperienceEntry();
   };
-  const handleDeleteClick = (idData: any) => {
-    const dataReturn = inputsExperience.filter((idS: any) => idS.id !== idData)
-    setInputsExperience(dataReturn)
-  }
 
+  const handleSaveData = () => {
+    onSave(experienceData);
+  };
 
   return (
     <div className={style.body}>
-      <h3 className={style.titles}>
-        {props.title}
-      </h3>
+      <h3>{props.title}</h3>
 
-      {inputsExperience?.map((input: any) => (
-        <div>
-          <Inputs
+      <div className={style.createInputs}>
+        <Button
+          variant="outlined"
+          color="primary"
+          size="small"
+          fullWidth
+          onClick={handleClick}
+        >
+          Agregar input
+        </Button>
+      </div>
+
+      {experienceData?.map((entry: any, index: any) => (
+        <div key={index}>
+          <Input
             className="inputs"
-            data={data}
-            setData={setData}
-            placeholder="Company"
+            placeholder="company"
             name="company"
-            type={''}
-            minLength={''} autoFocus={false} color={''}
-            defaultValue={formData?.company}
-            disabled={false}
-            fullWidth={false}
-            id={''}
-            inputComponent={undefined} multiline={false}
-            label={''} rows={''}
-            required
+            type="text"
+            value={entry.company || ''}
+            onChange={(e) => handleChange(index, 'company', e.target.value)}
           />
-          <Inputs
+          <Input
             className="inputs"
-            data={data}
-            setData={setData}
-            placeholder="Job"
+            placeholder="job"
             name="job"
-            type={''}
-            minLength={''} autoFocus={false} color={''}
-            defaultValue={formData?.job}
-            disabled={false}
-            fullWidth={false}
-            id={''}
-            inputComponent={undefined} multiline={false}
-            label={''} rows={''}
-            required
+            type="text"
+            value={entry.job || ''}
+            onChange={(e) => handleChange(index, 'job', e.target.value)}
           />
           <div className={style.inputsData}>
-            <label htmlFor="Start">Start:
-              <Inputs
-                className="inputs"
-                data={data}
-                setData={setData}
-                placeholder="start"
-                name="start"
-                type={'Date'}
-                minLength={''} autoFocus={false} color={''}
-                defaultValue={formData?.start}
-                disabled={false}
-                fullWidth={false}
-                id={''}
-                inputComponent={undefined} multiline={false}
-                label={''} rows={''}
-                required
-              />
-            </label>
-            <label htmlFor="Start">Finish:
-              <Inputs
-                className="inputs"
-                data={data}
-                setData={setData}
-                placeholder="finish"
-                name="finish"
-                type={'Date'}
-                minLength={''} autoFocus={false} color={''}
-                defaultValue={formData?.finish}
-                disabled={false}
-                fullWidth={false}
-                id={''}
-                inputComponent={undefined} multiline={false}
-                label={''} rows={''}
-                required
-              />
-            </label>
+            <Input
+              className="inputs"
+              placeholder="start"
+              name="start"
+              type="date"
+              value={entry.start || ''}
+              onChange={(e) => handleChange(index, 'start', e.target.value)}
+            />
+            <Input
+              className="inputs"
+              placeholder="finish"
+              name="finish"
+              type="date"
+              value={entry.finish || ''}
+              onChange={(e) => handleChange(index, 'finish', e.target.value)}
+            />
           </div>
-
           <div className={style.deletes}>
-            <Button variant="outlined" color="error" size="small" fullWidth
-              onClick={() => handleDeleteClick(input?.id)}
+            <Button
+              variant="outlined"
+              color="error"
+              size="small"
+              fullWidth
+              onClick={() => onDeleteExperienceEntry(index)}
             >
               Delete
             </Button>
           </div>
         </div>
-
       ))}
-      <div>
-        <div className={style.createInputs}>
-          <Button variant="outlined" color="primary" size="small" fullWidth
-            onClick={handleClick}>Crear input</Button>
-        </div>
+
+      <div className={style.deletes}>
+        <Button
+          variant="outlined"
+          color="primary"
+          size="small"
+          fullWidth
+          onClick={handleSaveData}
+        >
+          Guardar Datos
+        </Button>
       </div>
 
-
     </div>
-  )
-}
+  );
+};
 
-export default ExperienceStep
+export default ExperienceStep;

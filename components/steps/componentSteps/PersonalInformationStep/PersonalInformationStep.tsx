@@ -1,113 +1,105 @@
-import React, { useEffect, useState } from 'react'
-import { PlusOutlined } from '@ant-design/icons';
-import {
-  Button,
-  Cascader,
-  Checkbox,
-  ColorPicker,
-  DatePicker,
-  Form,
-  Input,
-  InputNumber,
-  Radio,
-  Select,
-  Slider,
-  Switch,
-  TreeSelect,
-  Upload,
-} from 'antd';
-import Inputs from '@/components/inputs/Inputs';
-import style from './PersonalInformationStep.module.css'
-
+import React, { useEffect, useState } from 'react';
+import style from './PersonalInformationStep.module.css'; // Adjust path if needed
+import Button from '@mui/material/Button';
+import Input from '@mui/material/Input';
 
 const PersonalInformationStep = (props: any) => {
-  const { formData, setFormData } = props
-  const [data, setData] = useState<any | any[] | undefined>()
-  useEffect(() => {
+  const {
+    personalInformation,
+    onAddPersonalInformationEntry,
+    onUpdatePersonalInformationEntry,
+    onSave,
+    onDeletePersonalInformationEntry,
+  } = props;
 
-    if (data && data?.fullname && data?.email && data?.phone && data?.birthday) {
-      console.log("llega")
-      setFormData({
-        ...data,
-        formData
-      })
-    }
-  }, [data])
+  const handleChange = (index: any, field: any, value: any) => {
+    onUpdatePersonalInformationEntry(index, field, value);
+  };
+
+  const handleClick = () => {
+    onAddPersonalInformationEntry();
+  };
+
+  const handleSaveData = () => {
+    onSave(personalInformation);
+  };
+
   return (
     <div className={style.body}>
-      <h3>
-        {props.title}
-      </h3>
+      <h3>{props.title}</h3>
 
-      <Inputs
-        className="inputs"
-        data={data}
-        setData={setData}
-        placeholder="fullname"
-        name="fullname"
-        type={''}
-        minLength={''} autoFocus={false} color={''}
-        defaultValue={formData?.fullname}
-        disabled={false}
-        fullWidth={false}
-        id={''}
-        inputComponent={undefined} multiline={false}
-        label={''} rows={''}
-        required
-      />
-      <Inputs
-        className={style.inputs}
-        data={data}
-        setData={setData}
-        placeholder="email"
-        name="email"
-        type={'email'}
-        minLength={''} autoFocus={false} color={''}
-        defaultValue={formData?.email}
-        disabled={false}
-        fullWidth={false}
-        id={''}
-        inputComponent={undefined} multiline={false}
-        label={''} rows={''}
-        required
+      <div className={style.createInputs}>
+        <Button
+          variant="outlined"
+          color="primary"
+          size="small"
+          fullWidth
+          onClick={handleClick}
+        >
+          Agregar input
+        </Button>
+      </div>
 
-      />
-      <Inputs
-        className={style.inputs}
-        data={data}
-        setData={setData}
-        placeholder="phone"
-        name="phone"
-        type={''}
-        minLength={''} autoFocus={false} color={''}
-        defaultValue={formData?.phone} 
-        disabled={false}
-        fullWidth={false}
-        id={''}
-        inputComponent={undefined} multiline={false}
-        label={''} rows={''}
-        required
+      {personalInformation.map((entry: any, index: any) => (
+        <div key={index}>
+          <Input
+            className="inputs"
+            placeholder="fullname"
+            name="fullname"
+            type="text"
+            value={entry.fullname || ''}
+            onChange={(e) => handleChange(index, 'fullname', e.target.value)}
+          />
+          <Input
+            className="inputs"
+            placeholder="email"
+            name="email"
+            type="email"
+            value={entry.email || ''}
+            onChange={(e) => handleChange(index, 'email', e.target.value)}
+          />
+          <Input
+            className="inputs"
+            placeholder="phone"
+            name="phone"
+            type="tel"
+            value={entry.phone || ''}
+            onChange={(e) => handleChange(index, 'phone', e.target.value)}
+          />
+          <Input
+            className='inputs'
+            value={entry.birthsday}
+            name="birthsday"
+            onChange={(newValue: any) => handleChange(index, 'birthsday', newValue)}
+            type='Date'
+          />
+          <div className={style.deletes}>
+            <Button
+              variant="outlined"
+              color="error"
+              size="small"
+              fullWidth
+              onClick={() => onDeletePersonalInformationEntry(index)}
+            >
+              Delete
+            </Button>
+          </div>
+        </div>
+      ))}
 
-      />
-      <Inputs
-        data={data}
-        className={style.inputs}
-        setData={setData}
-        placeholder="birthday"
-        name="birthday"
-        type={''}
-        minLength={''} autoFocus={false} color={''}
-        defaultValue={formData?.birthday} 
-        disabled={false}
-        fullWidth={false}
-        id={''}
-        inputComponent={undefined} multiline={false}
-        label={''} rows={''}
-        required
-
-      />
+      <div className={style.deletes}>
+        <Button
+          variant="outlined"
+          color="primary"
+          size="small"
+          fullWidth
+          onClick={handleSaveData}
+        >
+          Guardar Datos
+        </Button>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default PersonalInformationStep
+export default PersonalInformationStep;

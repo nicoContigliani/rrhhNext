@@ -1,91 +1,83 @@
-import React, { useEffect, useState } from 'react'
-
-
-
-import style from './SkillStephard.module.css'
-import Inputs from '@/components/inputs/Inputs';
-import uuid from 'react-uuid';
-
-import Stack from '@mui/material/Stack';
+import React, { useState, useEffect } from 'react';
+import style from './SkillStephard.module.css'; // Assuming CSS file is named SoftSkillsStep.module.css
 import Button from '@mui/material/Button';
+import Input from '@mui/material/Input';
 
+const HardSkillsStep = (props: any) => {
+  const {
+    hardSkillsData,
+    onAddHardSkillEntry,
+    onUpdateHardSkillEntry,
+    onSave,
+    onDeleteHardSkillEntry,
+  } = props;
 
-const SkillsStepHard = (props: any) => {
+  const handleChange = (index: any, field: any, value: any) => {
+    onUpdateHardSkillEntry(index, field, value);
+  };
 
-    const { formData, setFormData, inputshSkillS, setInputshSkillS } = props
-    const [data, setData] = useState<any | any[] | undefined>()
-    useEffect(() => {
+  const handleClick = () => {
+    onAddHardSkillEntry();
+  };
 
-        if (data && data?.fullname && data?.email && data?.phone && data?.birthday) {
-            console.log("llega")
-            setFormData({
-                ...data,
-                formData
-            })
-        }
-    }, [data])
+  const handleSaveData = () => {
+    onSave(hardSkillsData);
+  };
 
-    const handleClick = () => {
-        const newInput = {
-            value: "",
-            id: uuid()
-        };
-        setInputshSkillS([...inputshSkillS, newInput]);
-    };
-    const handleDeleteClick = (idData: any) => {
-        const dataReturn = inputshSkillS?.filter((idS: any) => idS.id !== idData)
-        setInputshSkillS(dataReturn)
-    }
+  return (
+    <div className={style.body}>
+      <h3>{props.title}</h3>
 
+      <div className={style.createInputs}>
+        <Button
+          variant="outlined"
+          color="primary"
+          size="small"
+          fullWidth
+          onClick={handleClick}
+        >
+          Agregar soft skill
+        </Button>
+      </div>
 
-
-
-    return (
-        <div className={style.body}>
-            <h3 className={style.titles}>
-                {props.title}
-            </h3>
-
-            {inputshSkillS?.map((input: any) => (
-                <div>
-                    <Inputs
-                        className="inputs"
-                        data={data}
-                        setData={setData}
-                        placeholder="Soft Skill"
-                        name="skillsoft"
-                        type={''}
-                        minLength={''} autoFocus={false} color={''}
-                        defaultValue={formData?.skillsoft}
-                        disabled={false}
-                        fullWidth={false}
-                        id={''}
-                        inputComponent={undefined} multiline={false}
-                        label={''} rows={''}
-                        required
-                    />
-
-
-                    <div className={style.deletes}>
-                        <Button variant="outlined" color="error" size="small" fullWidth
-                            onClick={() => handleDeleteClick(input?.id)}
-                        >
-                            Delete
-                        </Button>
-                    </div>
-                </div>
-
-            ))}
-            <div>
-                <div className={style.createInputs}>
-                    <Button variant="outlined" color="primary" size="small" fullWidth
-                        onClick={handleClick}>Crear input</Button>
-                </div>
-            </div>
-
-
+      {hardSkillsData.map((entry: any, index: any) => (
+        <div key={index}>
+          <Input
+            className="inputs"
+            placeholder="Hard skill"
+            name="hardSkill"
+            type="text"
+            value={entry.softSkill || ''}
+            onChange={(e) => handleChange(index, 'hardSkill', e.target.value)}
+          />
+          <div className={style.deletes}>
+            <Button
+              variant="outlined"
+              color="error"
+              size="small"
+              fullWidth
+              onClick={() => onDeleteHardSkillEntry(index)}
+            >
+              Delete
+            </Button>
+          </div>
         </div>
-    )
-}
+      ))}
 
-export default SkillsStepHard
+      <div className={style.deletes}>
+        <Button
+          variant="outlined"
+          color="primary"
+          size="small"
+          fullWidth
+          onClick={handleSaveData}
+        >
+          Guardar Datos
+        </Button>
+      </div>
+
+    </div>
+  );
+};
+
+export default HardSkillsStep;

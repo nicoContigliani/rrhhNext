@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import style from './EducationStep.module.css'
-import Inputs from '@/components/inputs/Inputs';
-import uuid from 'react-uuid';
-
-import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
 
