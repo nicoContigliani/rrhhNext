@@ -23,7 +23,7 @@ const LenguageService = () => {
     });
   };
 
-  const deleteLengageEntry = (index: number) => {
+  const deleteLenguageEntry = (index: number) => {
     setLenguageData((prevData) => {
       const newData = [...prevData];
       newData.splice(index, 1);
@@ -35,7 +35,7 @@ const LenguageService = () => {
     handleSave,
     addLenguageEntry,
     updateLenguageEntry,
-    deleteLengageEntry,
+    deleteLenguageEntry,
     lenguageData,
   };
 };

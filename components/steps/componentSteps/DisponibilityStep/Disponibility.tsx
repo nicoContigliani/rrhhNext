@@ -1,88 +1,83 @@
-import React, { useEffect, useState } from 'react'
-
-import style from './Disponibility.module.css'
-import Inputs from '@/components/inputs/Inputs';
-import uuid from 'react-uuid';
-
-import Stack from '@mui/material/Stack';
+import React, { useState, useEffect } from 'react';
+import style from './Disponibility.module.css'; // Assuming CSS file is named SoftSkillsStep.module.css
 import Button from '@mui/material/Button';
+import Input from '@mui/material/Input';
 
-const Disponibility = (props: any) => {
-    const { formData, setFormData, inputsDisponibility, setInputsDisponibility } = props
-    const [data, setData] = useState<any | any[] | undefined>()
-    useEffect(() => {
+const SoftSkillsStep = (props: any) => {
+  const {
+    disponibilityData,
+    onAddDisponibilityEntry,
+    onUpdateDisponibilityEntry,
+    onSave,
+    onDeleteDisponibilityEntry,
+  } = props;
 
-        if (data && data?.fullname && data?.email && data?.phone && data?.birthday) {
-            console.log("llega")
-            setFormData({
-                ...data,
-                formData
-            })
-        }
-    }, [data])
+  const handleChange = (index: any, field: any, value: any) => {
+    onUpdateDisponibilityEntry(index, field, value);
+  };
 
-    const handleClick = () => {
-        const newInput = {
-            value: "",
-            id: uuid()
-        };
-        setInputsDisponibility([...inputsDisponibility, newInput]);
-    };
-    const handleDeleteClick = (idData: any) => {
-        const dataReturn = inputsDisponibility.filter((idS: any) => idS.id !== idData)
-        setInputsDisponibility(dataReturn)
-    }
+  const handleClick = () => {
+    onAddDisponibilityEntry();
+  };
 
+  const handleSaveData = () => {
+    onSave(disponibilityData);
+  };
 
+  return (
+    <div className={style.body}>
+      <h3>{props.title}</h3>
 
-    return (
-        <div className={style.body}>
-            <h3 className={style.titles}>
-                {props.title}
-            </h3>
+      <div className={style.createInputs}>
+        <Button
+          variant="outlined"
+          color="primary"
+          size="small"
+          fullWidth
+          onClick={handleClick}
+        >
+          Agregar soft skill
+        </Button>
+      </div>
 
-            {inputsDisponibility?.map((input: any) => (
-                <div>
-                    <Inputs
-                        className="inputs"
-                        data={data}
-                        setData={setData}
-                        placeholder="Disponibility"
-                        name="disponibility"
-                        type={''}
-                        minLength={''} autoFocus={false} color={''}
-                        defaultValue={formData?.disponibility}
-                        disabled={false}
-                        fullWidth={false}
-                        id={''}
-                        inputComponent={undefined} multiline={false}
-                        label={''} rows={''}
-                        required
-                    />
-
-
-
-
-                    <div className={style.deletes}>
-                        <Button variant="outlined" color="error" size="small" fullWidth
-                            onClick={() => handleDeleteClick(input?.id)}
-                        >
-                            Delete
-                        </Button>
-                    </div>
-                </div>
-
-            ))}
-            <div>
-                <div className={style.createInputs}>
-                    <Button variant="outlined" color="primary" size="small" fullWidth
-                        onClick={handleClick}>Crear input</Button>
-                </div>
-            </div>
-
-
+      {disponibilityData?.map((entry: any, index: any) => (
+        <div key={index}>
+          <Input
+            className="inputs"
+            placeholder="disponibility"
+            name="disponibility"
+            type="text"
+            value={entry.disponibility || ''}
+            onChange={(e) => handleChange(index, 'disponibility', e.target.value)}
+          />
+          <div className={style.deletes}>
+            <Button
+              variant="outlined"
+              color="error"
+              size="small"
+              fullWidth
+              onClick={() => onDeleteDisponibilityEntry(index)}
+            >
+              Delete
+            </Button>
+          </div>
         </div>
-    )
-}
+      ))}
 
-export default Disponibility
+      <div className={style.deletes}>
+        <Button
+          variant="outlined"
+          color="primary"
+          size="small"
+          fullWidth
+          onClick={handleSaveData}
+        >
+          Guardar Datos
+        </Button>
+      </div>
+
+    </div>
+  );
+};
+
+export default SoftSkillsStep;

@@ -161,7 +161,7 @@ const page = () => {
                     <div>
                         <div className={styles.stadistics}>
                             <Button type="primary" onClick={() => setShowThings(false)} >
-                                Crear
+                                Create
                             </Button>
                             <Button type="primary" onClick={() => setShowThings(true)}  >
                                 Show

@@ -31,56 +31,51 @@
         overflow: auto;
         flex-direction: row;
     }
+    .selects{
+        width: 100%;
+    }
 }
 
 @media only screen and (min-width: 992px) {
     .body {
         display: flex;
-        flex-wrap: nowrap;
-        justify-content: space-evenly;
-        align-items: flex-start;
-        align-content: center;
-        width: 60%;
-        height: 49vh;
-        overflow: auto;
         flex-direction: column;
-        overflow-y: auto;
-
+        align-items: center;
+        width: 97%;
+        overflow: auto; /* Asegúrate de manejar el desbordamiento */
+        padding: 1rem; /* Considera usar relleno para el espaciado */
     }
 
     .inputs {
-        padding: 1px;
-        margin-top: 5px;
+        padding: 0.25rem;
+        margin-top: 0.1rem;
+        margin-left: 0.3rem;
+        margin-bottom: 1rem;
+    }
 
+    .inputsData {
+        display: flex;
+        flex-wrap: nowrap; /* Permite que las entradas se envuelvan si es necesario */
+        justify-content: center; /* Distribuye las entradas de manera uniforme */
+        align-items: center;
+        width: 100%; /* Ajusta el ancho según sea necesario */
     }
 
     .titles {
         display: flex;
-        flex-wrap: nowrap;
-        justify-content: space-around;
-        align-items: flex-start;
-        align-content: center;
-        flex-direction: row;
-        padding-left: 10%;
+        justify-content: space-between; /* Distribuye los títulos de manera uniforme */
+        align-items: center;
+        margin-bottom: 1rem; /* Usa margen para el espaciado */
     }
-     
-    .deletes{
-        padding-top: 1%;
+
+    .deletes,
+    .createInputs {
         display: flex;
-        flex-wrap: nowrap;
-        justify-content: center;
-        align-items: flex-start;
-        align-content: center;
-        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 1rem; /* Usa margen para el espaciado */
     }
-    .createInputs{
-        padding-top: 1%;
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: center;
-        align-items: flex-start;
-        align-content: center;
-        flex-direction: row;
- 
+    .selects{
+        width: 50%;
     }
 }

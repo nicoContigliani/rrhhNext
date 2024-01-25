@@ -3,67 +3,85 @@ import style from './SkillStepsoft.module.css'; // Assuming CSS file is named So
 import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
 
+
+import { DownOutlined } from '@ant-design/icons';
+import { Select } from 'antd';
+import Inputs from '@/components/inputs/Inputs';
+
+const MAX_COUNT = 3;
+
 const SoftSkillsStep = (props: any) => {
   const {
-    softSkillsData,
-    onAddSoftSkillEntry,
-    onUpdateSoftSkillEntry,
     onSave,
-    onDeleteSoftSkillEntry,
+    selectedValues,
+    setSelectedValues,
+    contentOptionSelect,
+    setContentOptionSelect
   } = props;
 
-  const handleChange = (index: any, field: any, value: any) => {
-    onUpdateSoftSkillEntry(index, field, value);
+
+
+  const suffix = (
+    <>
+      <span>{selectedValues?.length} / {MAX_COUNT}</span>
+      <DownOutlined />
+    </>
+  );
+
+  const handleSelectChange = (newValues: any) => {
+    if (newValues.length > MAX_COUNT) {
+      return;
+    }
+    setSelectedValues(newValues);
   };
 
-  const handleClick = () => {
-    onAddSoftSkillEntry();
-  };
+  const [inputValue, setInputValue] = useState('');
 
+  const handleAddSelect = () => {
+    const newOption = { value: inputValue, label: inputValue };
+    setContentOptionSelect([...contentOptionSelect, newOption]);
+    setSelectedValues([...selectedValues, newOption.value]); // Select the newly added option
+    setInputValue(''); // Clear the input field
+  };
   const handleSaveData = () => {
-    onSave(softSkillsData);
+    onSave(selectedValues);
   };
 
   return (
     <div className={style.body}>
       <h3>{props.title}</h3>
 
-      <div className={style.createInputs}>
+      <Select
+        mode="multiple"
+        value={selectedValues}
+        onChange={handleSelectChange}
+        style={{ width: '50%' }}
+        suffixIcon={suffix}
+        placeholder="Please select"
+        options={contentOptionSelect}
+      />
+
+      <div>
+        <Input
+          type="text"
+          name="addSelect"
+          value={inputValue}
+          onChange={(event) => setInputValue(event.target.value)}
+          placeholder="Add"
+          className={style.input}
+        />
+
         <Button
+          type="button"
           variant="outlined"
           color="primary"
           size="small"
           fullWidth
-          onClick={handleClick}
+          onClick={handleAddSelect}
         >
-          Agregar soft skill
+          Add
         </Button>
       </div>
-
-      {softSkillsData.map((entry: any, index: any) => (
-        <div key={index}>
-          <Input
-            className="inputs"
-            placeholder="soft skill"
-            name="softSkill"
-            type="text"
-            value={entry.softSkill || ''}
-            onChange={(e) => handleChange(index, 'softSkill', e.target.value)}
-          />
-          <div className={style.deletes}>
-            <Button
-              variant="outlined"
-              color="error"
-              size="small"
-              fullWidth
-              onClick={() => onDeleteSoftSkillEntry(index)}
-            >
-              Delete
-            </Button>
-          </div>
-        </div>
-      ))}
-
       <div className={style.deletes}>
         <Button
           variant="outlined"
@@ -75,7 +93,6 @@ const SoftSkillsStep = (props: any) => {
           Guardar Datos
         </Button>
       </div>
-
     </div>
   );
 };

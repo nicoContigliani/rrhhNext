@@ -41,41 +41,47 @@ const ExperienceStep = (props: any) => {
       </div>
 
       {experienceData?.map((entry: any, index: any) => (
-        <div key={index}>
-          <Input
-            className="inputs"
-            placeholder="company"
-            name="company"
-            type="text"
-            value={entry.company || ''}
-            onChange={(e) => handleChange(index, 'company', e.target.value)}
-          />
-          <Input
-            className="inputs"
-            placeholder="job"
-            name="job"
-            type="text"
-            value={entry.job || ''}
-            onChange={(e) => handleChange(index, 'job', e.target.value)}
-          />
-          <div className={style.inputsData}>
-            <Input
-              className="inputs"
-              placeholder="start"
-              name="start"
-              type="date"
-              value={entry.start || ''}
-              onChange={(e) => handleChange(index, 'start', e.target.value)}
-            />
-            <Input
-              className="inputs"
-              placeholder="finish"
-              name="finish"
-              type="date"
-              value={entry.finish || ''}
-              onChange={(e) => handleChange(index, 'finish', e.target.value)}
-            />
+        <div>
+
+          <div key={index} className={style.inputsData}>
+            <div className={style.inputsData}>
+              <Input
+                className={style.inputs}
+                placeholder="company"
+                name="company"
+                type="text"
+                value={entry.company || ''}
+                onChange={(e) => handleChange(index, 'company', e.target.value)}
+              />
+              <Input
+                className={style.inputs}
+                placeholder="job"
+                name="job"
+                type="text"
+                value={entry.job || ''}
+                onChange={(e) => handleChange(index, 'job', e.target.value)}
+              />
+              <label htmlFor="" className={style.inputs}>start</label>
+              <Input
+                className={style.inputs}
+                placeholder="start"
+                name="start"
+                type="date"
+                value={entry.start || ''}
+                onChange={(e) => handleChange(index, 'start', e.target.value)}
+              />
+              <label htmlFor="" className={style.inputs}>finish</label>
+              <Input
+                className={style.inputs}
+                placeholder="finish"
+                name="finish"
+                type="date"
+                value={entry.finish || ''}
+                onChange={(e) => handleChange(index, 'finish', e.target.value)}
+              />
+            </div>
           </div>
+
           <div className={style.deletes}>
             <Button
               variant="outlined"

@@ -20,7 +20,7 @@ const EducationStep = (props: any) => {
   };
 
   return (
-    <div className={style.body}>
+    <div className={style.body} >
       <h3>
         {props.title}
       </h3>
@@ -31,41 +31,45 @@ const EducationStep = (props: any) => {
       </div>
 
       {educationData.map((entry: any, index: any) => (
-        <div key={index}>
-          <Input
-            className="inputs"
-            placeholder="title"
-            name="title"
-            type="text"
-            value={entry.title || ''}
-            onChange={(e) => handleChange(index, 'title', e.target.value)}
-          />
-          <Input
-            className="inputs"
-            placeholder="institute"
-            name="institute"
-            type="text"
-            value={entry.institute || ''}
-            onChange={(e) => handleChange(index, 'institute', e.target.value)}
-          />
-          <div className={style.inputsData}>
-            <Input
-              className="inputs"
-              placeholder="start"
-              name="start"
-              type="date"
-              value={entry.start || ''}
-              onChange={(e) => handleChange(index, 'start', e.target.value)}
+        <div>
 
-            />
-            <Input
-              className="inputs"
-              placeholder="finish"
-              name="finish"
-              type="date"
-              value={entry.finish || ''}
-              onChange={(e) => handleChange(index, 'finish', e.target.value)}
-            />
+          <div key={index} className={style.inputsData}>
+            <div className={style.inputsData}>
+              <Input
+                className={style.inputs}
+                placeholder="title"
+                name="title"
+                type="text"
+                value={entry.title || ''}
+                onChange={(e) => handleChange(index, 'title', e.target.value)}
+              />
+              <Input
+                className={style.inputs}
+                placeholder="institute"
+                name="institute"
+                type="text"
+                value={entry.institute || ''}
+                onChange={(e) => handleChange(index, 'institute', e.target.value)}
+              />
+              <label htmlFor="" className={style.inputs}>start</label>
+              <Input
+                className={style.inputs}
+                placeholder="start"
+                name="start"
+                type="date"
+                value={entry.start || ''}
+                onChange={(e) => handleChange(index, 'start', e.target.value)}
+              />
+              <label htmlFor="" className={style.inputs}>finish</label>
+              <Input
+                className={style.inputs}
+                placeholder="finish"
+                name="finish"
+                type="date"
+                value={entry.finish || ''}
+                onChange={(e) => handleChange(index, 'finish', e.target.value)}
+              />
+            </div>
           </div>
           <div className={style.deletes}>
             <Button variant="outlined" color="error" size="small" fullWidth
@@ -76,6 +80,7 @@ const EducationStep = (props: any) => {
             </Button>
           </div>
         </div>
+
       ))}
 
       <div className={style.deletes}>

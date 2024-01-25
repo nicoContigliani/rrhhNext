@@ -41,38 +41,46 @@ const PersonalInformationStep = (props: any) => {
       </div>
 
       {personalInformation.map((entry: any, index: any) => (
-        <div key={index}>
-          <Input
-            className="inputs"
-            placeholder="fullname"
-            name="fullname"
-            type="text"
-            value={entry.fullname || ''}
-            onChange={(e) => handleChange(index, 'fullname', e.target.value)}
-          />
-          <Input
-            className="inputs"
-            placeholder="email"
-            name="email"
-            type="email"
-            value={entry.email || ''}
-            onChange={(e) => handleChange(index, 'email', e.target.value)}
-          />
-          <Input
-            className="inputs"
-            placeholder="phone"
-            name="phone"
-            type="tel"
-            value={entry.phone || ''}
-            onChange={(e) => handleChange(index, 'phone', e.target.value)}
-          />
-          <Input
-            className='inputs'
-            value={entry.birthsday}
-            name="birthsday"
-            onChange={(newValue: any) => handleChange(index, 'birthsday', newValue)}
-            type='Date'
-          />
+        <div>
+
+          <div key={index} className={style.inputsData}>
+            <div className={style.inputsData}>
+              <Input
+                className={style.inputs}
+                placeholder="fullname"
+                name="fullname"
+                type="text"
+                value={entry.fullname || ''}
+                onChange={(e) => handleChange(index, 'fullname', e.target.value)}
+              />
+              <Input
+                className={style.inputs}
+                placeholder="email"
+                name="email"
+                type="email"
+                value={entry.email || ''}
+                onChange={(e) => handleChange(index, 'email', e.target.value)}
+              />
+              <Input
+                className={style.inputs}
+                placeholder="phone"
+                name="phone"
+                type="tel"
+                value={entry.phone || ''}
+                onChange={(e) => handleChange(index, 'phone', e.target.value)}
+              />
+              <label htmlFor="" className={style.inputs}> birthsday: </label>
+              <Input
+                className={style.inputs}
+                placeholder="birthsday"
+                name="birthsday"
+                type="date"
+                value={entry.birthsday || ''}
+                onChange={(e) => handleChange(index, 'birthsday', e.target.value)}
+              />
+            </div>
+          </div>
+
           <div className={style.deletes}>
             <Button
               variant="outlined"

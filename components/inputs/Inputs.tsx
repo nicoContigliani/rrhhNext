@@ -3,7 +3,6 @@ import { Input } from '@mui/material';
 import style from './Inputs.module.css'
 
 const Inputs = (props:  any) => {
-    console.log("🚀 ~ Inputs ~ props:", props)
     const { data, setData } = props
     const handlechange = (e: any) => {
         setData({
