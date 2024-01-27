@@ -83,18 +83,18 @@ const Stepss = () => {
     <PersonalInformationStep
       title='PersonalInformationStep'
       personalInformation={personInformationServices.personalInformationData}
-      onAddPersonalInformationEntry={personInformationServices.addPersonalInformationEntry}
-      onUpdatePersonalInformationEntry={personInformationServices.updatePersonalInformationEntry}
-      onDeletePersonalInformationEntry={personInformationServices.deletePersonalInformationEntry}
+      onAddPersonalInformationEntry={personInformationServices.addPersonalInformationEntrys}
+      onUpdatePersonalInformationEntry={personInformationServices.updatePersonalInformationEntrys}
+      onDeletePersonalInformationEntry={personInformationServices.deletePersonalInformationEntrys}
       onSave={personInformationServices.handleSave}
     />
     ,
     <EducationStep
       title="Education Details"
-      educationData={educationService.educationData}
-      onAddEducationEntry={educationService.addEducationEntry}
-      onUpdateEducationEntry={educationService.updateEducationEntry}
-      onDeleteEducationEntry={educationService.deleteEducationEntry}
+      educationData={educationService.EducationData}
+      onAddEducationEntry={educationService.addEducationEntrys}
+      onUpdateEducationEntry={educationService.updateEducationEntrys}
+      onDeleteEducationEntry={educationService.deleteEducationEntrys}
       onSave={educationService.handleSave}
     />,
     <ExperienceStep

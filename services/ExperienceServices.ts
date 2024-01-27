@@ -1,41 +1,43 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  setExperienceData,
+  addExperienceEntry,
+  updateExperienceEntry,
+  deleteExperienceEntry,
+} from '@/redux/features/stepss/experience/experienceSlice';
+
 
 const ExperienceService = () => {
-  const [experienceData, setExperienceData] = useState([{}]);
+  
+  const experienceData = useSelector(
+    (state: any) => state.experience.experienceData
+  );
+  const dispatch = useDispatch();
 
   const handleSave = (data: any) => {
-    console.log('Saved data:', data);
-
-    // Perform additional actions with the saved data here (e.g., send to API)
-
-    setExperienceData(data);
+    console.log('Saved personal information data:', data);
+    dispatch(setExperienceData(data));
   };
 
-  const addExperienceEntry = () => {
-    setExperienceData([...experienceData, {}]);
+  const addExperienceEntrys = () => {
+    dispatch(addExperienceEntry());
+  };
+  const updateExperienceEntrys = (index: number, field: string, value: any) => {
+    dispatch(updateExperienceEntry({ index, field, value }));
   };
 
-  const updateExperienceEntry = (index: any, field: any, value: any) => {
-    setExperienceData((prevData) => {
-      const newData = [...prevData];
-      newData[index] = { ...newData[index], [field]: value };
-      return newData;
-    });
+  const deleteExperienceEntrys = (index: number) => {
+    dispatch(deleteExperienceEntry({ index }));
   };
 
-  const deleteExperienceEntry = (index: number) => {
-    setExperienceData((prevData) => {
-      const newData = [...prevData];
-      newData.splice(index, 1);
-      return newData;
-    });
-  };
+
 
   return {
     handleSave,
-    addExperienceEntry,
-    updateExperienceEntry,
-    deleteExperienceEntry,
+    addExperienceEntrys,
+    updateExperienceEntrys,
+    deleteExperienceEntrys,
     experienceData,
   };
 };

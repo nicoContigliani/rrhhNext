@@ -2,15 +2,31 @@ import React, { useEffect, useState } from 'react';
 import style from './PersonalInformationStep.module.css'; // Adjust path if needed
 import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
+import { useSelector, useDispatch } from 'react-redux';
+
+
+
 
 const PersonalInformationStep = (props: any) => {
+  const dataPersonStorage: any | any[] = useSelector((state: any) => state);
+  const [personalInformation, setPersonalInformation] = useState<any[]>()
+  useEffect(() => {
+    const { personalInformation: { personalInformationData } } = dataPersonStorage
+    setPersonalInformation(personalInformationData)
+
+  }, [dataPersonStorage])
+
   const {
-    personalInformation,
+
     onAddPersonalInformationEntry,
     onUpdatePersonalInformationEntry,
     onSave,
     onDeletePersonalInformationEntry,
   } = props;
+
+
+
+
 
   const handleChange = (index: any, field: any, value: any) => {
     onUpdatePersonalInformationEntry(index, field, value);
@@ -40,7 +56,7 @@ const PersonalInformationStep = (props: any) => {
         </Button>
       </div>
 
-      {personalInformation.map((entry: any, index: any) => (
+      {personalInformation?.map((entry: any, index: any) => (
         <div>
 
           <div key={index} className={style.inputsData}>

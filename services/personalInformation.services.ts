@@ -1,41 +1,43 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  setPersonalInformationData,
+  addPersonalInformationEntry,
+  updatePersonalInformationEntry,
+  deletePersonalInformationEntry,
+} from '@/redux/features/stepss/personalnformation/personalnformationSlice';
+
 
 const PersonalInformationService = () => {
-  const [personalInformationData, setPersonalInformationData] = useState([{}]);
+  
+  const personalInformationData = useSelector(
+    (state: any) => state.personalInformation.personalInformationData
+  );
+  const dispatch = useDispatch();
 
   const handleSave = (data: any) => {
     console.log('Saved personal information data:', data);
-
-    // Perform additional actions with the saved data here (e.g., send to API)
-
-    setPersonalInformationData(data);
+    dispatch(setPersonalInformationData(data));
   };
 
-  const addPersonalInformationEntry = () => {
-    setPersonalInformationData([...personalInformationData, {}]);
+  const addPersonalInformationEntrys = () => {
+    dispatch(addPersonalInformationEntry());
+  };
+  const updatePersonalInformationEntrys = (index: number, field: string, value: any) => {
+    dispatch(updatePersonalInformationEntry({ index, field, value }));
   };
 
-  const updatePersonalInformationEntry = (index: any, field: any, value: any) => {
-    setPersonalInformationData((prevData) => {
-      const newData = [...prevData];
-      newData[index] = { ...newData[index], [field]: value };
-      return newData;
-    });
+  const deletePersonalInformationEntrys = (index: number) => {
+    dispatch(deletePersonalInformationEntry({ index }));
   };
 
-  const deletePersonalInformationEntry = (index: number) => {
-    setPersonalInformationData((prevData) => {
-      const newData = [...prevData];
-      newData.splice(index, 1);
-      return newData;
-    });
-  };
+
 
   return {
     handleSave,
-    addPersonalInformationEntry,
-    updatePersonalInformationEntry,
-    deletePersonalInformationEntry,
+    addPersonalInformationEntrys,
+    updatePersonalInformationEntrys,
+    deletePersonalInformationEntrys,
     personalInformationData,
   };
 };

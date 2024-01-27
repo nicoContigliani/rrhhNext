@@ -2,11 +2,28 @@ import React, { useEffect, useState } from 'react'
 import style from './EducationStep.module.css'
 import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
-
+import { useSelector, useDispatch } from 'react-redux';
 
 
 const EducationStep = (props: any) => {
-  const { educationData, onAddEducationEntry, onUpdateEducationEntry, onSave, onDeleteEducationEntry } = props
+
+  const dataEducationStorage: any | any[] = useSelector((state: any) => state);
+  const [education, setEducation] = useState<any[]>()
+  useEffect(() => {
+    const { education: { educationData } } = dataEducationStorage
+    setEducation(educationData)
+
+  }, [dataEducationStorage])
+
+  const {
+
+    onAddEducationEntry,
+    onUpdateEducationEntry,
+    onSave,
+    onDeleteEducationEntry,
+  } = props;
+
+
   const handleChange = (index: any, field: any, value: any) => {
     onUpdateEducationEntry(index, field, value);
   };
@@ -16,7 +33,7 @@ const EducationStep = (props: any) => {
   };
 
   const handleSaveData = () => {
-    onSave(educationData);
+    onSave(education);
   };
 
   return (
@@ -30,7 +47,7 @@ const EducationStep = (props: any) => {
           onClick={handleClick}>Agregar input</Button>
       </div>
 
-      {educationData.map((entry: any, index: any) => (
+      {education?.map((entry: any, index: any) => (
         <div>
 
           <div key={index} className={style.inputsData}>

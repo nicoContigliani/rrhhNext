@@ -1,36 +1,45 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  setEducationData,
+  addEducationEntry,
+  updateEducationEntry,
+  deleteEducationEntry,
+} from '@/redux/features/stepss/education/educationSlice';
+
 
 const EducationService = () => {
-    const [educationData, setEducationData] = useState([{}]);
+  
+  const EducationData = useSelector(
+    (state: any) => state.Education?.EducationData
+  );
+  const dispatch = useDispatch();
 
-    const handleSave = (data: any) => {
-        console.log('Saved data:', data);
+  const handleSave = (data: any) => {
+    console.log('Saved personal information data:', data);
+    dispatch(setEducationData(data));
+  };
 
-        // Perform additional actions with the saved data here (e.g., send to API)
+  const addEducationEntrys = () => {
+    dispatch(addEducationEntry());
+  };
+  const updateEducationEntrys = (index: number, field: string, value: any) => {
+    dispatch(updateEducationEntry({ index, field, value }));
+  };
 
-        setEducationData(data);
-    };
+  const deleteEducationEntrys = (index: number) => {
+    dispatch(deleteEducationEntry({ index }));
+  };
 
-    const addEducationEntry = () => {
-        setEducationData([...educationData, {}]);
-    };
 
-    const updateEducationEntry = (index: any, field: any, value: any) => {
-        setEducationData((prevData) => {
-            const newData = [...prevData];
-            newData[index] = { ...newData[index], [field]: value };
-            return newData;
-        });
-    };
-    const deleteEducationEntry = (index: number) => {
-        setEducationData((prevData) => {
-            const newData = [...prevData];
-            newData.splice(index, 1);
-            return newData;
-        });
-    };
 
-    return { handleSave, addEducationEntry, updateEducationEntry, deleteEducationEntry, educationData };
+  return {
+    handleSave,
+    addEducationEntrys,
+    updateEducationEntrys,
+    deleteEducationEntrys,
+    EducationData,
+  };
 };
 
 export default EducationService;
