@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 const EducationStep = (props: any) => {
 
   const dataEducationStorage: any | any[] = useSelector((state: any) => state);
+  console.log("🚀 ~ EducationStep ~ dataEducationStorage:", dataEducationStorage)
   const [education, setEducation] = useState<any[]>()
   useEffect(() => {
     const { education: { educationData } } = dataEducationStorage

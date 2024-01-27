@@ -1,42 +1,53 @@
 import React, { useState } from 'react';
 
 const SoftSkillsService = () => {
-  const [softSkillsData, setSoftSkillsData] = useState([{}]);
+  const [selectedValues, setSelectedValues] = useState<any[]>(['god man']);
+  const [contentOptionSelect, setContentOptionSelect] = useState<any[]>([
+     { value: 'God Man', label: 'God Man' },
+    { value: 'Leadership', label: 'Leadership' },
+    { value: 'Conflict resolution', label: 'Conflict resolution' },
+    { value: 'Interpersonal relationships', label: 'Interpersonal relationships' },
+    { value: 'Collaboration', label: 'Collaboration' },
+    { value: 'Problem-solving and critical thinking', label: 'Problem-solving and critical thinking' },
+    { value: 'Critical thinking', label: 'Critical thinking' },
+    { value: 'Creativity', label: 'Creativity' },
+    { value: 'Problem-solving', label: 'Problem-solving' },
+    { value: 'Adaptability', label: 'Adaptability' },
+    { value: 'Resilience', label: 'Resilience' },
+    { value: 'Self-management', label: 'Self-management' },
+    { value: 'Time management', label: 'Time management' },
+    { value: 'Motivation', label: 'Motivation' },
+    { value: 'Stress management', label: 'Stress management' },
+    { value: 'Organization', label: 'Organization' },
+    { value: 'Initiative', label: 'Initiative' }
+  ]);
 
-  const handleSave = (data: any) => {
-    console.log('Saved data:', data);
+  const MAX_COUNT = 3;
 
-    // Perform additional actions with the saved data here (e.g., send to API)
-
-    setSoftSkillsData(data);
+  const handleSelectChange = (newValues: any) => {
+    if (newValues.length > MAX_COUNT) {
+      return;
+    }
+    setSelectedValues(newValues);
   };
 
-  const addSoftSkillEntry = () => {
-    setSoftSkillsData([...softSkillsData, {}]);
+  const handleAddSelect = (newOption: any) => {
+    setContentOptionSelect([...contentOptionSelect, newOption]);
+    setSelectedValues([...selectedValues, newOption.value]);
   };
 
-  const updateSoftSkillEntry = (index: any, field: any, value: any) => {
-    setSoftSkillsData((prevData) => {
-      const newData = [...prevData];
-      newData[index] = { ...newData[index], [field]: value };
-      return newData;
-    });
-  };
-
-  const deleteSoftSkillEntry = (index: number) => {
-    setSoftSkillsData((prevData) => {
-      const newData = [...prevData];
-      newData.splice(index, 1);
-      return newData;
-    });
+  const handleSaveData = () => {
+    // Perform any necessary saving logic here (e.g., local storage, send to API)
+    console.log('Saved data:', selectedValues);
   };
 
   return {
-    handleSave,
-    addSoftSkillEntry,
-    updateSoftSkillEntry,
-    deleteSoftSkillEntry,
-    softSkillsData,
+    selectedValues,
+    contentOptionSelect,
+    MAX_COUNT,
+    handleSelectChange,
+    handleAddSelect,
+    handleSaveData,
   };
 };
 

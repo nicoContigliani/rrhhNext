@@ -2,15 +2,26 @@ import React, { useState, useEffect } from 'react';
 import style from './ExperienceStep.module.css';
 import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
+import { useSelector } from 'react-redux';
 
 const ExperienceStep = (props: any) => {
+  const experienceStorage: any | any[] = useSelector((state: any) => state);
+  console.log("🚀 ~ experienceStep ~ experienceStorage:", experienceStorage)
+  const [experience, setExperience] = useState<any[]>()
+  useEffect(() => {
+    const { experience: { experienceData } } = experienceStorage
+    setExperience(experienceData)
+
+  }, [experienceStorage])
+
   const {
-    experienceData,
+
     onAddExperienceEntry,
     onUpdateExperienceEntry,
     onSave,
     onDeleteExperienceEntry,
   } = props;
+
 
   const handleChange = (index: any, field: any, value: any) => {
     onUpdateExperienceEntry(index, field, value);
@@ -21,7 +32,7 @@ const ExperienceStep = (props: any) => {
   };
 
   const handleSaveData = () => {
-    onSave(experienceData);
+    onSave(experience);
   };
 
   return (
@@ -40,7 +51,7 @@ const ExperienceStep = (props: any) => {
         </Button>
       </div>
 
-      {experienceData?.map((entry: any, index: any) => (
+      {experience?.map((entry: any, index: any) => (
         <div>
 
           <div key={index} className={style.inputsData}>

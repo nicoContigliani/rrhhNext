@@ -8,43 +8,26 @@ import { DownOutlined } from '@ant-design/icons';
 import { Select } from 'antd';
 import Inputs from '@/components/inputs/Inputs';
 
-const MAX_COUNT = 3;
+
+
+
+
 
 const SoftSkillsStep = (props: any) => {
   const {
     onSave,
     selectedValues,
-    setSelectedValues,
     contentOptionSelect,
-    setContentOptionSelect
+    MAX_COUNT,
+    handleSelectChange,
+    handleAddSelect,
+    handleSaveData,
   } = props;
-
-
-
-  const suffix = (
-    <>
-      <span>{selectedValues?.length} / {MAX_COUNT}</span>
-      <DownOutlined />
-    </>
-  );
-
-  const handleSelectChange = (newValues: any) => {
-    if (newValues.length > MAX_COUNT) {
-      return;
-    }
-    setSelectedValues(newValues);
-  };
 
   const [inputValue, setInputValue] = useState('');
 
-  const handleAddSelect = () => {
-    const newOption = { value: inputValue, label: inputValue };
-    setContentOptionSelect([...contentOptionSelect, newOption]);
-    setSelectedValues([...selectedValues, newOption.value]); // Select the newly added option
-    setInputValue(''); // Clear the input field
-  };
-  const handleSaveData = () => {
-    onSave(selectedValues);
+  const handleInputChange = (event: any) => {
+    setInputValue(event.target.value);
   };
 
   return (
@@ -56,7 +39,7 @@ const SoftSkillsStep = (props: any) => {
         value={selectedValues}
         onChange={handleSelectChange}
         style={{ width: '50%' }}
-        suffixIcon={suffix}
+        // suffixIcon={suffix}
         placeholder="Please select"
         options={contentOptionSelect}
       />
@@ -66,7 +49,7 @@ const SoftSkillsStep = (props: any) => {
           type="text"
           name="addSelect"
           value={inputValue}
-          onChange={(event) => setInputValue(event.target.value)}
+          onChange={handleInputChange}
           placeholder="Add"
           className={style.input}
         />
@@ -77,13 +60,14 @@ const SoftSkillsStep = (props: any) => {
           color="primary"
           size="small"
           fullWidth
-          onClick={handleAddSelect}
+          onClick={() => handleAddSelect({ value: inputValue, label: inputValue })}
         >
           Add
         </Button>
       </div>
       <div className={style.deletes}>
         <Button
+          type="button"
           variant="outlined"
           color="primary"
           size="small"

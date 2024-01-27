@@ -43,7 +43,7 @@ export const {
 
 export default experienceSlice.reducer;
 
-export const selectPersonalInformation = (state: RootState) => state.experience;
+export const selectExperience = (state: RootState) => state.experience;
 
 
 

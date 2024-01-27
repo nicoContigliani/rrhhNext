@@ -58,6 +58,7 @@ const Stepss = () => {
   ]);
 
 
+
   const [selectedValuess, setSelectedValuess] = useState(['React.js']);
   const [contentOptionSelects, setContentOptionSelects] = useState([
     { value: 'React.js', label: 'React.js' },
@@ -100,18 +101,29 @@ const Stepss = () => {
     <ExperienceStep
       title='Experience'
       experienceData={experienceService.experienceData}
-      onAddExperienceEntry={experienceService.addExperienceEntry}
-      onUpdateExperienceEntry={experienceService.updateExperienceEntry}
-      onDeleteExperienceEntry={experienceService.deleteExperienceEntry}
+      onAddExperienceEntry={experienceService.addExperienceEntrys}
+      onUpdateExperienceEntry={experienceService.updateExperienceEntrys}
+      onDeleteExperienceEntry={experienceService.deleteExperienceEntrys}
       onSave={experienceService.handleSave}
     />,
     <SkillsStepSoft
       title='Soft Skills'
-      selectedValues={selectedValues}
-      setSelectedValues={setSelectedValues}
-      contentOptionSelect={contentOptionSelect}
-      setContentOptionSelect={setContentOptionSelect}
-      onSave={softSkillsService.handleSave}
+      // selectedValues={selectedValues}
+      // setSelectedValues={setSelectedValues}
+      // contentOptionSelect={contentOptionSelect}
+      // setContentOptionSelect={setContentOptionSelect}
+
+
+      selectedValues={softSkillsService.selectedValues}
+      contentOptionSelect={softSkillsService.contentOptionSelect}
+      MAX_COUNT={softSkillsService.MAX_COUNT}
+      handleSelectChange={softSkillsService.handleSelectChange}
+      handleAddSelect={softSkillsService.handleAddSelect}
+      handleSaveData={softSkillsService.handleSaveData}
+
+
+
+    // onSave={softSkillsService.handleSave}
     />,
     <SkillsStepHard
       title='Hard  Skills'
