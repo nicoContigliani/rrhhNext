@@ -2,70 +2,63 @@ import React, { useState, useEffect } from 'react';
 import style from './Disponibility.module.css'; // Assuming CSS file is named SoftSkillsStep.module.css
 import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
+import { Select } from 'antd';
 
 const SoftSkillsStep = (props: any) => {
   const {
-    disponibilityData,
-    onAddDisponibilityEntry,
-    onUpdateDisponibilityEntry,
     onSave,
-    onDeleteDisponibilityEntry,
+    selectedValues,
+    contentOptionSelect,
+    MAX_COUNT,
+    handleSelectChange,
+    handleAddSelect,
+    handleSaveData,
   } = props;
 
-  const handleChange = (index: any, field: any, value: any) => {
-    onUpdateDisponibilityEntry(index, field, value);
-  };
+  const [inputValue, setInputValue] = useState('');
 
-  const handleClick = () => {
-    onAddDisponibilityEntry();
-  };
-
-  const handleSaveData = () => {
-    onSave(disponibilityData);
+  const handleInputChange = (event: any) => {
+    setInputValue(event.target.value);
   };
 
   return (
     <div className={style.body}>
       <h3>{props.title}</h3>
 
-      <div className={style.createInputs}>
+      <Select
+        mode="multiple"
+        value={selectedValues}
+        onChange={handleSelectChange}
+        style={{ width: '50%' }}
+        // suffixIcon={suffix}
+        placeholder="Please select"
+        options={contentOptionSelect}
+      />
+
+      <div>
+        <Input
+          type="text"
+          name="addSelect"
+          value={inputValue}
+          onChange={handleInputChange}
+          placeholder="Add"
+          className={style.input}
+        />
+
         <Button
+          type="button"
           variant="outlined"
           color="primary"
           size="small"
           fullWidth
-          onClick={handleClick}
+          onClick={() => handleAddSelect({ value: inputValue, label: inputValue })}
         >
-          Agregar soft skill
+          Add
         </Button>
       </div>
-
-      {disponibilityData?.map((entry: any, index: any) => (
-        <div key={index}>
-          <Input
-            className="inputs"
-            placeholder="disponibility"
-            name="disponibility"
-            type="text"
-            value={entry.disponibility || ''}
-            onChange={(e) => handleChange(index, 'disponibility', e.target.value)}
-          />
-          <div className={style.deletes}>
-            <Button
-              variant="outlined"
-              color="error"
-              size="small"
-              fullWidth
-              onClick={() => onDeleteDisponibilityEntry(index)}
-            >
-              Delete
-            </Button>
-          </div>
-        </div>
-      ))}
-
       <div className={style.deletes}>
         <Button
+          type="button"
           variant="outlined"
           color="primary"
           size="small"
@@ -75,7 +68,6 @@ const SoftSkillsStep = (props: any) => {
           Guardar Datos
         </Button>
       </div>
-
     </div>
   );
 };

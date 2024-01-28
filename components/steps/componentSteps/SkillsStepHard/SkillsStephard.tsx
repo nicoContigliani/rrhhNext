@@ -13,80 +13,58 @@ const MAX_COUNT = 3;
 const HardSkillsStep = (props: any) => {
   const {
     onSave,
-    selectedValuess,
-    setSelectedValuess,
-    contentOptionSelects,
-    setContentOptionSelects
+    selectedValues,
+    contentOptionSelect,
+    MAX_COUNT,
+    handleSelectChange,
+    handleAddSelect,
+    handleSaveData,
   } = props;
-
-
-
-  const suffix = (
-    <>
-      <span>{selectedValuess?.length} / {MAX_COUNT}</span>
-      <DownOutlined />
-    </>
-  );
-
-  const handleSelectChange = (newValues: any) => {
-    if (newValues.length > MAX_COUNT) {
-      return;
-    }
-    setSelectedValuess(newValues);
-  };
-
   const [inputValue, setInputValue] = useState('');
 
-  const handleAddSelect = () => {
-    const newOption = { value: inputValue, label: inputValue };
-    setContentOptionSelects([...contentOptionSelects, newOption]);
-    setSelectedValuess([...selectedValuess, newOption.value]); // Select the newly added option
-    setInputValue(''); // Clear the input field
+  const handleInputChange = (event: any) => {
+    setInputValue(event.target.value);
   };
-  const handleSaveData = () => {
-    onSave(selectedValuess);
-  };
+
 
   return (
     <div className={style.body}>
       <h3>{props.title}</h3>
-      <div className={style.selects}>
-        <Select
-          mode="multiple"
-          value={selectedValuess}
-          onChange={handleSelectChange}
-          style={{ width: '100%' }}
-          suffixIcon={suffix}
-          placeholder="Please select"
-          options={contentOptionSelects}
-        />
-      </div>
+
+      <Select
+        mode="multiple"
+        value={selectedValues}
+        onChange={handleSelectChange}
+        style={{ width: '50%' }}
+        // suffixIcon={suffix}
+        placeholder="Please select"
+        options={contentOptionSelect}
+      />
 
       <div>
         <Input
           type="text"
           name="addSelect"
           value={inputValue}
-          onChange={(event) => setInputValue(event.target.value)}
+          onChange={handleInputChange}
           placeholder="Add"
           className={style.input}
         />
-      </div>
-      <div className={style.deletes}>
+
         <Button
           type="button"
           variant="outlined"
           color="primary"
           size="small"
           fullWidth
-          onClick={handleAddSelect}
+          onClick={() => handleAddSelect({ value: inputValue, label: inputValue })}
         >
           Add
         </Button>
-
       </div>
       <div className={style.deletes}>
         <Button
+          type="button"
           variant="outlined"
           color="primary"
           size="small"
@@ -97,6 +75,7 @@ const HardSkillsStep = (props: any) => {
         </Button>
       </div>
     </div>
+
   );
 };
 

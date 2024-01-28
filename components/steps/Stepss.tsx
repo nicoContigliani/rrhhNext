@@ -36,39 +36,6 @@ const Stepss = () => {
   const lenguageService = LenguageService()
   const disponibilityService = DisponibilityService()
 
-  const [selectedValues, setSelectedValues] = useState(['god man']);
-  const [contentOptionSelect, setContentOptionSelect] = useState([
-    { value: 'God Man', label: 'God Man' },
-    { value: 'Leadership', label: 'Leadership' },
-    { value: 'Conflict resolution', label: 'Conflict resolution' },
-    { value: 'Interpersonal relationships', label: 'Interpersonal relationships' },
-    { value: 'Collaboration', label: 'Collaboration' },
-    { value: 'Problem-solving and critical thinking', label: 'Problem-solving and critical thinking' },
-    { value: 'Critical thinking', label: 'Critical thinking' },
-    { value: 'Creativity', label: 'Creativity' },
-    { value: 'Problem-solving', label: 'Problem-solving' },
-    { value: 'Adaptability', label: 'Adaptability' },
-    { value: 'Resilience', label: 'Resilience' },
-    { value: 'Self-management', label: 'Self-management' },
-    { value: 'Time management', label: 'Time management' },
-    { value: 'Motivation', label: 'Motivation' },
-    { value: 'Stress management', label: 'Stress management' },
-    { value: 'Organization', label: 'Organization' },
-    { value: 'Initiative', label: 'Initiative' }
-  ]);
-
-
-
-  const [selectedValuess, setSelectedValuess] = useState(['React.js']);
-  const [contentOptionSelects, setContentOptionSelects] = useState([
-    { value: 'React.js', label: 'React.js' },
-    { value: 'Node', label: 'Node' },
-    { value: 'Python', label: 'Python' },
-  ]);
-
-
-
-
   const steps = [
     'Personal Information',
     'Education',
@@ -108,12 +75,6 @@ const Stepss = () => {
     />,
     <SkillsStepSoft
       title='Soft Skills'
-      // selectedValues={selectedValues}
-      // setSelectedValues={setSelectedValues}
-      // contentOptionSelect={contentOptionSelect}
-      // setContentOptionSelect={setContentOptionSelect}
-
-
       selectedValues={softSkillsService.selectedValues}
       contentOptionSelect={softSkillsService.contentOptionSelect}
       MAX_COUNT={softSkillsService.MAX_COUNT}
@@ -121,33 +82,38 @@ const Stepss = () => {
       handleAddSelect={softSkillsService.handleAddSelect}
       handleSaveData={softSkillsService.handleSaveData}
 
-
-
     // onSave={softSkillsService.handleSave}
     />,
     <SkillsStepHard
       title='Hard  Skills'
-      selectedValuess={selectedValuess}
-      setSelectedValuess={setSelectedValuess}
-      contentOptionSelects={contentOptionSelects}
-      setContentOptionSelects={setContentOptionSelects}
-      onSave={hardSkillsService.handleSave}
+      selectedValues={hardSkillsService.selectedValues}
+      contentOptionSelect={hardSkillsService.contentOptionSelect}
+      MAX_COUNT={hardSkillsService.MAX_COUNT}
+      handleSelectChange={hardSkillsService.handleSelectChange}
+      handleAddSelect={hardSkillsService.handleAddSelect}
+      handleSaveData={hardSkillsService.handleSaveData}
+
+    // onSave={hardSkillsService.handleSave}
     />,
     <Lenguaje
       title='Lenguaje'
-      lenguageData={lenguageService.lenguageData}
-      onAddLenguageEntry={lenguageService.addLenguageEntry}
-      onUpdateLenguageEntry={lenguageService.updateLenguageEntry}
-      onDeleteLenguageEntry={lenguageService.deleteLenguageEntry}
-      onSave={lenguageService.handleSave}
+      selectedValues={lenguageService.selectedValues}
+      contentOptionSelect={lenguageService.contentOptionSelect}
+      MAX_COUNT={lenguageService.MAX_COUNT}
+      handleSelectChange={lenguageService.handleSelectChange}
+      handleAddSelect={lenguageService.handleAddSelect}
+      handleSaveData={lenguageService.handleSaveData}
+      // onSave={lenguageService.handleSave}
     />,
     <Disponibility
       title='Disponibility'
-      disponibilityData={disponibilityService.disponibilityData}
-      onAddDisponibilityEntry={disponibilityService.addDisponibilityEntry}
-      onUpdateDisponibilityEntry={disponibilityService.updateDisponibilityEntry}
-      onDeleteDisponibilityEntry={disponibilityService.deleteDisponibilityEntry}
-      onSave={disponibilityService.handleSave}
+      selectedValues={disponibilityService.selectedValues}
+      contentOptionSelect={disponibilityService.contentOptionSelect}
+      MAX_COUNT={disponibilityService.MAX_COUNT}
+      handleSelectChange={disponibilityService.handleSelectChange}
+      handleAddSelect={disponibilityService.handleAddSelect}
+      handleSaveData={disponibilityService.handleSaveData}
+      // onSave={disponibilityService.handleSave}
     />,
     <ReviewStep />,
   ];
@@ -203,7 +169,7 @@ const Stepss = () => {
         {isMobile ? (
           <Box className={styles.stepscontainer}>
             <Stepper activeStep={activeStep} orientation="vertical">
-              {steps.map((label, index) => (
+              {steps?.map((label, index) => (
                 <Step key={label} completed={isStepSkipped(index)}>
                   <StepLabel>{label}</StepLabel>
                 </Step>

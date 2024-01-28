@@ -1,43 +1,39 @@
 import React, { useState } from 'react';
 
 const LenguageService = () => {
-  const [lenguageData, setLenguageData] = useState([{}]);
+  const [selectedValues, setSelectedValues] = useState<any[]>(['Spanish']);
+  const [contentOptionSelect, setContentOptionSelect] = useState<any[]>([
+    { value: 'Englis', label: 'English' },
+    { value: 'Aleman', label: 'Aleman' },
+  ]);
 
-  const handleSave = (data: any) => {
-    console.log('Saved data:', data);
+  const MAX_COUNT = 3;
 
-    // Perform additional actions with the saved data here (e.g., send to API)
-
-    setLenguageData(data);
+  const handleSelectChange = (newValues: any) => {
+    if (newValues.length > MAX_COUNT) {
+      return;
+    }
+    setSelectedValues(newValues);
   };
 
-  const addLenguageEntry = () => {
-    setLenguageData([...lenguageData, {}]);
+  const handleAddSelect = (newOption: any) => {
+    setContentOptionSelect([...contentOptionSelect, newOption]);
+    setSelectedValues([...selectedValues, newOption.value]);
   };
 
-  const updateLenguageEntry = (index: any, field: any, value: any) => {
-    setLenguageData((prevData) => {
-      const newData = [...prevData];
-      newData[index] = { ...newData[index], [field]: value };
-      return newData;
-    });
-  };
-
-  const deleteLenguageEntry = (index: number) => {
-    setLenguageData((prevData) => {
-      const newData = [...prevData];
-      newData.splice(index, 1);
-      return newData;
-    });
+  const handleSaveData = () => {
+    console.log('Saved data:', selectedValues);
   };
 
   return {
-    handleSave,
-    addLenguageEntry,
-    updateLenguageEntry,
-    deleteLenguageEntry,
-    lenguageData,
+    selectedValues,
+    contentOptionSelect,
+    MAX_COUNT,
+    handleSelectChange,
+    handleAddSelect,
+    handleSaveData,
   };
 };
+
 
 export default LenguageService;

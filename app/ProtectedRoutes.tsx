@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import { preloadAuthData } from '@/redux/features/auth/authSlice';
 import { RootState } from '@/redux/store';
 import { readLocalStorage } from '@/services/storage.services';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { usePathname, useRouter } from 'next/navigation';
 import dataPemissionRoutes from '@/app/dataPermissionRoutes.json';

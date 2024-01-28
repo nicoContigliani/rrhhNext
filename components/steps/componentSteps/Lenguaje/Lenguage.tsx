@@ -2,70 +2,63 @@ import React, { useState, useEffect } from 'react';
 import style from './LenguajeStep.module.css'; // Assuming CSS file is named SoftSkillsStep.module.css
 import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
+import { Select } from 'antd';
 
 const SoftSkillsStep = (props: any) => {
   const {
-    lenguageData,
-    onAddLenguageEntry,
-    onUpdateLenguageEntry,
     onSave,
-    onDeleteLenguageEntry,
+    selectedValues,
+    contentOptionSelect,
+    MAX_COUNT,
+    handleSelectChange,
+    handleAddSelect,
+    handleSaveData,
   } = props;
 
-  const handleChange = (index: any, field: any, value: any) => {
-    onUpdateLenguageEntry(index, field, value);
-  };
+  const [inputValue, setInputValue] = useState('');
 
-  const handleClick = () => {
-    onAddLenguageEntry();
-  };
-
-  const handleSaveData = () => {
-    onSave(lenguageData);
+  const handleInputChange = (event: any) => {
+    setInputValue(event.target.value);
   };
 
   return (
     <div className={style.body}>
       <h3>{props.title}</h3>
 
-      <div className={style.createInputs}>
+      <Select
+        mode="multiple"
+        value={selectedValues}
+        onChange={handleSelectChange}
+        style={{ width: '50%' }}
+        // suffixIcon={suffix}
+        placeholder="Please select"
+        options={contentOptionSelect}
+      />
+
+      <div>
+        <Input
+          type="text"
+          name="addSelect"
+          value={inputValue}
+          onChange={handleInputChange}
+          placeholder="Add"
+          className={style.input}
+        />
+
         <Button
+          type="button"
           variant="outlined"
           color="primary"
           size="small"
           fullWidth
-          onClick={handleClick}
+          onClick={() => handleAddSelect({ value: inputValue, label: inputValue })}
         >
-          Agregar soft skill
+          Add
         </Button>
       </div>
-
-      {lenguageData?.map((entry: any, index: any) => (
-        <div key={index}>
-          <Input
-            className="inputs"
-            placeholder="Lenguage"
-            name="lenguage"
-            type="text"
-            value={entry.lenguage || ''}
-            onChange={(e) => handleChange(index, 'lenguage', e.target.value)}
-          />
-          <div className={style.deletes}>
-            <Button
-              variant="outlined"
-              color="error"
-              size="small"
-              fullWidth
-              onClick={() => onDeleteLenguageEntry(index)}
-            >
-              Delete
-            </Button>
-          </div>
-        </div>
-      ))}
-
       <div className={style.deletes}>
         <Button
+          type="button"
           variant="outlined"
           color="primary"
           size="small"
@@ -75,7 +68,6 @@ const SoftSkillsStep = (props: any) => {
           Guardar Datos
         </Button>
       </div>
-
     </div>
   );
 };

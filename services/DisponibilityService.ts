@@ -1,42 +1,38 @@
 import React, { useState } from 'react';
 
 const disponibilityService = () => {
-  const [disponibilityData, setDisponibilityData] = useState([{}]);
+  const [selectedValues, setSelectedValues] = useState<any[]>(['8:00 - 13:00']);
+  const [contentOptionSelect, setContentOptionSelect] = useState<any[]>([
+    { value: '8:00 a 13:00', label: '8:00 a 13:00' },
+    { value: '8:00 a 17:00', label: '8:00 a 13:00' },
+    { value: '13:00 a 22:00', label: '13:00 a 22:00' },
+  ]);
 
-  const handleSave = (data: any) => {
-    console.log('Saved data:', data);
+  const MAX_COUNT = 3;
 
-    // Perform additional actions with the saved data here (e.g., send to API)
-
-    setDisponibilityData(data);
+  const handleSelectChange = (newValues: any) => {
+    if (newValues.length > MAX_COUNT) {
+      return;
+    }
+    setSelectedValues(newValues);
   };
 
-  const addDisponibilityEntry = () => {
-    setDisponibilityData([...disponibilityData, {}]);
+  const handleAddSelect = (newOption: any) => {
+    setContentOptionSelect([...contentOptionSelect, newOption]);
+    setSelectedValues([...selectedValues, newOption.value]);
   };
 
-  const updateDisponibilityEntry = (index: any, field: any, value: any) => {
-    setDisponibilityData((prevData) => {
-      const newData = [...prevData];
-      newData[index] = { ...newData[index], [field]: value };
-      return newData;
-    });
-  };
-
-  const deleteDisponibilityEntry = (index: number) => {
-    setDisponibilityData((prevData) => {
-      const newData = [...prevData];
-      newData.splice(index, 1);
-      return newData;
-    });
+  const handleSaveData = () => {
+    console.log('Saved data:', selectedValues);
   };
 
   return {
-    handleSave,
-    addDisponibilityEntry,
-    updateDisponibilityEntry,
-    deleteDisponibilityEntry,
-    disponibilityData,
+    selectedValues,
+    contentOptionSelect,
+    MAX_COUNT,
+    handleSelectChange,
+    handleAddSelect,
+    handleSaveData,
   };
 };
 

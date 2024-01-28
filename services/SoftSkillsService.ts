@@ -37,7 +37,6 @@ const SoftSkillsService = () => {
   };
 
   const handleSaveData = () => {
-    // Perform any necessary saving logic here (e.g., local storage, send to API)
     console.log('Saved data:', selectedValues);
   };
 

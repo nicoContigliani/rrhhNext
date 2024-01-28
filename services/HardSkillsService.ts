@@ -1,42 +1,37 @@
 import React, { useState } from 'react';
 
 const HardSkillsService = () => {
-  const [hardSkillsData, setHardSkillsData] = useState([{}]);
+  const [selectedValues, setSelectedValues] = useState<any[]>(['React.js']);
+  const [contentOptionSelect, setContentOptionSelect] = useState<any[]>([
+    { value: 'React.js', label: 'React.js' },
+    { value: 'Node', label: 'Node' },
+    { value: 'Python', label: 'Python' },]);
 
-  const handleSave = (data: any) => {
-    console.log('Saved data:', data);
+  const MAX_COUNT = 3;
 
-    // Perform additional actions with the saved data here (e.g., send to API)
-
-    setHardSkillsData(data);
+  const handleSelectChange = (newValues: any) => {
+    if (newValues.length > MAX_COUNT) {
+      return;
+    }
+    setSelectedValues(newValues);
   };
 
-  const addHardSkillEntry = () => {
-    setHardSkillsData([...hardSkillsData, {}]);
+  const handleAddSelect = (newOption: any) => {
+    setContentOptionSelect([...contentOptionSelect, newOption]);
+    setSelectedValues([...selectedValues, newOption.value]);
   };
 
-  const updateHardSkillEntry = (index: any, field: any, value: any) => {
-    setHardSkillsData((prevData) => {
-      const newData = [...prevData];
-      newData[index] = { ...newData[index], [field]: value };
-      return newData;
-    });
-  };
-
-  const deleteHardSkillEntry = (index: number) => {
-    setHardSkillsData((prevData) => {
-      const newData = [...prevData];
-      newData.splice(index, 1);
-      return newData;
-    });
+  const handleSaveData = () => {
+    console.log('Saved data:', selectedValues);
   };
 
   return {
-    handleSave,
-    addHardSkillEntry,
-    updateHardSkillEntry,
-    deleteHardSkillEntry,
-    hardSkillsData,
+    selectedValues,
+    contentOptionSelect,
+    MAX_COUNT,
+    handleSelectChange,
+    handleAddSelect,
+    handleSaveData,
   };
 };
 
