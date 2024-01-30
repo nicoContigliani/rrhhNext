@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useState } from 'react';
 
 import { authAsync, selectAuth } from '@/redux/features/auth/authSlice'
@@ -19,6 +20,7 @@ import Iconf from '@/components/images/flama.png'
 import Menus from '@/components/images/menu.png'
 
 
+import { useSearchParams } from 'next/navigation'
 
 
 const Logo = dynamic(() => import('@/components/Logo/Logo'), { ssr: false })
@@ -29,15 +31,101 @@ import menu from '../images/menu.png'
 import Icons from '../Icons/Icons';
 import Main from '../Main/Main';
 
+import { Home, Iconflama, certificado, cv, documentoLegal, rrhh, lupahuman, lupahumans, module, reporte, clienteS, panel } from '../../services/iconsImportList.services'
+
+
+
+
+
+
 
 import dotenv from "dotenv";
+import routerLocationServices from '@/services/RoutesLocation.services';
 dotenv.config();
 
+const todo = [
+    {
+        module: "RRHH",
+        label: "home",
+        urls: Home,
+        actions: "",
+        routesLink: "/"
+    },
+
+    {
+        module: "RRHH",
+        label: "module",
+        urls: module,
+        actions: "",
+        routesLink: "/humansrresources"
+    },
+
+    {
+        module: "RRHH",
+        label: "home",
+        urls: rrhh,
+        actions: "",
+        routesLink: "/talents"
+    },
+    {
+        module: "RRHH",
+        label: "home",
+        urls: cv,
+        actions: "",
+        routesLink: "/curriculum"
+    },
+    {
+        module: "RRHH",
+        label: "home",
+        urls: certificado,
+        actions: "",
+        routesLink: "/humansrresources"
+    },
+    {
+        module: "RRHH",
+        label: "home",
+        urls: documentoLegal,
+        actions: "",
+        routesLink: "/humansrresources"
+    },
+    {
+        module: "RRHH",
+        label: "home",
+        urls: reporte,
+        actions: "",
+        routesLink: "/humansrresources"
+    },
+    {
+        module: "RRHH",
+        label: "home",
+        urls: panel,
+        actions: "",
+        routesLink: "/humansrresources"
+    }
+
+]
 
 
 
 
 const Navbars = () => {
+     //TODO sericio para saber donde estoy y con un servicio listo para verificar cosas 
+    // const searchParams = location.href
+    // const {data } = routerLocationServices(searchParams)
+    // console.log("🚀 ~ Navbars ~ todo:", todo)
+
+    // console.log("🚀 ~ Navbars ~ searchParams:", searchParams)
+    // if (searchParams.includes('talents')) {
+    //     console.log("si exxiste")
+    // } else {
+    //     console.log("no existe")
+    // }
+
+
+
+
+
+
 
     const dispatch = useAppDispatch();
 
@@ -126,12 +214,17 @@ const Navbars = () => {
                 open={open}
 
             >
-          
 
-                <Siderbox />
+
+                <Siderbox todo={todo} />
 
 
             </Drawer>
+
+            
+
+
+
         </div>
     )
 }

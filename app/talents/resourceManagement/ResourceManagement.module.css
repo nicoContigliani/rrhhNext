@@ -1,0 +1,127 @@
+.body {
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 1%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.h1 {
+    font-weight: 700;
+}
+
+.logo,
+.logo2 {
+    width: 50%;
+    height: 50%;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    display: none;
+}
+
+.crud {
+    display: flex;
+    justify-content: baseline;
+    align-items: center;
+}
+
+.stadistics {
+    padding: 1%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media only screen and (max-width: 992px) {
+    .body {
+        /* background-color: red; */
+        padding-top: 5%;
+    }
+
+    .logo {
+        display: flex;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .body {
+        padding-top: 1%;
+        flex-direction: column;
+    }
+
+    .title {
+        display: flex;
+        justify-content: center;
+    }
+
+    .inputsGroup {
+        padding-top: 1%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .siderbar {
+        padding: 1%;
+        margin-right: 2%;
+        display: flex;
+        box-shadow: 1px 1px 2px #b1b1b1, -1px -3px 3px #fff;
+        border-radius: 2%;
+    }
+
+
+    /* Estilos generales para el textarea */
+    .textArea {
+        width: 100%;
+        padding: 6px;
+        margin: 5px 0;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        resize: vertical;
+        /* Permite redimensionar verticalmente */
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    /* Estilos cuando el textarea está enfocado */
+    .textArea:focus {
+        border: 2px solid #007bff;
+        /* Puedes cambiar el color al que desees */
+        outline: none;
+        /* Elimina el contorno predeterminado del navegador */
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        /* Sombra al enfocar */
+    }
+
+    .buttonsGroup {
+        padding: 1%;
+        width: auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .buttonsGroupReturn {
+        width: auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        background-color: red;
+    }
+
+    .button{
+        /* padding: 1%; */
+
+    }
+
+}

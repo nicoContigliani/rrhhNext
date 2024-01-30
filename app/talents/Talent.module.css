@@ -1,0 +1,91 @@
+/* .body{
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+} */
+
+@media only screen and (max-width: 992px) {
+    .body {
+        /* background-color: red; */
+        padding: 1%;
+        padding-top: 5%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+    }
+
+    .h1 {
+        font-weight: 700;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    /* display: none; */
+    .logo2 {
+        width: 50%;
+        height: 50%;
+        flex-shrink: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+        align-content: center;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .logo {
+        width: auto;
+        height: auto;
+        flex-shrink: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+        align-content: center;
+        font-family: Arial, Helvetica, sans-serif;
+        display: none;
+    }
+
+    .crud {
+
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: baseline;
+        align-items: center;
+        align-content: center;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .stadistics{
+        padding: 1%;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .body {
+        padding: 1%;
+        padding-top: 1%;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        align-content: baseline;
+        font-family: Arial, Helvetica, sans-serif;
+        
+    }
+    .siderbar{
+        padding: 1%;
+        margin-right: 2%;
+        display: flex;
+        flex-wrap: nowrap;
+        box-shadow: 1px 1px 2px #b1b1b1, -1px -3px 3px #fff;
+        border-radius: 2%;
+    }
+
+ 
+}

@@ -10,10 +10,11 @@ import reporte from '@/components/images/icons/reporte-de-negocios.png'
 import clienteS from '@/components/images/icons/servicio-al-cliente.png'
 import Home from '@/components/images/icons/home.png'
 import panel from '@/components/images/icons/panel.png'
+import crud from '@/components/images/icons/crud.png'
+import serchperson from '@/components/images/icons/serchperson.png'
 
 
 
-
-export { Home, Iconflama, certificado, cv, documentoLegal, rrhh, lupahuman, lupahumans, module, reporte, clienteS, panel };
+export { Home, Iconflama, certificado, cv, documentoLegal, rrhh, lupahuman, lupahumans, module, reporte, clienteS, panel,crud,serchperson };
 
 
