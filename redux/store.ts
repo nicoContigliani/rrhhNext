@@ -5,7 +5,10 @@ import cvReducer from '@/redux/features/CV/cvSlice'
 import personalInformationReducer from '@/redux/features/stepss/personalnformation/personalnformationSlice'
 import educationReducer from '@/redux/features/stepss/education/educationSlice'
 import experienceReducer from '@/redux/features/stepss/experience/experienceSlice'
-
+import softSkillsReducer from '@/redux/features/stepss/softSkill/softSkillsSlice'
+import hardSkillsReducer from '@/redux/features/stepss/hardSkill/hardSkillsSlice'
+import lenguageReducer from '@/redux/features/stepss/Lenguage/lenguageSlice'
+import disponibilityReducer from '@/redux/features/stepss/disponibility/disponibilitySlice'
 
 
 export const store = configureStore({
@@ -15,7 +18,12 @@ export const store = configureStore({
     cv: cvReducer,
     personalInformation: personalInformationReducer,
     education: educationReducer,
-    experience: experienceReducer
+    experience: experienceReducer,
+    softSkills: softSkillsReducer,
+    hardSkills: hardSkillsReducer,
+    lenguage: lenguageReducer,
+    disponibility: disponibilityReducer
+
   },
 });
 

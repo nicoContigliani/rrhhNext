@@ -21,50 +21,40 @@ const initialState = {
     { value: 'Organization', label: 'Organization' },
     { value: 'Initiative', label: 'Initiative' }
   ],
+  MAX_COUNT: 3,
+
 };
-
-export const fetchSoftSkills = createAsyncThunk(
-  'softSkills/fetchSoftSkills',
-  async () => {
-    return initialState;
-  }
-);
-
-export const saveSoftSkills = createAsyncThunk(
-  'softSkills/saveSoftSkills',
-  async (selectedValues) => {
-    // Perform saving logic (e.g., send to API, store in local storage)
-    console.log('Saved data:', selectedValues);
-  }
-);
 
 const softSkillsSlice = createSlice({
   name: 'softSkills',
   initialState,
   reducers: {
-    setSelectedValues: (state, action) => {
-      state.selectedValues = action.payload;
+    setSoftSkillsData: (state, action) => {
+      return {
+        ...state,
+        ...action.payload,
+      };
     },
-    setContentOptionSelect: (state, action) => {
-      state.contentOptionSelect = action.payload;
+    addSoftSkillsEntry: (state) => {
+      // Implement logic for adding a new entry if needed
+      return state;
     },
-    addSoftSkillOption: (state, action) => {
-      state.contentOptionSelect.push(action?.payload);
-      state.selectedValues.push(action.payload.value);
+    updateSoftSkillsEntry: (state, action) => {
+      // Implement logic for updating an entry if needed
+      return state;
     },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchSoftSkills.fulfilled, (state, action) => {
-        state.selectedValues = action.payload.selectedValues;
-        state.contentOptionSelect = action.payload.contentOptionSelect;
-      })
-      .addCase(saveSoftSkills.fulfilled, (state) => {
-      });
+    deleteSoftSkillsEntry: (state, action) => {
+      // Implement logic for deleting an entry if needed
+      return state;
+    },
   },
 });
 
-export const { setSelectedValues, setContentOptionSelect, addSoftSkillOption } =
-  softSkillsSlice.actions;
+export const {
+  setSoftSkillsData,
+  addSoftSkillsEntry,
+  updateSoftSkillsEntry,
+  deleteSoftSkillsEntry,
+} = softSkillsSlice.actions;
 
 export default softSkillsSlice.reducer;

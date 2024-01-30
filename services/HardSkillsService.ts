@@ -1,34 +1,34 @@
-import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  setHardSkillsData,
+  addHardSkillsEntry,
+  updateHardSkillsEntry,
+  deleteHardSkillsEntry,
+} from '@/redux/features/stepss/hardSkill/hardSkillsSlice';
 
 const HardSkillsService = () => {
-  const [selectedValues, setSelectedValues] = useState<any[]>(['React.js']);
-  const [contentOptionSelect, setContentOptionSelect] = useState<any[]>([
-    { value: 'React.js', label: 'React.js' },
-    { value: 'Node', label: 'Node' },
-    { value: 'Python', label: 'Python' },]);
-
-  const MAX_COUNT = 3;
+  const hardSkillsData = useSelector((state: any) => state.hardSkills);
+  const dispatch = useDispatch();
 
   const handleSelectChange = (newValues: any) => {
-    if (newValues.length > MAX_COUNT) {
-      return;
-    }
-    setSelectedValues(newValues);
+    // Implement logic for updating selected values in Redux state
+    dispatch(setHardSkillsData({ selectedValues: newValues }));
   };
 
   const handleAddSelect = (newOption: any) => {
-    setContentOptionSelect([...contentOptionSelect, newOption]);
-    setSelectedValues([...selectedValues, newOption.value]);
+    // Implement logic for adding a new option in Redux state
+    dispatch(addHardSkillsEntry(newOption));
   };
 
   const handleSaveData = () => {
-    console.log('Saved data:', selectedValues);
+    // Implement logic for saving data (if needed)
+    console.log('Saved data:', hardSkillsData.selectedValues);
   };
 
   return {
-    selectedValues,
-    contentOptionSelect,
-    MAX_COUNT,
+    selectedValues: hardSkillsData.selectedValues,
+    contentOptionSelect: hardSkillsData.contentOptionSelect,
+    MAX_COUNT: hardSkillsData.MAX_COUNT,
     handleSelectChange,
     handleAddSelect,
     handleSaveData,

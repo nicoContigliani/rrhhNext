@@ -1,49 +1,34 @@
-import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  setSoftSkillsData,
+  addSoftSkillsEntry,
+  updateSoftSkillsEntry,
+  deleteSoftSkillsEntry,
+} from '@/redux/features/stepss/softSkill/softSkillsSlice';
 
 const SoftSkillsService = () => {
-  const [selectedValues, setSelectedValues] = useState<any[]>(['god man']);
-  const [contentOptionSelect, setContentOptionSelect] = useState<any[]>([
-     { value: 'God Man', label: 'God Man' },
-    { value: 'Leadership', label: 'Leadership' },
-    { value: 'Conflict resolution', label: 'Conflict resolution' },
-    { value: 'Interpersonal relationships', label: 'Interpersonal relationships' },
-    { value: 'Collaboration', label: 'Collaboration' },
-    { value: 'Problem-solving and critical thinking', label: 'Problem-solving and critical thinking' },
-    { value: 'Critical thinking', label: 'Critical thinking' },
-    { value: 'Creativity', label: 'Creativity' },
-    { value: 'Problem-solving', label: 'Problem-solving' },
-    { value: 'Adaptability', label: 'Adaptability' },
-    { value: 'Resilience', label: 'Resilience' },
-    { value: 'Self-management', label: 'Self-management' },
-    { value: 'Time management', label: 'Time management' },
-    { value: 'Motivation', label: 'Motivation' },
-    { value: 'Stress management', label: 'Stress management' },
-    { value: 'Organization', label: 'Organization' },
-    { value: 'Initiative', label: 'Initiative' }
-  ]);
-
-  const MAX_COUNT = 3;
+  const softSkillsData = useSelector((state: any) => state.softSkills);
+  const dispatch = useDispatch();
 
   const handleSelectChange = (newValues: any) => {
-    if (newValues.length > MAX_COUNT) {
-      return;
-    }
-    setSelectedValues(newValues);
+    // Implement logic for updating selected values in Redux state
+    dispatch(setSoftSkillsData({ selectedValues: newValues }));
   };
 
   const handleAddSelect = (newOption: any) => {
-    setContentOptionSelect([...contentOptionSelect, newOption]);
-    setSelectedValues([...selectedValues, newOption.value]);
+    // Implement logic for adding a new option in Redux state
+    dispatch(addSoftSkillsEntry(newOption));
   };
 
   const handleSaveData = () => {
-    console.log('Saved data:', selectedValues);
+    // Implement logic for saving data (if needed)
+    console.log('Saved data:', softSkillsData.selectedValues);
   };
 
   return {
-    selectedValues,
-    contentOptionSelect,
-    MAX_COUNT,
+    selectedValues: softSkillsData.selectedValues,
+    contentOptionSelect: softSkillsData.contentOptionSelect,
+    MAX_COUNT: softSkillsData.MAX_COUNT,
     handleSelectChange,
     handleAddSelect,
     handleSaveData,

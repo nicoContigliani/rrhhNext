@@ -1,39 +1,38 @@
-import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  setDisponibilityData,
+  addDisponibilityEntry,
+  updateDisponibilityEntry,
+  deleteDisponibilityEntry,
+} from '@/redux/features/stepss/disponibility/disponibilitySlice';
 
-const disponibilityService = () => {
-  const [selectedValues, setSelectedValues] = useState<any[]>(['8:00 - 13:00']);
-  const [contentOptionSelect, setContentOptionSelect] = useState<any[]>([
-    { value: '8:00 a 13:00', label: '8:00 a 13:00' },
-    { value: '8:00 a 17:00', label: '8:00 a 13:00' },
-    { value: '13:00 a 22:00', label: '13:00 a 22:00' },
-  ]);
-
-  const MAX_COUNT = 3;
+const DisponibilityService = () => {
+  const disponibility = useSelector((state: any) => state.disponibility);
+  const dispatch = useDispatch();
 
   const handleSelectChange = (newValues: any) => {
-    if (newValues.length > MAX_COUNT) {
-      return;
-    }
-    setSelectedValues(newValues);
+    // Implement logic for updating selected values in Redux state
+    dispatch(setDisponibilityData({ selectedValues: newValues }));
   };
 
   const handleAddSelect = (newOption: any) => {
-    setContentOptionSelect([...contentOptionSelect, newOption]);
-    setSelectedValues([...selectedValues, newOption.value]);
+    // Implement logic for adding a new option in Redux state
+    dispatch(addDisponibilityEntry(newOption));
   };
 
   const handleSaveData = () => {
-    console.log('Saved data:', selectedValues);
+    // Implement logic for saving data (if needed)
+    console.log('Saved data:', disponibility.selectedValues);
   };
 
   return {
-    selectedValues,
-    contentOptionSelect,
-    MAX_COUNT,
+    selectedValues: disponibility.selectedValues,
+    contentOptionSelect: disponibility.contentOptionSelect,
+    MAX_COUNT: disponibility.MAX_COUNT,
     handleSelectChange,
     handleAddSelect,
     handleSaveData,
   };
 };
 
-export default disponibilityService;
+export default DisponibilityService;

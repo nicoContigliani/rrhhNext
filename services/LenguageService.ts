@@ -1,39 +1,38 @@
-import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  setLenguageData,
+  addLenguageEntry,
+  updateLenguageEntry,
+  deleteLenguageEntry,
+} from '@/redux/features/stepss/Lenguage/lenguageSlice';
 
-const LenguageService = () => {
-  const [selectedValues, setSelectedValues] = useState<any[]>(['Spanish']);
-  const [contentOptionSelect, setContentOptionSelect] = useState<any[]>([
-    { value: 'Englis', label: 'English' },
-    { value: 'Aleman', label: 'Aleman' },
-  ]);
-
-  const MAX_COUNT = 3;
+const HardSkillsService = () => {
+  const lenguageData = useSelector((state: any) => state.lenguage);
+  const dispatch = useDispatch();
 
   const handleSelectChange = (newValues: any) => {
-    if (newValues.length > MAX_COUNT) {
-      return;
-    }
-    setSelectedValues(newValues);
+    // Implement logic for updating selected values in Redux state
+    dispatch(setLenguageData({ selectedValues: newValues }));
   };
 
   const handleAddSelect = (newOption: any) => {
-    setContentOptionSelect([...contentOptionSelect, newOption]);
-    setSelectedValues([...selectedValues, newOption.value]);
+    // Implement logic for adding a new option in Redux state
+    dispatch(addLenguageEntry(newOption));
   };
 
   const handleSaveData = () => {
-    console.log('Saved data:', selectedValues);
+    // Implement logic for saving data (if needed)
+    console.log('Saved data:', lenguageData.selectedValues);
   };
 
   return {
-    selectedValues,
-    contentOptionSelect,
-    MAX_COUNT,
+    selectedValues: lenguageData.selectedValues,
+    contentOptionSelect: lenguageData.contentOptionSelect,
+    MAX_COUNT: lenguageData.MAX_COUNT,
     handleSelectChange,
     handleAddSelect,
     handleSaveData,
   };
 };
 
-
-export default LenguageService;
+export default HardSkillsService;
