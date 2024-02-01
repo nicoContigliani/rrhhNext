@@ -7,7 +7,7 @@ dotenv.config();
 
 
 
-import routesName from '../../../routes.api.json'
+// import routesName from '../../../routes.api.json'
 
 
 dotenv.config();
@@ -38,6 +38,7 @@ export const preloadCVData = createAsyncThunk(
             }
 
             const response = await useAxios(todo);
+            console.log("🚀 ~ response:", response)
             return response;
 
         } catch (error) {
@@ -49,10 +50,11 @@ export const preloadCVData = createAsyncThunk(
 
 export const cvIdAsync = createAsyncThunk(
     "CVId/Slice",
-    async () => {
+    async (id: any) => {
+        console.log("🚀 ~ id:", id)
         try {
             const todo: any = {
-                url: "http://localhost:3001/CV/CV/2",
+                url: `http://localhost:3001/CV/CV/${id}`,
                 method: 'GET',
                 body: "",
                 idParams: null,
@@ -74,6 +76,8 @@ export const cvSlice = createSlice({
     reducers: {
         cvs: (state, action: PayloadAction<any>) => {
             state.cvDatas = action.payload.data || {};
+            state.cvOneData = action.payload.data || {};
+
         },
     },
     extraReducers: (builder) => {
@@ -83,11 +87,13 @@ export const cvSlice = createSlice({
                     state.cvDatas = action.payload.data || {};
                 }
             })
+            .addCase(cvIdAsync.fulfilled, (state, action) => {
+                if (action.payload) {
+                    state.cvOneData = action.payload.data || {};
+                }
+            })
             .addCase(cvIdAsync.pending, (state) => {
                 state.cvOneData = {};
-            })
-            .addCase(cvIdAsync.fulfilled, (state, action) => {
-                state.cvOneData = action.payload.data || [];
             })
             .addCase(cvIdAsync.rejected, (state) => {
                 state.cvOneData = [];

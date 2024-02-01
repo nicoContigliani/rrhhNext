@@ -14,6 +14,7 @@ import useTableSearch from '@/hooks/useTableSearch';
 
 
 const Tabletodo = (props: any) => {
+    console.log("🚀 ~ Tabletodo ~ props:", props)
 
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
     const [loading, setLoading] = useState(false);
@@ -36,23 +37,29 @@ const Tabletodo = (props: any) => {
 
 
     useEffect(() => {
-        const {
-            todos
-        } = props
-        let {
-            Header,
-            Columns
-        } = todos
-       
+        const getDataAync = async () => {
+            if (props.todos !== undefined) {
+                const {
+                    todos
+                } = props
+                let {
+                    Header,
+                    Columns
+                } = todos
+
+                setTodo(todos)
+                setHeaders(Header)
+                setPosts(Columns)
+
+            }
 
 
-
-        setTodo(todos)
-        setHeaders(Header)
-        setPosts(Columns)
-
-    }, [props])
-
+            
+        }
+        getDataAync()
+        
+    }, [props, props.todos === undefined])
+    
     const getColumnSearchProps = useTableSearch(todo)
 
 

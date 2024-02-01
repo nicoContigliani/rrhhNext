@@ -21,7 +21,7 @@ const initialState = {
     { value: 'Organization', label: 'Organization' },
     { value: 'Initiative', label: 'Initiative' }
   ],
-  MAX_COUNT: 3,
+  MAX_COUNT: 5,
 
 };
 

@@ -1,13 +1,14 @@
 import { selectAuth } from '@/redux/features/auth/authSlice';
 import { useAppSelector } from '@/redux/hooks';
 import { readLocalStorage } from '@/services/storage.services';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react'
 
 const useAuth = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isLogins, setIsLogins] = useState(false);
     const [isAdmin, setIsadmin] = useState(false);
     const [infoUser, setInfoUser] = useState()
+    const [dataPermission, setDataPermission] = useState<any>()
 
     const dataSearch = [
         "islogin",
@@ -54,7 +55,7 @@ const useAuth = () => {
     const auth = useAppSelector(selectAuth);
 
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const checkLocalStorage = async () => {
             const datas = await readLocalStorage(dataSearch);
 
@@ -107,6 +108,8 @@ const useAuth = () => {
 
             if (datas && datas.islogin) {
                 setIsLogins(true);
+                setDataPermission(datas)
+
             } else {
                 setIsLogins(false);
             }
@@ -115,7 +118,7 @@ const useAuth = () => {
         checkLocalStorage();
     }, [auth]);
 
-    return { isOpen, isLogins, infoUser, isAdmin, setIsOpen, setIsLogins };
+    return { isOpen, isLogins, infoUser, isAdmin, setIsOpen, setIsLogins, dataPermission };
 }
 
 export default useAuth

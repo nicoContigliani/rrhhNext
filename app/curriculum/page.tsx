@@ -1,7 +1,7 @@
 "use client"
 /* eslint-disable react-hooks/rules-of-hooks */
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import useAuth from '@/hooks/useAuth';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import styles from './Curriculum.module.css'
@@ -13,19 +13,10 @@ import useColumns from '@/hooks/useColumns';
 import useScreenSize from '@/hooks/useScreenSize';
 import dynamic from 'next/dynamic';
 import Tabletodo from '@/components/tableTodo/Tabletodo';
-import type { ColumnsType, TablePaginationConfig } from 'antd/es/table';
-import type { FilterValue, SorterResult } from 'antd/es/table/interface';
 import { Badge, Button, Dropdown, Space, Flex } from 'antd';
-import Spinner from '@/components/spinner/Spinner';
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
-import { Avatar, Card } from 'antd';
-import Meta from 'antd/es/card/Meta';
-import { HdrPlusOutlined, PlusOneOutlined, SettingsOutlined } from '@mui/icons-material';
-
-import Image from 'next/image'
-import Iconf from '@/components/images/icons/cv.png'
-import Stadistic from '@/components/StadisticCard/Stadistic';
 import Stepss from '@/components/steps/Stepss';
+import Inputs from '@/components/inputs/Inputs';
+import InputsSertch from '@/components/Inputserch/InputsSertch';
 
 
 
@@ -36,8 +27,10 @@ const page = () => {
 
 
     const [data, setData] = useState([])
-    const { isOpen, isLogins, infoUser, isAdmin, setIsOpen, setIsLogins } = useAuth();
-    const { datas, setDatas, dataDeleteColumns, setDataDeleteColumns, dataDimention, setDataDimention, headerColumnsAll, setHeaderColumnsAll, headerColumns, setHeaderColumns, todo, setTodo } = useColumns()
+    console.log("🚀 ~ page ~ data:", data)
+    const [dataRows, setDataRows] = useState([])
+
+    const { isOpen, isLogins, infoUser, isAdmin, setIsOpen, setIsLogins, dataPermission } = useAuth();
     const { width, height } = useScreenSize()
 
 
@@ -48,14 +41,28 @@ const page = () => {
     const [cvDataAll, setCvDataAll] = useState([])
     const [cvDataOne, setCVDataOne] = useState([])
 
-    const [conlumnsS, setColumnsS] = useState<any[] | any | undefined>()
     const [showThings, setShowThings] = useState<any[] | any | undefined>(true)
+    const [dataAll, setDataAll] = useState<any>()
 
-
+    const [dataFilter, setDataFilter] = useState<any[] | undefined>()
+    const [dataTable, setDataTable] = useState<any[]>()
 
     //preload
     useEffect(() => {
         dispatch(preloadCVData())
+        const dataR = async () => {
+            if (!dataPermission?.admins && dataPermission?.id !== undefined) {
+                const todo: any = [await cvDatas?.find((item: any) => item?.id === dataPermission?.id)];
+                setCVDataOne(todo)
+            }
+        }
+        dataR()
+    }, [window, dispatch])
+
+
+    useEffect(() => {
+        dispatch(preloadCVData())
+
     }, [window])
 
     //change data in usestate
@@ -64,97 +71,64 @@ const page = () => {
         setCvDataAll(cvDatas)
         setCVDataOne(cvOneData)
     }, [cv])
-
+ 
+    const SmallHeadArray: any[] | undefined | any = ["id", "title", "description_cv"]
     //useEffect for columns and header
     useEffect(() => {
-        const cvData: any = cvDataOne.length != 0 ? cvDataOne : (cvDataAll.length != 0 ? cvDataAll : "")
 
-        const BigHeadArray: any[] | undefined | any = ["id", "title", "description_cv", "status_cv", "createdAt", "updatedAt"]
-        const SmallHeadArray: any[] | undefined | any = ["id", "title", "description_cv"]
-        const HeaderDelete: any[] | undefined | any = ["createdAt", "updatedAt"]
-        const win: any | undefined = window
-
-
-
-
-        interface DataType {
-            id: {
-                first: string | number;
-                last: string | number;
-            };
-            title: {
-                first: string | number;
-                last: string | number;
+        if (dataPermission?.admins || isAdmin) {
+            const cvData: any = cvDataOne.length != 0 ? cvDataOne : (cvDataAll.length != 0 ? cvDataAll : "")
+            const getDataForSend = async () => {
+                const todos: any | object = await {
+                    Header: SmallHeadArray,
+                    Columns: cvData
+                }
+                await setDataAll(todos)
+                dataFilter?.length != 0 && dataFilter != undefined
             }
-            status_cv: {
-                first: string | number | boolean;
-                last: string | number | boolean;
-            }
-            action: any
-
-
+            getDataForSend()
         }
 
-        const todo = async () => {
-            setDatas(cvData)
-            setDataDeleteColumns(HeaderDelete)
-            setDataDimention(win)
 
-            setColumnsS(SmallHeadArray)
-
-            setHeaderColumns(SmallHeadArray)
+        if (!dataPermission?.admins && dataPermission?.id !== undefined) {
+            const getDataForSend = async () => {
+                const todo: any = [await cvDatas?.find((item: any) => item?.id === dataPermission?.id)];
+                const todos: any | object = await {
+                    Header: SmallHeadArray,
+                    Columns: todo
+                }
+                await setDataAll(todos)
+            }
+            getDataForSend()
         }
-        todo()
 
     }, [cvOneData, cvDataAll])
 
-    const [dataAll, setDataAll] = useState()
-
-    const todos: any | object = {
-        Header: conlumnsS,
-        Columns: datas
-    }
     useEffect(() => {
-        setDataAll(todos)
-    }, [])
+        const getDataForSend = async () => {
+            setDataTable(dataAll)
 
+            if (dataFilter?.length != 0 && dataFilter != undefined) {
+                const todos: any | object = await {
+                    Header: SmallHeadArray,
+                    Columns: dataFilter
+                }
+                setDataTable(todos)
+            }
+            if (dataFilter?.length == 0 || dataFilter == undefined) {
+                await setDataTable(dataAll)
+            }
+        }
+        console.log("🚀 ~ getDataForSend ~ dataFilter?.length:", dataFilter?.length)
+        getDataForSend()
+
+    }, [dataAll, dataFilter])
 
     return (
         <div>
             <div className={styles.body}>
                 <h1 className={styles.h1}>Curriculum Vitae</h1>
             </div>
-
-            {/* 
-            <button
-                className="button button-primary"
-                onClick={() => dispatch(cvIdAsync())}
-            >prueba de Redux</button> */}
-            <div className={styles.todo}>
-                {/* <div className={styles.card}>
-
-                    <Image
-                        src={Iconf} alt={''}
-                        width={160}
-                        height={150}
-                    />
-                </div> */}
-                {/* <div className={styles.stadistic}>
-                    <Stadistic
-                        hoverable
-                        title="Active"
-                        value="50"
-                        valueStyle={{ color: '#3f8600' }}
-                    />
-                    <Stadistic
-                        hoverable
-                        title="In Process"
-                        value="50"
-                        valueStyle={{ color: '#3f8600' }}
-                    />
-                </div> */}
-            </div>
-
 
             {
                 isAdmin ?
@@ -169,9 +143,28 @@ const page = () => {
                         </div>
                     </div>
                     : ""
-            }     
+            }
             {
-                showThings ? <Tabletodo todos={todos} /> :
+                showThings ?
+                    <div>
+                        {
+                            isAdmin ? <InputsSertch
+                                className={styles.textArea}
+                                data={data}
+                                setData={setData}
+                                dataAll={dataAll}
+                                dataFilter={dataFilter}
+                                setDataFilter={setDataFilter}
+                                placeholder="Serch"
+                                name="serch"
+                                type={''}
+                            /> : ""
+                        }
+                        <Tabletodo
+                            todos={dataTable}
+                        />
+                    </div>
+                    :
                     <Stepss />
             }
 

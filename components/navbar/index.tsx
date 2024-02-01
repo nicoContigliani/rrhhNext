@@ -31,7 +31,7 @@ import menu from '../images/menu.png'
 import Icons from '../Icons/Icons';
 import Main from '../Main/Main';
 
-import { Home, Iconflama, certificado, cv, documentoLegal, rrhh, lupahuman, lupahumans, module, reporte, clienteS, panel } from '../../services/iconsImportList.services'
+import { Home, Iconflama, certificado, cv, documentoLegal, rrhh, lupahuman, lupahumans, module, reporte, clienteS, panel, configuration } from '../../services/iconsImportList.services'
 
 
 
@@ -101,7 +101,18 @@ const todo = [
         urls: panel,
         actions: "",
         routesLink: "/humansrresources"
+    },
+    {
+        module: "RRHH",
+        label: "configuration",
+        urls: configuration,
+        actions: "",
+        routesLink: "/configurationgeneral"
     }
+
+
+
+
 
 ]
 
@@ -109,7 +120,8 @@ const todo = [
 
 
 const Navbars = () => {
-     //TODO sericio para saber donde estoy y con un servicio listo para verificar cosas 
+    //TODO sericio para saber donde estoy y con un servicio listo para verificar cosas 
+    //TODO Auth es un servicio de autenticaicón que posee todos los permisos hay que traerlo y usarlo 
     // const searchParams = location.href
     // const {data } = routerLocationServices(searchParams)
     // console.log("🚀 ~ Navbars ~ todo:", todo)
@@ -221,7 +233,7 @@ const Navbars = () => {
 
             </Drawer>
 
-            
+
 
 
 

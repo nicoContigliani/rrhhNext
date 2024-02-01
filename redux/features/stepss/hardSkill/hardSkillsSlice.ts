@@ -7,7 +7,7 @@ const initialState = {
     { value: 'Node', label: 'Node' },
     { value: 'Python', label: 'Python' },
   ],
-  MAX_COUNT: 3,
+  MAX_COUNT: 5,
 
 };
 

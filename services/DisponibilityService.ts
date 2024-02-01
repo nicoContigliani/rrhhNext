@@ -22,7 +22,7 @@ const DisponibilityService = () => {
 
   const handleSaveData = () => {
     // Implement logic for saving data (if needed)
-    console.log('Saved data:', disponibility.selectedValues);
+    console.log('Saved data:***************', disponibility.selectedValues);
   };
 
   return {

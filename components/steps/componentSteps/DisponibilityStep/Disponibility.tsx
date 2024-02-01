@@ -16,6 +16,7 @@ const SoftSkillsStep = (props: any) => {
   } = props;
 
   const [inputValue, setInputValue] = useState('');
+  console.log("🚀 ~ SoftSkillsStep ~ inputValue:", inputValue)
 
   const handleInputChange = (event: any) => {
     setInputValue(event.target.value);

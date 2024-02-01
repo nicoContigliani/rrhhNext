@@ -115,7 +115,11 @@ const Stepss = () => {
       handleSaveData={disponibilityService.handleSaveData}
       // onSave={disponibilityService.handleSave}
     />,
-    <ReviewStep />,
+    <ReviewStep 
+    
+    
+    
+    />,
   ];
 
 
@@ -161,7 +165,6 @@ const Stepss = () => {
   const handleReset = () => {
     setActiveStep(0);
   };
-
 
   return (
     <div className={styles.body}>

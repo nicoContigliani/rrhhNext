@@ -9,9 +9,7 @@ import { Select } from 'antd';
 import Inputs from '@/components/inputs/Inputs';
 
 
-
-
-
+const MAX_COUNT = 3;
 
 const SoftSkillsStep = (props: any) => {
   const {

@@ -31,7 +31,6 @@ const useAxios = async (props: AxiosProps): Promise<any> => {
       data: body,
       headers: headers
     });
-    console.log("🚀 ~ file: useAxios.services.ts:42 ~ useAxios ~ response:", response)
 
     return dataReturn = response.data
 
