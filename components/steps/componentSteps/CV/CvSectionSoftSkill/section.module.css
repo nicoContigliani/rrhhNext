@@ -1,0 +1,59 @@
+.cvsection {
+    font-family: "Arial", sans-serif; /* Use a single font for consistency */
+    margin-bottom: 10px;
+    padding: 15px; /* Add some padding for visual comfort */
+  }
+  
+  .sectionHeader {
+    font-size: 1.3em; /* Slightly smaller for better balance */
+    margin-bottom: 2px; /* Increase for better spacing */
+    font-weight: bold; /* Add emphasis */
+  }
+  
+  .List {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    flex-direction: row;
+  }
+  
+  .Item {
+
+
+    margin-bottom: 1px; /* Increased spacing between items */
+  }
+  
+  .titlePrincipal {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  .titleSecondary{
+    font-size: 0.9em; /* Slightly smaller than jobCompany */
+    color: #333; /* Darker color for better contrast */
+  }
+
+
+  .TitlePeriod {
+    font-size: 0.9em; /* Slightly smaller than jobCompany */
+    color: #333; /* Darker color for better contrast */
+  }
+  
+  .Detail {
+    font-size: 1.1em; /* Smaller for secondary information */
+    color: #777; /* Dimmed color for details */
+  }
+  
+  /* Additional styling for responsiveness */
+  @media (max-width: 768px) {
+    .cvsection {
+      padding: 10px; /* Adjust padding for smaller screens */
+    }
+  
+    .Item {
+      margin-bottom: 10px; /* Adjust spacing for smaller screens */
+    }
+  }

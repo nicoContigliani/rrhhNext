@@ -1,0 +1,109 @@
+
+
+.modal-content h1,
+.modal-content h2,
+.modal-content h3,
+.modal-content h4,
+.modal-content h5,
+.modal-content h6 {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.modal-content p {
+    margin-bottom: 15px;
+  }
+
+  .modal-contentul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.modal-content li {
+  margin-bottom: 10px;
+}
+
+.modal-content a {
+  text-decoration: none;
+  color: #0073b7;
+}
+
+.modal-content a:hover {
+  color: #00568c;
+}
+
+/* Estilos por sección */
+
+.perfil-profesional {
+  margin-top: 30px;
+}
+
+.experiencia-laboral {
+  margin-top: 30px;
+}
+
+.experiencia-laboral h4 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.experiencia-laboral h5 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.experiencia-laboral h6 {
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.experiencia-laboral ul {
+  margin-left: 20px;
+}
+
+.formacion-academica {
+  margin-top: 30px;
+}
+
+.formacion-academica h4 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.formacion-academica h5 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.habilidades-aptitudes {
+  margin-top: 30px;
+}
+
+.habilidades-aptitudes ul {
+  margin-left: 20px;
+}
+
+.lenguaje {
+  margin-top: 30px;
+}
+
+.cursos-certificaciones {
+  margin-top: 30px;
+}
+
+.cursos-certificaciones ul {
+  margin-left: 20px;
+}
+
+/* Media queries */
+
+@media (max-width: 768px) {
+  .experiencia-laboral ul,
+  .formacion-academica ul,
+  .habilidades-aptitudes ul,
+  .lenguaje ul,
+  .cursos-certificaciones ul {
+    margin-left: 0;
+  }
+}

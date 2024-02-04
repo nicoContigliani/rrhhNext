@@ -9,7 +9,7 @@ import softSkillsReducer from '@/redux/features/stepss/softSkill/softSkillsSlice
 import hardSkillsReducer from '@/redux/features/stepss/hardSkill/hardSkillsSlice'
 import lenguageReducer from '@/redux/features/stepss/Lenguage/lenguageSlice'
 import disponibilityReducer from '@/redux/features/stepss/disponibility/disponibilitySlice'
-
+import personalDescriptionReducer from '@/redux/features/stepss/personalDescription/personalDescriptionSlice'
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +17,7 @@ export const store = configureStore({
     auth: authReducer,
     cv: cvReducer,
     personalInformation: personalInformationReducer,
+    personalDescription: personalDescriptionReducer,
     education: educationReducer,
     experience: experienceReducer,
     softSkills: softSkillsReducer,

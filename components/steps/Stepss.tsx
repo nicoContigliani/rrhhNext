@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import styles from './steps.module.css'
 
 import PersonalInformationStep from './componentSteps/PersonalInformationStep/PersonalInformationStep';
+import PersonalDescriptionStep from './componentSteps/PesonalDescriptionStep/PersonalDescriptionStep';
 import EducationStep from './componentSteps/EducationStep/EducationStep';
 import ExperienceStep from './componentSteps/ExperienceStep/ExperienceStep';
 import ReviewStep from './componentSteps/ReviewStep/ReviewStep';
@@ -24,12 +25,15 @@ import SoftSkillsService from '@/services/SoftSkillsService';
 import HardSkillsService from '@/services/HardSkillsService';
 import LenguageService from '@/services/LenguageService';
 import DisponibilityService from '@/services/DisponibilityService';
+import PersonalDescriptionService from '@/services/personaldescription.services';
 
 
 const Stepss = () => {
 
   const educationService = EducationService();
   const personInformationServices = PersonalInformationServices()
+  const personDescriptionServices = PersonalDescriptionService()
+
   const experienceService = ExperienceService()
   const softSkillsService = SoftSkillsService()
   const hardSkillsService = HardSkillsService()
@@ -38,6 +42,7 @@ const Stepss = () => {
 
   const steps = [
     'Personal Information',
+    'Personal Description',
     'Education',
     'Experience',
     'Soft Skills',
@@ -55,6 +60,14 @@ const Stepss = () => {
       onUpdatePersonalInformationEntry={personInformationServices.updatePersonalInformationEntrys}
       onDeletePersonalInformationEntry={personInformationServices.deletePersonalInformationEntrys}
       onSave={personInformationServices.handleSave}
+    />,
+    <PersonalDescriptionStep
+      title='PersonalDescriptionStep'
+      personalDescription={personDescriptionServices.personalDescriptionData}
+      onAddPersonalDescriptionEntry={personDescriptionServices.addPersonalDescriptionEntrys}
+      onUpdatePersonalDescriptionEntry={personDescriptionServices.updatePersonalDescriptionEntrys}
+      onDeletePersonalDescriptionEntry={personDescriptionServices.deletePersonalDescriptionEntrys}
+      onSave={personDescriptionServices.handleSave}
     />
     ,
     <EducationStep
@@ -103,7 +116,7 @@ const Stepss = () => {
       handleSelectChange={lenguageService.handleSelectChange}
       handleAddSelect={lenguageService.handleAddSelect}
       handleSaveData={lenguageService.handleSaveData}
-      // onSave={lenguageService.handleSave}
+    // onSave={lenguageService.handleSave}
     />,
     <Disponibility
       title='Disponibility'
@@ -113,12 +126,12 @@ const Stepss = () => {
       handleSelectChange={disponibilityService.handleSelectChange}
       handleAddSelect={disponibilityService.handleAddSelect}
       handleSaveData={disponibilityService.handleSaveData}
-      // onSave={disponibilityService.handleSave}
+    // onSave={disponibilityService.handleSave}
     />,
-    <ReviewStep 
-    
-    
-    
+    <ReviewStep
+
+
+
     />,
   ];
 
@@ -127,7 +140,7 @@ const Stepss = () => {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set<number>());
   const isStepOptional = (step: any) => {
-    return step === 11;
+    return step === 12;
   };
 
   const isStepSkipped = (step: any) => {

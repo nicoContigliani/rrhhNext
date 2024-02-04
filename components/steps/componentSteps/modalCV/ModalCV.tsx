@@ -1,8 +1,32 @@
-import React, { useState } from 'react';
+"use clients"
+import React, { useEffect, useState } from 'react';
 import { Button, Modal } from 'antd';
-
+import './ModalCV.module.css'
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import makekeyvaluecv from '@/services/makekeyvaluecv.services';
+import CVSectionHeader from '../CV/CVSectionHeader/CVSectionHeader';
+import CVsectionheaderdescription from '../CV/CVSectionHeaderDescription/CVsectionheaderdescription';
+import CvSectionEducation from '../CV/CVSectionEducation/CvSectionEducation';
+import Cvsection from '../CV/CVSection/Cvsection';
+import Cvsectionjobs from '../CV/CVSectionJobs/Cvsectionjobs';
+import CVSectionhardskill from '../CV/CvSectionHardSkill/CVSectionhardskill';
+import CVSectionsoftskill from '../CV/CvSectionSoftSkill/CVSectionsoftskill';
+import CVSectionlenguage from '../CV/CvSectionLenguage/CVSectionlenguage';
+import CvSectionDisponibility from '../CV/CvSectionDisponibility/CVSectionDisponibility';
 const ModalCV = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [perInfData, setPerInfData] = useState()
+    const [perDescData, setPerDescData] = useState()
+    const [eduData, setEduData] = useState()
+    const [experData, setExperData] = useState()
+    const [hardSData, setHardSData] = useState()
+    const [softSData, setSoftSData] = useState()
+    const [lenguageData, setLenguageData] = useState()
+    const [dispData, setDispData] = useState()
+
+
+
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -16,11 +40,55 @@ const ModalCV = () => {
         setIsModalOpen(false);
     };
 
+    const {
+        personalInformation: { personalInformationData },
+        personalDescription: { personalDescriptionData },
+        education: { educationData },
+        experience: { experienceData },
+        hardSkills: { selectedValues },
+        softSkills: { selectedValues: selectedValuesSS },
+        lenguage: { selectedValues: selectedValuesL },
+        disponibility: { selectedValues: selectedValuesD }
+    } = useSelector((state: any) => state);
+    useEffect(() => {
+        const data = {}
+
+        setPerInfData(personalInformationData)
+        setPerDescData(personalDescriptionData)
+        setEduData(educationData)
+        setExperData(experienceData)
+        setHardSData(selectedValues)
+        setSoftSData(selectedValuesSS)
+        setLenguageData(selectedValuesL)
+        setDispData(selectedValuesD)
+
+    },
+        [
+            personalInformationData,
+            personalDescriptionData,
+            educationData,
+            experienceData,
+            selectedValues,
+            selectedValuesSS,
+            selectedValuesL,
+            selectedValuesD
+        ])
+
+
+
+
+    const dispatch = useDispatch();
+
+
+
+
+
+
     return (
         <>
-            <Button type="primary" 
-            
-            onClick={showModal}>
+            <Button type="primary"
+
+                onClick={showModal}>
                 Open Modal
             </Button>
             <Modal title="Mi CV"
@@ -31,17 +99,88 @@ const ModalCV = () => {
             >
 
                 <div>
+                    {
+                        (perInfData) ?
+                            <div>
+                                <CVSectionHeader
+                                    perInfData={perInfData}
 
-                    <header>
-                        <h1>Rodrigo Báez Gull</h1>
-                        <h2>Content Manager</h2>
-                        <ul>
-                            <li><a href="mailto:rbaezgull@email.com">rbaezgull@email.com</a></li>
-                            <li><a href="tel:6312X45XX">631 2X4 5XX</a></li>
-                            <li><a href="https://linkedin.com/rbaezgull">linkedin.com/rbaezgull</a></li>
-                        </ul>
-                    </header>
-                    <section className="perfil-profesional">
+                                />
+                            </div> : ""
+
+                    }
+                    {
+                        (perDescData) ?
+                            <div>
+                                <CVsectionheaderdescription
+                                    titleHeader="Description Person"
+                                    perDescData={perDescData}
+                                />
+                            </div> : ""
+                    }
+                    {
+                        (perDescData) ?
+                            <div>
+                                <CvSectionEducation
+                                    titleHeader="Education"
+                                    eduData={eduData}
+                                />
+                            </div> : ""
+                    }
+                    {
+                        (experData) ?
+                            <div>
+                                <Cvsectionjobs
+                                    titleHeader="Experience"
+                                    data={experData}
+                                />
+                            </div> : ""
+                    }
+
+                    {
+                        (hardSData) ?
+                            <div>
+                                <CVSectionhardskill
+                                    titleHeader="Hard Skill"
+                                    data={hardSData}
+                                />
+                            </div> : ""
+                    }
+                    {
+                        (softSData) ?
+                            <div>
+                                <CVSectionsoftskill
+                                    titleHeader="Soft Skill"
+                                    data={softSData}
+                                />
+                            </div> : ""
+                    }
+                    {
+                        (lenguageData) ?
+                            <div>
+                                <CVSectionlenguage
+                                    titleHeader="Lenguage"
+                                    data={lenguageData}
+                                />
+                            </div> : ""
+                    }
+
+                    {
+                        (dispData) ?
+                            <div>
+                                <CvSectionDisponibility
+                                    titleHeader="Disponibility"
+                                    data={dispData}
+                                />
+                            </div> : ""
+                    }
+
+
+
+
+
+
+                    {/* <section className="perfil-profesional">
                         <h3>Perfil profesional</h3>
                         <p>Content Manager con 6 años de experiencia en gestión de contenidos y planificación de estrategias de marketing y comunicación digital. Con capacidad de crear contenido innovador que convierta a los lectores ocasionales en clientes ávidos. En mi puesto actual he logrado duplicar el tráfico web y aumentar las conversiones en ##% en 18 meses. Busco unirme a Skynet para seguir potenciando la imagen y el servicio de la empresa.</p>
                     </section>
@@ -105,7 +244,7 @@ const ModalCV = () => {
                             <li>Certificación de Google Analytics – Google Actívate</li>
                             <li>Certificación de Adobe Photoshop – Escuela de Tecnología y Comunicación Band Apart</li>
                         </ul>
-                    </section>
+                    </section> */}
                 </div>
 
 
