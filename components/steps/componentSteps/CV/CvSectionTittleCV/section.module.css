@@ -1,11 +1,11 @@
 .cvsection {
     font-family: "Arial", sans-serif; /* Use a single font for consistency */
-    margin-bottom: 5px;
-    padding: 15px; /* Add some padding for visual comfort */
+    margin-bottom: 10px;
+    padding: 1px; /* Add some padding for visual comfort */
   }
   
   .sectionHeader {
-    font-size: 2.3em; /* Slightly smaller for better balance */
+    font-size: 1.3em; /* Slightly smaller for better balance */
     margin-bottom: 2px; /* Increase for better spacing */
     font-weight: bold; /* Add emphasis */
   }
@@ -13,6 +13,13 @@
   .List {
     list-style: none;
     padding: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    flex-direction: row;
+
   }
   
   .Item {

@@ -10,6 +10,8 @@ import { useSelector, useDispatch } from 'react-redux';
 const PersonalInformationStep = (props: any) => {
   const dataPersonStorage: any | any[] = useSelector((state: any) => state);
   const [personalInformation, setPersonalInformation] = useState<any[]>()
+  const [openForProfessional, SetOpenForProfessional] = useState<any>(false)
+
   useEffect(() => {
     const { personalInformation: { personalInformationData } } = dataPersonStorage
     setPersonalInformation(personalInformationData)
@@ -33,7 +35,8 @@ const PersonalInformationStep = (props: any) => {
   };
 
   const handleClick = () => {
-    onAddPersonalInformationEntry();
+    // onAddPersonalInformationEntry();
+    SetOpenForProfessional(!openForProfessional)
   };
 
   const handleSaveData = () => {
@@ -44,17 +47,7 @@ const PersonalInformationStep = (props: any) => {
     <div className={style.body}>
       <h3>{props.title}</h3>
 
-      <div className={style.createInputs}>
-        <Button
-          variant="outlined"
-          color="primary"
-          size="small"
-          fullWidth
-          onClick={handleClick}
-        >
-          Agregar input
-        </Button>
-      </div>
+
 
       {personalInformation?.map((entry: any, index: any) => (
         <div>
@@ -94,9 +87,53 @@ const PersonalInformationStep = (props: any) => {
                 value={entry.birthsday || ''}
                 onChange={(e) => handleChange(index, 'birthsday', e.target.value)}
               />
-            </div>
-          </div>
 
+            </div>
+            {
+              openForProfessional ?
+                <div className={style.inputsData}>
+                  <Input
+                    className={style.inputs}
+                    placeholder="linkedin"
+                    name="linkedin"
+                    type="text"
+                    value={entry.linkedin || ''}
+                    onChange={(e) => handleChange(index, 'linkedin', e.target.value)}
+                  />
+                  <Input
+                    className={style.inputs}
+                    placeholder="Repository"
+                    name="repository"
+                    type="text"
+                    value={entry.repository || ''}
+                    onChange={(e) => handleChange(index, 'repository', e.target.value)}
+                  />
+                  <Input
+                    className={style.inputs}
+                    placeholder="Folder Profile"
+                    name="folderprofile"
+                    type="text"
+                    value={entry.folderprofile || ''}
+                    onChange={(e) => handleChange(index, 'folderprofile', e.target.value)}
+                  />
+                </div>
+
+                : ""
+            }
+
+
+          </div>
+          <div className={style.createInputs}>
+            <Button
+             variant="contained"
+              color="primary"
+              size="small"
+              fullWidth
+              onClick={handleClick}
+            >
+              Could you push if you professional for more caracterystic?
+            </Button>
+          </div>
           <div className={style.deletes}>
             <Button
               variant="outlined"

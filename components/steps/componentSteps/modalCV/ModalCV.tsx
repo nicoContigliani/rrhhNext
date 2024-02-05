@@ -14,6 +14,7 @@ import CVSectionhardskill from '../CV/CvSectionHardSkill/CVSectionhardskill';
 import CVSectionsoftskill from '../CV/CvSectionSoftSkill/CVSectionsoftskill';
 import CVSectionlenguage from '../CV/CvSectionLenguage/CVSectionlenguage';
 import CvSectionDisponibility from '../CV/CvSectionDisponibility/CVSectionDisponibility';
+import CVSectionTittleCV from '../CV/CvSectionTittleCV/CVSectionTittleCV';
 const ModalCV = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [perInfData, setPerInfData] = useState()
@@ -24,6 +25,8 @@ const ModalCV = () => {
     const [softSData, setSoftSData] = useState()
     const [lenguageData, setLenguageData] = useState()
     const [dispData, setDispData] = useState()
+    const [tittleData, setTittleData] = useState()
+
 
 
 
@@ -46,6 +49,7 @@ const ModalCV = () => {
         education: { educationData },
         experience: { experienceData },
         hardSkills: { selectedValues },
+        tittleCV: { selectedValues: selectedValueT },
         softSkills: { selectedValues: selectedValuesSS },
         lenguage: { selectedValues: selectedValuesL },
         disponibility: { selectedValues: selectedValuesD }
@@ -61,7 +65,7 @@ const ModalCV = () => {
         setSoftSData(selectedValuesSS)
         setLenguageData(selectedValuesL)
         setDispData(selectedValuesD)
-
+        setTittleData(selectedValueT)
     },
         [
             personalInformationData,
@@ -71,7 +75,8 @@ const ModalCV = () => {
             selectedValues,
             selectedValuesSS,
             selectedValuesL,
-            selectedValuesD
+            selectedValuesD,
+            selectedValueT
         ])
 
 
@@ -105,7 +110,21 @@ const ModalCV = () => {
                                 <CVSectionHeader
                                     perInfData={perInfData}
 
-                                />
+                                >
+                                    {
+                                        (tittleData) ?
+                                            <div>
+                                                <CVSectionTittleCV
+                                                    titleHeader="Job"
+                                                    data={tittleData}
+
+                                                />
+                                            </div> : ""
+
+                                    }
+
+                                </CVSectionHeader>
+
                             </div> : ""
 
                     }

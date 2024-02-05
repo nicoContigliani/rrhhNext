@@ -31,6 +31,9 @@
         overflow: auto;
         flex-direction: row;
     }
+    .selects{
+        width: 100%;
+    }
 }
 
 @media only screen and (min-width: 992px) {
@@ -52,7 +55,7 @@
 
     .inputsData {
         display: flex;
-        flex-wrap: wrap; /* Permite que las entradas se envuelvan si es necesario */
+        flex-wrap: nowrap; /* Permite que las entradas se envuelvan si es necesario */
         justify-content: center; /* Distribuye las entradas de manera uniforme */
         align-items: center;
         width: 100%; /* Ajusta el ancho según sea necesario */
@@ -71,5 +74,8 @@
         justify-content: flex-start;
         align-items: center;
         margin-bottom: 1rem; /* Usa margen para el espaciado */
+    }
+    .selects{
+        width: 50%;
     }
 }

@@ -10,6 +10,8 @@ import hardSkillsReducer from '@/redux/features/stepss/hardSkill/hardSkillsSlice
 import lenguageReducer from '@/redux/features/stepss/Lenguage/lenguageSlice'
 import disponibilityReducer from '@/redux/features/stepss/disponibility/disponibilitySlice'
 import personalDescriptionReducer from '@/redux/features/stepss/personalDescription/personalDescriptionSlice'
+import tittleCVReducer from '@/redux/features/stepss/tittleCV/tittleCVSlice'
+
 
 export const store = configureStore({
   reducer: {
@@ -23,7 +25,8 @@ export const store = configureStore({
     softSkills: softSkillsReducer,
     hardSkills: hardSkillsReducer,
     lenguage: lenguageReducer,
-    disponibility: disponibilityReducer
+    disponibility: disponibilityReducer,
+    tittleCV:tittleCVReducer
 
   },
 });

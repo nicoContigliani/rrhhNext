@@ -17,6 +17,7 @@ import SkillsStepHard from './componentSteps/SkillsStepHard/SkillsStephard';
 import SkillsStepSoft from './componentSteps/SkillsStepSoft/SkillsStepsoft';
 import Lenguaje from './componentSteps/Lenguaje/Lenguage';
 import Disponibility from './componentSteps/DisponibilityStep/Disponibility';
+import TittleCVStep from './componentSteps/TittleCV/TittleCV';
 
 import EducationService from '@/services/EducationServices'; // Adjust path if needed
 import PersonalInformationServices from '@/services/personalInformation.services';
@@ -26,6 +27,7 @@ import HardSkillsService from '@/services/HardSkillsService';
 import LenguageService from '@/services/LenguageService';
 import DisponibilityService from '@/services/DisponibilityService';
 import PersonalDescriptionService from '@/services/personaldescription.services';
+import TittleCVServices from '@/services/TittleCV.Services'
 
 
 const Stepss = () => {
@@ -33,6 +35,7 @@ const Stepss = () => {
   const educationService = EducationService();
   const personInformationServices = PersonalInformationServices()
   const personDescriptionServices = PersonalDescriptionService()
+  const titleCVSerivcies = TittleCVServices()
 
   const experienceService = ExperienceService()
   const softSkillsService = SoftSkillsService()
@@ -42,6 +45,7 @@ const Stepss = () => {
 
   const steps = [
     'Personal Information',
+    'Title Cv',
     'Personal Description',
     'Education',
     'Experience',
@@ -61,6 +65,19 @@ const Stepss = () => {
       onDeletePersonalInformationEntry={personInformationServices.deletePersonalInformationEntrys}
       onSave={personInformationServices.handleSave}
     />,
+    <TittleCVStep
+      title='Tittle Job for CV'
+      selectedValues={titleCVSerivcies.selectedValues}
+      contentOptionSelect={titleCVSerivcies.contentOptionSelect}
+      MAX_COUNT={titleCVSerivcies.MAX_COUNT}
+      handleSelectChange={titleCVSerivcies.handleSelectChange}
+      handleAddSelect={titleCVSerivcies.handleAddSelect}
+      handleSaveData={titleCVSerivcies.handleSaveData}
+
+    // onSave={softSkillsService.handleSave}
+    />,
+
+
     <PersonalDescriptionStep
       title='PersonalDescriptionStep'
       personalDescription={personDescriptionServices.personalDescriptionData}
