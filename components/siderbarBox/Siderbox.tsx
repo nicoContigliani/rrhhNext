@@ -28,9 +28,11 @@ const Siderbox = (props: any) => {
 
                     {
                         item.module === "RRHH" ?
-                            <Popover content={item.label} >
-                                <Image src={item.urls} alt={''} className={styles.image} />
-                            </Popover>
+                            <div className={styles.stileDiv}>
+                                <Popover content={item.label} >
+                                    <Image src={item.urls} alt={''} className={styles.image} />
+                                </Popover>
+                            </div>
                             : ""
 
                     }

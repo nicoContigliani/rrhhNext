@@ -24,9 +24,9 @@
   }
 
   .login_inputs {
-    
+
     display: flex;
-    flex-wrap:wrap;
+    flex-wrap: wrap;
     justify-content: space-around;
     justify-content: center;
     align-items: center;
@@ -58,33 +58,33 @@
 
   }
 
-  .perfil {
+  .perfil {}
 
+  .login_buttons {
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 18px;
+    color: #555;
+    padding: 20px 10px 20px 5px;
   }
-.login_buttons{
-  border: none;
-  outline: none;
-  background: none;
-  font-size: 18px;
-  color: #555;
-  padding: 20px 10px 20px 5px;
-}
-.login_button{
-  outline: none;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  height: 60px;
-  border-radius: 30px;
-  font-size: 20px;
-  font-weight: 700;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #fff;
-  text-align: center;
-  background-color: #02c8db;
-  box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #fff;
-  transition: all 0.5s;
-}
+
+  .login_button {
+    outline: none;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    height: 60px;
+    border-radius: 30px;
+    font-size: 20px;
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #fff;
+    text-align: center;
+    background-color: #02c8db;
+    box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #fff;
+    transition: all 0.5s;
+  }
 
 
 
@@ -93,7 +93,7 @@
 
 @media screen and (min-width: 991px) {
   .body {
-    
+
     /* background-color: blue; */
     color: #555;
     display: flex;
@@ -101,23 +101,24 @@
     justify-content: space-around;
     align-items: flex-start;
     align-content: flex-start;
-    
+
     font-weight: 700;
-    
+
   }
 
   .login__content {
     width: auto;
     height: auto;
-    padding: 60px 35px 35px;
+    padding: 90px 35px 35px;
     border-radius: 30px;
     /* background-color: #ecf0f3; */
     box-shadow: 1px 13px 25px #cbced1, -8px -1px 2px #fff;
   }
+
   .login_inputs {
 
     display: flex;
-    flex-wrap:wrap;
+    flex-wrap: wrap;
     justify-content: space-around;
     justify-content: center;
     align-items: center;
@@ -129,15 +130,16 @@
     background: none;
     font-size: 18px;
     color: #555;
-    padding: 20px 10px 20px 5px;
+    padding: 10px 10px 10px 5px;
   }
+
   .login_input {
-    width: 300px;
-    height: 40px;
+    width: 310px;
+    height: 35x;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 13px;
     border: 1px;
     border-radius: 10px;
     box-shadow: inset 8px 8px 8px #cbced1b6, inset -8px -8px 8px #ffffffb4;
@@ -147,49 +149,73 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
   }
-  .perfil {
+
+  .perfil {}
+
+  .login_buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
+
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 18px;
+    color: #555;
+    padding: 0px 10px 20px 5px;
+
+
 
   }
-.login_buttons{
-  display: flex;
-  flex-wrap:wrap;
-  justify-content: space-around;
-  justify-content: center;
-  align-items: center;
-  
-  border: none;
-  outline: none;
-  background: none;
-  font-size: 18px;
-  color: #555;
-  padding: 20px 10px 20px 5px;
 
-  
-
-}
-.login_button{
-  outline: none;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  height: 45px;
-  border-radius: 20px;
-  font-size: 20px;
-  font-weight: 700;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #fff;
-  text-align: center;
-  background-color: #02c8db;
-  box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #fff;
-  transition: all 0.5s;
+  .login_button {
+    outline: none;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    height: 30px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #fff;
+    text-align: center;
+    background-color: #02c8db;
+    box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #fff;
+    transition: all 0.5s;
 
 
-  background-color: #0000ff;
-  color: #ffffff;
-}
+    background-color: #0000ff8b;
+    color: #ffffff;
+    margin-top: 5%;
+    margin-bottom: 3%;
 
+  }
+
+  .second_button {
+
+    outline: none;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    height: 25px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #000000;
+    text-align: center;
+    background-color: #02c8db;
+    box-shadow: 3px 3px 8px #00000043, -3px -3px 8px #0000001d;
+    transition: all 0.5s;
+
+
+    background-color: #ffffff;
+  }
 
 
 }

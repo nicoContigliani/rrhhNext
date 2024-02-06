@@ -41,7 +41,10 @@
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
     .box {
+        background-color:honeydew;
         padding-top: 15%;
+        box-shadow: 10px 10px 40px #c0bfd0, -8px -1px 2px #ffffff;
+        border-radius: 10%;
     }
 
     .todo {
@@ -59,6 +62,8 @@
     .stileDiv {
         color: black;
         text-decoration: none; /* O elimina esta línea si no necesitas ninguna decoración de texto */
+        box-shadow: 1px 5px 30px #c2ccfddb, -8px -1px 2px #ffffff5c;
+
     }
 
     ;

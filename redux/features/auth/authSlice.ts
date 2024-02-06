@@ -78,12 +78,12 @@ let insertStore: object | any
 
 
 export const authAsync = createAsyncThunk(
-    "auth",
+    "auth/Login",
     async (userData: any) => {
 
 
         const todo: any = {
-            url:` ${API_URL}/Auth/Auth`,
+            url: ` ${API_URL}/Auth/Auth`,
             method: 'PUT', // Use 'GET', 'POST', 'PUT', etc. as needed
             body: userDatas,
             idParams: null,
@@ -101,6 +101,45 @@ export const authAsync = createAsyncThunk(
         return dataUserFormated;
     }
 );
+
+
+export const authAsyncRegister = createAsyncThunk(
+    "auth/Register",
+    async (userData: any) => {
+
+        //rule       
+        let dataSend = userData
+
+        dataSend.Score = 1000
+        dataSend.status_user = true
+
+        delete dataSend.passwordSecond
+  
+        const todo: any = {
+            url: ` ${API_URL}/Auth/Auth`,
+            method: 'POST', // Use 'GET', 'POST', 'PUT', etc. as needed
+            body: dataSend,
+            idParams: null,
+        }
+
+        const response = await useAxios(todo)
+        console.log("🚀 ~ response:", response)
+        let dataUserFormated = response.data[0].User
+        dataUserFormated.islogin = response.data[0].login
+        dataUserFormated.token = response.data[0].token
+
+
+        const LocalSReturn = await writedLocalStorage(dataUserFormated)
+
+
+        return dataUserFormated;
+    }
+);
+
+
+
+
+
 
 export const authSlice = createSlice({
     name: "auth/slice",
@@ -131,8 +170,19 @@ export const authSlice = createSlice({
             })
             .addCase(authAsync.rejected, (state) => {
                 state.islogin = false;
+            })
+            .addCase(authAsyncRegister.fulfilled, (state, action) => {
+                state.islogin = action.payload.login;
+                state.user = action.payload;
+                state.token = action.payload.token;
+                state.id = action.payload?.id;
+            })
+            .addCase(authAsyncRegister.rejected, (state) => {
+                state.islogin = false;
             });
+
     },
+
 });
 
 export const { authd } = authSlice.actions;
