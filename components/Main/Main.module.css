@@ -10,7 +10,7 @@
   /* Estilos para pantallas pequeñas */
 @media screen and (max-width: 991px) {
     .todo{
-        padding-top: 10%;
+        padding-top: 5%;
     }
     
     .main{

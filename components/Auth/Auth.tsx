@@ -54,7 +54,7 @@ const Auths = () => {
                 {
                     register ?
                         <Cards
-                            className='login__form '
+                            className={styles.login__form}
                             textlavel={'prueba'}
                             src={''}
                             variant={'top'}
@@ -168,7 +168,7 @@ const Auths = () => {
 
                         </Cards>
                         : <Cards
-                            className='login__form '
+                            className={styles.login__form}
                             textlavel={'prueba'}
                             src={''}
                             variant={'top'}

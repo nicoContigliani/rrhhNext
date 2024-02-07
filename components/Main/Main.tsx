@@ -9,7 +9,7 @@ const Main = () => {
     <div className={styles.todo} >
       <div className={styles.main}>
    
-        <h1>LlakaScript</h1>
+        <h2>LlakaScript</h2>
         {/* <h5>Forjando el Futuro a través del Código Creativo</h5> */}
       </div>
 

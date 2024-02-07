@@ -94,16 +94,8 @@ export default function Home() {
     dispatch(authAsync(data))
   }
 
-
- 
-
-
   return (
     <main className={styles.main}>
-
-
-
-
       {
         isLogins ?
           <div>

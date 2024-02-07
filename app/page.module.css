@@ -1,121 +1,135 @@
-.body{
-    font-weight: 700;
-    font-family: Arial, Helvetica, sans-serif;
+.body {
+  font-weight: 700;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@media screen and (max-width: 991px) {
+  .main {
+    /* Width no es necesario con flexbox, elimina comentarios */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
   }
-  
-  @media screen and (max-width: 991px) {
-    .main {
-      /* width: 40%;
-      position: relative; */
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      align-items: center;
-      align-content: center;
-  
-  
-    }
-  
-  
-    .element {
-      padding: 0%;
-      padding-top: 0%;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      align-items: center;
-      align-content: center;
-    }
-  
-  
-    .logocenter {
-      display: flex;
-      flex-wrap:nowrap;
-      justify-content: space-around;
-      justify-content: center;
-      align-items: center;
-      /* width: 100%;
-      height: 100%; */
-      
-    }
-  
-    .logo {
-      /* padding-left: 20%; */
-      /* background-color: red; */
-      width: 49px;
-      height: 100%;
-  
-    }
-  
-    .perfil {
-      padding-top: 5%;
-      padding-left: 5%;
-      width: 60px;
-      height: 200%;
-  
-    }
-    .auth{
-      /* display: none; */
-  
-    }
-    .textTitle{
-      font-size: 12px;
-    }
+
+  .element {
+    /* Padding reducido: */
+    padding: 5%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
   }
-  
-  @media screen and (min-width: 991px) {
-    .element {
-      padding-right: 5%;
-      display: flex;
-      flex-wrap: nowrap;
-      justify-content: space-evenly;
-      align-items: center;
-      align-content: center;
-  
-  
-    }
-  
-    .TODO_container {
-      padding: 10%;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: flex-start;
-      align-content: center;
-  
-    }
-  
-    .logocenter {
-      display: flex;
-  
-      justify-content: center;
-      align-items: center;
-      width: 300%;
-      height: 100%;
-    }
-  
-    .logo {
-      padding-left: 10%;
-      /* background-color: red; */
-      width: 200px;
-      height: 100%;
-  
-    }
-  
-    .perfil {
-      /* padding-top: 5%;*/
-      padding-left: 0%; 
-      width: 60px;
-      height: 200%;
+
+  .logocenter {
+    display: flex;
+    flex-direction: column; /* Stack logo and title vertically */
+    justify-content: space-around; /* Adjust vertical spacing */
+    /* Remove redundant justify-content */
+    align-items: center;
+    /* No width/height needed if content fits container */
       display: none;
-    }
-    .start{
-      padding-top: 1%;
-   
-    }
-    .textTitle{
-      padding-left: 5%;
-      font-size: 30px;
-    }
-  
+
   }
+
+  .logo {
+    width: 49px; /* Maintain aspect ratio and adjust size */
+    height: auto;
+    
+  }
+
+  .perfil {
+    padding: 5%; /* Consistent padding */
+    width: 60px;
+    height: auto;
+  }
+
+  .auth {
+    display: flex; /* Show auth on mobile, adjust layout if needed */
+    flex-direction: column; /* Stack buttons vertically */
+    justify-content: space-around; /* Adjust spacing */
+    align-items: center;
+  }
+
+  .textTitle {
+    font-size: 16px; /* Slightly larger font size for readability */
+  }
+}
+
+@media screen and (min-width: 991px) {
+  .element {
+    padding-right: 5%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: center;
+  }
+
+  .TODO_container {
+    padding: 10%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-content: center;
+  }
+
+  .logocenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300%;
+    height: 100%;
+  }
+
+  .logo {
+    padding-left: 10%;
+    width: 200px;
+    height: 100%;
+  }
+
+  .perfil {
+    padding-left: 0%;
+    width: 60px;
+    height: 200%;
+    display: none;
+  }
+
+  .start {
+    padding-top: 1%;
+  }
+
+  .textTitle {
+    padding-left: 5%;
+    font-size: 30px;
+  }
+
+  .auth {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: center;
+    align-content: center;
+  }
+}
+
+/* Estilos adicionales para mejorar la accesibilidad */
+.main {
+  font-family: sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.element,
+.TODO_container,
+.logocenter,
+.logo,
+.perfil,
+.start,
+.textTitle,
+.auth {
+  box-sizing: border-box;
+}
