@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import style from './PersonalDescriptionStep.module.css'; // Adjust path if needed
-import Button from '@mui/material/Button';
+import { Button, Flex } from 'antd';
 import Input from '@mui/material/Input';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -44,17 +44,17 @@ const PersonalDescriptionStep = (props: any) => {
     <div className={style.body}>
       <h3>{props.title}</h3>
 
-      <div className={style.createInputs}>
+      {/* <div className={style.createInputs}>
         <Button
-          variant="outlined"
-          color="primary"
-          size="small"
-          fullWidth
+           type="primary"
+           block
+           color="primary"
+           size="small"
           onClick={handleClick}
         >
           Agregar input
         </Button>
-      </div>
+      </div> */}
 
       {personalDescription?.map((entry: any, index: any) => (
         <div>
@@ -73,26 +73,25 @@ const PersonalDescriptionStep = (props: any) => {
             </div>
           </div>
 
-          <div className={style.deletes}>
+          {/* <div className={style.deletes}>
             <Button
-              variant="outlined"
-              color="error"
+              block
+              color="primary"
               size="small"
-              fullWidth
+              danger
+              ghost
               onClick={() => onDeletePersonalDescriptionEntry(index)}
             >
               Delete
             </Button>
-          </div>
+          </div> */}
         </div>
       ))}
 
       <div className={style.deletes}>
         <Button
-          variant="outlined"
-          color="primary"
           size="small"
-          fullWidth
+          block
           onClick={handleSaveData}
         >
           Guardar Datos

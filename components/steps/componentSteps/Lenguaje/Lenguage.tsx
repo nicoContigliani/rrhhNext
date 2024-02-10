@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import style from './LenguajeStep.module.css'; // Assuming CSS file is named SoftSkillsStep.module.css
-import Button from '@mui/material/Button';
+import { Button, Flex } from 'antd';
 import Input from '@mui/material/Input';
 import { Select } from 'antd';
 
@@ -46,11 +46,10 @@ const SoftSkillsStep = (props: any) => {
         />
 
         <Button
-          type="button"
-          variant="outlined"
+          type="primary"
+          block
           color="primary"
           size="small"
-          fullWidth
           onClick={() => handleAddSelect({ value: inputValue, label: inputValue })}
         >
           Add
@@ -58,11 +57,8 @@ const SoftSkillsStep = (props: any) => {
       </div>
       <div className={style.deletes}>
         <Button
-          type="button"
-          variant="outlined"
-          color="primary"
           size="small"
-          fullWidth
+          block
           onClick={handleSaveData}
         >
           Guardar Datos

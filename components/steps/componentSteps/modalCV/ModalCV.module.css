@@ -1,4 +1,13 @@
 
+.modal{
+  width: 100%;
+}
+.createInputs,
+.deletes {
+    width: 100%;
+    margin-top: 0.5rem; /* Espacio entre los botones y las entradas */
+    
+}
 
 .modal-content h1,
 .modal-content h2,

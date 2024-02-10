@@ -4,20 +4,14 @@
         display: flex;
         flex-wrap: nowrap;
         justify-content: space-evenly;
-        align-items: flex-start;
+        align-items: center;
         align-content: center;
         width: 90%;
-        height: 80vh;
-        overflow: auto;
+        /* Elimina overflow-x */
+        overflow-x: hidden;
         flex-direction: column;
         overflow-y: auto;
-
-
-    }
-
-    .inputs {
-        padding: 3px;
-        margin-top: 5px;
+        margin-bottom: 5%;
     }
 
     .inputsData {
@@ -27,10 +21,22 @@
         align-items: flex-start;
         align-content: flex-start;
         width: 100%;
-        height: 15vh;
+        min-height: 15vh; /* Usa min-height en lugar de height */
         overflow: auto;
         flex-direction: row;
     }
+    .inputs {
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+        width: 100%; /* Anchura del 90% para adaptarse al contenedor */
+    }
+    .createInputs,
+    .deletes {
+        width: 100%;
+        margin-top: 1rem; /* Espacio entre los botones y las entradas */
+        
+    }
+
 }
 
 @media only screen and (min-width: 992px) {

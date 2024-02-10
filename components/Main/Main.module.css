@@ -11,6 +11,7 @@
 @media screen and (max-width: 991px) {
     .todo{
         padding-top: 5%;
+        font-size: small;
     }
     
     .main{

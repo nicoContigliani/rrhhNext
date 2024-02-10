@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import style from './PersonalInformationStep.module.css'; // Adjust path if needed
-import Button from '@mui/material/Button';
+import { Button, Flex } from 'antd';
 import Input from '@mui/material/Input';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -125,21 +125,22 @@ const PersonalInformationStep = (props: any) => {
           </div>
           <div className={style.createInputs}>
             <Button
-             variant="contained"
+              type="primary"
+              block
               color="primary"
               size="small"
-              fullWidth
               onClick={handleClick}
             >
-              Could you push if you professional for more caracterystic?
+             if you professional ?
             </Button>
           </div>
           <div className={style.deletes}>
             <Button
-              variant="outlined"
-              color="error"
+              block
+              color="primary"
               size="small"
-              fullWidth
+              danger
+              ghost
               onClick={() => onDeletePersonalInformationEntry(index)}
             >
               Delete
@@ -150,10 +151,8 @@ const PersonalInformationStep = (props: any) => {
 
       <div className={style.deletes}>
         <Button
-          variant="outlined"
-          color="primary"
           size="small"
-          fullWidth
+          block
           onClick={handleSaveData}
         >
           Guardar Datos

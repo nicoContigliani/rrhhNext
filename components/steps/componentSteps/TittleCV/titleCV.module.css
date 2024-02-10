@@ -11,25 +11,27 @@
         overflow: auto;
         flex-direction: column;
         overflow-y: auto;
-
-
-    }
-
-    .inputs {
-        padding: 3px;
-        margin-top: 5px;
     }
 
     .inputsData {
         display: flex;
-        flex-wrap: wrap;
-        justify-content: baseline;
-        align-items: flex-start;
-        align-content: flex-start;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         width: 100%;
-        height: 15vh;
-        overflow: auto;
-        flex-direction: row;
+        margin-bottom: 1rem; /* Añade un espacio entre cada entrada */
+    }
+
+    .inputs {
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+        width: 90%; /* Anchura del 90% para adaptarse al contenedor */
+    }
+
+    .createInputs,
+    .deletes {
+        width: 100%;
+        margin-top: 1rem; /* Espacio entre los botones y las entradas */
     }
     .selects{
         width: 100%;

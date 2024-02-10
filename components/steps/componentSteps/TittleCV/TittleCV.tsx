@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import style from './SkillStephard.module.css'; // Assuming CSS file is named SoftSkillsStep.module.css
-import Button from '@mui/material/Button';
+import style from './titleCV.module.css'; // Assuming CSS file is named SoftSkillsStep.module.css
+import { Button, Flex } from 'antd';
 import Input from '@mui/material/Input';
 
 
@@ -52,11 +52,10 @@ const TittleCVStep = (props: any) => {
         />
 
         <Button
-          type="button"
-          variant="outlined"
+          type="primary"
+          block
           color="primary"
           size="small"
-          fullWidth
           onClick={() => handleAddSelect({ value: inputValue, label: inputValue })}
         >
           Add
@@ -64,11 +63,8 @@ const TittleCVStep = (props: any) => {
       </div>
       <div className={style.deletes}>
         <Button
-          type="button"
-          variant="outlined"
-          color="primary"
           size="small"
-          fullWidth
+          block
           onClick={handleSaveData}
         >
           Guardar Datos

@@ -6,10 +6,10 @@ const ReviewStep = () => {
     <div className={styles.body}>
       <div className={styles.ModalCV}>
 
+        <div className={styles.paraghrp}>
         <h3>
           CV ATS
         </h3>
-        <div className={styles.paraghrp}>
           <span>
             Sistema de Seguimiento de Candidatos, es un tipo de software de gestión de candidaturas utilizado por los reclutadores y empleadores de las empresas.
           </span>

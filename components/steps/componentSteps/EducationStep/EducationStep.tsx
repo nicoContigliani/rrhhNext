@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import style from './EducationStep.module.css'
-import Button from '@mui/material/Button';
+import { Button, Flex } from 'antd';
 import Input from '@mui/material/Input';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -44,7 +44,11 @@ const EducationStep = (props: any) => {
       </h3>
 
       <div className={style.createInputs}>
-        <Button variant="outlined" color="primary" size="small" fullWidth
+        <Button
+          type="primary"
+          color="primary"
+          size="small"
+          block
           onClick={handleClick}>Agregar input</Button>
       </div>
 
@@ -90,7 +94,12 @@ const EducationStep = (props: any) => {
             </div>
           </div>
           <div className={style.deletes}>
-            <Button variant="outlined" color="error" size="small" fullWidth
+            <Button
+              color="primary"
+              size="small"
+              danger
+              ghost
+              block
               onClick={() => onDeleteEducationEntry(index)}
 
             >
@@ -102,7 +111,9 @@ const EducationStep = (props: any) => {
       ))}
 
       <div className={style.deletes}>
-        <Button variant="outlined" color="primary" size="small" fullWidth
+        <Button
+          size="small"
+          block
           onClick={handleSaveData}
         >
           Guardar Datos

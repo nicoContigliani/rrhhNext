@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import style from './ExperienceStep.module.css';
-import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
 import { useSelector } from 'react-redux';
 import TextsArea from '@/components/TextArea/TextsArea';
 import TextArea from 'antd/es/input/TextArea'
+import { Button, Flex } from 'antd';
 
 const ExperienceStep = (props: any) => {
   const experienceStorage: any | any[] = useSelector((state: any) => state);
@@ -43,10 +43,10 @@ const ExperienceStep = (props: any) => {
 
       <div className={style.createInputs}>
         <Button
-          variant="outlined"
+          type="primary"
+          block
           color="primary"
           size="small"
-          fullWidth
           onClick={handleClick}
         >
           Agregar input
@@ -110,7 +110,7 @@ const ExperienceStep = (props: any) => {
               className={style.textArea}
               placeholder="Details"
               name="detail_atribute"
-              autoFocus={false} color={''} defaultValue={undefined} disabled={false}  id={''} 
+              autoFocus={false} color={''} defaultValue={undefined} disabled={false} id={''}
               rows={3}
               value={entry.detail_atribute || ''}
               onChange={(e) => handleChange(index, 'detail_atribute', e.target.value)}
@@ -119,13 +119,14 @@ const ExperienceStep = (props: any) => {
 
 
           </div>
-<br />
+          <br />
           <div className={style.deletes}>
             <Button
-              variant="outlined"
-              color="error"
+              block
+              color="primary"
               size="small"
-              fullWidth
+              danger
+              ghost
               onClick={() => onDeleteExperienceEntry(index)}
             >
               Delete
@@ -136,10 +137,8 @@ const ExperienceStep = (props: any) => {
 
       <div className={style.deletes}>
         <Button
-          variant="outlined"
-          color="primary"
           size="small"
-          fullWidth
+          block
           onClick={handleSaveData}
         >
           Guardar Datos

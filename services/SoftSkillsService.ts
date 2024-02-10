@@ -11,17 +11,14 @@ const SoftSkillsService = () => {
   const dispatch = useDispatch();
 
   const handleSelectChange = (newValues: any) => {
-    // Implement logic for updating selected values in Redux state
     dispatch(setSoftSkillsData({ selectedValues: newValues }));
   };
 
   const handleAddSelect = (newOption: any) => {
-    // Implement logic for adding a new option in Redux state
     dispatch(addSoftSkillsEntry(newOption));
   };
 
   const handleSaveData = () => {
-    // Implement logic for saving data (if needed)
     console.log('Saved data:', softSkillsData.selectedValues);
   };
 

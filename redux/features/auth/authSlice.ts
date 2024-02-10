@@ -87,6 +87,7 @@ export const authAsync = createAsyncThunk(
             method: 'PUT', // Use 'GET', 'POST', 'PUT', etc. as needed
             body: userDatas,
             idParams: null,
+            token:""
         }
 
         const response = await useAxios(todo)
@@ -120,6 +121,8 @@ export const authAsyncRegister = createAsyncThunk(
             method: 'POST', // Use 'GET', 'POST', 'PUT', etc. as needed
             body: dataSend,
             idParams: null,
+            token:""
+
         }
 
         const response = await useAxios(todo)

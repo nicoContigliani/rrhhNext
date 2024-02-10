@@ -16,6 +16,7 @@ import Auths from '@/components/Auth/Auth';
 import Icons from '@/components/Icons/Icons';
 import Main from '@/components/Main/Main';
 import Iconf from '@/components/images/flama.png'
+import Presentation from '@/components/Presentation/Presentation';
 
 const Logo = dynamic(() => import('@/components/Logo/Logo'), { ssr: false })
 
@@ -100,7 +101,7 @@ export default function Home() {
         isLogins ?
           <div>
             <div className={styles.element} >
-              <Main />
+              <Presentation />
             </div>
           </div>
           :

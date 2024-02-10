@@ -2,9 +2,12 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "../../store";
 import useAxios from "@/services/useAxios.services";
 import dotenv from 'dotenv';
+import { readLocalStorage } from "@/services/storage.services";
 // dotenv.config({ path: '@/.env' });
 dotenv.config();
+const API_URL = process.env.API_URL;
 
+const dataSearch: any[] = ["token"]
 
 
 // import routesName from '../../../routes.api.json'
@@ -30,12 +33,16 @@ export const preloadCVData = createAsyncThunk(
     "CV/preload",
     async () => {
         try {
-            const todo: any = {
-                url: "http://localhost:3001/CV/CV/",
+            const {token} = await readLocalStorage(dataSearch);
+
+            const todo: any = await {
+                url: `${API_URL}/CV/CV/`,
                 method: 'GET',
                 body: "",
                 idParams: null,
+                token: token
             }
+            console.log("🚀 ~ todo:", todo)
 
             const response = await useAxios(todo);
             console.log("🚀 ~ response:", response)
@@ -53,13 +60,16 @@ export const cvIdAsync = createAsyncThunk(
     async (id: any) => {
         console.log("🚀 ~ id:", id)
         try {
+            const {token} = await readLocalStorage(dataSearch);
+
             const todo: any = {
                 url: `http://localhost:3001/CV/CV/${id}`,
                 method: 'GET',
                 body: "",
                 idParams: null,
-            }
+                token: token
 
+            }
             const response = await useAxios(todo);
             return response;
 

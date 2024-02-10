@@ -4,6 +4,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "@/redux/store";
 import useAxios from "@/services/useAxios.services";
 import { readLocalStorage, writedLocalStorage } from "@/services/storage.services";
+const API_URL = process.env.API_URL;
 
 
 const initialState = {
