@@ -33,7 +33,7 @@ export const preloadCVData = createAsyncThunk(
     "CV/preload",
     async () => {
         try {
-            const {token} = await readLocalStorage(dataSearch);
+            const { token } = await readLocalStorage(dataSearch);
 
             const todo: any = await {
                 url: `${API_URL}/CV/CV/`,
@@ -60,10 +60,10 @@ export const cvIdAsync = createAsyncThunk(
     async (id: any) => {
         console.log("🚀 ~ id:", id)
         try {
-            const {token} = await readLocalStorage(dataSearch);
+            const { token } = await readLocalStorage(dataSearch);
 
             const todo: any = {
-                url: `http://localhost:3001/CV/CV/${id}`,
+                url: `${API_URL}/CV/CV/${id}`,
                 method: 'GET',
                 body: "",
                 idParams: null,
@@ -79,6 +79,34 @@ export const cvIdAsync = createAsyncThunk(
         }
     }
 );
+
+export const cvNextAsync: any = createAsyncThunk(
+    "CVId/Slice",
+    async (data: any) => {
+
+        try {
+            const { token } = await readLocalStorage(dataSearch);
+
+            const todo: any = {
+                url: `${API_URL}/CVNext/CVNext/`,
+                method: 'POST',
+                body: data,
+                idParams: null,
+                token: token
+
+            }
+            const response = await useAxios(todo);
+            return response;
+            return true
+        } catch (error) {
+            console.error("Error fetching CV ID data:", error);
+            throw error;
+        }
+    }
+);
+
+
+
 
 export const cvSlice = createSlice({
     name: "cvs/slice",

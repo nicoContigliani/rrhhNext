@@ -10,11 +10,9 @@ interface AxiosProps {
 
 const useAxios = async (props: AxiosProps): Promise<any> => {
   const { url, method, body, idParams, token } = props;
-  console.log("🚀 ~ useAxios ~ token:", token)
   let dataReturn;
 
   try {
-    // const token: string = 'tu_token_aqui' || '';
 
     const headers: { [key: string]: string } = {};
 
@@ -26,16 +24,12 @@ const useAxios = async (props: AxiosProps): Promise<any> => {
       ? `${url}/${idParams}`
       : `${url}`;
 
-
     const response = await axios({
       method: method, // Ensure method is of type Method from axios
       url: urls,
       data: body,
       headers: headers
     });
-
-
-
 
     return dataReturn = response.data
 

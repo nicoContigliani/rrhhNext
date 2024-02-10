@@ -18,19 +18,21 @@ import CVSectionTittleCV from '../CV/CvSectionTittleCV/CVSectionTittleCV';
 
 
 
-const ModalCV = () => {
+const ModalCV = (props: any) => {
+
+    const {
+        perInfData,
+        perDescData,
+        eduData,
+        experData,
+        hardSData,
+        softSData,
+        lenguageData,
+        dispData,
+        tittleData
+    } = props
+
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [perInfData, setPerInfData] = useState()
-    const [perDescData, setPerDescData] = useState()
-    const [eduData, setEduData] = useState()
-    const [experData, setExperData] = useState()
-    const [hardSData, setHardSData] = useState()
-    const [softSData, setSoftSData] = useState()
-    const [lenguageData, setLenguageData] = useState()
-    const [dispData, setDispData] = useState()
-    const [tittleData, setTittleData] = useState()
-
-
 
 
 
@@ -40,120 +42,23 @@ const ModalCV = () => {
 
     const handleOk = () => {
         setIsModalOpen(false);
+
+
     };
 
     const handleCancel = () => {
         setIsModalOpen(false);
     };
 
-    const {
-        personalInformation: { personalInformationData },
-        personalDescription: { personalDescriptionData },
-        education: { educationData },
-        experience: { experienceData },
-        hardSkills: { selectedValues },
-        tittleCV: { selectedValues: selectedValueT },
-        softSkills: { selectedValues: selectedValuesSS },
-        lenguage: { selectedValues: selectedValuesL },
-        disponibility: { selectedValues: selectedValuesD }
-    } = useSelector((state: any) => state);
-    useEffect(() => {
-        const data = {}
-
-        setPerInfData(personalInformationData)
-        setPerDescData(personalDescriptionData)
-        setEduData(educationData)
-        setExperData(experienceData)
-        setHardSData(selectedValues)
-        setSoftSData(selectedValuesSS)
-        setLenguageData(selectedValuesL)
-        setDispData(selectedValuesD)
-        setTittleData(selectedValueT)
-    },
-        [
-            personalInformationData,
-            personalDescriptionData,
-            educationData,
-            experienceData,
-            selectedValues,
-            selectedValuesSS,
-            selectedValuesL,
-            selectedValuesD,
-            selectedValueT
-        ])
-
-
-
-
+  
     const dispatch = useDispatch();
-
-    const handleClick = () => {
-        // console.log("**********************************",
-        //     "**********************************",
-        //     "<Personal information>",
-        //     personalInformationData,
-        //     "**********************************",
-        //     "**********************************",
-        //     "<Person Title>",
-        //     selectedValueT,
-        //     "**********************************",
-        //     "**********************************",
-        //     "<Personal Description>",
-        //     personalDescriptionData,
-        //     "**********************************",
-        //     "**********************************",
-        //     "<Education>",
-        //     educationData,
-        //     "**********************************",
-        //     "**********************************",
-        //     "<Experience>",
-        //     experienceData,
-        //     "**********************************",
-        //     "**********************************",
-        //     "<Hard Skill>",
-        //     selectedValues,
-        //     "**********************************",
-        //     "**********************************",
-        //     "<SoffSkill>",
-        //     selectedValuesSS,
-        //     "**********************************",
-        //     "**********************************",
-        //     "<Lenguage>",
-        //     selectedValuesL,
-        //     "**********************************",
-        //     "**********************************",
-        //     "<Disponibility>",
-        //     selectedValuesD,
-        //     "**********************************************"
-
-        // )
-   
-        const dataForSend = {
-            PersonalInformation:personalInformationData,
-            PersonTitle:selectedValueT,
-            PersonalDescription:personalDescriptionData,
-            Education:educationData,
-            Experience:experienceData,
-            HardSkill:selectedValues,
-            SoffSkill:selectedValuesSS,
-            Lenguage:selectedValuesL,
-            Disponibility:selectedValuesD
-        }
-
-
-
-        console.log(dataForSend)
-    }
-
-
-
 
     return (
         <>
             <Button type="primary"
                 block
                 onClick={showModal}>
-                Open Modal
+                You could watch data add
             </Button>
             <Modal title="Mi CV"
                 className={styles.modal}
@@ -252,28 +157,9 @@ const ModalCV = () => {
                                 />
                             </div> : ""
                     }
-
-
-
                 </div>
-
-
-
-
             </Modal>
-            <div className={styles.createInputs}>
-                <Button
-                    type="primary"
-                    block
-                    ghost
-
-                    color="primary"
-                    size="small"
-                    onClick={handleClick}
-                >
-                    Save
-                </Button>
-            </div>
+       
         </>
     );
 }

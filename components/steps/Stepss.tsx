@@ -28,9 +28,13 @@ import LenguageService from '@/services/LenguageService';
 import DisponibilityService from '@/services/DisponibilityService';
 import PersonalDescriptionService from '@/services/personaldescription.services';
 import TittleCVServices from '@/services/TittleCV.Services'
+import ReviewCVServices from '@/services/ReviewCV.services';
 
 
 const Stepss = () => {
+
+  const [dataModal,setDataModal] = useState()
+
 
   const educationService = EducationService();
   const personInformationServices = PersonalInformationServices()
@@ -42,6 +46,10 @@ const Stepss = () => {
   const hardSkillsService = HardSkillsService()
   const lenguageService = LenguageService()
   const disponibilityService = DisponibilityService()
+  const reviewCVServices = ReviewCVServices()
+
+
+
 
   const steps = [
     'Personal Information',
@@ -146,8 +154,14 @@ const Stepss = () => {
     // onSave={disponibilityService.handleSave}
     />,
     <ReviewStep
-
-
+      title='PersonalInformationStep'
+      onAddReviewCVEntry={reviewCVServices.addReviewCVEntrys}
+      onUpdateReviewCVEntry={reviewCVServices.updateReviewCVEntrys}
+      onDeleteReviewCVEntry={reviewCVServices.deleteReviewCVEntrys}
+      dataModal={dataModal}
+      setDataModal={setDataModal}
+      onSave={reviewCVServices.handleSave}
+    
 
     />,
   ];
