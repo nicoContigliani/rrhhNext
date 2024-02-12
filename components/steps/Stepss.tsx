@@ -33,7 +33,8 @@ import ReviewCVServices from '@/services/ReviewCV.services';
 
 const Stepss = () => {
 
-  const [dataModal,setDataModal] = useState()
+  const [dataModal, setDataModal] = useState()
+  const [dataFilter, setFilteredData] = useState<any[] | any | undefined>()
 
 
   const educationService = EducationService();
@@ -48,6 +49,7 @@ const Stepss = () => {
   const disponibilityService = DisponibilityService()
   const reviewCVServices = ReviewCVServices()
 
+  const [isAdmin, setIsAdmin] = useState<boolean>(false)
 
 
 
@@ -71,7 +73,14 @@ const Stepss = () => {
       onAddPersonalInformationEntry={personInformationServices.addPersonalInformationEntrys}
       onUpdatePersonalInformationEntry={personInformationServices.updatePersonalInformationEntrys}
       onDeletePersonalInformationEntry={personInformationServices.deletePersonalInformationEntrys}
+      insertInformationDataofDataFilter={personInformationServices.insertInformationDataofDataFilterServices}
       onSave={personInformationServices.handleSave}
+      dataFilter={dataFilter}
+      setFilteredData={setFilteredData}
+      isAdmin={isAdmin}
+      setIsAdmin={setIsAdmin}
+
+
     />,
     <TittleCVStep
       title='Tittle Job for CV'
@@ -161,7 +170,7 @@ const Stepss = () => {
       dataModal={dataModal}
       setDataModal={setDataModal}
       onSave={reviewCVServices.handleSave}
-    
+
 
     />,
   ];

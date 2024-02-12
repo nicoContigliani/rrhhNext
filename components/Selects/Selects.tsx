@@ -2,7 +2,7 @@ import { Select } from 'antd'
 import React, { useEffect, useState } from 'react'
 
 const Selectscomponent = (props: any) => {
-    const { options, dataGeneralUser,dataFilter,setFilteredData } = props
+    const { options, dataGeneralUser, dataFilter, setFilteredData } = props
 
     const [dataGeneralUserProps, setDataGeneralUserProps] = useState<any | any[]>()
     const [optionsProp, setOptionsProps] = useState<any | any[]>([])
@@ -27,13 +27,13 @@ const Selectscomponent = (props: any) => {
     }, [props])
 
     useEffect(() => {
-        console.log(dataValue);
-        // Filter dataGeneralUserProps based on dataValue
-        if (dataValue && Array.isArray(dataGeneralUserProps)) {
-            const filtered = dataGeneralUser.filter((item: any) => item.id === dataValue);
+        if (dataValue && Array.isArray(dataGeneralUser)) {
+            const filtered = dataGeneralUser?.filter((item) => item.id === dataValue);
             setFilteredData(filtered);
         } else {
-            setFilteredData([]);
+            // Handle cases where dataGeneralUser is not an array
+            console.error('dataGeneralUser is not an array');
+            // setFilteredData([]); // Or display an appropriate message/error
         }
     }, [dataValue, dataGeneralUser]);
 
@@ -63,11 +63,10 @@ const Selectscomponent = (props: any) => {
 
 
                         />
+                        <hr />
+
                     </div>
                     : ""
-            }
-            {
-                dataValue ? dataValue : ""
             }
         </div>
     )

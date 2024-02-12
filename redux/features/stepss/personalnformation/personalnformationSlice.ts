@@ -25,7 +25,7 @@ const initialState = {
     peopleForCv: [{}],
     selectedValues: [{}],
     contentOptionSelect: [{}],
-    error:[{}]
+    error: [{}]
 };
 
 
@@ -122,7 +122,7 @@ export const UserCVDataSelected: any | any[] | undefined = createAsyncThunk(
             // Verificar si el usuario no es administrador
             if (name_role !== "Administrador" || !admins) {
                 // Retornar los datos del usuario
-               
+
 
                 return [[{
                     id,
@@ -164,20 +164,22 @@ const personalInformationSlice = createSlice({
         dataUserCvSelect: (state, action) => {
             state.peopleForCv = action.payload;
         },
-
+        insertInformationDataofDataFilterInPersonalInformationData: (state, action) => {
+            state.personalInformationData = action.payload;        
+        },
 
         setPersonalInformationData: (state, action) => {
             state.personalInformationData = action.payload;
         },
         addPersonalInformationEntry: (state) => {
-            state.personalInformationData.push({});
+            // state.personalInformationData.push({});
         },
         updatePersonalInformationEntry: (state, action) => {
             const { index, field, value } = action.payload;
-            state.personalInformationData[index] = {
-                ...state.personalInformationData[index],
-                [field]: value,
-            };
+            // state.personalInformationData[index] = {
+            //     ...state.personalInformationData[index],
+            //     [field]: value,
+            // };
         },
         deletePersonalInformationEntry: (state, action) => {
             const { index } = action.payload;
@@ -188,6 +190,7 @@ const personalInformationSlice = createSlice({
         builder
             .addCase(preloadUserCVData.fulfilled, (state, action) => {
                 state.contentOptionSelect = action.payload;
+
             })
             .addCase(preloadUserCVData.rejected, (state, action) => {
                 state.error = action.error.message || "Error en la carga de datos de usuario.";
@@ -202,6 +205,7 @@ const personalInformationSlice = createSlice({
 });
 
 export const {
+    insertInformationDataofDataFilterInPersonalInformationData,
     setPersonalInformationData,
     addPersonalInformationEntry,
     updatePersonalInformationEntry,

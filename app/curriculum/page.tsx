@@ -130,8 +130,10 @@ const page = () => {
                 <h1 className={styles.h1}>Curriculum Vitae</h1>
             </div>
 
-            {
-                isAdmin ?
+            {   
+                true
+                //TODO The problem is permissón and existens,it doesn't isAdmin
+                 ?
                     <div>
                         <div className={styles.stadistics}>
                             <Button type="primary" onClick={() => setShowThings(false)} >
