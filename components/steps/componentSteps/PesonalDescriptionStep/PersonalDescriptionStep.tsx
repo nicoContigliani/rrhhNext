@@ -73,22 +73,11 @@ const PersonalDescriptionStep = (props: any) => {
             </div>
           </div>
 
-          {/* <div className={style.deletes}>
-            <Button
-              block
-              color="primary"
-              size="small"
-              danger
-              ghost
-              onClick={() => onDeletePersonalDescriptionEntry(index)}
-            >
-              Delete
-            </Button>
-          </div> */}
+  
         </div>
       ))}
 
-      <div className={style.deletes}>
+      {/* <div className={style.deletes}>
         <Button
           size="small"
           block
@@ -96,7 +85,7 @@ const PersonalDescriptionStep = (props: any) => {
         >
           Guardar Datos
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 };

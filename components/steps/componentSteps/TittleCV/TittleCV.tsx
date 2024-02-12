@@ -61,7 +61,7 @@ const TittleCVStep = (props: any) => {
           Add
         </Button>
       </div>
-      <div className={style.deletes}>
+      {/* <div className={style.deletes}>
         <Button
           size="small"
           block
@@ -69,7 +69,7 @@ const TittleCVStep = (props: any) => {
         >
           Guardar Datos
         </Button>
-      </div>
+      </div> */}
     </div>
 
   );

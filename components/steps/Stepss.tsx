@@ -219,8 +219,10 @@ const Stepss = () => {
     setActiveStep(0);
   };
 
+
   return (
     <div className={styles.body}>
+    
       <Box className={styles.container}>
         {isMobile ? (
           <Box className={styles.stepscontainer}>
@@ -268,6 +270,11 @@ const Stepss = () => {
           {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
         </Button>
       </Box>
+
+
+
+
+
     </div>
   )
 }

@@ -111,13 +111,13 @@ const EducationStep = (props: any) => {
       ))}
 
       <div className={style.deletes}>
-        <Button
+        {/* <Button
           size="small"
           block
           onClick={handleSaveData}
         >
           Guardar Datos
-        </Button>
+        </Button> */}
       </div>
 
     </div>

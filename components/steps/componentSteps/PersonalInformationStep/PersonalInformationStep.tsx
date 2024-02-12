@@ -1,14 +1,11 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import style from './PersonalInformationStep.module.css'; // Adjust path if needed
-import { Button, Flex, Select } from 'antd';
+import { Button} from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { readLocalStorage } from '@/services/storage.services';
 import { UserCVDataSelected, preloadUserCVData } from '@/redux/features/stepss/personalnformation/personalnformationSlice';
 import Selectscomponent from '@/components/Selects/Selects';
 import { Input } from '@mui/material';
-
-
-
 
 const PersonalInformationStep = (props: any) => {
   const [dataPersonalInformationSelector, setPersonalInformationSelector] = useState<any | any[]>()
@@ -22,11 +19,8 @@ const PersonalInformationStep = (props: any) => {
   const [options, setoptions] = useState<any[]>()
   const [dataGeneralUser, setDataGeneralUser] = useState<any[]>()
 
-
-
   const dispatch = useDispatch();
   const {
-
     onAddPersonalInformationEntry,
     onSave,
     onDeletePersonalInformationEntry,
@@ -78,9 +72,6 @@ const PersonalInformationStep = (props: any) => {
 
   }, [!dataFilter]);
 
-
-
-
   useEffect(() => {
     const todoR = async () => {
       const {
@@ -98,10 +89,8 @@ const PersonalInformationStep = (props: any) => {
 
       if (name_role === "Administrador" && admins) setIsAdmin(true);
 
-
       if (name_role !== "Administrador" && !admins && typeof (dataFilter) !== 'object') {
 
-        console.log("***103**", Array.isArray(dataFilter))
         setFilteredData(
           [{
             Score,
@@ -152,7 +141,6 @@ const PersonalInformationStep = (props: any) => {
       <div className={style.body}>
         {
           isAdmin ?
-
 
             <Selectscomponent
               options={options}
@@ -260,9 +248,6 @@ const PersonalInformationStep = (props: any) => {
         <div>
         </div>
       </div>
-
-
-
     </div>
   );
 };

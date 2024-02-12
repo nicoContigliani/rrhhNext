@@ -63,13 +63,13 @@ const SoftSkillsStep = (props: any) => {
         </Button>
       </div>
       <div className={style.deletes}>
-        <Button
+        {/* <Button
           size="small"
           block
           onClick={handleSaveData}
         >
           Guardar Datos
-        </Button>
+        </Button> */}
       </div>
     </div>
   );

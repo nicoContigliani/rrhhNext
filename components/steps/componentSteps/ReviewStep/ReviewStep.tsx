@@ -65,66 +65,66 @@ const ReviewStep = (props: any) => {
     ])
 
   useEffect(() => {
-    // const dataForSend = {
-    //     PersonalInformation:personalInformationData,
-    //     PersonTitle:selectedValueT,
-    //     PersonalDescription:personalDescriptionData,
-    //     Education:educationData,
-    //     Experience:experienceData,
-    //     HardSkill:selectedValues,
-    //     SoffSkill:selectedValuesSS,
-    //     Lenguage:selectedValuesL,
-    //     Disponibility:selectedValuesD
-    // }
-
-    const dataForSend: any =
-    {
-      "PersonalInformation": [
-        {
-          "fullname": "Nicolás Contigliani",
-          "email": "nico.contigliani@gmail.com",
-          "phone": "2612444106",
-          "birthsday": "2024-02-11"
-        }
-      ],
-      "PersonTitle": [
-        "Developer"
-      ],
-      "PersonalDescription": [
-        {
-          "persondescription": "Soy un profesional..."
-        }
-      ],
-      "Education": [
-        {
-          "title": "Developer",
-          "institute": "IIESSB",
-          "start": "2024-02-14",
-          "finish": "2024-02-17"
-        }
-      ],
-      "Experience": [
-        {
-          "company": "OPENDEV",
-          "start": "2024-02-18",
-          "finish": "2024-02-18"
-        }
-      ],
-      "HardSkill": [
-        "React.js",
-        "Node"
-      ],
-      "SoffSkill": [
-        "god man",
-        "Conflict resolution"
-      ],
-      "Lenguage": [
-        "Englis"
-      ],
-      "Disponibility": [
-        "8:00 - 13:00"
-      ]
+    const dataForSend = {
+        PersonalInformation:personalInformationData,
+        PersonTitle:selectedValueT,
+        PersonalDescription:personalDescriptionData,
+        Education:educationData,
+        Experience:experienceData,
+        HardSkill:selectedValues,
+        SoffSkill:selectedValuesSS,
+        Lenguage:selectedValuesL,
+        Disponibility:selectedValuesD
     }
+
+    // const dataForSend: any =
+    // {
+    //   "PersonalInformation": [
+    //     {
+    //       "fullname": "Nicolás Contigliani",
+    //       "email": "nico.contigliani@gmail.com",
+    //       "phone": "2612444106",
+    //       "birthsday": "2024-02-11"
+    //     }
+    //   ],
+    //   "PersonTitle": [
+    //     "Developer"
+    //   ],
+    //   "PersonalDescription": [
+    //     {
+    //       "persondescription": "Soy un profesional..."
+    //     }
+    //   ],
+    //   "Education": [
+    //     {
+    //       "title": "Developer",
+    //       "institute": "IIESSB",
+    //       "start": "2024-02-14",
+    //       "finish": "2024-02-17"
+    //     }
+    //   ],
+    //   "Experience": [
+    //     {
+    //       "company": "OPENDEV",
+    //       "start": "2024-02-18",
+    //       "finish": "2024-02-18"
+    //     }
+    //   ],
+    //   "HardSkill": [
+    //     "React.js",
+    //     "Node"
+    //   ],
+    //   "SoffSkill": [
+    //     "god man",
+    //     "Conflict resolution"
+    //   ],
+    //   "Lenguage": [
+    //     "Englis"
+    //   ],
+    //   "Disponibility": [
+    //     "8:00 - 13:00"
+    //   ]
+    // }
     setDataModal(dataForSend)
 
   }, [personalInformationData,
@@ -156,7 +156,6 @@ const ReviewStep = (props: any) => {
 
 
         <ModalCV
-
           perInfData={perInfData}
           perDescData={perDescData}
           eduData={eduData}
@@ -166,8 +165,6 @@ const ReviewStep = (props: any) => {
           lenguageData={lenguageData}
           dispData={dispData}
           tittleData={tittleData}
-
-
         />
 
         <div className={styles.createInputs}>
