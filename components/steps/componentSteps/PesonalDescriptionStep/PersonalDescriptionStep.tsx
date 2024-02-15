@@ -64,10 +64,10 @@ const PersonalDescriptionStep = (props: any) => {
               <Input
                 className={style.inputs}
                 placeholder="Person Description"
-                name="persondescription"
+                name="descriptionPerson"
                 type="text"
-                value={entry.persondescription || ''}
-                onChange={(e) => handleChange(index, 'persondescription', e.target.value)}
+                value={entry.descriptionPerson || ''}
+                onChange={(e) => handleChange(index, 'descriptionPerson', e.target.value)}
               />
               
             </div>

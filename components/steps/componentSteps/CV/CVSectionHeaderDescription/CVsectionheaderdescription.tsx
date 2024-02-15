@@ -14,8 +14,8 @@ const CVsectionheaderdescription = (props: any) => {
                 <h2 className={styles.sectionHeader}>{titleHeader}</h2>
                 <section className={styles.List}>
                     {dataPerson?.map((Item: any) => (
-                        <div key={Item.persondescription} className={styles.Item}>
-                            <p className={styles.Detail}>{Item.persondescription}</p>
+                        <div key={Item.descriptionPerson} className={styles.Item}>
+                            <p className={styles.Detail}>{Item.descriptionPerson}</p>
                         </div>
                     ))}
                 </section>
