@@ -11,7 +11,7 @@ import lenguageReducer from '@/redux/features/stepss/Lenguage/lenguageSlice'
 import disponibilityReducer from '@/redux/features/stepss/disponibility/disponibilitySlice'
 import personalDescriptionReducer from '@/redux/features/stepss/personalDescription/personalDescriptionSlice'
 import tittleCVReducer from '@/redux/features/stepss/tittleCV/tittleCVSlice'
-
+import moduleSevicesReducer from '@/redux/features/modulesServices/moduleServicesSlice'
 
 export const store = configureStore({
   reducer: {
@@ -26,7 +26,8 @@ export const store = configureStore({
     hardSkills: hardSkillsReducer,
     lenguage: lenguageReducer,
     disponibility: disponibilityReducer,
-    tittleCV:tittleCVReducer
+    tittleCV:tittleCVReducer,
+    moduleServices:moduleSevicesReducer
 
   },
 });

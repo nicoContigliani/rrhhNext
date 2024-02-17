@@ -21,8 +21,6 @@ import Menus from '@/components/images/menu.png'
 
 
 import { useSearchParams } from 'next/navigation'
-
-
 const Logo = dynamic(() => import('@/components/Logo/Logo'), { ssr: false })
 
 // const Menus =dynamic(() => import('../images/menu.png'), { ssr: false })
@@ -33,15 +31,12 @@ import Main from '../Main/Main';
 
 import { Home, Iconflama, certificado, cv, documentoLegal, rrhh, lupahuman, lupahumans, module, reporte, clienteS, panel, configuration } from '../../services/iconsImportList.services'
 
-
-
-
-
-
-
 import dotenv from "dotenv";
 import routerLocationServices from '@/services/RoutesLocation.services';
+import { useSelector } from 'react-redux';
 dotenv.config();
+
+
 
 const todo = [
     {
@@ -138,8 +133,14 @@ const Navbars = () => {
 
 
 
-
     const dispatch = useAppDispatch();
+
+
+    const {
+        cv
+    } = useSelector((state: any) => state);
+
+
 
     const dataSearch: any[] = ["islogin"]
 
@@ -158,11 +159,6 @@ const Navbars = () => {
 
         todoR();
     }, [auth]);
-
-
-
-
-
 
 
 

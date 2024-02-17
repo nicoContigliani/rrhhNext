@@ -9,19 +9,25 @@ import { readLocalStorage, writedLocalStorage } from "@/services/storage.service
 
 
 export interface AuthState {
+    moduleName: any;
     token?: string;
     islogin?: boolean;
     user?: object;
     id?: string | number;
+    message: any;
+    httpStatus: any;
 
 }
 
 
 const initialState: AuthState = {
+    moduleName: "moduleStart",
     token: "",
     islogin: false,
     user: {},
-    id: ""
+    id: "",
+    message: "",
+    httpStatus: null
 };
 
 export interface userDataS {

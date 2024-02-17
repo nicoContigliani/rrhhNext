@@ -42,7 +42,7 @@ const TittleCVStep = (props: any) => {
       />
 
       <div>
-        <Input
+        {/* <Input
           type="text"
           name="addSelect"
           value={inputValue}
@@ -59,7 +59,7 @@ const TittleCVStep = (props: any) => {
           onClick={() => handleAddSelect({ value: inputValue, label: inputValue })}
         >
           Add
-        </Button>
+        </Button> */}
       </div>
       {/* <div className={style.deletes}>
         <Button

@@ -4,7 +4,15 @@ import style from './adds.module.css'
 import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
 
 const Updates = (props: any) => {
-    const { todo } = props
+    const { todo,
+        pathNow,
+        setPathNow,
+        methods,
+        setMethods,
+        dataInformation,
+        setDataInformation,
+        handleAction
+    } = props
     const [data, setData] = useState<any | any[] | undefined>()
     useEffect(() => {
         setData(todo)

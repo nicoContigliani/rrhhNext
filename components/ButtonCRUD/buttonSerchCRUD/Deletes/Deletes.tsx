@@ -4,14 +4,24 @@ import style from './deletes.module.css'
 import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
 
 const Deletes = (props: any) => {
-    const { todo } = props
+    const { todo,
+        pathNow,
+        setPathNow,
+        methods,
+        setMethods,
+        dataInformation,
+        setDataInformation,
+        handleAction
+    } = props
     const [data, setData] = useState<any | any[] | undefined>()
     useEffect(() => {
         setData(todo)
     }, [])
 
     return (
-        <div className={style.body}>
+        <div className={style.body}
+        
+        >
             <Remove />
         </div>
     )

@@ -4,7 +4,16 @@ import style from "./show.module.css"
 import Modals from '@/components/Modals/Modals'
 
 const Show = (props: any) => {
-    const { todo } = props
+    const {
+        todo,
+        pathNow,
+        setPathNow,
+        methods,
+        setMethods,
+        dataInformation,
+        setDataInformation,
+        handleAction,
+    } = props
     const [data, setData] = useState<any | any[] | undefined>(todo)
     useEffect(() => {
         setData(todo)

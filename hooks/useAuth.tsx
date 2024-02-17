@@ -10,6 +10,13 @@ const useAuth = () => {
     const [infoUser, setInfoUser] = useState()
     const [dataPermission, setDataPermission] = useState<any>()
 
+
+    const [rulesCreate,setRulesCreate]=useState<boolean>()
+    const [rulesUpdate,setRulesUpdate]=useState<boolean>()
+    const [rulesPost,setRulesPost]=useState<boolean>()
+    const [rulesDelete,setRulesDelete]=useState<boolean>()
+
+
     const dataSearch = [
         "islogin",
         "token",

@@ -17,6 +17,7 @@ import Icons from '@/components/Icons/Icons';
 import Main from '@/components/Main/Main';
 import Iconf from '@/components/images/flama.png'
 import Presentation from '@/components/Presentation/Presentation';
+import { selectModuleServices } from '@/redux/features/modulesServices/moduleServicesSlice';
 
 const Logo = dynamic(() => import('@/components/Logo/Logo'), { ssr: false })
 
@@ -74,6 +75,7 @@ export default function Home() {
 
   const [isLogins, setIsLogins] = useState(false)
   const auth = useAppSelector(selectAuth);
+  // preloadModuleServices
 
   useEffect(() => {
     const todoR = async () => {
@@ -87,6 +89,12 @@ export default function Home() {
 
     todoR();
   }, [auth]);
+
+
+  const getModulesServices: any | any[] = useAppSelector(selectModuleServices);
+
+
+
 
 
 
@@ -106,7 +114,7 @@ export default function Home() {
           </div>
           :
           <div className={styles.start}>
-         
+
             <div className={styles.element} >
               <div className={styles.logocenter} >
                 <Icons

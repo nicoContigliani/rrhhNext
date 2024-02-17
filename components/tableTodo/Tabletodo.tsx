@@ -40,7 +40,12 @@ const Tabletodo = (props: any) => {
         const getDataAync = async () => {
             if (props.todos !== undefined) {
                 const {
-                    todos
+                    todos,
+                    action,
+                    setAction,
+                    dataAction,
+                    setDataAction,
+                    handleClickAction
                 } = props
                 let {
                     Header,

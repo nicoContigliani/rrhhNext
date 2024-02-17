@@ -20,13 +20,20 @@ export interface CVState {
     tokenModuleCV?: string;
     cvDatas: any;
     cvOneData: any;
+    message: any;
+    httpStatus: any;
+    moduleName: any;
 }
 
 const initialState: CVState = {
+    moduleName: "moduleHummanResources",
     moduleCVActive: false,
     tokenModuleCV: "",
     cvDatas: [],
     cvOneData: [],
+    message: "",
+    httpStatus: null
+
 };
 
 export const preloadCVData = createAsyncThunk(
@@ -36,7 +43,7 @@ export const preloadCVData = createAsyncThunk(
             const { token } = await readLocalStorage(dataSearch);
 
             const todo: any = await {
-                url: `${API_URL}/CV/CV/`,
+                url: `${API_URL}/CVNext/CVNext/`,
                 method: 'GET',
                 body: "",
                 idParams: null,
@@ -63,7 +70,7 @@ export const cvIdAsync = createAsyncThunk(
             const { token } = await readLocalStorage(dataSearch);
 
             const todo: any = {
-                url: `${API_URL}/CV/CV/${id}`,
+                url: `${API_URL}/CVNext/CVNext/${id}`,
                 method: 'GET',
                 body: "",
                 idParams: null,
@@ -81,7 +88,7 @@ export const cvIdAsync = createAsyncThunk(
 );
 
 export const cvNextAsync: any = createAsyncThunk(
-    "CVId/Slice",
+    "CVId/Post/Slice",
     async (data: any) => {
 
         try {
@@ -92,6 +99,33 @@ export const cvNextAsync: any = createAsyncThunk(
                 method: 'POST',
                 body: data,
                 idParams: null,
+                token: token
+
+            }
+            const response = await useAxios(todo);
+            console.log("********************************************************")
+            console.log("🚀 ~ response:***cvNextAsync******************", response, "🚀 ~ response:***cvNextAsync******************")
+            console.log("********************************************************")
+
+            return response;
+        } catch (error) {
+            console.error("Error fetching CV ID data:", error);
+            throw error;
+        }
+    }
+);
+export const cvNextAsyncDelete: any = createAsyncThunk(
+    "CVId/Delete/Slice",
+    async (data: any, idParams: any) => {
+
+        try {
+            const { token } = await readLocalStorage(dataSearch);
+
+            const todo: any = {
+                url: `${API_URL}/CVNext/CVNext/`,
+                method: 'POST',
+                body: data,
+                idParams: idParams,
                 token: token
 
             }
@@ -136,7 +170,25 @@ export const cvSlice = createSlice({
             })
             .addCase(cvIdAsync.rejected, (state) => {
                 state.cvOneData = [];
-            });
+                state.message = "rejected"
+                state.httpStatus = 500
+
+            })
+            .addCase(cvNextAsync.fulfilled, (state, action) => {
+                if (action.payload) {
+                    state.cvOneData = action.payload.data || {};
+                    state.message = action.payload.message;
+                    state.httpStatus = action.payload.status
+                }
+            })
+            ;
+
+
+
+        // cvNextAsync
+
+
+
     },
 });
 

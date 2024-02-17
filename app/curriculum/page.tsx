@@ -18,8 +18,8 @@ import Stepss from '@/components/steps/Stepss';
 import Inputs from '@/components/inputs/Inputs';
 import InputsSertch from '@/components/Inputserch/InputsSertch';
 
-
-
+import AddIcon from '@mui/icons-material/Add';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
 const page = () => {
 
@@ -35,6 +35,7 @@ const page = () => {
 
 
     const cv: any = useAppSelector(selectCV);
+    console.log("🚀 ~ page ~ cv:", cv)
     const cvDatas = cv?.cvDatas;
     const cvOneData = cv?.cvOneData;
 
@@ -46,6 +47,17 @@ const page = () => {
 
     const [dataFilter, setDataFilter] = useState<any[] | undefined>()
     const [dataTable, setDataTable] = useState<any[]>()
+
+
+    const [iconVisible, setIconVisible] = useState(true);
+
+    const handleMouseEnter = () => setIconVisible(false);
+    const handleMouseLeave = () => setIconVisible(true);
+
+    const [action, setAction] = useState<any>()
+    const [dataAction, setDataAction] = useState<any | any[]>()
+
+
 
     //preload
     useEffect(() => {
@@ -65,13 +77,21 @@ const page = () => {
 
     }, [window])
 
+
     //change data in usestate
     useEffect(() => {
         // setDataCV(cv)
         setCvDataAll(cvDatas)
         setCVDataOne(cvOneData)
     }, [cv])
- 
+
+
+
+
+
+
+
+
     const SmallHeadArray: any[] | undefined | any = ["id", "title", "description_cv"]
     //useEffect for columns and header
     useEffect(() => {
@@ -124,23 +144,36 @@ const page = () => {
 
     }, [dataAll, dataFilter])
 
+
+
     return (
         <div>
             <div className={styles.body}>
                 <h1 className={styles.h1}>Curriculum Vitae</h1>
             </div>
 
-            {   
+            {
                 true
-                //TODO The problem is permissón and existens,it doesn't isAdmin
-                 ?
+                    //TODO The problem is permissón and existens,it doesn't isAdmin
+                    ?
                     <div>
                         <div className={styles.stadistics}>
-                            <Button type="primary" onClick={() => setShowThings(false)} >
-                                Create
+                            <Button type="primary" onClick={() => setShowThings(false)}
+                                onMouseEnter={handleMouseEnter}
+                                onMouseLeave={handleMouseLeave}
+                            >
+                                {
+                                    iconVisible ? "Create" : <AddIcon />
+                                }
                             </Button>
-                            <Button type="primary" onClick={() => setShowThings(true)}  >
-                                Show
+                            <Button type="primary" onClick={() => setShowThings(true)}
+                                onMouseEnter={handleMouseEnter}
+                                onMouseLeave={handleMouseLeave}
+                            >
+                                {
+                                    iconVisible ? "Show" : <SearchOutlinedIcon />
+                                }
+
                             </Button>
                         </div>
                     </div>
@@ -163,6 +196,7 @@ const page = () => {
                             /> : ""
                         }
                         <Tabletodo
+
                             todos={dataTable}
                         />
                     </div>
