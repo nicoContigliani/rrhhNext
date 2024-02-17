@@ -21,8 +21,6 @@ import { selectModuleServices } from '@/redux/features/modulesServices/moduleSer
 
 const Logo = dynamic(() => import('@/components/Logo/Logo'), { ssr: false })
 
-
-
 export default function Home() {
   const [data, setData] = useState({})
 
