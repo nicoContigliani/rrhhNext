@@ -19,11 +19,14 @@ const Selectscomponent = (props: any) => {
         }
     }, [props])
     useEffect(() => {
-        if (Array.isArray(dataGeneralUser)) {
-            setDataGeneralUserProps(dataGeneralUser);
-        } else {
-            setDataGeneralUserProps([]);
+        const dataGetAsync = async () => {
+            if (Array.isArray(dataGeneralUser)) {
+                await setDataGeneralUserProps(dataGeneralUser);
+            } else {
+                await setDataGeneralUserProps([]);
+            }
         }
+        dataGetAsync()
     }, [props])
 
     useEffect(() => {

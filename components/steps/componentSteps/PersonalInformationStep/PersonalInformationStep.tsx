@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import style from './PersonalInformationStep.module.css'; // Adjust path if needed
-import { Button} from 'antd';
+import { Button } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { readLocalStorage } from '@/services/storage.services';
 import { UserCVDataSelected, preloadUserCVData } from '@/redux/features/stepss/personalnformation/personalnformationSlice';
@@ -15,7 +15,7 @@ const PersonalInformationStep = (props: any) => {
 
 
   const [personalInformation, setPersonalInformation] = useState<any[]>()
-  const [openForProfessional, SetOpenForProfessional] = useState<any>(false)
+  // const [openForProfessional, SetOpenForProfessional] = useState<any>(false)
   const [options, setoptions] = useState<any[]>()
   const [dataGeneralUser, setDataGeneralUser] = useState<any[]>()
 
@@ -30,7 +30,10 @@ const PersonalInformationStep = (props: any) => {
     dataFilter,
     setFilteredData,
     isAdmin,
-    setIsAdmin
+    setIsAdmin,
+    openForProfessional,
+    SetOpenForProfessional,
+    
   } = props;
 
   const dataSearch: any[] = [
@@ -130,6 +133,8 @@ const PersonalInformationStep = (props: any) => {
 
   const handleClick = () => {
     SetOpenForProfessional(!openForProfessional)
+
+
   };
 
 

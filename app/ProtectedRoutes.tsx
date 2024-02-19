@@ -17,7 +17,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import { preloadModuleServicesData } from '@/redux/features/modulesServices/moduleServicesSlice';
 import isWithinMaxDistance from '@/services/saveLocation.sevices';
 import { useAppSelector } from '@/redux/hooks';
-import { selectCV } from '@/redux/features/CV/cvSlice';
+// import { selectCV } from '@/redux/features/CV/cvSlice';
 
 
 // const useRoutesPermission = dynamic(() => import('@/hooks/useRoutesPermission'), { ssr: false })
@@ -128,29 +128,29 @@ const ProtectedRoutes: React.FC<ProtectedRouteProps> = ({ children }) => {
 
 
     
-    useEffect(() => {
-        const refrence = { latitude: -20.8574, longitude: -68.8368 }
+    // useEffect(() => {
+    //     const refrence = { latitude: -20.8574, longitude: -68.8368 }
     
-        if (navigator?.geolocation) {
-            navigator?.geolocation.getCurrentPosition(
-                position => {
-                    const { latitude, longitude } = position.coords;
-                    try {
-                        const dataR = isWithinMaxDistance(refrence, { latitude, longitude }, 5)
-                        console.log("🚀 ~ useEffect ~ dataR:", dataR)
-                    } catch (error) {
-                        console.log("🚀 ~ useEffect ~ error:", error)
-                    }
-                },
-                error => {
-                    console.error('Error getting geolocation:', error);
-                }
-            );
-        } else {
-            console.error('Geolocation is not supported by this browser.');
-        }
+    //     if (navigator?.geolocation) {
+    //         navigator?.geolocation.getCurrentPosition(
+    //             position => {
+    //                 const { latitude, longitude } = position.coords;
+    //                 try {
+    //                     const dataR = isWithinMaxDistance(refrence, { latitude, longitude }, 5)
+    //                     console.log("🚀 ~ useEffect ~ dataR:", dataR)
+    //                 } catch (error) {
+    //                     console.log("🚀 ~ useEffect ~ error:", error)
+    //                 }
+    //             },
+    //             error => {
+    //                 console.error('Error getting geolocation:', error);
+    //             }
+    //         );
+    //     } else {
+    //         console.error('Geolocation is not supported by this browser.');
+    //     }
     
-    }, [window]);
+    // }, [window]);
 
 
  

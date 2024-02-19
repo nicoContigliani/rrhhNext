@@ -4,12 +4,6 @@ import style from './adds.module.css'
 const Adds = (props: any) => {
     const {
         todo,
-        pathNow,
-        setPathNow,
-        methods,
-        setMethods,
-        dataInformation,
-        setDataInformation,
         handleAction,
     } = props
     const [data, setData] = useState<any | any[] | undefined>()

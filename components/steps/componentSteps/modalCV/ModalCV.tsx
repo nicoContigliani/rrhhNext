@@ -10,6 +10,7 @@ import CVsectionheaderdescription from '../CV/CVSectionHeaderDescription/CVsecti
 import CvSectionEducation from '../CV/CVSectionEducation/CvSectionEducation';
 import Cvsection from '../CV/CVSection/Cvsection';
 import Cvsectionjobs from '../CV/CVSectionJobs/Cvsectionjobs';
+import CvsectionjobsFree from '../CV/CVSectionJobsFree/CvsectionjobsFree';
 import CVSectionhardskill from '../CV/CvSectionHardSkill/CVSectionhardskill';
 import CVSectionsoftskill from '../CV/CvSectionSoftSkill/CVSectionsoftskill';
 import CVSectionlenguage from '../CV/CvSectionLenguage/CVSectionlenguage';
@@ -19,12 +20,14 @@ import CVSectionTittleCV from '../CV/CvSectionTittleCV/CVSectionTittleCV';
 
 
 const ModalCV = (props: any) => {
+    console.log("🚀 ~ ModalCV ~ props:", props)
 
     const {
         perInfData,
         perDescData,
         eduData,
         experData,
+        experFreeData,
         hardSData,
         softSData,
         lenguageData,
@@ -50,7 +53,7 @@ const ModalCV = (props: any) => {
         setIsModalOpen(false);
     };
 
-  
+
     const dispatch = useDispatch();
 
     return (
@@ -119,6 +122,15 @@ const ModalCV = (props: any) => {
                                 />
                             </div> : ""
                     }
+                    {
+                        (experFreeData) ?
+                            <div>
+                                <CvsectionjobsFree
+                                    titleHeader="Experience Free Lancer"
+                                    data={experFreeData}
+                                />
+                            </div> : ""
+                    }
 
                     {
                         (hardSData) ?
@@ -159,7 +171,7 @@ const ModalCV = (props: any) => {
                     }
                 </div>
             </Modal>
-       
+
         </>
     );
 }

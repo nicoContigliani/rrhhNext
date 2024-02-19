@@ -5,12 +5,7 @@ import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
 
 const Deletes = (props: any) => {
     const { todo,
-        pathNow,
-        setPathNow,
-        methods,
-        setMethods,
-        dataInformation,
-        setDataInformation,
+  
         handleAction
     } = props
     const [data, setData] = useState<any | any[] | undefined>()
@@ -20,7 +15,7 @@ const Deletes = (props: any) => {
 
     return (
         <div className={style.body}
-        
+        onClick={handleAction}
         >
             <Remove />
         </div>

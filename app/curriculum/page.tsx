@@ -27,11 +27,18 @@ const page = () => {
 
 
     const [data, setData] = useState([])
-    console.log("🚀 ~ page ~ data:", data)
     const [dataRows, setDataRows] = useState([])
 
     const { isOpen, isLogins, infoUser, isAdmin, setIsOpen, setIsLogins, dataPermission } = useAuth();
     const { width, height } = useScreenSize()
+
+
+    useEffect(() => {
+        dispatch(preloadCVData())
+
+    }, [])
+
+
 
 
     const cv: any = useAppSelector(selectCV);
@@ -58,14 +65,13 @@ const page = () => {
     const [dataAction, setDataAction] = useState<any | any[]>()
 
 
-
     //preload
     useEffect(() => {
         dispatch(preloadCVData())
         const dataR = async () => {
             if (!dataPermission?.admins && dataPermission?.id !== undefined) {
                 const todo: any = [await cvDatas?.find((item: any) => item?.id === dataPermission?.id)];
-                setCVDataOne(todo)
+                await setCVDataOne(todo)
             }
         }
         dataR()
@@ -73,16 +79,27 @@ const page = () => {
 
 
     useEffect(() => {
+        const getData = async () => {
+            await dispatch(preloadCVData())
+        }
+        getData()
+
+
+    }, [window, dispatch])
+    useLayoutEffect(() => {
+
         dispatch(preloadCVData())
 
-    }, [window])
-
+    }, [window, dispatch])
 
     //change data in usestate
     useEffect(() => {
         // setDataCV(cv)
-        setCvDataAll(cvDatas)
-        setCVDataOne(cvOneData)
+        const getData = async () => {
+            await setCvDataAll(cvDatas)
+            await setCVDataOne(cvOneData)
+        }
+        getData()
     }, [cv])
 
 
@@ -122,18 +139,18 @@ const page = () => {
             getDataForSend()
         }
 
-    }, [cvOneData, cvDataAll])
+    }, [cvOneData, cvDataAll, cv])
 
     useEffect(() => {
         const getDataForSend = async () => {
-            setDataTable(dataAll)
+            // setDataTable(dataAll)
 
             if (dataFilter?.length != 0 && dataFilter != undefined) {
                 const todos: any | object = await {
                     Header: SmallHeadArray,
                     Columns: dataFilter
                 }
-                setDataTable(todos)
+                await setDataTable(todos)
             }
             if (dataFilter?.length == 0 || dataFilter == undefined) {
                 await setDataTable(dataAll)
@@ -196,8 +213,9 @@ const page = () => {
                             /> : ""
                         }
                         <Tabletodo
-
+                            generalURL="/CVNext/CVNext"
                             todos={dataTable}
+
                         />
                     </div>
                     :

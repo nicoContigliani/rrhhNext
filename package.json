@@ -15,7 +15,7 @@
     "@mui/material": "^5.15.1",
     "@mui/styled-engine-sc": "^6.0.0-alpha.8",
     "@mui/x-date-pickers": "^6.19.0",
-    "@reduxjs/toolkit": "^2.0.1",
+    "@reduxjs/toolkit": "^2.2.1",
     "@stitches/react": "^1.2.8",
     "@types/node": "20.10.4",
     "@types/react": "18.2.45",
@@ -38,8 +38,9 @@
     "react-redux": "^9.0.4",
     "react-spinners": "^0.13.8",
     "react-uuid": "^2.0.0",
+    "redux-thunk": "^3.1.0",
     "styled-components": "^6.1.1",
-    "typescript": "5.3.3"
+    "typescript": "^5.3.3"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",

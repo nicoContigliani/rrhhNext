@@ -14,7 +14,14 @@ import useTableSearch from '@/hooks/useTableSearch';
 
 
 const Tabletodo = (props: any) => {
-    console.log("🚀 ~ Tabletodo ~ props:", props)
+    const [urlGeneral, setUrlGeneral] = useState<string | undefined>()
+    const { generalURL } = props
+   useEffect(() => {
+     setUrlGeneral(generalURL)
+   }, [props])
+   
+
+
 
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
     const [loading, setLoading] = useState(false);
@@ -59,12 +66,12 @@ const Tabletodo = (props: any) => {
             }
 
 
-            
+
         }
         getDataAync()
-        
+
     }, [props, props.todos === undefined])
-    
+
     const getColumnSearchProps = useTableSearch(todo)
 
 
@@ -91,7 +98,7 @@ const Tabletodo = (props: any) => {
             title: ReactNode;
             name: any | undefined;
         }) => (
-            <Buttonscrud todo={record} children={undefined} />
+            <Buttonscrud  urlGeneral={urlGeneral} todo={record}  />
         ),
     });
 

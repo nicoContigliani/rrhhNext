@@ -18,7 +18,6 @@ const styles = {
 
 
 const DescriptionS = (props: any | undefined) => {
-  console.log("🚀 ~ file: Descriptions.tsx:8 ~ DescriptionS ~ props:", props)
 
   const { todo } = props
   const [data, setData] = useState<any | any[] | undefined>(todo)
@@ -35,7 +34,7 @@ const DescriptionS = (props: any | undefined) => {
 
 
 
-      {data.map((item: any) => (
+      {data?.map((item: any) => (
         <div className={style.itemSlice}
           key={item.id}>
           <List sx={styles} component="nav" aria-label="mailbox folders">
@@ -59,7 +58,10 @@ const DescriptionS = (props: any | undefined) => {
 
               </div>
             ) : (
-              <div></div>
+              <div>
+
+                
+              </div>
             )}
 
 

@@ -6,35 +6,70 @@ const ReviewCV = () => {
 
     const dispatch = useDispatch();
 
-      const {
+    const {
         personalInformation: { personalInformationData },
         personalDescription: { personalDescriptionData },
         education: { educationData },
         experience: { experienceData },
+        experienceFree: { experienceFreeData },
         hardSkills: { selectedValues },
         tittleCV: { selectedValues: selectedValueT },
         softSkills: { selectedValues: selectedValuesSS },
         lenguage: { selectedValues: selectedValuesL },
         disponibility: { selectedValues: selectedValuesD }
-      } = useSelector((state: any) => state);
+    } = useSelector((state: any) => state);
 
-    const dataForSend = {
-        PersonalInformation:personalInformationData,
-        PersonTitle:selectedValueT,
-        PersonalDescription:personalDescriptionData,
-        Education:educationData,
-        Experience:experienceData,
-        HardSkill:selectedValues,
-        SoffSkill:selectedValuesSS,
-        Lenguage:selectedValuesL,
-        Disponibility:selectedValuesD
+
+
+    if (experienceFreeData) {
+
+    }
+
+
+    let dataForSend = {
+        PersonalInformation: personalInformationData,
+        PersonTitle: selectedValueT,
+        PersonalDescription: personalDescriptionData,
+        Education: educationData,
+        Experience: experienceData,
+        ExperienceFree: experienceFreeData,
+        HardSkill: selectedValues,
+        SoffSkill: selectedValuesSS,
+        Lenguage: selectedValuesL,
+        Disponibility: selectedValuesD
     }
 
     const handleSave = async () => {
         try {
+            
+            if (dataForSend.ExperienceFree["company"] === undefined) {
+                dataForSend.ExperienceFree = {
+                    company: "not_data",
+                    job: "not_data",
+                    start: "1900-01-01",
+                    finish: "1900-01-01",
+                    detail_atribute: "not_data"
+                }
 
-            dispatch(cvNextAsync(dataForSend)); // Usa cvNextAsync correctamente aquí
-          
+            }
+            if (dataForSend.Experience["company"] === undefined) {
+                dataForSend.Experience = {
+                    company: "not_data",
+                    job: "not_data",
+                    start: "1900-01-01",
+                    finish: "1900-01-01",
+                    detail_atribute: "not_data"
+                }
+
+            }
+            console.log("🚀 ~ handleSave ~ dataForSend:", dataForSend.ExperienceFree)
+            console.log(dataForSend.ExperienceFree["company"] === undefined, "toma por mirón")
+            
+
+
+
+            // dispatch(cvNextAsync(dataForSend)); // Usa cvNextAsync correctamente aquí
+
         } catch (error) {
             console.error("Error:", error); // Manejar errores si es necesario
         }

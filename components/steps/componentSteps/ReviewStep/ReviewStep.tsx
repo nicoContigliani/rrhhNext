@@ -5,6 +5,8 @@ import { Button } from 'antd'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/navigation'
 import useMessage from '@/hooks/useMessage'
+import { preloadCVData } from '@/redux/features/CV/cvSlice'
+import { useAppDispatch } from '@/redux/hooks'
 
 
 
@@ -15,6 +17,7 @@ const ReviewStep = (props: any) => {
   const [perDescData, setPerDescData] = useState()
   const [eduData, setEduData] = useState()
   const [experData, setExperData] = useState()
+  const [experFreeData, setExperFreeData] = useState()
   const [hardSData, setHardSData] = useState()
   const [softSData, setSoftSData] = useState()
   const [lenguageData, setLenguageData] = useState()
@@ -29,6 +32,7 @@ const ReviewStep = (props: any) => {
     dataModal,
     setDataModal
   } = props
+  const dispatch = useAppDispatch();
 
   const { success, error, warning, setContent } = useMessage();
 
@@ -39,6 +43,7 @@ const ReviewStep = (props: any) => {
     personalDescription: { personalDescriptionData },
     education: { educationData },
     experience: { experienceData },
+    experienceFree: { experienceFreeData },
     hardSkills: { selectedValues },
     tittleCV: { selectedValues: selectedValueT },
     softSkills: { selectedValues: selectedValuesSS },
@@ -52,6 +57,7 @@ const ReviewStep = (props: any) => {
     setPerDescData(personalDescriptionData)
     setEduData(educationData)
     setExperData(experienceData)
+    setExperFreeData(experienceFreeData)
     setHardSData(selectedValues)
     setSoftSData(selectedValuesSS)
     setLenguageData(selectedValuesL)
@@ -63,6 +69,7 @@ const ReviewStep = (props: any) => {
       personalDescriptionData,
       educationData,
       experienceData,
+      experienceFreeData,
       selectedValues,
       selectedValuesSS,
       selectedValuesL,
@@ -77,6 +84,7 @@ const ReviewStep = (props: any) => {
       PersonalDescription: personalDescriptionData,
       Education: educationData,
       Experience: experienceData,
+      ExperienceFree: experienceFreeData,
       HardSkill: selectedValues,
       SoffSkill: selectedValuesSS,
       Lenguage: selectedValuesL,
@@ -90,6 +98,7 @@ const ReviewStep = (props: any) => {
     personalDescriptionData,
     educationData,
     experienceData,
+    experienceFreeData,
     selectedValues,
     selectedValuesSS,
     selectedValuesL,
@@ -101,16 +110,7 @@ const ReviewStep = (props: any) => {
   } = useSelector((state: any) => state);
 
 
-
-
-
-
-
   const router = useRouter()
-
-
-
-
 
 
   const handleClick = async () => {
@@ -118,12 +118,16 @@ const ReviewStep = (props: any) => {
     if (cv.httpStatus === 200) {
       await success();
       await setContent("The CV was Create");
+      dispatch(preloadCVData())
     }
     if (cv.httpStatus === 500) {
       await error();
       await setContent("The CV wasn't Not Create");
+      dispatch(preloadCVData())
     }
-    await router.push('/');
+    //  await router.push('/');
+    //  await location.reload();
+
   };
 
   return (
@@ -145,6 +149,7 @@ const ReviewStep = (props: any) => {
           perDescData={perDescData}
           eduData={eduData}
           experData={experData}
+          experFreeData={experFreeData}
           hardSData={hardSData}
           softSData={softSData}
           lenguageData={lenguageData}
@@ -164,7 +169,7 @@ const ReviewStep = (props: any) => {
           >
             Save
           </Button>
-     
+
         </div>
       </div>
     </div>

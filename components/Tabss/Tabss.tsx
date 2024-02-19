@@ -28,7 +28,7 @@ const styles = {
 
 
 
-const Tabss = (props: any) => {
+const Tabss = (props: any|any[]|undefined) => {
 
 
   const { todo } = props
