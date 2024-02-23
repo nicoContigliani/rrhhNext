@@ -16,9 +16,8 @@ const Updates = (props: any) => {
         dataGeneralCvs,
         dataTotlaCV,
         handleAction,
-        children
     } = props
-    // const [data, setData] = useState<any | any[]>([])
+    const [data, setData] = useState<any | any[]>([])
 
 
     return (
@@ -28,7 +27,7 @@ const Updates = (props: any) => {
                 title={title}
                 className={style.body}
             >
-                {/* {
+                {
                     sectionsData ?
                         <PersonDescriptionData
                             title={title}
@@ -59,8 +58,7 @@ const Updates = (props: any) => {
                             setData={setData}
                         />
                         : ""
-                } */}
-                {children}
+                }
 
             </Modalnew>
 

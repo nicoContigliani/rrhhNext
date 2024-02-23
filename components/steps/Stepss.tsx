@@ -92,105 +92,62 @@ const Stepss = () => {
   ];
 
 
-  const stepComponents =  ( openForProfessional) ?
-  [
-    <PersonalInformationStep
-      title='PersonalInformationStep'
-      personalInformation={personInformationServices.personalInformationData}
-      onAddPersonalInformationEntry={personInformationServices.addPersonalInformationEntrys}
-      onUpdatePersonalInformationEntry={personInformationServices.updatePersonalInformationEntrys}
-      onDeletePersonalInformationEntry={personInformationServices.deletePersonalInformationEntrys}
-      insertInformationDataofDataFilter={personInformationServices.insertInformationDataofDataFilterServices}
-      onSave={personInformationServices.handleSave}
-      dataFilter={dataFilter}
-      setFilteredData={setFilteredData}
-      isAdmin={isAdmin}
-      setIsAdmin={setIsAdmin}
-      openForProfessional={openForProfessional}
-      SetOpenForProfessional={SetOpenForProfessional}
-    />,
-    <TittleCVStep
-      title='Tittle Job for CV'
-      selectedValues={titleCVSerivcies.selectedValues}
-      contentOptionSelect={titleCVSerivcies.contentOptionSelect}
-      MAX_COUNT={titleCVSerivcies.MAX_COUNT}
-      handleSelectChange={titleCVSerivcies.handleSelectChange}
-      handleAddSelect={titleCVSerivcies.handleAddSelect}
-      handleSaveData={titleCVSerivcies.handleSaveData}
+  const stepComponents = (openForProfessional) ?
+    [
+      <PersonalInformationStep
+        title='PersonalInformationStep'
+        personalInformation={personInformationServices.personalInformationData}
+        onAddPersonalInformationEntry={personInformationServices.addPersonalInformationEntrys}
+        onUpdatePersonalInformationEntry={personInformationServices.updatePersonalInformationEntrys}
+        onDeletePersonalInformationEntry={personInformationServices.deletePersonalInformationEntrys}
+        insertInformationDataofDataFilter={personInformationServices.insertInformationDataofDataFilterServices}
+        onSave={personInformationServices.handleSave}
+        dataFilter={dataFilter}
+        setFilteredData={setFilteredData}
+        isAdmin={isAdmin}
+        setIsAdmin={setIsAdmin}
+        openForProfessional={openForProfessional}
+        SetOpenForProfessional={SetOpenForProfessional}
+      />,
+      <TittleCVStep
+        title='Tittle Job for CV'
+        selectedValues={titleCVSerivcies.selectedValues}
+        contentOptionSelect={titleCVSerivcies.contentOptionSelect}
+        MAX_COUNT={titleCVSerivcies.MAX_COUNT}
+        handleSelectChange={titleCVSerivcies.handleSelectChange}
+        handleAddSelect={titleCVSerivcies.handleAddSelect}
+        handleSaveData={titleCVSerivcies.handleSaveData}
 
-    // onSave={softSkillsService.handleSave}
-    />,
+      // onSave={softSkillsService.handleSave}
+      />,
 
 
-    <PersonalDescriptionStep
-      title='PersonalDescriptionStep'
-      personalDescription={personDescriptionServices.personalDescriptionData}
-      onAddPersonalDescriptionEntry={personDescriptionServices.addPersonalDescriptionEntrys}
-      onUpdatePersonalDescriptionEntry={personDescriptionServices.updatePersonalDescriptionEntrys}
-      onDeletePersonalDescriptionEntry={personDescriptionServices.deletePersonalDescriptionEntrys}
-      onSave={personDescriptionServices.handleSave}
-    />
-    ,
-    <EducationStep
-      title="Education Details"
-      educationData={educationService.EducationData}
-      onAddEducationEntry={educationService.addEducationEntrys}
-      onUpdateEducationEntry={educationService.updateEducationEntrys}
-      onDeleteEducationEntry={educationService.deleteEducationEntrys}
-      onSave={educationService.handleSave}
-    />,
-    <ExperienceStep
-      title='Experience'
-      experienceData={experienceService.experienceData}
-      onAddExperienceEntry={experienceService.addExperienceEntrys}
-      onUpdateExperienceEntry={experienceService.updateExperienceEntrys}
-      onDeleteExperienceEntry={experienceService.deleteExperienceEntrys}
-      onSave={experienceService.handleSave}
-    />,
+      <PersonalDescriptionStep
+        title='PersonalDescriptionStep'
+        personalDescription={personDescriptionServices.personalDescriptionData}
+        onAddPersonalDescriptionEntry={personDescriptionServices.addPersonalDescriptionEntrys}
+        onUpdatePersonalDescriptionEntry={personDescriptionServices.updatePersonalDescriptionEntrys}
+        onDeletePersonalDescriptionEntry={personDescriptionServices.deletePersonalDescriptionEntrys}
+        onSave={personDescriptionServices.handleSave}
+      />
+      ,
+      <EducationStep
+        title="Education Details"
+        educationData={educationService.EducationData}
+        onAddEducationEntry={educationService.addEducationEntrys}
+        onUpdateEducationEntry={educationService.updateEducationEntrys}
+        onDeleteEducationEntry={educationService.deleteEducationEntrys}
+        onSave={educationService.handleSave}
+      />,
+      <ExperienceStep
+        title='Experience'
+        experienceData={experienceService.experienceData}
+        onAddExperienceEntry={experienceService.addExperienceEntrys}
+        onUpdateExperienceEntry={experienceService.updateExperienceEntrys}
+        onDeleteExperienceEntry={experienceService.deleteExperienceEntrys}
+        onSave={experienceService.handleSave}
+      />,
 
-    <SkillsStepSoft
-      title='Soft Skills'
-      selectedValues={softSkillsService.selectedValues}
-      contentOptionSelect={softSkillsService.contentOptionSelect}
-      MAX_COUNT={softSkillsService.MAX_COUNT}
-      handleSelectChange={softSkillsService.handleSelectChange}
-      handleAddSelect={softSkillsService.handleAddSelect}
-      handleSaveData={softSkillsService.handleSaveData}
-
-    // onSave={softSkillsService.handleSave}
-    />,
-    <SkillsStepHard
-      title='Hard  Skills'
-      selectedValues={hardSkillsService.selectedValues}
-      contentOptionSelect={hardSkillsService.contentOptionSelect}
-      MAX_COUNT={hardSkillsService.MAX_COUNT}
-      handleSelectChange={hardSkillsService.handleSelectChange}
-      handleAddSelect={hardSkillsService.handleAddSelect}
-      handleSaveData={hardSkillsService.handleSaveData}
-
-    // onSave={hardSkillsService.handleSave}
-    />,
-    <Lenguaje
-      title='Lenguaje'
-      selectedValues={lenguageService.selectedValues}
-      contentOptionSelect={lenguageService.contentOptionSelect}
-      MAX_COUNT={lenguageService.MAX_COUNT}
-      handleSelectChange={lenguageService.handleSelectChange}
-      handleAddSelect={lenguageService.handleAddSelect}
-      handleSaveData={lenguageService.handleSaveData}
-    // onSave={lenguageService.handleSave}
-    />,
-    <Disponibility
-      title='Disponibility'
-      selectedValues={disponibilityService.selectedValues}
-      contentOptionSelect={disponibilityService.contentOptionSelect}
-      MAX_COUNT={disponibilityService.MAX_COUNT}
-      handleSelectChange={disponibilityService.handleSelectChange}
-      handleAddSelect={disponibilityService.handleAddSelect}
-      handleSaveData={disponibilityService.handleSaveData}
-    // onSave={disponibilityService.handleSave}
-    />,
-    openForProfessional && (
       <SkillsStepSoft
         title='Soft Skills'
         selectedValues={softSkillsService.selectedValues}
@@ -199,138 +156,180 @@ const Stepss = () => {
         handleSelectChange={softSkillsService.handleSelectChange}
         handleAddSelect={softSkillsService.handleAddSelect}
         handleSaveData={softSkillsService.handleSaveData}
+
+      // onSave={softSkillsService.handleSave}
+      />,
+      <SkillsStepHard
+        title='Hard  Skills'
+        selectedValues={hardSkillsService.selectedValues}
+        contentOptionSelect={hardSkillsService.contentOptionSelect}
+        MAX_COUNT={hardSkillsService.MAX_COUNT}
+        handleSelectChange={hardSkillsService.handleSelectChange}
+        handleAddSelect={hardSkillsService.handleAddSelect}
+        handleSaveData={hardSkillsService.handleSaveData}
+
+      // onSave={hardSkillsService.handleSave}
+      />,
+      <Lenguaje
+        title='Lenguaje'
+        selectedValues={lenguageService.selectedValues}
+        contentOptionSelect={lenguageService.contentOptionSelect}
+        MAX_COUNT={lenguageService.MAX_COUNT}
+        handleSelectChange={lenguageService.handleSelectChange}
+        handleAddSelect={lenguageService.handleAddSelect}
+        handleSaveData={lenguageService.handleSaveData}
+      // onSave={lenguageService.handleSave}
+      />,
+      <Disponibility
+        title='Disponibility'
+        selectedValues={disponibilityService.selectedValues}
+        contentOptionSelect={disponibilityService.contentOptionSelect}
+        MAX_COUNT={disponibilityService.MAX_COUNT}
+        handleSelectChange={disponibilityService.handleSelectChange}
+        handleAddSelect={disponibilityService.handleAddSelect}
+        handleSaveData={disponibilityService.handleSaveData}
+      // onSave={disponibilityService.handleSave}
+      />,
+      openForProfessional && (
+        <ExperienceFreeStep
+          title='Experience Frelancer'
+          experienceFreeData={experienceFreeService.experienceFreeData}
+          onAddExperienceFreeEntry={experienceFreeService.addExperienceFreeEntrys}
+          onUpdateExperienceFreeEntry={experienceFreeService.updateExperienceFreeEntrys}
+          onDeleteExperienceFreeEntry={experienceFreeService.deleteExperienceFreeEntrys}
+          onSave={experienceFreeService.handleSave}
+        />
+      ),
+      <ReviewStep
+        title='PersonalInformationStep'
+        onAddReviewCVEntry={reviewCVServices.addReviewCVEntrys}
+        onUpdateReviewCVEntry={reviewCVServices.updateReviewCVEntrys}
+        onDeleteReviewCVEntry={reviewCVServices.deleteReviewCVEntrys}
+        dataModal={dataModal}
+        setDataModal={setDataModal}
+        onSave={reviewCVServices.handleSave}
+
+
+      />,
+    ] :
+    [
+      <PersonalInformationStep
+        title='PersonalInformationStep'
+        personalInformation={personInformationServices.personalInformationData}
+        onAddPersonalInformationEntry={personInformationServices.addPersonalInformationEntrys}
+        onUpdatePersonalInformationEntry={personInformationServices.updatePersonalInformationEntrys}
+        onDeletePersonalInformationEntry={personInformationServices.deletePersonalInformationEntrys}
+        insertInformationDataofDataFilter={personInformationServices.insertInformationDataofDataFilterServices}
+        onSave={personInformationServices.handleSave}
+        dataFilter={dataFilter}
+        setFilteredData={setFilteredData}
+        isAdmin={isAdmin}
+        setIsAdmin={setIsAdmin}
+        openForProfessional={openForProfessional}
+        SetOpenForProfessional={SetOpenForProfessional}
+      />,
+      <TittleCVStep
+        title='Tittle Job for CV'
+        selectedValues={titleCVSerivcies.selectedValues}
+        contentOptionSelect={titleCVSerivcies.contentOptionSelect}
+        MAX_COUNT={titleCVSerivcies.MAX_COUNT}
+        handleSelectChange={titleCVSerivcies.handleSelectChange}
+        handleAddSelect={titleCVSerivcies.handleAddSelect}
+        handleSaveData={titleCVSerivcies.handleSaveData}
+
+      // onSave={softSkillsService.handleSave}
+      />,
+
+
+      <PersonalDescriptionStep
+        title='PersonalDescriptionStep'
+        personalDescription={personDescriptionServices.personalDescriptionData}
+        onAddPersonalDescriptionEntry={personDescriptionServices.addPersonalDescriptionEntrys}
+        onUpdatePersonalDescriptionEntry={personDescriptionServices.updatePersonalDescriptionEntrys}
+        onDeletePersonalDescriptionEntry={personDescriptionServices.deletePersonalDescriptionEntrys}
+        onSave={personDescriptionServices.handleSave}
       />
-    ),
-    <ReviewStep
-      title='PersonalInformationStep'
-      onAddReviewCVEntry={reviewCVServices.addReviewCVEntrys}
-      onUpdateReviewCVEntry={reviewCVServices.updateReviewCVEntrys}
-      onDeleteReviewCVEntry={reviewCVServices.deleteReviewCVEntrys}
-      dataModal={dataModal}
-      setDataModal={setDataModal}
-      onSave={reviewCVServices.handleSave}
+      ,
+      <EducationStep
+        title="Education Details"
+        educationData={educationService.EducationData}
+        onAddEducationEntry={educationService.addEducationEntrys}
+        onUpdateEducationEntry={educationService.updateEducationEntrys}
+        onDeleteEducationEntry={educationService.deleteEducationEntrys}
+        onSave={educationService.handleSave}
+      />,
+      <ExperienceStep
+        title='Experience'
+        experienceData={experienceService.experienceData}
+        onAddExperienceEntry={experienceService.addExperienceEntrys}
+        onUpdateExperienceEntry={experienceService.updateExperienceEntrys}
+        onDeleteExperienceEntry={experienceService.deleteExperienceEntrys}
+        onSave={experienceService.handleSave}
+      />,
+
+      <SkillsStepSoft
+        title='Soft Skills'
+        selectedValues={softSkillsService.selectedValues}
+        contentOptionSelect={softSkillsService.contentOptionSelect}
+        MAX_COUNT={softSkillsService.MAX_COUNT}
+        handleSelectChange={softSkillsService.handleSelectChange}
+        handleAddSelect={softSkillsService.handleAddSelect}
+        handleSaveData={softSkillsService.handleSaveData}
+
+      // onSave={softSkillsService.handleSave}
+      />,
+      <SkillsStepHard
+        title='Hard  Skills'
+        selectedValues={hardSkillsService.selectedValues}
+        contentOptionSelect={hardSkillsService.contentOptionSelect}
+        MAX_COUNT={hardSkillsService.MAX_COUNT}
+        handleSelectChange={hardSkillsService.handleSelectChange}
+        handleAddSelect={hardSkillsService.handleAddSelect}
+        handleSaveData={hardSkillsService.handleSaveData}
+
+      // onSave={hardSkillsService.handleSave}
+      />,
+      <Lenguaje
+        title='Lenguaje'
+        selectedValues={lenguageService.selectedValues}
+        contentOptionSelect={lenguageService.contentOptionSelect}
+        MAX_COUNT={lenguageService.MAX_COUNT}
+        handleSelectChange={lenguageService.handleSelectChange}
+        handleAddSelect={lenguageService.handleAddSelect}
+        handleSaveData={lenguageService.handleSaveData}
+      // onSave={lenguageService.handleSave}
+      />,
+      <Disponibility
+        title='Disponibility'
+        selectedValues={disponibilityService.selectedValues}
+        contentOptionSelect={disponibilityService.contentOptionSelect}
+        MAX_COUNT={disponibilityService.MAX_COUNT}
+        handleSelectChange={disponibilityService.handleSelectChange}
+        handleAddSelect={disponibilityService.handleAddSelect}
+        handleSaveData={disponibilityService.handleSaveData}
+      // onSave={disponibilityService.handleSave}
+      />,
+      <ReviewStep
+        title='PersonalInformationStep'
+        onAddReviewCVEntry={reviewCVServices.addReviewCVEntrys}
+        onUpdateReviewCVEntry={reviewCVServices.updateReviewCVEntrys}
+        onDeleteReviewCVEntry={reviewCVServices.deleteReviewCVEntrys}
+        dataModal={dataModal}
+        setDataModal={setDataModal}
+        onSave={reviewCVServices.handleSave}
 
 
-    />,
-  ]:
-  [
-    <PersonalInformationStep
-      title='PersonalInformationStep'
-      personalInformation={personInformationServices.personalInformationData}
-      onAddPersonalInformationEntry={personInformationServices.addPersonalInformationEntrys}
-      onUpdatePersonalInformationEntry={personInformationServices.updatePersonalInformationEntrys}
-      onDeletePersonalInformationEntry={personInformationServices.deletePersonalInformationEntrys}
-      insertInformationDataofDataFilter={personInformationServices.insertInformationDataofDataFilterServices}
-      onSave={personInformationServices.handleSave}
-      dataFilter={dataFilter}
-      setFilteredData={setFilteredData}
-      isAdmin={isAdmin}
-      setIsAdmin={setIsAdmin}
-      openForProfessional={openForProfessional}
-      SetOpenForProfessional={SetOpenForProfessional}
-    />,
-    <TittleCVStep
-      title='Tittle Job for CV'
-      selectedValues={titleCVSerivcies.selectedValues}
-      contentOptionSelect={titleCVSerivcies.contentOptionSelect}
-      MAX_COUNT={titleCVSerivcies.MAX_COUNT}
-      handleSelectChange={titleCVSerivcies.handleSelectChange}
-      handleAddSelect={titleCVSerivcies.handleAddSelect}
-      handleSaveData={titleCVSerivcies.handleSaveData}
-
-    // onSave={softSkillsService.handleSave}
-    />,
-
-
-    <PersonalDescriptionStep
-      title='PersonalDescriptionStep'
-      personalDescription={personDescriptionServices.personalDescriptionData}
-      onAddPersonalDescriptionEntry={personDescriptionServices.addPersonalDescriptionEntrys}
-      onUpdatePersonalDescriptionEntry={personDescriptionServices.updatePersonalDescriptionEntrys}
-      onDeletePersonalDescriptionEntry={personDescriptionServices.deletePersonalDescriptionEntrys}
-      onSave={personDescriptionServices.handleSave}
-    />
-    ,
-    <EducationStep
-      title="Education Details"
-      educationData={educationService.EducationData}
-      onAddEducationEntry={educationService.addEducationEntrys}
-      onUpdateEducationEntry={educationService.updateEducationEntrys}
-      onDeleteEducationEntry={educationService.deleteEducationEntrys}
-      onSave={educationService.handleSave}
-    />,
-    <ExperienceStep
-      title='Experience'
-      experienceData={experienceService.experienceData}
-      onAddExperienceEntry={experienceService.addExperienceEntrys}
-      onUpdateExperienceEntry={experienceService.updateExperienceEntrys}
-      onDeleteExperienceEntry={experienceService.deleteExperienceEntrys}
-      onSave={experienceService.handleSave}
-    />,
-
-    <SkillsStepSoft
-      title='Soft Skills'
-      selectedValues={softSkillsService.selectedValues}
-      contentOptionSelect={softSkillsService.contentOptionSelect}
-      MAX_COUNT={softSkillsService.MAX_COUNT}
-      handleSelectChange={softSkillsService.handleSelectChange}
-      handleAddSelect={softSkillsService.handleAddSelect}
-      handleSaveData={softSkillsService.handleSaveData}
-
-    // onSave={softSkillsService.handleSave}
-    />,
-    <SkillsStepHard
-      title='Hard  Skills'
-      selectedValues={hardSkillsService.selectedValues}
-      contentOptionSelect={hardSkillsService.contentOptionSelect}
-      MAX_COUNT={hardSkillsService.MAX_COUNT}
-      handleSelectChange={hardSkillsService.handleSelectChange}
-      handleAddSelect={hardSkillsService.handleAddSelect}
-      handleSaveData={hardSkillsService.handleSaveData}
-
-    // onSave={hardSkillsService.handleSave}
-    />,
-    <Lenguaje
-      title='Lenguaje'
-      selectedValues={lenguageService.selectedValues}
-      contentOptionSelect={lenguageService.contentOptionSelect}
-      MAX_COUNT={lenguageService.MAX_COUNT}
-      handleSelectChange={lenguageService.handleSelectChange}
-      handleAddSelect={lenguageService.handleAddSelect}
-      handleSaveData={lenguageService.handleSaveData}
-    // onSave={lenguageService.handleSave}
-    />,
-    <Disponibility
-      title='Disponibility'
-      selectedValues={disponibilityService.selectedValues}
-      contentOptionSelect={disponibilityService.contentOptionSelect}
-      MAX_COUNT={disponibilityService.MAX_COUNT}
-      handleSelectChange={disponibilityService.handleSelectChange}
-      handleAddSelect={disponibilityService.handleAddSelect}
-      handleSaveData={disponibilityService.handleSaveData}
-    // onSave={disponibilityService.handleSave}
-    />,
-    <ReviewStep
-      title='PersonalInformationStep'
-      onAddReviewCVEntry={reviewCVServices.addReviewCVEntrys}
-      onUpdateReviewCVEntry={reviewCVServices.updateReviewCVEntrys}
-      onDeleteReviewCVEntry={reviewCVServices.deleteReviewCVEntrys}
-      dataModal={dataModal}
-      setDataModal={setDataModal}
-      onSave={reviewCVServices.handleSave}
-
-
-    />,
-  ];
+      />,
+    ];
 
 
   const isMobile = useMediaQuery('(max-width:600px)');
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set<number>());
   const isStepOptional = (step: any) => {
-    return openForProfessional ? step === 12 : 12;
+    return openForProfessional ? step === 13 : 12;
   };
-  
+
 
   const isStepSkipped = (step: any) => {
     return skipped.has(step);
@@ -410,19 +409,35 @@ const Stepss = () => {
           Back
         </Button>
         <Box sx={{ flex: '1 1 auto' }} />
-        {isStepOptional(activeStep) && (
+        {/* {isStepOptional(activeStep) && (
           <Button color="inherit" onClick={handleSkip}>
             Skip
           </Button>
-        )}
-        <Button onClick={handleNext}>
+        )} */}
+        {/* n>        <Button onClick={handleNext}>
           {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-        </Button>
+        </Button> */}
+        {activeStep !== steps.length - 1 && (
+          <Button onClick={handleNext}>
+            Next
+          </Button>
+        )}
       </Box>
 
+---------------------------------------
+          <Button
+            type="primary"
+            block
+            ghost
 
+            color="primary"
+            size="small"
+            onClick={reviewCVServices.handleSave}
+          >
+            Save
+          </Button>
 
-
+----------------------------------------
 
     </div>
   )

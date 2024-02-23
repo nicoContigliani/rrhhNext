@@ -16,7 +16,6 @@ const ExperienceFreeService = () => {
   const dispatch = useDispatch();
 
   const handleSave = (data: any) => {
-    console.log('Saved personal information data:', data);
     dispatch(setExperienceFreeData(data));
   };
 

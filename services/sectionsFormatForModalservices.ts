@@ -1,6 +1,6 @@
 export const sectionsFormatForModal = async (data: any) => {
 
-    const sectionsReturn = {
+    const sectionsReturn: any = {
         perInfData: null,
         perDescData: null,
         eduData: null,
@@ -14,28 +14,33 @@ export const sectionsFormatForModal = async (data: any) => {
     };
 
     for (let i = 0; i < data?.length; i++) {
-        const element = data[i];
+        const element: any = data[i];
         switch (element.SectionTypeId) {
             case "1":
                 sectionsReturn.perInfData = element;
+                if (Array.isArray(element?.Items)) {
+                    const dataR: any[] = element.Items;
+                    sectionsReturn.tittleData = await dataR.filter((item: any) => item.itemTitle.toLowerCase() === 'titlecv');
+
+                }
                 break;
             case "2":
                 sectionsReturn.perDescData = element;
                 break;
             case "3":
-                sectionsReturn.eduData = element;
+                sectionsReturn.experData = element;
                 break;
             case "4":
                 sectionsReturn.experFree = element;
                 break;
             case "5":
-                sectionsReturn.experData = element;
+                sectionsReturn.softSData = element;
                 break;
             case "6":
                 sectionsReturn.hardSData = element;
                 break;
             case "7":
-                sectionsReturn.softSData = element;
+                sectionsReturn.eduData = element;
                 break;
             case "8":
                 sectionsReturn.lenguageData = element;
@@ -43,8 +48,8 @@ export const sectionsFormatForModal = async (data: any) => {
             case "9":
                 sectionsReturn.dispData = element;
                 break;
-            default:
-                sectionsReturn.tittleData = element;
+            // default:
+            //     sectionsReturn.tittleData = element;
         }
     }
 

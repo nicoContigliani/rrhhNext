@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 const PersonalDescriptionStep = (props: any) => {
   const dataPersonDescriptionStorage: any | any[] = useSelector((state: any) => state);
   const [personalDescription, setPersonalDescription] = useState<any[]>()
+
   useEffect(() => {
     const { personalDescription: { personalDescriptionData } } = dataPersonDescriptionStorage
     setPersonalDescription(personalDescriptionData)
@@ -29,7 +30,10 @@ const PersonalDescriptionStep = (props: any) => {
 
 
   const handleChange = (index: any, field: any, value: any) => {
+
     onUpdatePersonalDescriptionEntry(index, field, value);
+
+
   };
 
   const handleClick = () => {
@@ -68,14 +72,16 @@ const PersonalDescriptionStep = (props: any) => {
                 type="text"
                 value={entry.descriptionPerson || ''}
                 onChange={(e) => handleChange(index, 'descriptionPerson', e.target.value)}
+                inputProps={{ minLength: 5 }} // Aquí se establece el mínimo de caracteres
+
               />
-              
+
+
             </div>
           </div>
-
-  
         </div>
       ))}
+
 
       {/* <div className={style.deletes}>
         <Button

@@ -18,8 +18,8 @@ const InputsSertch = (props: any) => {
     useEffect(() => {
         const todo = async () => {
 
-            const columnsS = props?.dataAll?.Columns;
-            const headersS = props?.dataAll?.Header;
+            const columnsS: any | any[] | undefined = props?.dataAll?.Columns;
+            const headersS: any | any[] | undefined = props?.dataAll?.Header;
 
 
             if (props !== undefined) {
@@ -45,7 +45,7 @@ const InputsSertch = (props: any) => {
         const dataR = columns?.filter((item: any) => (item?.[headerSelect] == e.target.value))
         const todo = e.target.value
         console.log("🚀 ~ handlechange ~ todo:", todo.length)
-        if(todo.length===0)setDataFilter([])
+        if (todo.length === 0) setDataFilter([])
         if (dataR?.length !== 0) setDataFilter(dataR)
     }
 

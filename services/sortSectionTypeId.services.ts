@@ -1,5 +1,4 @@
 export const sortSectionTypeId = async (data: any) => {
-    console.log("🚀 ~ sortSectionTypeId ~ data:", data)
     // Verificar si hay datos
     if (!data || !data.Sections || !Array.isArray(data.Sections)) {
         console.error("Error: `data` no es válido o no contiene un array de Sections");
@@ -7,8 +6,17 @@ export const sortSectionTypeId = async (data: any) => {
     }
 
     // Hacer una copia de los datos para no modificar el original
-    let dataReturn = { ...data };
-    let sections = [...dataReturn.Sections];
+    let dataCVTodo = { ...data };
+    let sections = [...dataCVTodo.Sections];
+    let genearlDataCV = {
+        createdAt: dataCVTodo.createdA,
+        description_cv: dataCVTodo.description_cv,
+        id: dataCVTodo.id,
+        status_cv: dataCVTodo.status_cv,
+        title: dataCVTodo.title,
+        updatedAt: dataCVTodo.updatedAt,
+    }
+
 
     // Ordenar las secciones por SectionTypeId
     sections.sort((a: any, b: any) => {
@@ -20,7 +28,7 @@ export const sortSectionTypeId = async (data: any) => {
     });
 
     // Actualizar las secciones en los datos de retorno
-    dataReturn.Sections = sections;
+    dataCVTodo.Sections = sections;
 
-    return  {dataReturn,sections}    ;
+    return { dataCVTodo, sections, genearlDataCV };
 };

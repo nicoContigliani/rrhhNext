@@ -26,7 +26,7 @@ const page = () => {
     const dispatch = useAppDispatch();
 
 
-    const [data, setData] = useState([])
+    const [data, setData] = useState<any|any[]|undefined>([])
     const [dataRows, setDataRows] = useState([])
 
     const { isOpen, isLogins, infoUser, isAdmin, setIsOpen, setIsLogins, dataPermission } = useAuth();
@@ -42,7 +42,6 @@ const page = () => {
 
 
     const cv: any = useAppSelector(selectCV);
-    console.log("🚀 ~ page ~ cv:", cv)
     const cvDatas = cv?.cvDatas;
     const cvOneData = cv?.cvOneData;
 
@@ -58,7 +57,7 @@ const page = () => {
 
     const [iconVisible, setIconVisible] = useState(true);
 
-    const handleMouseEnter = () => setIconVisible(false);
+    const handleMouseEnter = () => setIconVisible(true);
     const handleMouseLeave = () => setIconVisible(true);
 
     const [action, setAction] = useState<any>()
@@ -156,7 +155,6 @@ const page = () => {
                 await setDataTable(dataAll)
             }
         }
-        console.log("🚀 ~ getDataForSend ~ dataFilter?.length:", dataFilter?.length)
         getDataForSend()
 
     }, [dataAll, dataFilter])

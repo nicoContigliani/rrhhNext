@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import style from './button.module.css'
 import { Icon } from '@mui/material'
@@ -12,6 +12,10 @@ import { createCrud, fetchCrud, updateCrud } from '@/redux/features/CRUD/crudSli
 import { deleteCrud } from '@/redux/features/CRUD/crudSlice';
 import { sortSectionTypeId } from '@/services/sortSectionTypeId.services';
 import { sectionsFormatForModal } from '@/services/sectionsFormatForModalservices';
+import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
+import PersonDescriptionData from '../cvTodo/personDataGeneral/PersonDescriptionData';
+import PersonDescription from '../cvTodo/personDescriptionData/PersonDescription';
+import EducationsData from '../cvTodo/educateData/EducationsData';
 
 export interface FetchCrudData {
     urlGeneral: string | any;
@@ -24,21 +28,20 @@ export interface FetchCrudData {
 
 
 const Buttonscrud = ({ urlGeneral, todo }: { urlGeneral: string | undefined, todo: any }) => {
-    console.log("🚀 ~ Buttonscrud ~ todo:", todo)
 
 
-    const [data, setData] = useState<any | any[]>()
+    const [dataTotlaCV, setDataTotalCV] = useState<any | any[]>()
     const [sectionsData, setSectionsData] = useState<any | undefined>()
-    useEffect(() => {
-
-    }, [todo])
+    const [dataGeneralCvs, setDataGeneralCvs] = useState<any | undefined>()
 
     useEffect(() => {
         const dataGetReturn = async () => {
-            const { dataReturn, sections } = await sortSectionTypeId(todo)
+            const { dataCVTodo, sections, genearlDataCV } = await sortSectionTypeId(todo)
             const dataSections = await sectionsFormatForModal(sections)
+            console.log("🚀 ~ dataGetReturn ~ dataSections:", dataSections)
             await setSectionsData(dataSections)
-            await setData(dataReturn)
+            await setDataTotalCV(dataCVTodo)
+            await setDataGeneralCvs(genearlDataCV)
         }
         dataGetReturn()
     }, [todo])
@@ -78,20 +81,19 @@ const Buttonscrud = ({ urlGeneral, todo }: { urlGeneral: string | undefined, tod
     // };
 
     const handleDelete = () => {
-        console.log("🚀 ~ Buttonscrud ~ dataDelete:", data)
-
-
-
         const todoCRUD: any | undefined = {
             urlGeneral,
             methods: 'DELETE',
-            body: data,
-            idParams: data.id,
+            body: dataTotlaCV,
+            idParams: dataTotlaCV.id,
         }
         dispatch(deleteCrud(todoCRUD))
 
     };
     const handleGet = () => {
+
+
+
         const todoCRUD = {
             urlGeneral,
             methods: 'GET',
@@ -102,38 +104,64 @@ const Buttonscrud = ({ urlGeneral, todo }: { urlGeneral: string | undefined, tod
         dispatch(fetchCrud(todoCRUD))
     };
 
-
-
-
     const handleUpdate = () => {
-        console.log("si anda el metodo")
 
-        const todoCRUD = {
-            urlGeneral,
-            methods: 'GET',
-            body: "",
-            idParams: "",
-        }
-        dispatch(fetchCrud(todoCRUD))
+        // const todoCRUD = {
+        //     urlGeneral,
+        //     methods: 'GET',
+        //     body: "",
+        //     idParams: "",
+        // }
+        // dispatch(fetchCrud(todoCRUD))
     }
-
-
-
-
-
-
-
-
-
+    const [data, setData] = useState<any | any[]>([])
 
     return (
         <div className={style.body}>
-
             {
                 (sectionsData?.length !== 0) ? <Show
-
+                    title="Show"
                     handleAction={handleGet}
-                    todo={sectionsData} /> : ""
+                // sectionsData={sectionsData}
+                // dataGeneralCvs={dataGeneralCvs}
+                // dataTotlaCV={dataTotlaCV}
+                >
+                    {
+                        sectionsData ?
+                            <PersonDescriptionData
+                                title="Show"
+                                perInfData={sectionsData.perInfData}
+                                data={data}
+                                setData={setData}
+                            />
+                            : ""
+                    }
+                    {
+                        sectionsData ?
+                            <PersonDescription
+                                title="Show"
+                                titleSection="Description Person"
+                                perDescData={sectionsData.perDescData}
+                                data={data}
+                                setData={setData}
+                            />
+                            : ""
+                    }
+
+                    {
+                        sectionsData ?
+                            <EducationsData
+                                title="Show"
+                                titleSection="Education"
+                                perDescData={sectionsData.eduData}
+                                data={data}
+                                setData={setData}
+                            />
+                            : ""
+                    }
+
+                </Show>
+                    : ""
 
             }
             {
@@ -145,9 +173,50 @@ const Buttonscrud = ({ urlGeneral, todo }: { urlGeneral: string | undefined, tod
             }
             {
                 (sectionsData?.length !== 0) ? <Updates
-
+                    title="Update"
                     handleAction={handleUpdate}
-                    todo={sectionsData} /> : ""
+                // sectionsData={sectionsData}
+                // dataGeneralCvs={dataGeneralCvs}
+                // dataTotlaCV={dataTotlaCV}
+                >
+                    {
+                        sectionsData ?
+                            <PersonDescriptionData
+                                title="Update"
+                                perInfData={sectionsData.perInfData}
+                                data={data}
+                                setData={setData}
+                            />
+                            : ""
+                    }
+                    {
+                        sectionsData ?
+                            <PersonDescription
+                                title="Update"
+                                titleSection="Description Person"
+                                perDescData={sectionsData.perDescData}
+                                data={data}
+                                setData={setData}
+                            />
+                            : ""
+                    }
+                    {
+                        sectionsData ?
+                            <EducationsData
+                                title="Update"
+                                titleSection="Education"
+                                perDescData={sectionsData.eduData}
+                                data={data}
+                                setData={setData}
+                            />
+                            : ""
+                    }
+                    <button>hola</button>
+                </Updates>
+                    : ""
+
+
+
 
             }
             {

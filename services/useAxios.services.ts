@@ -8,7 +8,7 @@ interface AxiosProps {
   token?: string | undefined | any;
 }
 
-const useAxios = async (props: AxiosProps): Promise<any> => {
+const useAxios: any | any[] | undefined = async (props: AxiosProps): Promise<any> => {
   const { url, method, body, idParams, token } = props;
   let dataReturn;
 
@@ -19,12 +19,12 @@ const useAxios = async (props: AxiosProps): Promise<any> => {
     if (token) {
       headers['Authorization'] = `Bearer ${token}`;
     }
- 
+
     const urls = idParams !== null
       ? `${url}/${idParams}`
       : `${url}`;
 
-    const response = await axios({
+    const response:any|any[]|undefined = await axios({
       method: method, // Ensure method is of type Method from axios
       url: urls,
       data: body,
@@ -34,7 +34,7 @@ const useAxios = async (props: AxiosProps): Promise<any> => {
     return dataReturn = response.data
 
   } catch (error) {
-    console.log("🚀 ~ file: useAxios.ts:27 ~ useAxios ~ error:", error);
+    // console.log("🚀 ~ file: useAxios.ts:27 ~ useAxios ~ error:", error);
     throw error;
   }
 };

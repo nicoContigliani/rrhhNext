@@ -126,7 +126,12 @@ const ReviewStep = (props: any) => {
       dispatch(preloadCVData())
     }
     //  await router.push('/');
-    //  await location.reload();
+
+    await setTimeout(() => {
+
+      //TODO SIN ESTO NO VUELVE A RELOAD
+      // location.reload();
+    }, 5000);
 
   };
 

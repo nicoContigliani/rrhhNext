@@ -3,43 +3,35 @@ import React, { useEffect, useState } from 'react'
 import style from "./show.module.css"
 import Modals from '@/components/Modals/Modals'
 import ModalCV from '@/components/steps/componentSteps/modalCV/ModalCV'
+import Modalnew from '@/components/steps/componentSteps/ModalNew/Modalnew'
+import PersonDescription from '@/components/cvTodo/personDescriptionData/PersonDescription'
+import PersonDescriptionData from '@/components/cvTodo/personDataGeneral/PersonDescriptionData'
+import EducationsData from '@/components/cvTodo/educateData/EducationsData'
 
 const Show = (props: any) => {
-    const {
-        todo,
-        handleAction,
-    } = props
-    const [data, setData] = useState<any | any[] | undefined>(todo)
-    useEffect(() => {
+    // const [data, setData] = useState<any | any[]>([])
 
-        setData(todo)
-    }, [props])
+
+    const {
+        title,
+        children
+    } = props
+
 
     //aca va el redux de show y los permisos 
 
-
     return (
         <div>
-        {todo && todo.perDescData !== undefined ? (
-            <div className={style.body} onClick={handleAction}>
-                {/* <ModalCV
-                    perInfData={data && data.perInfData} // Verificar si data está definido
-                    perDescData={data && data.perDescData} // Verificar si data está definido
-                    eduData={data && data.eduData} // Verificar si data está definido
-                    experData={data && data.experData} // Verificar si data está definido
-                    hardSData={data && data.hardSData} // Verificar si data está definido
-                    softSData={data && data.softSData} // Verificar si data está definido
-                    lenguageData={data && data.lenguageData} // Verificar si data está definido
-                    dispData={data && data.dispData} // Verificar si data está definido
-                    tittleData={data && data.tittleData} // Verificar si data está definido
-                /> */}
-                <Search />
-            </div>
-        ) : (
-            <Search />
-        )}
-    </div>
-)
+
+            <Modalnew
+                title={title}
+                className={style.body}
+            >
+                {children}
+            </Modalnew>
+
+        </div>
+    )
 }
 
 export default Show
