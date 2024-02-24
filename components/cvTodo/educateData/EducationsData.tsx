@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Moment from 'moment'; // Importa Moment.js
 
 import styles from './educationData.module.css'
+import InputsId from '@/components/inputsID/Inputs';
 
 const EducationsData = (props: any) => {
     const [edit, setEdit] = useState(false)
@@ -10,11 +11,16 @@ const EducationsData = (props: any) => {
         if (props.title === "Update") setEdit(true)
     }, [props])
 
-    const [data, setData] = useState<any|any[]|undefined>([])
-    const [itemsData, setItemsData] = useState<any | any[]>();
+    const [data, setData] = useState<any | any[] | undefined>([])
+    const [itemsData, setItemsData] = useState<any | any[] | undefined>([]);
     // const [edit, setEdit] = useState<boolean>(true);
+
     const [titleDataPerson, setTitleDataPerson] = useState<any | any[]>();
-    const [dataFilterTodo, setDataFilterTodo] = useState<any | any[]>();
+    const [dataFilterTodo, setDataFilterTodo] = useState<any | any[] | undefined>();
+    const [dataUpdate, setDataUpdate] = useState<any | any[]>();
+    const [dataId, setDataId] = useState<any | any[]>(1);
+    const [dataObjectKeys, setDataObjectKeys] = useState<any | any[] | undefined>([]);
+    const [dataObjectTodoKeys, setDataObjectTodoKeys] = useState<any | any[] | undefined>([]);
 
 
     useEffect(() => {
@@ -23,7 +29,7 @@ const EducationsData = (props: any) => {
             const reversedItems = [...Items].reverse();
 
             // Filtrar los elementos que no tienen título "titlecv"
-            const filteredItems = Items?.filter((element: any) => element?.itemTitle?.toLowerCase() !== "education");
+            const filteredItems = Items?.filter((element: any) => element?.itemTitle?.toLowerCase() === "education");
 
             // Invertir el orden de los elementos filtrados
             const reversedFilteredItems = filteredItems.reverse();
@@ -32,65 +38,64 @@ const EducationsData = (props: any) => {
             const cvItems = Items?.filter((element: any) => element?.itemTitle?.toLowerCase() === "education");
 
             // Extraer los atributos de los elementos con título "titlecv"
-            const cvAttributes = cvItems?.map((item: any) => item.itemSection.atribute);
 
-            // Combinar los atributos en una cadena
-            let cvAttributesString = cvAttributes?.join(",");
-            if (cvAttributesString && cvAttributesString.endsWith(",")) {
-                cvAttributesString = cvAttributesString.slice(0, -1);
-            }
 
             // Actualizar los estados
             setItemsData(reversedItems);
             setDataFilterTodo(reversedFilteredItems);
-            setTitleDataPerson(cvAttributesString);
         };
 
         fetchData();
     }, [props.perInfData]);
 
+    // useEffect(() => {
 
+    //     itemsData?.forEach((element: any) => {
+
+    //         if (data && data[element?.id] && data.hasOwnProperty(element?.id)) {
+    //             let { itemSection } = element
+    //             let itemSectionSprite = { ...itemSection }
+
+    //             itemSectionSprite.atribute = data[element?.id].atribute
+    //             itemSectionSprite.title_atribute = data[element?.id]?.title_atribute
+    //             itemSectionSprite.startDate = data[element?.id]?.startDate
+    //             itemSectionSprite.endDate = data[element?.id]?.endDate
+
+    //             console.log("🚀 ~ itemsData?.forEach ~ itemSectionSprite:", itemSectionSprite)
+    //         }
+
+    //     });
+
+    // }, [data, itemsData]);
     useEffect(() => {
-        const filterItemsByData = () => {
-            if (!data) return; // Salir si data es nulo o indefinido
+        // ... other dependencies
 
-            // Crear un objeto para almacenar los valores de data correspondientes a cada ID
-            const dataByTitleAttributeId: { [key: string]: any } = {};
+        if (!data || !itemsData) {
+            return; // Handle missing data or items
+        }
 
-            // Iterar sobre los valores de data y agruparlos por title_atribute
-            Object.keys(data).forEach((key) => {
-                const titleAttributeId = key.split('_')[1]; // Obtener el ID de title_atribute
-                if (!dataByTitleAttributeId[titleAttributeId]) {
-                    dataByTitleAttributeId[titleAttributeId] = {};
-                }
-                dataByTitleAttributeId[titleAttributeId][key] = data[key];
-            });
+        const updatedItemSectionSprites = itemsData.map((element: any) => {
+            const elementData = data[element?.id];
 
-            const filteredItems = props.perDescData.Items.map((item: any) => {
-                // Verificar si el title_atribute coincide con alguna clave en dataByTitleAttributeId
-                if (item.itemSection.title_atribute === "education") {
-                    const titleAttributeId = item.itemSection.id; // Obtener el ID de title_atribute
-                    const dataForId = dataByTitleAttributeId[titleAttributeId];
-                    if (dataForId) {
-                        // Si coincide, clonar el objeto y actualizar el atributo atribute con el valor correspondiente de data
-                        return {
-                            ...item,
-                            itemSection: {
-                                ...item.itemSection,
-                                atribute: dataForId[item.itemSection.title_atribute + '_' + titleAttributeId]
-                            }
-                        };
-                    }
-                }
-                return item;
-            });
+            // Handle cases where elementData is missing or properties are missing
+            if (!elementData) {
+                return element.itemSection; // Return original itemSection
+            }
 
-            console.log("Filtered Items:", filteredItems);
-            // Realiza cualquier operación adicional con los elementos filtrados si es necesario
-        };
+            const itemSectionSprite = {
+                ...element.itemSection,
+                atribute: elementData.atribute || null, // Set default value if missing
+                title_atribute: elementData.title_atribute || null,
+                startDate: elementData.startDate || null,
+                endDate: elementData.endDate || null,
+            };
 
-        filterItemsByData();
-    }, [data, props.perDescData.Items]);
+            return itemSectionSprite;
+        });
+        console.log("🚀 ~ updatedItemSectionSprites ~ updatedItemSectionSprites:", updatedItemSectionSprites)
+
+        // Update state or use updatedItemSectionSprites as needed
+    }, [data, itemsData]);
 
 
     return (
@@ -108,54 +113,62 @@ const EducationsData = (props: any) => {
                                         //  className={style.inputsData}
                                         >
                                             <strong>Where  </strong>
-                                            <Inputs
+                                            <InputsId
                                                 // className={style.login_input}
                                                 data={data}
                                                 setData={setData}
                                                 placeholder={item.itemSection.atribute}
-                                                name={item.itemSection.atribute}
+                                                // name={item.itemSection.atribute}
+                                                name="atribute"
                                                 type={''}
-                                                minLength={''} autoFocus={false} color={''} defaultValue={item.itemSection.atribute} disabled={false} fullWidth={false} id={''} inputComponent={undefined} multiline={false} label={''} rows={''}
+                                                onClick={() => setDataObjectKeys({ id: item.id, "atribute": item.itemSection.atribute })}
+
+                                                minLength={''} autoFocus={false} color={''} defaultValue={item.itemSection.atribute} disabled={false} fullWidth={false} id={item.id} inputComponent={undefined} multiline={false} label={''} rows={''}
                                             />
                                             <strong>Carear:   </strong>
-                                            <Inputs
+                                            <InputsId
                                                 // className={style.login_input}
                                                 data={data}
                                                 setData={setData}
                                                 placeholder={item.itemSection.title_atribute}
-                                                name={item.itemSection.title_atribute}
+                                                // name={item.itemSection.title_atribute}
+                                                name="title_atribute"
                                                 type={''}
-                                                minLength={''} autoFocus={false} color={''} defaultValue={item.itemSection.title_atribute} disabled={false} fullWidth={false} id={''} inputComponent={undefined} multiline={false} label={''} rows={''}
+                                                onClick={() => setDataObjectKeys({ id: item.id, "title_atribute": item.itemSection.title_atribute })}
+
+
+                                                minLength={''} autoFocus={false} color={''} defaultValue={item.itemSection.title_atribute} disabled={false} fullWidth={false} id={item.id} inputComponent={undefined} multiline={false} label={''} rows={''}
                                             />
                                             <strong>Start:  </strong>
-                                            <Inputs
+                                            <InputsId
                                                 // className={style.login_input}
                                                 data={data}
                                                 setData={setData}
                                                 placeholder={Moment(item.itemSection.startDate).format('DD/MM/YYYY')} // Formatear la fecha directamente en el placeholder
 
-                                                name={item.itemSection.startDate}
+                                                // name={item.itemSection.startDate}
+                                                name="startDate"
                                                 type={''}
-                                                minLength={''} autoFocus={false} color={''} defaultValue={Moment(item.itemSection.startDate).format('DD/MM/YYYY')} disabled={false} fullWidth={false} id={''} inputComponent={undefined} multiline={false} label={''} rows={''}
+                                                onClick={() => setDataObjectKeys({ id: item.id, "startDate": item.itemSection.startDate })}
+
+
+                                                minLength={''} autoFocus={false} color={''} defaultValue={Moment(item.itemSection.startDate).format('DD/MM/YYYY')} disabled={false} fullWidth={false} id={item.id} inputComponent={undefined} multiline={false} label={''} rows={''}
                                             />
                                             <strong>End:  </strong>
-                                            <Inputs
+                                            <InputsId
                                                 // className={style.login_input}
                                                 data={data}
                                                 setData={setData}
                                                 placeholder={Moment(item.itemSection.endDate).format('DD/MM/YYYY')} // Formatear la fecha directamente en el placeholder
-                                                name={item.itemSection.endDate}
+                                                // name={item.itemSection.endDate}
+                                                name="endDate"
                                                 type={''}
-                                                minLength={''} autoFocus={false} color={''} defaultValue={Moment(item.itemSection.endDate).format('DD/MM/YYYY')} disabled={false} fullWidth={false} id={''} inputComponent={undefined} multiline={false} label={''} rows={''}
+                                                onClick={() => setDataObjectKeys({ id: item.id, "endDate": item.itemSection.endDate })}
+
+                                                minLength={''} autoFocus={false} color={''} defaultValue={Moment(item.itemSection.endDate).format('DD/MM/YYYY')} disabled={false} fullWidth={false} id={item.id} inputComponent={undefined} multiline={false} label={''} rows={''}
                                             />
 
-
-
-
-
                                         </h4>
-
-
                                         {/* {item.itemSection.atribute} */}
                                     </td>
                                 </tr>

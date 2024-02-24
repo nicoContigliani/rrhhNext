@@ -17,6 +17,7 @@ const PersonDescriptionData = (props: any) => {
     const [dataFilterTodo, setDataFilterTodo] = useState<any | any[] | undefined>();
     const [dataUpdate, setDataUpdate] = useState<any | any[]>();
     const [dataId, setDataId] = useState<any | any[]>(1);
+    
     console.log("🚀 ~ PersonDescriptionData ~ dataUpdate:", dataUpdate)
 
     useEffect(() => {
@@ -56,7 +57,6 @@ const PersonDescriptionData = (props: any) => {
         const filterItemsByData = async () => {
             if (!data) return;
 
-            // let dataByTitleAttributeId: { [key: string]: any } = {};
 
 
             const dataLastKey: any = Object.keys(data).pop();
@@ -68,36 +68,7 @@ const PersonDescriptionData = (props: any) => {
 
             if (dataReturnwithArraybyKey?.length > 0) {
 
-
-                if (dataReturnwithArraybyKey.length > 1) {
-
-                    const dataFilterA: any | any[] | undefined = itemsData?.filter((item: any) => {
-                        return item.itemTitle === dataLastKey && item.id === dataId;
-                    });
-
-                    const todo = dataFilterA[0];
-                    const attributeValue = dataLastValue;
-
-                    const newTodo = {
-                        ...todo,
-                        itemSection: {
-                            ...todo.itemSection,
-                            atribute: attributeValue,
-                        },
-                    };
-                    const idDataReturn = newTodo.id
-                    console.log("🚀 ~ filterItemsByData ~ idDataReturn:", idDataReturn)
-
-                    if (Array.isArray(itemsData)) {
-                        let dataR = itemsData?.filter((item: any) => item.id !== idDataReturn);
-                        const dataS = [...dataR, newTodo]
-                        setDataUpdate(dataS)
-                    } else {
-                        console.error(" no es un array, no se puede realizar el filtro.");
-                    }
-                }
-
-                if (dataReturnwithArraybyKey.length == 1) {
+                if (dataReturnwithArraybyKey.length !== 0) {
 
                     const todo = dataReturnwithArraybyKey[0];
                     const attributeValue = dataLastValue;
@@ -111,18 +82,18 @@ const PersonDescriptionData = (props: any) => {
                     };
 
                     const idDataReturn = newTodo.id
-                    console.log("🚀 ~ filterItemsByData ~ idDataReturn:", idDataReturn)
 
                     if (Array.isArray(itemsData)) {
-                        let dataR = itemsData?.filter((item: any) => item.id !== idDataReturn);
+                        let dataR = (dataUpdate??itemsData)?.filter((item: any) => item.id !== idDataReturn);
                         const dataS = [...dataR, newTodo]
+
                         setDataUpdate(dataS)
                     } else {
                         console.error(" no es un array, no se puede realizar el filtro.");
                     }
                 }
 
-
+       
 
             } else {
                 // No se encontró ningún elemento con el título especificado
@@ -130,34 +101,7 @@ const PersonDescriptionData = (props: any) => {
             }
 
 
-            // Object.keys(data).forEach((key) => {
-            //     const titleAttributeId = key.split('_')[1];
-            //     if (titleAttributeId) {
-            //         if (!dataByTitleAttributeId[titleAttributeId]) {
-            //             dataByTitleAttributeId[titleAttributeId] = {};
-            //         }
-            //         dataByTitleAttributeId[titleAttributeId][key] = data[key];
-            //     }
-            // });
-
-            // let updatedItems = props.perInfData.Items.map((item: any) => {
-            //     if (item.itemSection.title_atribute === "cvTitle") {
-            //         let titleAttributeId = item.itemSection.id;
-            //         let dataForId = dataByTitleAttributeId[titleAttributeId];
-            //         if (dataForId) {
-            //             return {
-            //                 ...item,
-            //                 itemSection: {
-            //                     ...item.itemSection,
-            //                     atribute: dataForId[item.itemSection.title_atribute + '_' + titleAttributeId]
-            //                 }
-            //             };
-            //         }
-            //     }
-            //     return item;
-            // });
-
-            // setDataFilterTodo(updatedItems);
+           
         };
 
         filterItemsByData();
