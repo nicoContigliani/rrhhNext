@@ -17,7 +17,7 @@ const PersonDescriptionData = (props: any) => {
     const [dataFilterTodo, setDataFilterTodo] = useState<any | any[] | undefined>();
     const [dataUpdate, setDataUpdate] = useState<any | any[]>();
     const [dataId, setDataId] = useState<any | any[]>(1);
-    
+
     console.log("🚀 ~ PersonDescriptionData ~ dataUpdate:", dataUpdate)
 
     useEffect(() => {
@@ -84,7 +84,7 @@ const PersonDescriptionData = (props: any) => {
                     const idDataReturn = newTodo.id
 
                     if (Array.isArray(itemsData)) {
-                        let dataR = (dataUpdate??itemsData)?.filter((item: any) => item.id !== idDataReturn);
+                        let dataR = (dataUpdate ?? itemsData)?.filter((item: any) => item.id !== idDataReturn);
                         const dataS = [...dataR, newTodo]
 
                         setDataUpdate(dataS)
@@ -93,7 +93,7 @@ const PersonDescriptionData = (props: any) => {
                     }
                 }
 
-       
+
 
             } else {
                 // No se encontró ningún elemento con el título especificado
@@ -101,15 +101,15 @@ const PersonDescriptionData = (props: any) => {
             }
 
 
-           
+
         };
 
         filterItemsByData();
     }, [data, props.perInfData.Items]);
 
     return (
-        <div className={style.body}>
-            <h2>Data General</h2>
+        <div>
+            <h2 className={style.titles}>Data General</h2>
 
             {
                 edit ? (
@@ -117,49 +117,57 @@ const PersonDescriptionData = (props: any) => {
 
 
                     </div>
-                ) : <h4>({titleDataPerson})</h4>
+                ) : <h4 className={style.titles}>({titleDataPerson})</h4>
             }
 
             {edit ? (
-                <div className={style.inputsData}>
-                    <table>
-                        <tbody>
-                            {itemsData?.map((item: any, index: number) => (
-                                <tr key={index}>
-                                    <td ><strong>{item.itemTitle}</strong></td>
-                                    <td>
-                                        <h4 key={index}
-                                        //  className={style.inputsData}
-                                        >
-                                            <Inputs
-                                                className={style.input}
-                                                data={data}
-                                                setData={setData}
-                                                placeholder={item.itemTitle}
-                                                name={item.itemTitle}
-                                                type={''}
-                                                onClick={() => setDataId(item.id)}
-
-                                                minLength={''} autoFocus={false} color={''} defaultValue={item.itemSection.atribute} disabled={false} fullWidth={false} id={''} inputComponent={undefined} multiline={false} label={''} rows={''} />
-
-                                        </h4>
+                <div className={style.body}>
 
 
-                                        {/* {item.itemSection.atribute} */}
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                    <div className={style.inputsData}>
+                        <table>
+                            <tbody>
+                                {itemsData?.map((item: any, index: number) => (
+                                    <tr key={index}>
+                                        <td ><strong>{item.itemTitle}</strong></td>
+                                        <td>
+                                            <h4 key={index}
+                                            //  className={style.inputsData}
+                                            >
+                                                <Inputs
+                                                    className={style.input}
+                                                    data={data}
+                                                    setData={setData}
+                                                    placeholder={item.itemTitle}
+                                                    name={item.itemTitle}
+                                                    type={''}
+                                                    onClick={() => setDataId(item.id)}
+
+                                                    minLength={''} autoFocus={false} color={''} defaultValue={item.itemSection.atribute} disabled={false} fullWidth={false} id={''} inputComponent={undefined} multiline={false} label={''} rows={''} />
+
+                                            </h4>
 
 
+                                            {/* {item.itemSection.atribute} */}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+
+
+                    </div>
                 </div>
             ) : (
-                <div>
+                <div className={style.bodyShow}>
+                    <hr />
                     <table>
                         <tbody>
                             {dataFilterTodo?.map((item: any, index: number) => (
                                 <tr key={index}>
+                                    <hr />
+                                    <hr />
+
                                     <td><strong>{item.itemTitle}</strong></td>
                                     <td>{item.itemSection.atribute}</td>
 
@@ -167,7 +175,7 @@ const PersonDescriptionData = (props: any) => {
                             ))}
                         </tbody>
                     </table>
-
+                    <hr />
                 </div>
             )}
         </div>

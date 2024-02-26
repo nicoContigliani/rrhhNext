@@ -7,21 +7,35 @@
   .bodyTodo {
     /* padding: 1%;
     border-radius: 5%; */
+    padding: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
   }
 
   .div {
+    padding: 0;
+    padding-top: 0;
+    padding-bottom: 3;
+    padding-left: 0;
+
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: flex-start;
     align-content: flex-start;
-    width: 100%;
-    margin: 0 auto; /* Centra el contenedor */
-    }
+    flex-direction: column;
+
+    margin-bottom: 2rem;
+    border-collapse: separate;
+    padding: 1rem;
+    width: 450px;
+    max-width: 95%;
+    /* margin: 0 auto; */
+  }
 
   .div:hover {
-    box-shadow: 0 1px 10px #000000a1;
-    transform: scale(1.0);
+    /* box-shadow: 0 1px 10px #000000a1; */
     transition: box-shadow 500ms;
   }
 }
@@ -31,7 +45,7 @@
     /* padding: 1%;
     border-radius: 5%; */
   }
-  
+
   .body {
     border-radius: 5%;
     margin: 2%;
@@ -46,7 +60,7 @@
   .div {
     padding: 1%;
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: space-around;
     align-items: flex-start;
     align-content: flex-start;
@@ -54,9 +68,11 @@
     height: 80vh;
     overflow: auto;
     flex-direction: row;
-    padding: 10px; /* Añadido padding */
+    padding: 10px;
+    /* Añadido padding */
     transition: box-shadow 1000ms;
-    border-radius:  0 0 5% 5%; /* Aplicar radio de borde solo en la parte inferior */
+    border-radius: 0 0 5% 5%;
+    /* Aplicar radio de borde solo en la parte inferior */
 
   }
 }

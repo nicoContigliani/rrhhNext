@@ -6,7 +6,6 @@ const PersonDescription = (props: any) => {
 
 
     const { titleSection, perDescData, data, setData } = props;
-    console.log("🚀 ~ PersonDescription ~ perDescData:", perDescData)
     // const [edit, setEdit] = useState<boolean>(false);
     const [dataSectionDescriptionPerson, setDataSectionDescriptionPerson] = useState<any | any[]>([]);
     const [edit, setEdit] = useState(false)
@@ -19,7 +18,6 @@ const PersonDescription = (props: any) => {
     const [titleDataPerson, setTitleDataPerson] = useState<any | any[]>();
     const [dataFilterTodo, setDataFilterTodo] = useState<any | any[] | undefined>();
     const [dataUpdate, setDataUpdate] = useState<any | any[]>();
-    console.log("🚀 ~ PersonDescription ~ dataUpdate:", dataUpdate)
 
 
 
@@ -37,7 +35,7 @@ const PersonDescription = (props: any) => {
     }, [perDescData]);
 
 
-   
+
 
     useEffect(() => {
         const { Items } = props.perDescData;
@@ -52,7 +50,7 @@ const PersonDescription = (props: any) => {
         const dataLastValue = data[dataLastKey];
 
         const dataReturnwithArraybyKey: any | any[] | undefined = itemsData?.filter((item: any) => {
-            
+
             return item.itemTitle === dataLastKey;
         });
 
@@ -72,7 +70,7 @@ const PersonDescription = (props: any) => {
                 };
 
                 const idDataReturn = newTodo.id
-                
+
                 if (Array.isArray(itemsData)) {
                     let dataR = (dataUpdate ?? itemsData)?.filter((item: any) => item.id !== idDataReturn);
                     const dataS = [...dataR, newTodo]
@@ -87,7 +85,7 @@ const PersonDescription = (props: any) => {
 
         } else {
             // No se encontró ningún elemento con el título especificado
-            console.log("No se encontró ningún elemento con el título", Object.keys(data)[0]);
+            // console.log("No se encontró ningún elemento con el título", Object.keys(data)[0]);
         }
 
 
@@ -140,13 +138,19 @@ const PersonDescription = (props: any) => {
                     ))}
                 </div>
             ) : (
-                <div className={style.inputsData}>
-                    <h2>{titleSection}</h2>
-                    {dataSectionDescriptionPerson.map((entry: any, index: any) => (
-                        <div key={index}>
-                            <h4>{entry.itemSection.atribute}</h4>
-                        </div>
-                    ))}
+                <div>
+                    <div className={style.titles}>
+                        <h2>{titleSection}</h2>
+                    </div>
+                    <div className={style.inputsDataShow}>
+                        {dataSectionDescriptionPerson.map((entry: any, index: any) => (
+                            <div key={index}>
+                                <hr />
+                                <h4>{entry.itemSection.atribute}</h4>
+                                <hr />
+                            </div>
+                        ))}
+                    </div>
                 </div>
             )}
         </div>

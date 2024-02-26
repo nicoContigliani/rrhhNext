@@ -24,11 +24,11 @@ const Show = (props: any) => {
     //aca va el redux de show y los permisos 
 
     return (
-        <div>
+        <div className={style.body}>
 
             <Modalnew
                 title={title}
-                className={style.body}
+              
             >
                 {
                     sectionsData ?

@@ -56,7 +56,7 @@ const Selectscomponent = (props: any) => {
                         <Select
                             showSearch
                             defaultValue=''
-                            style={{ width: 400 }}
+                            style={{ width: 250 }}
                             placeholder="Search to Select"
                             optionFilterProp="children"
                             options={optionsProp}

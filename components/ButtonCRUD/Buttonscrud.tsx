@@ -16,6 +16,12 @@ import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
 import PersonDescriptionData from '../cvTodo/personDataGeneral/PersonDescriptionData';
 import PersonDescription from '../cvTodo/personDescriptionData/PersonDescription';
 import EducationsData from '../cvTodo/educateData/EducationsData';
+import ExperienceWorkData from '../cvTodo/ExperienceWorkData/ExperienceWorkData';
+import ExperienceWorkFreeData from '../cvTodo/ExperienceWorkFreeData/ExperienceWorkFreeData';
+import HardSkillData from '../cvTodo/HardSkillData/HardSkillData';
+import SoftSkillData from '../cvTodo/SoftSkillData/SoftSkillData';
+import LenguageData from '../cvTodo/LenguagelData/LenguageData';
+import Disponibility from '../cvTodo/DisponibilitylData/DisponibilityData';
 
 export interface FetchCrudData {
     urlGeneral: string | any;
@@ -47,6 +53,7 @@ const Buttonscrud = ({ urlGeneral, todo }: { urlGeneral: string | undefined, tod
     }, [todo])
 
 
+    console.log("🚀 ~ Buttonscrud ~ sectionsData:", sectionsData)
 
     const [pathNow, setPathNow] = useState<any>()
     const [methods, setMethods] = useState<any>()
@@ -154,6 +161,63 @@ const Buttonscrud = ({ urlGeneral, todo }: { urlGeneral: string | undefined, tod
                                 title="Show"
                                 titleSection="Education"
                                 perDescData={sectionsData.eduData}
+                                data={data}
+                                setData={setData}
+                            />
+                            : ""
+                    }
+                    {
+                        sectionsData ?
+                            <ExperienceWorkData
+                                title="Show"
+                                titleSection="ExperienceWork"
+                                perDescData={sectionsData.experData}
+                                data={data}
+                                setData={setData}
+                            />
+                            : ""
+                    }
+
+
+                    {
+                        sectionsData ?
+                            <ExperienceWorkFreeData
+                                title="Show"
+                                titleSection="ExperienceFreeWork"
+                                perDescData={sectionsData.experFree}
+                                data={data}
+                                setData={setData}
+                            />
+                            : ""
+                    }
+                    {
+                        sectionsData ?
+                            <HardSkillData
+                                title="Show"
+                                titleSection="Hard Skill"
+                                perDescData={sectionsData.hardSData}
+                                data={data}
+                                setData={setData}
+                            />
+                            : ""
+                    }
+                    {
+                        sectionsData ?
+                            <LenguageData
+                                title="Show"
+                                titleSection="Lenguage"
+                                perDescData={sectionsData.lenguageData}
+                                data={data}
+                                setData={setData}
+                            />
+                            : ""
+                    }
+                    {
+                        sectionsData ?
+                            <Disponibility
+                                title="Show"
+                                titleSection="Disponibility"
+                                perDescData={sectionsData.dispData}
                                 data={data}
                                 setData={setData}
                             />
