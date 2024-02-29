@@ -3,11 +3,12 @@
         padding: 3%;
         display: flex;
         flex-wrap: nowrap;
-        justify-content: space-evenly;
-        align-items: flex-start;
+        /* Centrar horizontalmente el contenido */
+        justify-content: center;
+        align-items: center;
         align-content: center;
         width: 100%;
-        height: 160vh;
+        height: 120vh;
         overflow: auto;
         flex-direction: column;
         overflow-y: auto;
@@ -29,40 +30,114 @@
         /* overflow: auto; */
         flex-direction: column;
     }
+
     .titles {
         display: flex;
-        justify-content: flex-start; /* Distribuye los títulos de manera uniforme */
+        justify-content: flex-start;
+        /* Distribuye los títulos de manera uniforme */
         align-items: flex-start;
         padding-left: 5%;
 
-        
+
     }
-    .bodyShow{
+
+    .bodyShow {
         padding: 0;
         padding-top: 1%;
         padding-bottom: 4%;
         padding-left: 5%;
     }
+
     .bodyShow:hover {
         border-radius: 5%;
         box-shadow: 0 1px 10px #000000b8;
         /* transform: scale(1.0); */
         transition: box-shadow 1000ms;
-      }
+    }
 
+    .bodyShowTable {
+        padding-top: 1%;
+        padding-bottom: 4%;
+        padding-left: 1%;
+        width: 90%;
+        overflow-x: auto;
+        border-collapse: collapse;
+        /* display: block; */
+    }
+
+    .table {
+        border-collapse: collapse;
+
+        width: 385px;
+        border-radius: 10px;
+        overflow-x: auto;
+        overflow: hidden;
+
+    }
+
+    .bodyShowTable th,
+    .bodyShowTable td {
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+    }
+
+    .bodyShowTable th {
+        background-color: #f2f2f2;
+    }
+
+    .bodyShowTable tbody tr:nth-child(odd) {
+        background-color: #f9f9f9;
+    }
+
+    .tableWrapper {
+        /* padding: 1%; */
+        width: 370px;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        max-width: 100%;
+        margin-bottom: 1rem;
+        /* Ajusta según tus necesidades */
+
+        display: grid;
+        grid-template-columns: 360px;
+        grid-template-rows: 400px;
+        place-items: center;
+        align-items: center;
+        justify-items: center;
+
+        justify-content:  baseline;
+    }
 
 }
+
+@media only screen and (max-width: 600px) {
+
+    /* Estilos específicos para pantallas pequeñas aquí */
+    .tableWrapper {
+        width: 95%;
+        overflow-x: auto;
+    }
+}
+
 @media only screen and (min-width: 992px) {
     .body {
         display: flex;
-        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: center;
         align-items: center;
-        width: 80%;
-        height: 40vh;
+        align-content: center;
+
+        overflow: auto;
+        flex-direction: column;
+        overflow-y: auto;
+
+        width: 100%;
+        height: 140vh;
 
         /* overflow: auto; */
-        padding: 0.3rem;
-        margin: 0 auto; 
+        /* padding: 0.1rem; */
+        margin: 0 auto;
     }
 
     .inputs {
@@ -70,37 +145,44 @@
         margin-top: 0.1rem;
         margin-left: 0.3rem;
         margin-bottom: 1rem; */
-        
+
     }
- 
+
 
     .inputsData {
         display: flex;
-        flex-wrap: nowrap; /* Evitar que los inputs se envuelvan a la siguiente línea */
-        justify-content: space-around; /* Distribuir los inputs de manera uniforme */
-        align-items: center; /* Alinear verticalmente */
-        width: 80%;
-        overflow-x: auto; /* Habilitar desplazamiento horizontal si es necesario */
-        border-radius: 5%;
-        height: 90vh;
-        padding: 0.3rem;
-
+        flex-wrap: nowrap;
+        /* Evitar que los inputs se envuelvan a la siguiente línea */
+        justify-content: space-around;
+        /* Distribuir los inputs de manera uniforme */
+        align-items: center;
+        /* Alinear verticalmente */
+        width: 100%;
+        overflow-x: auto;
+        /* Habilitar desplazamiento horizontal si es necesario */
+        border-radius: 2%;
+        height: 120vh;
+        /* padding: 0.5rem;
+ */
         transition: box-shadow 1000ms;
     }
+
     .inputsData:hover {
-        border-radius: 5%;
-        box-shadow: 0 1px 10px #000000b8;
+        border-radius: 2%;
+        box-shadow: 0 1px 15px #00000034;
         /* transform: scale(1.0); */
         transition: box-shadow 1000ms;
-        
-      }
-    
+
+    }
+
 
     .titles {
         display: flex;
-        justify-content: center; /* Distribuye los títulos de manera uniforme */
+        justify-content: center;
+        /* Distribuye los títulos de manera uniforme */
         align-items: center;
-        margin-bottom: 1rem; /* Usa margen para el espaciado */
+        margin-bottom: 1rem;
+        /* Usa margen para el espaciado */
     }
 
     .deletes,
@@ -108,6 +190,43 @@
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        margin-bottom: 1rem; /* Usa margen para el espaciado */
+        margin-bottom: 1rem;
+        /* Usa margen para el espaciado */
+    }
+
+    .bodyShow {
+        display: flex;
+        flex-wrap: nowrap;
+        /* Evitar que los inputs se envuelvan a la siguiente línea */
+        justify-content: space-around;
+        /* Distribuir los inputs de manera uniforme */
+        align-items: center;
+        /* Alinear verticalmente */
+        margin-bottom: 1rem;
+
+    }
+
+    .table {
+        border-collapse: collapse;
+        width: 100%;
+        border-radius: 10px;
+        overflow-x: auto;
+        overflow: hidden;
+
+    }
+
+    .bodyShowTable th,
+    .bodyShowTable td {
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+    }
+
+    .bodyShowTable th {
+        background-color: #f2f2f2;
+    }
+
+    .bodyShowTable tbody tr:nth-child(odd) {
+        background-color: #f9f9f9;
     }
 }

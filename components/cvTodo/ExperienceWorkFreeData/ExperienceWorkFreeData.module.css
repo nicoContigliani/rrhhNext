@@ -21,6 +21,7 @@
         margin: 0 auto;
 
     }
+
     .body {
         display: flex;
         flex-wrap: wrap;
@@ -43,6 +44,7 @@
         /* Espacio entre elementos */
     }
 
+
     .inputsData {
         display: flex;
         flex-wrap: wrap;
@@ -58,13 +60,14 @@
     .bodyShow {
         display: flex;
         flex-wrap: wrap;
-        justify-content: flex-start; /* Adjust as needed */
+        justify-content: flex-start;
+        /* Adjust as needed */
 
         padding: 0;
         padding-top: 1%;
         padding-bottom: 4%;
         padding-left: 5%;
-        
+
         width: 88%;
         /* overflow: auto;
         flex-direction: column;
@@ -76,30 +79,106 @@
 
     }
 
-      
-      .card {
-        /* Card styling */
-      }
-      
-      .cardItem {
-        display: flex;
-        margin-bottom: 10px; 
-      }
-      
-      .cardLabel {
-        font-weight: bold;
-        margin-right: 5px; 
-      }
 
+    .card {
+        /* Card styling */
+    }
+
+    .cardItem {
+        display: flex;
+        margin-bottom: 5px;
+    }
+
+    .cardLabel {
+        font-weight: bold;
+        margin-right: 5px;
+    }
+
+
+
+    /* Estilos adicionales para la tabla */
+    .bodyShowTable table {
+        border-collapse: collapse;
+        width: 100%;
+        /* Asegura que la tabla ocupe todo el ancho disponible */
+        border-radius: 10px;
+        /* Ajusta el radio del borde para una apariencia de calidad */
+        overflow: hidden;
+        /* Oculta el contenido que excede el tamaño de la tabla */
+    }
+
+    .bodyShowTable th,
+    .bodyShowTable td {
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+        /* Agrega bordes inferiores a las celdas */
+        text-align: left;
+        /* Alinea el texto a la izquierda */
+    }
+
+    .bodyShowTable th {
+        background-color: #f2f2f2;
+        /* Color de fondo para las celdas de encabezado */
+    }
+
+    /* Estilo para las filas impares */
+    .bodyShowTable tbody tr:nth-child(odd) {
+        background-color: #f9f9f9;
+    }
+
+    .tableWrapper {
+        width: 373px;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        max-width: 100%;
+        margin-bottom: 1rem;
+        /* Ajusta según tus necesidades */
+        display: flex;
+        /* Use flexbox for better centering */
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        padding: 5px;
+        /* Adjust padding values as needed */
+        /* OR */
+        margin: 5px;
+    }
 
 }
+
+@media only screen and (max-width: 600px) {
+
+    /* Estilos específicos para pantallas pequeñas aquí */
+    .tableWrapper {
+        /* width: 380px;
+        overflow-x: auto; */
+        /* grid-template-columns: 340px;
+        grid-template-rows: 100px; */
+        overflow-x: hidden;
+        /* Remove horizontal scroll */
+        overflow-y: hidden;
+        /* Maintain overflow control (optional) */
+        max-width: 100%;
+        margin-bottom: 1rem;
+
+        display: flex;
+        /* Use flexbox for better centering */
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
+
+
 
 /* Estilos para pantallas más grandes */
 @media only screen and (min-width: 992px) {
     .body {
         display: flex;
         flex-direction: column;
-        align-items: center;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: flex-start;
         width: 97%;
         overflow: auto;
         padding: 1rem;
@@ -161,7 +240,7 @@
     .bodyShow {
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
         width: 97%;
         overflow: auto;
         padding: 1rem;
@@ -172,6 +251,30 @@
     .inputsDataShow {
         margin: 0 auto;
 
+    }
+
+    .table {
+        border-collapse: collapse;
+        width: 100%;
+        border-radius: 10px;
+        overflow-x: auto;
+        overflow: hidden;
+
+    }
+
+    .bodyShowTable th,
+    .bodyShowTable td {
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+    }
+
+    .bodyShowTable th {
+        background-color: #f2f2f2;
+    }
+
+    .bodyShowTable tbody tr:nth-child(odd) {
+        background-color: #f9f9f9;
     }
 
 

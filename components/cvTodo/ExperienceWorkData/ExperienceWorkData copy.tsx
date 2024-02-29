@@ -2,16 +2,18 @@ import Inputs from '@/components/inputs/Inputs';
 import React, { useEffect, useState } from 'react'
 import Moment from 'moment'; // Importa Moment.js
 
-import styles from './ExperienceWorkFreeData.module.css'
+import styles from './ExperienceWorkData.module.css'
 import InputsId from '@/components/inputsID/Inputs';
 
-const ExperienceWorkFreeData = (props: any) => {
+const ExperienceWorkData = (props: any) => {
+
     const {
         gridFormatView,
         setGridFormatView,
         setUpdateToSend
 
     } = props
+
 
     const [edit, setEdit] = useState(false)
     useEffect(() => {
@@ -30,15 +32,15 @@ const ExperienceWorkFreeData = (props: any) => {
     const [dataObjectTodoKeys, setDataObjectTodoKeys] = useState<any | any[] | undefined>([]);
 
 
-
     useEffect(() => {
+
         // setUpdateToSend(dataUpdate)
         dataUpdate && setUpdateToSend(dataUpdate);
 
     }, [dataUpdate])
 
 
-    //TODO updateToSend -> es el que envia 
+
 
 
 
@@ -63,7 +65,25 @@ const ExperienceWorkFreeData = (props: any) => {
         fetchData();
     }, [props.perInfData]);
 
+    // useEffect(() => {
 
+    //     itemsData?.forEach((element: any) => {
+
+    //         if (data && data[element?.id] && data.hasOwnProperty(element?.id)) {
+    //             let { itemSection } = element
+    //             let itemSectionSprite = { ...itemSection }
+
+    //             itemSectionSprite.atribute = data[element?.id].atribute
+    //             itemSectionSprite.title_atribute = data[element?.id]?.title_atribute
+    //             itemSectionSprite.startDate = data[element?.id]?.startDate
+    //             itemSectionSprite.endDate = data[element?.id]?.endDate
+
+    //             console.log("🚀 ~ itemsData?.forEach ~ itemSectionSprite:", itemSectionSprite)
+    //         }
+
+    //     });
+
+    // }, [data, itemsData]);
     useEffect(() => {
         // ... other dependencies
 
@@ -85,6 +105,7 @@ const ExperienceWorkFreeData = (props: any) => {
                 startDate: elementData.startDate || element.itemSection.startDate,
                 endDate: elementData.endDate || element.itemSection.endDate,
             };
+
             return itemSectionSprite;
         });
         setDataUpdate(updatedItemSectionSprites)
@@ -94,8 +115,9 @@ const ExperienceWorkFreeData = (props: any) => {
 
     return (
         <div >
-            <h2 className={styles.titles}>Work Experience Freelancer</h2>
+            <h2 className={styles.titles}>Work Experience</h2>
             {edit ? (
+
                 <div className={styles.body}>
                     <table>
                         <tbody>
@@ -120,9 +142,24 @@ const ExperienceWorkFreeData = (props: any) => {
                                                     minLength={''} autoFocus={false} color={''} defaultValue={item.itemSection.atribute} disabled={false} fullWidth={false} id={item.id} inputComponent={undefined} multiline={false} label={''} rows={''}
                                                 />
                                             </td>
-
                                             <td className={styles.td}>
                                                 <strong>Job:   </strong>
+
+                                                <InputsId
+                                                    // className={style.login_input}
+                                                    data={data}
+                                                    setData={setData}
+                                                    placeholder={item.itemSection.detail_atribute}
+                                                    name="detail_atribute"
+                                                    type={''}
+                                                    onClick={() => setDataObjectKeys({ id: item.id, "detail_atribute": item.itemSection.detail_atribute })}
+
+
+                                                    minLength={''} autoFocus={false} color={''} defaultValue={item.itemSection.detail_atribute} disabled={false} fullWidth={false} id={item.id} inputComponent={undefined} multiline={false} label={''} rows={''}
+                                                />
+                                            </td>
+                                            <td className={styles.td}>
+                                                <strong>Tipe:   </strong>
 
                                                 <InputsId
                                                     // className={style.login_input}
@@ -137,26 +174,21 @@ const ExperienceWorkFreeData = (props: any) => {
                                                     minLength={''} autoFocus={false} color={''} defaultValue={item.itemSection.title_atribute} disabled={false} fullWidth={false} id={item.id} inputComponent={undefined} multiline={false} label={''} rows={''}
                                                 />
                                             </td>
-
-
                                             <td className={styles.td}>
-                                                <strong>Describe:   </strong>
-
+                                                <strong>Description:  </strong>
                                                 <InputsId
                                                     // className={style.login_input}
                                                     data={data}
                                                     setData={setData}
-                                                    placeholder={item.itemSection.information}
+                                                    placeholder={item.itemSection.information} // Formatear la fecha directamente en el placeholder
+                                                    // name={item.itemSection.endDate}
                                                     name="information"
                                                     type={''}
                                                     onClick={() => setDataObjectKeys({ id: item.id, "information": item.itemSection.information })}
 
-
                                                     minLength={''} autoFocus={false} color={''} defaultValue={item.itemSection.information} disabled={false} fullWidth={false} id={item.id} inputComponent={undefined} multiline={false} label={''} rows={''}
                                                 />
                                             </td>
-
-
                                             <td className={styles.td}>
                                                 <strong>Start:  </strong>
                                                 <InputsId
@@ -189,21 +221,7 @@ const ExperienceWorkFreeData = (props: any) => {
                                                     minLength={''} autoFocus={false} color={''} defaultValue={Moment(item.itemSection.endDate).format('DD/MM/YYYY')} disabled={false} fullWidth={false} id={item.id} inputComponent={undefined} multiline={false} label={''} rows={''}
                                                 />
                                             </td>
-                                            <td className={styles.td}>
-                                                <strong>End:  </strong>
-                                                <InputsId
-                                                    // className={style.login_input}
-                                                    data={data}
-                                                    setData={setData}
-                                                    placeholder={item.itemSection.information} // Formatear la fecha directamente en el placeholder
-                                                    // name={item.itemSection.endDate}
-                                                    name="information"
-                                                    type={''}
-                                                    onClick={() => setDataObjectKeys({ id: item.id, "endDate": item.itemSection.information })}
 
-                                                    minLength={''} autoFocus={false} color={''} defaultValue={item.itemSection.information} disabled={false} fullWidth={false} id={item.id} inputComponent={undefined} multiline={false} label={''} rows={''}
-                                                />
-                                            </td>
 
                                         </h4>
                                         {/* {item.itemSection.atribute} */}
@@ -219,44 +237,43 @@ const ExperienceWorkFreeData = (props: any) => {
 
                 gridFormatView ?
                     (
-                        <div className={styles.modal}>
-                            <div className={styles.modalContent}>
 
-                                <div className={styles.bodyShow}>
-                                    {itemsData?.map((item: any) => (
-                                        <div key={item.id} className={styles.card}>
-                                            <hr />
-                                            <div className={styles.cardItem}>
-                                                <span className={styles.cardLabel}>Company:</span>
-                                                <span className={styles.cardValue}>{item.itemSection?.atribute}</span>
-                                            </div>
 
-                                            {/* Job */}
-                                            <div className={styles.cardItem}>
-                                                <span className={styles.cardLabel}>Job:</span>
-                                                <span className={styles.cardValue}>{item.itemSection?.detail_atribute}</span>
-                                            </div>
 
-                                            {/* Description */}
-                                            <div className={styles.cardItem}>
-                                                <span className={styles.cardLabel}>Description:</span>
-                                                <span className={styles.cardValue}>{item.itemSection?.information}</span>
-                                            </div>
+                        <div className={styles.bodyShow}>
+                            {itemsData?.map((item: any) => (
+                                <div key={item.id} className={styles.card}>
+                                    <hr />
+                                    <div className={styles.cardItem}>
+                                        <span className={styles.cardLabel}>Company:</span>
+                                        <span className={styles.cardValue}>{item.itemSection?.atribute}</span>
+                                    </div>
 
-                                            {/* Start & End Carear */}
-                                            <div className={styles.cardItem}>
-                                                <span className={styles.cardLabel}>Start End :</span>
-                                                <span className={styles.cardValue}>
-                                                    {Moment(item.itemSection?.startDate).format('DD/MM/YYYY')} -{' '}
-                                                    {Moment(item.itemSection?.endDate).format('DD/MM/YYYY')}
-                                                </span>
-                                            </div>
-                                            <hr />
-                                        </div>
-                                    ))}
+                                    {/* Job */}
+                                    <div className={styles.cardItem}>
+                                        <span className={styles.cardLabel}>Job:</span>
+                                        <span className={styles.cardValue}>{item.itemSection?.detail_atribute}</span>
+                                    </div>
+
+                                    {/* Description */}
+                                    <div className={styles.cardItem}>
+                                        <span className={styles.cardLabel}>Description:</span>
+                                        <span className={styles.cardValue}>{item.itemSection?.information}</span>
+                                    </div>
+
+                                    {/* Start & End Carear */}
+                                    <div className={styles.cardItem}>
+                                        <span className={styles.cardLabel}>Start End :</span>
+                                        <span className={styles.cardValue}>
+                                            {Moment(item.itemSection?.startDate).format('DD/MM/YYYY')} -{' '}
+                                            {Moment(item.itemSection?.endDate).format('DD/MM/YYYY')}
+                                        </span>
+                                    </div>
+                                    <hr />
                                 </div>
-                            </div>
-                        </div>) :
+                            ))}
+                        </div>
+                    ) :
                     <div className={styles.tableWrapper}>
                         <div className={styles.bodyShowTable}>
                             <table className={styles.table}>
@@ -266,6 +283,7 @@ const ExperienceWorkFreeData = (props: any) => {
                                             itemsData.length > 0 && itemsData[0].itemSection &&
 
                                             (
+
                                                 Object?.keys(itemsData[0]?.itemSection)?.map((header: string, index: number) => (
                                                     (header !== 'information'
                                                         && header !== 'sectionId'
@@ -276,9 +294,6 @@ const ExperienceWorkFreeData = (props: any) => {
                                                         && header !== 'status_item_section'
                                                         && header !== 'ItemId'
                                                         && header !== 'title_atribute'
-                                                        && header !== 'detail_atribute'
-
-
 
                                                     )
                                                     && (
@@ -294,6 +309,7 @@ const ExperienceWorkFreeData = (props: any) => {
                                                 itemsData.length > 0 && itemsData[0].itemSection &&
 
                                                 (
+
                                                     Object.entries(item.itemSection).map(([key, value]: [string, any], index: number) => (
                                                         (value !== ''
 
@@ -305,7 +321,6 @@ const ExperienceWorkFreeData = (props: any) => {
                                                             && key !== 'SectionId'
                                                             && key !== 'status_item_section'
                                                             && key !== 'title_atribute'
-                                                            && key !== 'detail_atribute'
                                                             && key !== 'ItemId'
                                                         )
                                                         && (
@@ -326,10 +341,13 @@ const ExperienceWorkFreeData = (props: any) => {
                             </table>
                         </div>
                     </div>
+
+
+
             )}
         </div>
     )
 }
 
 
-export default ExperienceWorkFreeData
+export default ExperienceWorkData

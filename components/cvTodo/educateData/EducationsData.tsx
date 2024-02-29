@@ -4,8 +4,18 @@ import Moment from 'moment'; // Importa Moment.js
 
 import styles from './educationData.module.css'
 import InputsId from '@/components/inputsID/Inputs';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import CancelIcon from '@mui/icons-material/Cancel';
+
+
 
 const EducationsData = (props: any) => {
+    const {
+        gridFormatView,
+        setGridFormatView,
+        setUpdateToSend
+
+    } = props
     const [edit, setEdit] = useState(false)
     useEffect(() => {
         if (props.title === "Update") setEdit(true)
@@ -15,12 +25,21 @@ const EducationsData = (props: any) => {
     const [itemsData, setItemsData] = useState<any | any[] | undefined>([]);
     // const [edit, setEdit] = useState<boolean>(true);
 
-    const [titleDataPerson, setTitleDataPerson] = useState<any | any[]>();
     const [dataFilterTodo, setDataFilterTodo] = useState<any | any[] | undefined>();
     const [dataUpdate, setDataUpdate] = useState<any | any[]>();
     const [dataId, setDataId] = useState<any | any[]>(1);
     const [dataObjectKeys, setDataObjectKeys] = useState<any | any[] | undefined>([]);
     const [dataObjectTodoKeys, setDataObjectTodoKeys] = useState<any | any[] | undefined>([]);
+
+
+    useEffect(() => {
+        // setUpdateToSend(dataUpdate)
+        dataUpdate && setUpdateToSend(dataUpdate);
+    }, [dataUpdate])
+
+
+    //TODO updateToSend -> es el que envia 
+
 
 
     useEffect(() => {
@@ -44,25 +63,6 @@ const EducationsData = (props: any) => {
         fetchData();
     }, [props.perInfData]);
 
-    // useEffect(() => {
-
-    //     itemsData?.forEach((element: any) => {
-
-    //         if (data && data[element?.id] && data.hasOwnProperty(element?.id)) {
-    //             let { itemSection } = element
-    //             let itemSectionSprite = { ...itemSection }
-
-    //             itemSectionSprite.atribute = data[element?.id].atribute
-    //             itemSectionSprite.title_atribute = data[element?.id]?.title_atribute
-    //             itemSectionSprite.startDate = data[element?.id]?.startDate
-    //             itemSectionSprite.endDate = data[element?.id]?.endDate
-
-    //             console.log("🚀 ~ itemsData?.forEach ~ itemSectionSprite:", itemSectionSprite)
-    //         }
-
-    //     });
-
-    // }, [data, itemsData]);
     useEffect(() => {
         // ... other dependencies
 
@@ -77,19 +77,27 @@ const EducationsData = (props: any) => {
                 return element.itemSection; // Return original itemSection
             }
 
+
             const itemSectionSprite = {
                 ...element.itemSection,
-                atribute: elementData.atribute || null, // Set default value if missing
-                title_atribute: elementData.title_atribute || null,
-                startDate: elementData.startDate || null,
-                endDate: elementData.endDate || null,
+                atribute: elementData.atribute || element.itemSection.atribute, // Use original value if missing in elementData
+                title_atribute: elementData.title_atribute || element.itemSection.title_atribute,
+                startDate: elementData.startDate || element.itemSection.startDate,
+                endDate: elementData.endDate || element.itemSection.endDate,
             };
+
 
             return itemSectionSprite;
         });
         setDataUpdate(updatedItemSectionSprites)
         // Update state or use updatedItemSectionSprites as needed
     }, [data, itemsData]);
+
+
+
+
+
+
 
 
     return (
@@ -185,35 +193,99 @@ const EducationsData = (props: any) => {
 
                 </div>
             ) : (
-            
-                <div className={styles.bodyShow}>
-                    {itemsData?.map((item: any, index: number) => (
-                        <div key={index} className={styles.card}>
-                            <hr />
-                            {/* Institute */}
-                            <div className={styles.cardItem}>
-                                <span className={styles.cardLabel}>Institute:</span>
-                                <span className={styles.cardValue}>{item.itemSection?.atribute}</span>
-                            </div>
 
-                            {/* Career */}
-                            <div className={styles.cardItem}>
-                                <span className={styles.cardLabel}>Career:</span>
-                                <span className={styles.cardValue}>{item.itemSection?.title_atribute}</span>
-                            </div>
+                gridFormatView ?
+                    (<div className={styles.bodyShow}>
+                        {itemsData?.map((item: any, index: number) => (
+                            <div key={index} className={styles.card}>
+                                <hr />
+                                {/* Institute */}
+                                <div className={styles.cardItem}>
+                                    <span className={styles.cardLabel}>Institute:</span>
+                                    <span className={styles.cardValue}>{item.itemSection?.atribute}</span>
+                                </div>
 
-                            {/* Start & End Carear */}
-                            <div className={styles.cardItem}>
-                                <span className={styles.cardLabel}>Start   End </span>
-                                <span className={styles.cardValue}>
-                                    {Moment(item.itemSection?.startDate).format('DD/MM/YYYY')} -{' '}
-                                    {Moment(item.itemSection?.endDate).format('DD/MM/YYYY')}
-                                </span>
+                                {/* Career */}
+                                <div className={styles.cardItem}>
+                                    <span className={styles.cardLabel}>Career:</span>
+                                    <span className={styles.cardValue}>{item.itemSection?.title_atribute}</span>
+                                </div>
+
+                                {/* Start & End Carear */}
+                                <div className={styles.cardItem}>
+                                    <span className={styles.cardLabel}>Start   End </span>
+                                    <span className={styles.cardValue}>
+                                        {Moment(item.itemSection?.startDate).format('DD/MM/YYYY')} -{' '}
+                                        {Moment(item.itemSection?.endDate).format('DD/MM/YYYY')}
+                                    </span>
+                                </div>
+                                <hr />
                             </div>
-                            <hr />
+                        ))}
+                    </div>) :
+                    <div className={styles.tableWrapper}>
+
+                        <div className={styles.bodyShowTable}>
+                            <table className={styles.table}>
+                                <thead>
+                                    <tr>
+                                        {
+                                            itemsData.length > 0 && itemsData[0].itemSection &&
+
+                                            (
+                                                Object?.keys(itemsData[0]?.itemSection)?.map((header: string, index: number) => (
+                                                    (header !== 'detail_atribute' && header !== 'information'
+                                                        && header !== 'sectionId'
+                                                        && header !== 'position'
+                                                        && header !== 'createdAt'
+
+                                                        && header !== 'SectionId'
+                                                        && header !== 'status_item_section'
+                                                        && header !== 'ItemId')
+                                                    && (
+                                                        <th key={index}>{header}</th>
+                                                    )
+                                                )))
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {itemsData?.map((item: any, index: number) => (
+                                        <tr key={index}>
+                                            {
+                                                itemsData.length > 0 && itemsData[0].itemSection &&
+
+                                                (
+                                                    Object.entries(item.itemSection).map(([key, value]: [string, any], index: number) => (
+                                                        (value !== ''
+                                                            && key !== 'detail_atribute'
+                                                            && key !== 'information'
+                                                            && key !== 'sectionId'
+                                                            && key !== 'position'
+                                                            && key !== 'createdAt'
+
+                                                            && key !== 'SectionId'
+                                                            && key !== 'status_item_section'
+                                                            && key !== 'ItemId')
+                                                        && (
+                                                            <React.Fragment key={index}>
+                                                                <td>
+                                                                    {key === 'status' && typeof value === 'boolean' ? (
+                                                                        value ? 'true' : 'false'
+                                                                    ) : (
+                                                                        typeof value === 'string' && Moment(value, Moment.ISO_8601, true).isValid() ? Moment(value).format('DD/MM/YYYY') : typeof value === 'number' ? value : value
+                                                                    )}
+                                                                </td>
+                                                            </React.Fragment>
+                                                        )
+                                                    )))}
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
                         </div>
-                    ))}
-                </div>
+                    </div>
+
             )}
         </div>
     )

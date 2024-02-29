@@ -28,38 +28,6 @@ const Updates = (props: any) => {
                 title={title}
                 className={style.body}
             >
-                {/* {
-                    sectionsData ?
-                        <PersonDescriptionData
-                            title={title}
-                            perInfData={sectionsData.perInfData}
-                            data={data}
-                            setData={setData}
-                        />
-                        : ""
-                }
-                {
-                    sectionsData ?
-                        <PersonDescription
-                            title={title}
-                            titleSection="Description Person"
-                            perDescData={sectionsData.perDescData}
-                            data={data}
-                            setData={setData}
-                        />
-                        : ""
-                }
-                {
-                    sectionsData ?
-                        <EducationsData
-                            title={title}
-                            titleSection="Education"
-                            perDescData={sectionsData.eduData}
-                            data={data}
-                            setData={setData}
-                        />
-                        : ""
-                } */}
                 {children}
 
             </Modalnew>

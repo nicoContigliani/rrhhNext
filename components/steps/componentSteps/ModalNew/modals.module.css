@@ -31,7 +31,7 @@
     padding: 1rem;
     width: 450px;
     max-width: 95%;
-    /* margin: 0 auto; */
+    margin: 0 auto;
   }
 
   .div:hover {
@@ -41,6 +41,15 @@
 }
 
 @media screen and (min-width: 991px) {
+  .FloatButton{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+  }
+  
+  
   .bodyTodo {
     /* padding: 1%;
     border-radius: 5%; */
@@ -48,31 +57,36 @@
 
   .body {
     border-radius: 5%;
-    margin: 2%;
+    margin: 5%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+
   }
 
-  .div:hover {
-    box-shadow: 0 1px 10px #000000b8;
-    /* transform: scale(1.0); */
-    transition: box-shadow 1000ms;
-  }
-
+  
   .div {
-    padding: 1%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: flex-start;
     align-content: flex-start;
     width: 100%;
-    height: 80vh;
+    /* height: 85vh; */
     overflow: auto;
     flex-direction: row;
-    padding: 10px;
+    /* padding: 10px; */
     /* Añadido padding */
     transition: box-shadow 1000ms;
     border-radius: 0 0 5% 5%;
     /* Aplicar radio de borde solo en la parte inferior */
 
+  }
+  .div:hover {
+    box-shadow: 0 1px 10px #000000b8;
+    /* transform: scale(1.0); */
+    transition: box-shadow 1000ms;
   }
 }

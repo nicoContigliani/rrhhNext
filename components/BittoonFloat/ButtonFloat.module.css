@@ -1,0 +1,45 @@
+.body {
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+@media screen and (max-width: 991px) {
+    .FloatButton {}
+}
+
+@media screen and (min-width: 991px) {
+    .body{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        align-content: flex-start;
+        background-color:#b5cdfd43;
+        border-radius: 3%;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+
+    }
+    .FloatButton {
+        right: 34;
+        background-color: rgba(149, 149, 149, 0.475);
+        border: 2px solid #e7e7e7fc;
+        /* Lighter shade */
+        border-width: 2px 0 0 2px;
+        box-shadow: 0 3px 0 rgba(0, 0, 0, 0.917) inset;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+   .icon {
+ 
+        /* Altura del icono */
+        border-radius: 5%;
+        /* background-color: rgba(149, 149, 149, 0.139); */
+        border: 1px solid #e7e7e732;
+
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.153);
+
+    }
+}

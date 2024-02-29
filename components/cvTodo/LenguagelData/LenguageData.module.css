@@ -21,6 +21,7 @@
         margin: 0 auto;
 
     }
+
     .body {
         display: flex;
         flex-wrap: wrap;
@@ -58,13 +59,14 @@
     .bodyShow {
         display: flex;
         flex-wrap: wrap;
-        justify-content: flex-start; /* Adjust as needed */
+        justify-content: flex-start;
+        /* Adjust as needed */
 
         padding: 0;
         padding-top: 1%;
         padding-bottom: 4%;
         padding-left: 5%;
-        
+
         width: 88%;
         /* overflow: auto;
         flex-direction: column;
@@ -76,22 +78,72 @@
 
     }
 
-      
-      .card {
+
+    .card {
         /* Card styling */
-      }
-      
-      .cardItem {
+    }
+
+    .cardItem {
         display: flex;
-        margin-bottom: 10px; 
-      }
-      
-      .cardLabel {
+        margin-bottom: 10px;
+    }
+
+    .cardLabel {
         font-weight: bold;
-        margin-right: 5px; 
-      }
+        margin-right: 5px;
+    }
 
 
+
+
+    .bodyShowTable {
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    .bodyShowTable .table {
+        border-collapse: collapse;
+        width: 100%;
+        border-radius: 10px;
+        /* Optional: Rounded corners */
+        overflow-x: auto;
+    }
+
+    .bodyShowTable th,
+    .bodyShowTable td {
+        padding: 8px;
+        word-wrap: break-word;
+        /* Prevent text overflow */
+        text-align: left;
+    }
+
+    .bodyShowTable th {
+        background-color: #f2f2f2;
+    }
+
+    .bodyShowTable tbody tr:nth-child(odd) {
+        background-color: #f9f9f9;
+    }
+
+    .tableWrapper {
+        padding: 1%;
+        width: 385px;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        max-width: 100%;
+        margin-bottom: 1rem;
+        /* Ajusta según tus necesidades */
+    }
+
+}
+
+@media only screen and (max-width: 600px) {
+
+    /* Estilos específicos para pantallas pequeñas aquí */
+    .tableWrapper {
+        width: 95%;
+        overflow-x: auto;
+    }
 }
 
 /* Estilos para pantallas más grandes */
@@ -174,5 +226,28 @@
 
     }
 
+    .table {
+        border-collapse: collapse;
+        width: 100%;
+        border-radius: 10px;
+        overflow-x: auto;
+        overflow: hidden;
+
+    }
+
+    .bodyShowTable th,
+    .bodyShowTable td {
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+    }
+
+    .bodyShowTable th {
+        background-color: #f2f2f2;
+    }
+
+    .bodyShowTable tbody tr:nth-child(odd) {
+        background-color: #f9f9f9;
+    }
 
 }

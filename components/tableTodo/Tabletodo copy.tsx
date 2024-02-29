@@ -92,7 +92,6 @@ const Tabletodo = (props: any) => {
         }) => (
             <Buttonscrud urlGeneral={urlGeneral} todo={record}>
                 hola
-                
             </Buttonscrud>
 
 

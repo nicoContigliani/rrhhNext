@@ -22,9 +22,6 @@ import HardSkillData from '../cvTodo/HardSkillData/HardSkillData';
 import SoftSkillData from '../cvTodo/SoftSkillData/SoftSkillData';
 import LenguageData from '../cvTodo/LenguagelData/LenguageData';
 import Disponibility from '../cvTodo/DisponibilitylData/DisponibilityData';
-import ButtonFloat from '../BittoonFloat/ButtonFloat';
-
-
 
 export interface FetchCrudData {
     urlGeneral: string | any;
@@ -33,6 +30,9 @@ export interface FetchCrudData {
     idParams?: string;
 }
 
+
+
+
 const Buttonscrud = ({ urlGeneral, todo, children }: { urlGeneral: string | undefined, todo: any, children: any }) => {
 
 
@@ -40,30 +40,11 @@ const Buttonscrud = ({ urlGeneral, todo, children }: { urlGeneral: string | unde
     const [sectionsData, setSectionsData] = useState<any | undefined>()
     const [dataGeneralCvs, setDataGeneralCvs] = useState<any | undefined>()
 
-    const [updateToSend, setUpdateToSend] = useState<any | any | undefined>()
-    const [updateToSendSprite, setUpdateToSendSprite] = useState<any | any | undefined>()
-
-
-
-    useEffect(() => {
-        const todo = async () => {
-            if (updateToSend) {
-                setUpdateToSendSprite((prevState: any) => ({
-                    ...prevState,
-                    ...updateToSend,
-                }));
-            }
-        }
-        todo()
-    }, [updateToSend]);
-
-    console.log("🚀 ~ Buttonscrud ~ updateToSendSprite:", updateToSendSprite)
-
-
     useEffect(() => {
         const dataGetReturn = async () => {
             const { dataCVTodo, sections, genearlDataCV } = await sortSectionTypeId(todo)
             const dataSections = await sectionsFormatForModal(sections)
+            console.log("🚀 ~ dataGetReturn ~ dataSections:", dataSections)
             await setSectionsData(dataSections)
             await setDataTotalCV(dataCVTodo)
             await setDataGeneralCvs(genearlDataCV)
@@ -72,6 +53,7 @@ const Buttonscrud = ({ urlGeneral, todo, children }: { urlGeneral: string | unde
     }, [todo])
 
 
+    console.log("🚀 ~ Buttonscrud ~ sectionsData:", sectionsData)
 
     const [pathNow, setPathNow] = useState<any>()
     const [methods, setMethods] = useState<any>()
@@ -116,6 +98,9 @@ const Buttonscrud = ({ urlGeneral, todo, children }: { urlGeneral: string | unde
 
     };
     const handleGet = () => {
+
+
+
         const todoCRUD = {
             urlGeneral,
             methods: 'GET',
@@ -144,10 +129,9 @@ const Buttonscrud = ({ urlGeneral, todo, children }: { urlGeneral: string | unde
     const [experienceWorkDataS, setExperienceWorkDataS] = useState<boolean>(true)
     const [experienceWorkFreeDataS, setExperienceWorkFreeDataS] = useState<boolean>(true)
     const [hardSkillData, setHardSkillDatas] = useState<boolean>(true)
-    const [softSkillDataS, setSoftSkillDataS] = useState<boolean>(true)
+    const [softSkillDataS, setHardSkillDataS] = useState<boolean>(true)
     const [lenguageDataS, setLenguageDatas] = useState<boolean>(true)
     const [disponibilityS, setDisponibilityS] = useState<boolean>(true)
-    const [gridFormatView, setGridFormatView] = useState<boolean>(true)
 
 
 
@@ -155,169 +139,128 @@ const Buttonscrud = ({ urlGeneral, todo, children }: { urlGeneral: string | unde
 
     return (
         <div className={style.body}>
-
             {
-
                 (sectionsData?.length !== 0) ? <Show
                     title="Show"
                     handleAction={handleGet}
 
                     personDescriptionDataS={personDescriptionDataS}
-                    personDescriptionS={personDescriptionS}
-                    educationsDataS={educationsDataS}
-                    experienceWorkDataS={experienceWorkDataS}
-                    experienceWorkFreeDataS={experienceWorkFreeDataS}
-                    hardSkillData={hardSkillData}
-                    softSkillDataS={softSkillDataS}
-                    lenguageDataS={lenguageDataS}
-                    disponibilityS={disponibilityS}
                     setPersonDescriptionDataS={setPersonDescriptionDataS}
+                    personDescriptionS={personDescriptionS}
                     setPersonDescriptionS={setPersonDescriptionS}
+                    educationsDataS={educationsDataS}
                     setEducationsDataS={setEducationsDataS}
+                    experienceWorkDataS={experienceWorkDataS}
                     setExperienceWorkDataS={setExperienceWorkDataS}
+                    experienceWorkFreeDataS={experienceWorkFreeDataS}
                     setExperienceWorkFreeDataS={setExperienceWorkFreeDataS}
+                    hardSkillData={hardSkillData}
                     setHardSkillDatas={setHardSkillDatas}
-                    setSoftSkillDataS={setSoftSkillDataS}
+                    softSkillDataS={softSkillDataS}
+                    setHardSkillDataS={setHardSkillDataS}
+                    lenguageDataS={lenguageDataS}
                     setLenguageDatas={setLenguageDatas}
+                    disponibilityS={disponibilityS}
                     setDisponibilityS={setDisponibilityS}
-
-                    gridFormatView={gridFormatView}
-                    setGridFormatView={setGridFormatView}
                 >
                     {
-                        sectionsData && personDescriptionDataS ?
+                        sectionsData ?
                             <PersonDescriptionData
                                 title="Show"
                                 perInfData={sectionsData.perInfData}
                                 data={data}
                                 setData={setData}
-                                gridFormatView={gridFormatView}
-                                setGridFormatView={setGridFormatView}
-                                setUpdateToSend={setUpdateToSend}
-
                             />
                             : ""
                     }
                     {
-                        sectionsData && personDescriptionS ?
+                        sectionsData ?
                             <PersonDescription
                                 title="Show"
                                 titleSection="Description Person"
                                 perDescData={sectionsData.perDescData}
                                 data={data}
                                 setData={setData}
-                                gridFormatView={gridFormatView}
-                                setGridFormatView={setGridFormatView}
-                                setUpdateToSend={setUpdateToSend}
-
                             />
                             : ""
                     }
 
                     {
-                        sectionsData && educationsDataS ?
+                        sectionsData ?
                             <EducationsData
                                 title="Show"
                                 titleSection="Education"
                                 perDescData={sectionsData.eduData}
                                 data={data}
                                 setData={setData}
-                                gridFormatView={gridFormatView}
-                                setGridFormatView={setGridFormatView}
-                                setUpdateToSend={setUpdateToSend}
-
                             />
                             : ""
                     }
                     {
-                        sectionsData && experienceWorkDataS ?
+                        sectionsData ?
                             <ExperienceWorkData
                                 title="Show"
                                 titleSection="ExperienceWork"
                                 perDescData={sectionsData.experData}
                                 data={data}
                                 setData={setData}
-                                gridFormatView={gridFormatView}
-                                setGridFormatView={setGridFormatView}
-                                setUpdateToSend={setUpdateToSend}
-
                             />
                             : ""
                     }
 
 
                     {
-                        sectionsData && experienceWorkFreeDataS ?
+                        sectionsData ?
                             <ExperienceWorkFreeData
                                 title="Show"
                                 titleSection="ExperienceFreeWork"
                                 perDescData={sectionsData.experFree}
                                 data={data}
                                 setData={setData}
-                                gridFormatView={gridFormatView}
-                                setGridFormatView={setGridFormatView}
-                                setUpdateToSend={setUpdateToSend}
-
                             />
                             : ""
                     }
                     {
-                        sectionsData && hardSkillData ?
+                        sectionsData ?
                             <HardSkillData
                                 title="Show"
                                 titleSection="Hard Skill"
                                 perDescData={sectionsData.hardSData}
                                 data={data}
                                 setData={setData}
-                                gridFormatView={gridFormatView}
-                                setGridFormatView={setGridFormatView}
-                                setUpdateToSend={setUpdateToSend}
-
                             />
                             : ""
                     }
                     {
-                        sectionsData && softSkillDataS ?
+                        sectionsData ?
                             <SoftSkillData
                                 title="Show"
                                 titleSection="Hard Skill"
                                 perDescData={sectionsData.softSData}
                                 data={data}
                                 setData={setData}
-                                gridFormatView={gridFormatView}
-                                setGridFormatView={setGridFormatView}
-                                setUpdateToSend={setUpdateToSend}
-
                             />
                             : ""
                     }
                     {
-                        sectionsData && lenguageDataS ?
+                        sectionsData ?
                             <LenguageData
                                 title="Show"
                                 titleSection="Lenguage"
                                 perDescData={sectionsData.lenguageData}
                                 data={data}
                                 setData={setData}
-                                gridFormatView={gridFormatView}
-                                setGridFormatView={setGridFormatView}
-                                setUpdateToSend={setUpdateToSend}
-
                             />
                             : ""
                     }
                     {
-                        sectionsData && disponibilityS ?
+                        sectionsData ?
                             <Disponibility
                                 title="Show"
                                 titleSection="Disponibility"
                                 perDescData={sectionsData.dispData}
                                 data={data}
                                 setData={setData}
-                                gridFormatView={gridFormatView}
-                                setGridFormatView={setGridFormatView}
-                                setUpdateToSend={setUpdateToSend}
-
                             />
                             : ""
                     }
@@ -348,7 +291,6 @@ const Buttonscrud = ({ urlGeneral, todo, children }: { urlGeneral: string | unde
                                 perInfData={sectionsData.perInfData}
                                 data={data}
                                 setData={setData}
-                                setUpdateToSend={setUpdateToSend}
                             />
                             : ""
                     }
@@ -360,8 +302,6 @@ const Buttonscrud = ({ urlGeneral, todo, children }: { urlGeneral: string | unde
                                 perDescData={sectionsData.perDescData}
                                 data={data}
                                 setData={setData}
-                                setUpdateToSend={setUpdateToSend}
-
                             />
                             : ""
                     }
@@ -373,8 +313,6 @@ const Buttonscrud = ({ urlGeneral, todo, children }: { urlGeneral: string | unde
                                 perDescData={sectionsData.eduData}
                                 data={data}
                                 setData={setData}
-                                setUpdateToSend={setUpdateToSend}
-
                             />
                             : ""
                     }
@@ -386,8 +324,6 @@ const Buttonscrud = ({ urlGeneral, todo, children }: { urlGeneral: string | unde
                                 perDescData={sectionsData.experData}
                                 data={data}
                                 setData={setData}
-                                setUpdateToSend={setUpdateToSend}
-
                             />
                             : ""
                     }
@@ -399,8 +335,6 @@ const Buttonscrud = ({ urlGeneral, todo, children }: { urlGeneral: string | unde
                                 perDescData={sectionsData.experFree}
                                 data={data}
                                 setData={setData}
-                                setUpdateToSend={setUpdateToSend}
-
                             />
                             : ""
                     }
@@ -412,8 +346,6 @@ const Buttonscrud = ({ urlGeneral, todo, children }: { urlGeneral: string | unde
                                 perDescData={sectionsData.hardSData}
                                 data={data}
                                 setData={setData}
-                                setUpdateToSend={setUpdateToSend}
-
                             />
                             : ""
                     }
@@ -425,8 +357,6 @@ const Buttonscrud = ({ urlGeneral, todo, children }: { urlGeneral: string | unde
                                 perDescData={sectionsData.softSData}
                                 data={data}
                                 setData={setData}
-                                setUpdateToSend={setUpdateToSend}
-
                             />
                             : ""
                     }
@@ -438,7 +368,6 @@ const Buttonscrud = ({ urlGeneral, todo, children }: { urlGeneral: string | unde
                                 perDescData={sectionsData.lenguageData}
                                 data={data}
                                 setData={setData}
-                                setUpdateToSend={setUpdateToSend}
                             />
                             : ""
                     }
@@ -450,8 +379,6 @@ const Buttonscrud = ({ urlGeneral, todo, children }: { urlGeneral: string | unde
                                 perDescData={sectionsData.dispData}
                                 data={data}
                                 setData={setData}
-                                setUpdateToSend={setUpdateToSend}
-
                             />
                             : ""
                     }

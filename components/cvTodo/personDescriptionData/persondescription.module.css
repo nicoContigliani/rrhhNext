@@ -20,12 +20,15 @@
         margin-top: 5px;
     }
 
-   
+
     .inputsData {
         display: flex;
-        flex-wrap: nowrap; /* Evitar que los inputs se envuelvan a la siguiente línea */
-        justify-content: center; /* Distribuir los inputs de manera uniforme */
-        align-items: center; /* Alinear verticalmente */
+        flex-wrap: nowrap;
+        /* Evitar que los inputs se envuelvan a la siguiente línea */
+        justify-content: center;
+        /* Distribuir los inputs de manera uniforme */
+        align-items: center;
+        /* Alinear verticalmente */
         width: 100%;
         height: 15vh;
         overflow: auto;
@@ -34,15 +37,17 @@
 
         transition: box-shadow 1000ms;
     }
+
     .inputsData:hover {
         border-radius: 5%;
         box-shadow: 0 1px 10px #000000b8;
         /* transform: scale(1.0); */
         transition: box-shadow 1000ms;
-      }
-      .titles {
+    }
+
+    .titles {
         display: flex;
-        justify-content: flex-start; 
+        justify-content: flex-start;
         align-items: flex-start;
         /* margin-bottom: 1rem;  */
         padding-left: 5%;
@@ -50,26 +55,82 @@
 
     .inputsDataShow {
         display: flex;
-        flex-wrap: wrap; /* Evitar que los inputs se envuelvan a la siguiente línea */
-        justify-content: center; /* Distribuir los inputs de manera uniforme */
-        align-items: center; /* Alinear verticalmente */
+        flex-wrap: wrap;
+        /* Evitar que los inputs se envuelvan a la siguiente línea */
+        justify-content: center;
+        /* Distribuir los inputs de manera uniforme */
+        align-items: center;
+        /* Alinear verticalmente */
         width: 100%;
         height: 10vh;
- 
+
         border-radius: 5%;
         padding: 0;
         padding-top: 1%;
         padding-bottom: 4%;
         padding-left: 5%;
-    
+
         transition: box-shadow 1000ms;
     }
+
     .inputsDataShow:hover {
         border-radius: 5%;
         box-shadow: 0 1px 10px #000000b8;
         /* transform: scale(1.0); */
         transition: box-shadow 1000ms;
-      }
+    }
+
+
+
+    /* Estilos adicionales para la tabla */
+    .bodyShowTable table {
+        padding-left: 1%;
+        border-collapse: collapse;
+        width: 100%;
+        /* Asegura que la tabla ocupe todo el ancho disponible */
+        border-radius: 10px;
+        /* Ajusta el radio del borde para una apariencia de calidad */
+        overflow: hidden;
+        /* Oculta el contenido que excede el tamaño de la tabla */
+    }
+
+    .bodyShowTable th,
+    .bodyShowTable td {
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+        /* Agrega bordes inferiores a las celdas */
+        text-align: left;
+        /* Alinea el texto a la izquierda */
+    }
+
+    .bodyShowTable th {
+        background-color: #f2f2f2;
+        /* Color de fondo para las celdas de encabezado */
+    }
+
+    /* Estilo para las filas impares */
+    .bodyShowTable tbody tr:nth-child(odd) {
+        background-color: #f9f9f9;
+    }
+    .tableWrapper {
+        /* padding: 1%; */
+        width: 370px;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        max-width: 100%;
+        margin-bottom: 1rem;
+        /* Ajusta según tus necesidades */
+
+        display: grid;
+        grid-template-columns: 360px;
+        grid-template-rows: 100px;
+        place-items: center;
+        align-items: center;
+        justify-items: center;
+
+        justify-content:  baseline;
+        padding-left: 1%;
+    }
 
 }
 
@@ -78,10 +139,12 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 80%;
+        width: 100%;
+        height: 55vh;
         overflow: auto;
-        padding: 1rem;
-        margin: 0 auto; /* Centra el contenedor */
+        padding: 1.7rem;
+        margin: 0 auto;
+        /* Centra el contenedor */
     }
 
     .inputs {
@@ -89,35 +152,42 @@
         margin-top: 0.1rem;
         margin-left: 0.3rem;
         margin-bottom: 1rem; */
-        
+
     }
- 
+
 
     .inputsData {
         display: flex;
-        flex-wrap: wrap; /* Evitar que los inputs se envuelvan a la siguiente línea */
-        justify-content: space-around; /* Distribuir los inputs de manera uniforme */
-        align-items: center; /* Alinear verticalmente */
+        flex-wrap: wrap;
+        /* Evitar que los inputs se envuelvan a la siguiente línea */
+        justify-content: space-around;
+        /* Distribuir los inputs de manera uniforme */
+        align-items: center;
+        /* Alinear verticalmente */
         width: 80%;
-        overflow-x: auto; /* Habilitar desplazamiento horizontal si es necesario */
+        overflow-x: auto;
+        /* Habilitar desplazamiento horizontal si es necesario */
         border-radius: 5%;
 
         /* transition: box-shadow 1000ms; */
         padding: 5%;
     }
+
     .inputsData:hover {
         border-radius: 5%;
         /* box-shadow: 0 1px 10px #000000b8;
         /* transform: scale(1.0); */
         /* transition: box-shadow 1000ms; */
-      }
-    
+    }
+
 
     .titles {
         display: flex;
-        justify-content: center; /* Distribuye los títulos de manera uniforme */
+        justify-content: center;
+        /* Distribuye los títulos de manera uniforme */
         align-items: center;
-        margin-bottom: 0.5rem; /* Usa margen para el espaciado */
+        margin-bottom: 0.5rem;
+        /* Usa margen para el espaciado */
     }
 
     .deletes,
@@ -125,6 +195,30 @@
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        margin-bottom: 1rem; /* Usa margen para el espaciado */
+        margin-bottom: 1rem;
+        /* Usa margen para el espaciado */
+    }
+    .table {
+        border-collapse: collapse;
+        width: 100%;
+        border-radius: 10px;
+        overflow-x: auto;
+        overflow: hidden;
+
+    }
+
+    .bodyShowTable th,
+    .bodyShowTable td {
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+    }
+
+    .bodyShowTable th {
+        background-color: #f2f2f2;
+    }
+
+    .bodyShowTable tbody tr:nth-child(odd) {
+        background-color: #f9f9f9;
     }
 }
