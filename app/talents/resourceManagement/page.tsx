@@ -20,18 +20,6 @@ const Page = () => {
     const router = useRouter()
 
 
-    // id: 1,
-    // title: 'Frontend Developer',
-    // description:
-    //   'We are looking for a talented and experienced Frontend Developer to join our team. The ideal candidate will have a strong understanding of HTML, CSS, and JavaScript, as well as experience with React and TypeScript. The candidate will also be responsible for working with our team to design and develop new features for our product.',
-    // requirements:
-    //   'Bachelors degree in Computer Science or a related field. 2+ years of experience in frontend development. Experience with React and TypeScript is a plus.',
-    // responsibilities:
-    //   'Develop and maintain our frontend web applications. Work with our team to design and implement new features. Collaborate with other developers to ensure that our code is well-written and maintainable.',
-    // status_vacancy: true,
-    // TypeVacancyId: 1,
-    // createdAt: new Date('2023-10-06 12:05:25.993'),
-    // updatedAt: new Date('2023-10-06 12:05:25.993'),
 
     const [data, setData] = useState<any>([])
 

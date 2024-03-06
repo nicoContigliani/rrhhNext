@@ -15,7 +15,7 @@ export interface FetchCrudData {
     urlGeneral: string;
     methods: string;
     body?: any | any[]; // Tipo específico para el cuerpo de la solicitud
-    idParams?: string;
+    idParams?: string | number | null | undefined;
 }
 
 
@@ -125,7 +125,7 @@ export const createCrud: any = createAsyncThunk(
     }
 );
 
-export const updateCrud: any|any[]|undefined = createAsyncThunk(
+export const updateCrud: any | any[] | undefined = createAsyncThunk(
     "crud/update",
     async (data: FetchCrudData) => {
         try {
@@ -140,13 +140,13 @@ export const updateCrud: any|any[]|undefined = createAsyncThunk(
 
             const todo: any = {
                 url: `${API_URL}${urlGeneral}`,
-                method: 'PUT',
+                method: methods,
                 body: body,
                 idParams: idParams,
                 token: token
             }
 
-            const response = await useAxios(todo);
+            const response: any[] | any | undefined = await useAxios(todo);
             return { data: response.data, status: response.status }; // Returning custom payload
         } catch (error) {
             console.error("Error updating crud:", error);
@@ -155,7 +155,7 @@ export const updateCrud: any|any[]|undefined = createAsyncThunk(
     }
 );
 
-export const deleteCrud: any|any[]|undefined = createAsyncThunk(
+export const deleteCrud: any | any[] | undefined = createAsyncThunk(
     "crud/delete",
     async (data: any | FetchCrudData | undefined) => {
         try {
@@ -241,7 +241,7 @@ export const crudSlice = createSlice({
                 state.dataCrud = state.dataCrud.filter((item: any | any[]) => item.id !== action.payload.id);
                 state.loading = false;
                 state.message = "Crud deleted successfully";
-                state.httpStatus = action.payload.status; 
+                state.httpStatus = action.payload.status;
 
             })
             .addCase(deleteCrud.rejected, (state: any | any[], action: any | any[]) => {

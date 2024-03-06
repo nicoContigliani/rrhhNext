@@ -23,6 +23,7 @@ import SoftSkillData from '../cvTodo/SoftSkillData/SoftSkillData';
 import LenguageData from '../cvTodo/LenguagelData/LenguageData';
 import Disponibility from '../cvTodo/DisponibilitylData/DisponibilityData';
 import ButtonFloat from '../BittoonFloat/ButtonFloat';
+import { Button } from 'antd';
 
 
 
@@ -42,6 +43,9 @@ const Buttonscrud = ({ urlGeneral, todo, children }: { urlGeneral: string | unde
 
     const [updateToSend, setUpdateToSend] = useState<any | any | undefined>()
     const [updateToSendSprite, setUpdateToSendSprite] = useState<any | any | undefined>()
+
+
+
 
 
 
@@ -135,6 +139,17 @@ const Buttonscrud = ({ urlGeneral, todo, children }: { urlGeneral: string | unde
         //     idParams: "",
         // }
         // dispatch(fetchCrud(todoCRUD))
+    }
+    const sendUpdate = () => {
+        const todoCRUD = {
+            urlGeneral: "/itemsection/itemsection",
+            methods: 'POST',
+            body: [updateToSendSprite],
+            idParams: 0,
+        }
+        dispatch(updateCrud(todoCRUD))
+        location.reload();
+
     }
     const [data, setData] = useState<any | any[]>([])
 
@@ -456,7 +471,17 @@ const Buttonscrud = ({ urlGeneral, todo, children }: { urlGeneral: string | unde
                             : ""
                     }
 
-                    <button>hola</button>
+                    <Button
+                        type="primary"
+                        block
+                        ghost
+
+                        color="primary"
+                        size="small"
+                        onClick={sendUpdate}
+                    >
+                        Save
+                    </Button>
                 </Updates>
                     : ""
 
