@@ -12,7 +12,10 @@ import Modalsecurity from '@/components/ModalSecurity/Modalsecurity'
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { Switch } from 'antd';
 import Switchs from '@/components/switchinputs/Switchs'
+import TabsGeneric from '@/components/GeneralComponents/GeneralTabs/TabsGeneral'
 
+import type { TabsProps } from 'antd';
+import CreateResource from './CreateResources/CreateResource'
 
 
 
@@ -39,7 +42,23 @@ const Page = () => {
         console.log(`switch to ${checked}`);
     };
 
-
+    const items: TabsProps['items'] = [
+        {
+            key: '1',
+            label: 'Create Resources',
+            children: <CreateResource/>,
+        },
+        {
+            key: '2',
+            label: 'Tab 2',
+            children: 'Content of Tab Pane 2',
+        },
+        {
+            key: '3',
+            label: 'Tab 3',
+            children: 'Toma por mirón 3',
+        },
+    ];
 
 
 
@@ -49,102 +68,13 @@ const Page = () => {
                 <h3>Resource Managenent</h3>
             </div>
 
-            <div className={styles.inputsGroup}>
-
-
-                <Space wrap>
-                    <Select
-                        defaultValue="Google"
-                        style={{ width: 820 }}
-                        onChange={handleChange}
-                        options={[
-                            { value: 'Amazon', label: 'Amazon' },
-                            { value: 'Google', label: 'Google' },
-                            { value: 'Ubuntu', label: 'Ubuntu' },
-                            { value: 'Windows', label: 'Disabled', disabled: true },
-                        ]}
-                    />
-
-                </Space>
-
-
-
-                <hr />
-
-                <Inputs
-                    className={styles.login_input}
-                    data={data}
-                    setData={setData}
-                    placeholder="Title New Resource"
-                    name="titleNewResource"
-                    type={''}
-                    autoFocus={true}
-                    minLength={''} color={''} defaultValue={undefined} disabled={false} fullWidth={false} id={''} inputComponent={undefined} multiline={false} label={''} rows={''}
-                />
-
-
-
-                <TextsArea
-                    className={styles.textArea}
-                    data={data}
-                    setData={setData}
-                    placeholder="Description"
-                    name="descriptionNewResource"
-                    type={''}
-                    minLength={''} autoFocus={false} color={''} defaultValue={undefined} disabled={false} fullWidth={false} id={''} inputComponent={undefined} multiline={false} label={''}
-                    rows={4}
-                    variant="solid"
-                />
-                <TextsArea
-                    className={styles.textArea}
-                    data={data}
-                    setData={setData}
-                    placeholder="responsibilities New Resource"
-                    name="responsibilitiesNewResource"
-                    type={''}
-                    minLength={''} autoFocus={false} color={''} defaultValue={undefined} disabled={false} fullWidth={false} id={''} inputComponent={undefined} multiline={false} label={''} rows={''}
-                    minRows={4}
-                    variant="soft"
-
-                />
-                <TextsArea
-                    className={styles.textArea}
-                    data={data}
-                    setData={setData}
-                    placeholder="Requirements New Resource"
-                    name="requirementsNewResource"
-                    type={''}
-                    minLength={''} autoFocus={false} color={''} defaultValue={undefined} disabled={false} fullWidth={false} id={''} inputComponent={undefined} multiline={false} label={''} rows={''}
-                    minRows={4}
-                    variant="soft"
-
-                />
-                <Switchs
-                    className={styles.textArea}
-                    data={data}
-                    setData={setData}
-                    placeholder="Description"
-                    name="statusSerchnNewResource"
-                    checkedChildren="Active" unCheckedChildren="desactive" defaultChecked
-                />
-
-
-            </div>
-            <div className={styles.buttonsGroup}>
-                <Flex gap="small" wrap="wrap">
-                    <Modalsecurity
-                        className={styles.button}
-                        size="small"
-                    />
-
-
-                    <Button className={styles.button} size="small" >Clean</Button>
-                    <Button className={styles.button} size="small" >Show Table</Button>
-                </Flex>
-            </div>
-            <div className={styles.buttonsGroupReturn} onClick={() => router.push('/talents')}>
-                <Button className={styles.button} size="small" block >Return</Button>
-            </div>
+            <TabsGeneric
+                className={styles.bodyTabs}
+                items={items}
+                defaultActiveKey="1" 
+                tabPosition="left"
+                // style={{ height: 220 }}
+            />
 
         </div>
     )

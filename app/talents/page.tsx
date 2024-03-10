@@ -20,10 +20,9 @@ import Menus from '@/components/images/menu.png'
 
 
 
-import { Home, Iconflama, certificado, cv, documentoLegal, rrhh, lupahuman, lupahumans, module, reporte, clienteS, panel,crud } from '../../services/iconsImportList.services'
+import { Home, Iconflama, certificado, cv, documentoLegal, rrhh, lupahuman, lupahumans, module, reporte, clienteS, panel,crud,compania } from '../../services/iconsImportList.services'
 import Siderbox from '@/components/siderbarBox/Siderbox';
 import Icons from '@/components/Icons/Icons';
-
 
 
 
@@ -75,7 +74,15 @@ const Page = () => {
       urls: cv,
       actions: "",
       routesLink: "/curriculum"
-    }
+    },
+    {
+      module: "RRHH_TALENTS",
+      label: "Companies",
+      urls: compania,
+      actions: "",
+      routesLink: "/companies"
+    },
+
 
   ]
 
@@ -95,6 +102,7 @@ const Page = () => {
 
         -navbar para <br />
         --crud necesidad de recurso <br />
+        --crud Company <br />
         --tabla de seguimiento <br />
         --tabla de reclutado <br />
         -- post card para aplicar <br />

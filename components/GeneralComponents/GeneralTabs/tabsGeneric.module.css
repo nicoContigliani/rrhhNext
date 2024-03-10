@@ -1,0 +1,30 @@
+@media only screen and (max-width: 992px) {
+    .body {}
+
+}
+
+@media only screen and (min-width: 992px) {
+    .body {
+        font-weight: 700;
+        font-family: Arial, Helvetica, sans-serif;
+        width: 1292px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        align-content: flex-start;
+        height: 73vh;
+        overflow: auto;
+        flex-direction: row;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.231);
+        border-radius: 2%;
+    }
+
+    .title {
+        font-weight: 700;
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0 auto;
+
+      }
+
+}

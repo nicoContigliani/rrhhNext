@@ -36,7 +36,7 @@ const initialState: CrudState = {
 export const fetchCrud: any | any[] | undefined = createAsyncThunk(
     "crud/fetch",
     async (data: FetchCrudData) => {
-        console.log("🚀 ~ data:30", data)
+    console.log("🚀 ~ data:***39**", data)
 
         const {
             urlGeneral,
@@ -57,6 +57,7 @@ export const fetchCrud: any | any[] | undefined = createAsyncThunk(
 
             const response = await useAxios(todo);
             console.log("Response status:", response.status); // Check if status is logged correctly
+            console.log("🚀 ~ { data: response.data, status: response.status }:", { data: response.data, status: response.status })
             return { data: response.data, status: response.status }; // Returning custom payload
         } catch (error) {
             console.error("Error fetching crud:", error);
@@ -65,9 +66,9 @@ export const fetchCrud: any | any[] | undefined = createAsyncThunk(
     }
 );
 
-export const fetchCrudId = createAsyncThunk(
+export const fetchCrudId: any | undefined = createAsyncThunk(
     "crud/fetchId",
-    async (data: FetchCrudData) => {
+    async (data: FetchCrudData | any | undefined) => {
         const {
             urlGeneral,
             methods,

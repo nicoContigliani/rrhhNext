@@ -13,8 +13,8 @@ import panel from '@/components/images/icons/panel.png'
 import crud from '@/components/images/icons/crud.png'
 import serchperson from '@/components/images/icons/serchperson.png'
 import configuration from '@/components/images/icons/configuraciones.png'
+import compania from '@/components/images/icons/compania.png';
 
-
-export { Home, Iconflama, certificado, cv, documentoLegal, rrhh, lupahuman, lupahumans, module, reporte, clienteS, panel,crud,serchperson,configuration };
+export { Home, Iconflama, certificado, cv, documentoLegal, rrhh, lupahuman, lupahumans, module, reporte, clienteS, panel,crud,serchperson,configuration,compania };
 
 
