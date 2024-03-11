@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useLayoutEffect, useState } from 'react'
+import React, { ReactNode, useEffect, useLayoutEffect, useState } from 'react'
 import TabsGeneric from '@/components/GeneralComponents/GeneralTabs/TabsGeneral'
 import { Button, type TabsProps } from 'antd';
 import styles from './companies.module.css'
@@ -13,6 +13,9 @@ import { dataSourcesFormater } from '@/services/dataSourcesFormater.serices';
 import { DownOutlined } from '@ant-design/icons';
 import type { TableColumnsType } from 'antd';
 import { Badge, Dropdown, Space, Table } from 'antd';
+import { ButtonBase } from '@mui/material';
+import Modalnew from '@/components/steps/componentSteps/ModalNew/Modalnew';
+import ComponentModalTable from '@/components/GeneralComponents/componentModalTable/ComponentModalTable';
 
 
 export interface FetchCrudData {
@@ -41,6 +44,10 @@ const page = () => {
     const [dataSourceThirdLine, setDataSourceThirdLine] = useState<any[]>([]); // Local state to store fetched data
 
     const [expandedRowKeysState, setExpandedRowKeysState] = useState<any | any[]>(['0']); // Initial expanded row
+    const [filteredData, setFilteredData] = useState<any | any[] | undefined>()
+
+
+    const [recordData, setRecordData] = useState<any | any[]>()
 
 
 
@@ -96,8 +103,8 @@ const page = () => {
         "start_vacancy",
         "status_vacancy",
         "status_vacancy_work",
-        "createdAt",
-        "updatedAt",
+        // "createdAt",
+        // "updatedAt",
     ]
 
     const fourthLine: any = [
@@ -108,23 +115,6 @@ const page = () => {
         "Interviewees",
     ]
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //comportamiento
     // muestra compañias -> data  -> infografia ->cantidad de busquedas activas
     //                                          ->puesto de trabajo -> test_status
@@ -133,19 +123,96 @@ const page = () => {
     //                                          -> 
 
 
+
     const columnsFirstLine = hederColumsformater(firstLine)
     const dataFirstLine = dataSourcesFormater(data, firstLine)
-    const columnsThirdLine= hederColumsformater(thirdLine)
-    const dataThirdLine = dataSourcesFormater(dataSourceSecondLine, firstLine)
+    const columnsThirdLine = hederColumsformater(thirdLine)
+    const dataThirdLine = dataSourcesFormater(dataSourceThirdLine, thirdLine)
+
 
 
 
     useEffect(() => {
-        setColumns([
-            ...columnsFirstLine,
-            { title: 'Action', key: 'operation', render: () => <a>Publish</a> }
-        ])
-    }, [data])
+        const todo = async () => {
+            try {
+                const filteredData = await data.filter((item: any) => item.id === recordData.id);
+                try {
+                    const dataR = await filteredData[0].Vacancies
+                    const dataThirdLine = await dataSourcesFormater(dataR, thirdLine)
+                    if (dataThirdLine && dataThirdLine !== undefined) await setDataSourceThirdLine(dataThirdLine)
+                } catch (error) {
+                    console.log("🚀 ~ todo ~ error:", error)
+                }
+            } catch (error) {
+                console.log("🚀 ~ todo ~ error:", error)
+            }
+        }
+        todo()
+
+    }, [recordData])
+
+
+
+
+
+
+
+
+
+    useEffect(() => {
+        // setColumns([
+        //     ...columnsFirstLine,
+        //     { title: 'Action', key: 'operation', render: () => <a>Publish</a> }
+        // ])
+
+        setColumns(columnsFirstLine?.concat({
+            title: 'Action',
+            key: 'action',
+            width: '5%',
+            render: (_: any, record: {
+                title: ReactNode;
+                name: any | undefined;
+                key: any
+            }) =>
+            (
+
+                <Modalnew
+                    title="Show"
+                // className={style.body}
+                >
+                    {/* <ButtonFloat
+                    todo={props}
+
+                >
+                    si
+                </ButtonFloat>
+                {children} */}
+
+                    <ComponentModalTable
+                        todo={record}
+                        setRecordData={setRecordData}
+                    >
+                        <TableGenral
+                            columns={columnsThirdLine}
+                            dataSource={dataSourceThirdLine}
+                            data={data}
+                            pagination={pages} // Adjust the page size as needed
+                            bordered
+
+                        />
+                    </ComponentModalTable>
+
+                </Modalnew>
+
+            ),
+
+        }))
+
+
+
+
+
+    }, [data,dataSourceThirdLine])
 
     useLayoutEffect(() => {
         setDataSource(dataFirstLine)
@@ -154,8 +221,10 @@ const page = () => {
 
 
 
+    const pages: any = 2
 
-    
+    console.log("🚀 ~ page ~ dataSourceThirdLine:", dataSourceThirdLine)
+
     const items: TabsProps['items'] = [
         {
             key: '1',
@@ -176,7 +245,9 @@ const page = () => {
                         columns={columns}
                         dataSource={dataSource}
                         data={data}
-                  
+                        pagination={pages} // Adjust the page size as needed
+
+
                     />
 
                 </ShowGeneral >,

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Table, Collapse } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Badge, Button, Input, Space, Table, Pagination } from 'antd';
 
 interface ExpandedDataType {
     key: React.Key;
@@ -12,39 +12,46 @@ const TableGenral = (props: any) => {
     const {
         columns,
         dataSource,
+        pagination
     } = props;
+    const [columnsS, setColumnsS] = useState<any | any[]>()
+    const [dataSourceS, setDataSourceS] = useState<any | any[]>()
+    const [paginationS, setPaginationS] = useState<any | any[]>()
+    useEffect(() => {
+        const todo = async () => {
+            if (columns) await setColumnsS(columns)
+            if (dataSource) await setDataSourceS(dataSource)
+            if (pagination) await setPaginationS(pagination)
+        }
+        todo()
+    }, [props])
 
-    const [expandedRowKey, setExpandedRowKey] = useState<React.Key | null>(null);
-
-    const onExpand = (expanded: boolean, record: any) => {
-        console.log("Expanding row with id:", record.id);
-        setExpandedRowKey(expanded ? record.id : null);
-    };
-
-    const onChange:any = (activeKey: string[]) => {
-        console.log("Active Key:", activeKey);
-        // Actualiza el estado de la fila expandida
-        setExpandedRowKey(activeKey[0]);
-    };
+    
+    console.log("🚀 ~ TableGenral ~ dataSourceS:", dataSourceS)
 
     return (
         <div>
-                <Table
-                    columns={columns}
-                    expandable={{
-                        expandedRowRender: (record) => {
-                            if (!record.id) {
-                                return null;
-                            }
-                            return <p style={{ margin: 0 }}>{record.id}</p>;
-                        },
-                        rowExpandable: (record) => record.id !== 'Not Expandable',
-                        expandedRowKeys: expandedRowKey ? [expandedRowKey] : [],
-                        onExpand,
-                    }}
-                    dataSource={dataSource}
-                    size="small"
-                />
+            <Table
+                columns={columnsS}
+                pagination={{ pageSize: paginationS }} // Adjust the page size as needed
+                dataSource={dataSourceS}
+                size="small"
+                scroll={{ x: 200 }}
+
+            // expandable={{
+            //     expandedRowRender: (record) => {
+            //         if (!record.id) {
+            //             return null;
+            //         }
+            //         return <p style={{ margin: 0 }}>{record.id}</p>;
+            //     },
+            //     rowExpandable: (record) => record.id !== 'Not Expandable',
+            //     expandedRowKeys: expandedRowKey ? [expandedRowKey] : [],
+            //     onExpand,
+            // }}
+
+
+            />
         </div>
     );
 };

@@ -37,6 +37,7 @@ const Modalnew = (props: any) => {
     const [data, setData] = useState<any | any[] | undefined>()
     const [todos, setTodos] = useState()
     const [open, setOpen] = useState(false);
+    
 
 
     const handleClickOpen = () => {

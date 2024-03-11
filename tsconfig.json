@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "ES2022",
     "lib": ["dom", "dom.iterable", "esnext"],
+    "types": ["@dnd-kit/core", "@dnd-kit/react", "@dnd-kit/sortable", "@dnd-kit/accessibility"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,

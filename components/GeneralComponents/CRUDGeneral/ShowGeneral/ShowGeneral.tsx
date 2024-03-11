@@ -25,10 +25,6 @@ const ShowGeneral = (props: any) => {
 
 
 
-
-
-
-
     return (
         <div>
             {loading && <p>Cargando...</p>}
