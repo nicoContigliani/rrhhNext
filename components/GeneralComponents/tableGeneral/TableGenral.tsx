@@ -73,19 +73,6 @@ const TableGenral = (props: any) => {
                             scroll={{ x: 200 }}
                             bordered
 
-                        // expandable={{
-                        //     expandedRowRender: (record) => {
-                        //         if (!record.id) {
-                        //             return null;
-                        //         }
-                        //         return <p style={{ margin: 0 }}>{record.id}</p>;
-                        //     },
-                        //     rowExpandable: (record) => record.id !== 'Not Expandable',
-                        //     expandedRowKeys: expandedRowKey ? [expandedRowKey] : [],
-                        //     onExpand,
-                        // }}
-
-
                         />
                     </div>
                     : <Spinner />
