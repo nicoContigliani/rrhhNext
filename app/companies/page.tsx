@@ -134,6 +134,9 @@ const page = () => {
 
     useEffect(() => {
         const todo = async () => {
+
+       
+
             try {
                 const filteredData = await data.filter((item: any) => item.id === recordData.id);
                 try {
@@ -158,13 +161,13 @@ const page = () => {
 
 
 
-
+    
     useEffect(() => {
         // setColumns([
         //     ...columnsFirstLine,
         //     { title: 'Action', key: 'operation', render: () => <a>Publish</a> }
         // ])
-
+        
         setColumns(columnsFirstLine?.concat({
             title: 'Action',
             key: 'action',
@@ -212,7 +215,7 @@ const page = () => {
 
 
 
-    }, [data,dataSourceThirdLine])
+    }, [data, dataSourceThirdLine])
 
     useLayoutEffect(() => {
         setDataSource(dataFirstLine)
