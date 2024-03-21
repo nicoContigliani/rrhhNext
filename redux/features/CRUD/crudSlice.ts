@@ -36,7 +36,7 @@ const initialState: CrudState = {
 export const fetchCrud: any | any[] | undefined = createAsyncThunk(
     "crud/fetch",
     async (data: FetchCrudData) => {
-    console.log("🚀 ~ data:***39**", data)
+        console.log("🚀 ~ data:***39**", data)
 
         const {
             urlGeneral,
@@ -69,6 +69,7 @@ export const fetchCrud: any | any[] | undefined = createAsyncThunk(
 export const fetchCrudId: any | undefined = createAsyncThunk(
     "crud/fetchId",
     async (data: FetchCrudData | any | undefined) => {
+        console.log("ingresé*************************")
         const {
             urlGeneral,
             methods,
@@ -136,6 +137,7 @@ export const updateCrud: any | any[] | undefined = createAsyncThunk(
                 body,
                 idParams,
             } = data
+            console.log("🚀 ~ data:", data)
 
             const { token } = await readLocalStorage(crudSearch);
 
@@ -143,7 +145,7 @@ export const updateCrud: any | any[] | undefined = createAsyncThunk(
                 url: `${API_URL}${urlGeneral}`,
                 method: methods,
                 body: body,
-                idParams: idParams,
+                idParams: idParams || null || '',
                 token: token
             }
 

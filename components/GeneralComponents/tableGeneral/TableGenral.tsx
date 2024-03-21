@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Badge, Button, Input, Space, Table, Pagination } from 'antd';
+import { Badge, Button, Input, Space, Pagination } from 'antd';
 import Spinner from '../../spinner/Spinner';
 import InputsSertchGeneral from '../InputserchGeneral/InputsSertchGeneral';
+import { Table } from 'antd';
 
 interface ExpandedDataType {
     key: React.Key;
@@ -15,6 +16,8 @@ const TableGenral = (props: any) => {
         columns,
         dataSource,
         pagination,
+        views
+
     } = props;
     const [columnsS, setColumnsS] = useState<any | any[]>()
     const [dataSourceS, setDataSourceS] = useState<any | any[]>()
@@ -22,6 +25,9 @@ const TableGenral = (props: any) => {
     const [headerColumns, setHeaderColumns] = useState<any | any[]>()
     const [dataFilter, setDataFilter] = useState<any | any[]>()
     const [dataTable, setDataTable] = useState<any[]>()
+
+
+
 
 
     useEffect(() => {
@@ -34,11 +40,9 @@ const TableGenral = (props: any) => {
         todo()
     }, [props])
 
-
     useEffect(() => {
         const getDataForSend = async () => {
             // setDataTable(dataAll)
-            console.log("🚀 ~ getDataForSend ~ dataFilter:", dataFilter)
 
             if (dataFilter?.length != 0 && dataFilter != undefined) {
                 await setDataTable(dataFilter)
@@ -52,31 +56,34 @@ const TableGenral = (props: any) => {
     }, [dataSourceS, dataFilter])
 
 
-
-
     return (
         <div>
-            {
-                dataSourceS ?
-                    <div>
-                        <InputsSertchGeneral
-                            columnsS={columnsS}
-                            dataSourceS={dataSourceS}
-                            headerColumns={headerColumns}
-                            setDataFilter={setDataFilter}
-                        />
-                        <Table
-                            columns={columnsS}
-                            pagination={{ pageSize: paginationS }} // Adjust the page size as needed
-                            dataSource={dataTable}
-                            size="small"
-                            scroll={{ x: 200 }}
-                            bordered
+            {views === true ? (
+                <InputsSertchGeneral
+                    columnsS={columnsS}
+                    dataSourceS={dataSourceS}
+                    headerColumns={headerColumns}
+                    setDataFilter={setDataFilter}
+                />
+            ) : (
+                ""
+            )}
 
-                        />
-                    </div>
-                    : <Spinner />
-            }
+            {dataSourceS ? (
+                <div>
+
+                    <Table
+                        columns={columnsS}
+                        pagination={{ pageSize: paginationS }} // Adjust the page size as needed
+                        dataSource={dataTable}
+                        size="small"
+                        scroll={{ x: 200 }}
+                        bordered
+                    />
+                </div>
+            ) : (
+                <Spinner />
+            )}
         </div>
     );
 };

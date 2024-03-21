@@ -63,12 +63,28 @@
     .tree {
         padding-top: 3%;
         padding-right: 5%;
-       
+
         width: 300px;
         border-radius: 5%;
         overflow: hidden;
         /* Mantener el tamaño fijo */
     }
 
+    .bodyTabs {
+        display: flex;
+        /* flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        align-content: flex-start; */
+    }
+
+    .createTabs {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-around;
+        align-items: flex-start;
+        align-content: flex-start;
+        background-color: red;
+    }
 
 }

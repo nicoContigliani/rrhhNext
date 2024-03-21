@@ -10,7 +10,7 @@
         padding-top: 5%;
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
         align-content: center;
     }
@@ -63,6 +63,21 @@
         align-items: center;
         align-content: center;
         font-family: Arial, Helvetica, sans-serif;
+        box-shadow: 1px 1px 2px #b1b1b1, -1px -3px 3px #fff;
+        border-radius: 2%;
+    }
+    .siderbar{
+        padding: 1%;
+        margin-right: 2%;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        box-shadow: 1px 1px 2px #b1b1b1, -1px -3px 3px #fff;
+        border-radius: 2%;
+        float: left;
+        margin-top: 10%;
+
     }
 }
 
@@ -83,6 +98,8 @@
         margin-right: 2%;
         display: flex;
         flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: flex-start;
         box-shadow: 1px 1px 2px #b1b1b1, -1px -3px 3px #fff;
         border-radius: 2%;
     }

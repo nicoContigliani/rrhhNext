@@ -20,6 +20,7 @@ const InputsSertchGeneral = (props: any) => {
         setDataFilter
     } = props
 
+
     useEffect(() => {
         const todo = async () => {
             await setChangeHeader(columnsS)
@@ -45,21 +46,34 @@ const InputsSertchGeneral = (props: any) => {
 
     return (
         <div>
-            {
-                props !== undefined ?
-                    <div className={styles.body}>
+            <div className={styles.body}>
+                {
+                    (handleChanges || headerColumnsS) ?
                         <Select
                             placeholder="Search to filter"
                             labelInValue
-                            style={{ width: 230 }}
+                            style={{ width: 290 }}
                             onChange={handleChanges}
-                            options={headerColumns?.map((header: any) => ({ value: header, label: header }))}
+                            options={headerColumnsS?.map((header: any) => ({ value: header, label: header }))}
                         />
-                        <Input {...props} className={`${props.className}`} onChange={handlechange} />
-                    </div>
-                    :
-                    <Spinner />
-            }
+
+
+
+                        : <Spinner />
+
+                }
+                {
+                    props !== undefined ?
+
+                        <Input {...props}
+                            className={`${props.className}`}
+                            onChange={handlechange}
+                            placeholder='Serch'
+                        />
+                        :
+                        <Spinner />
+                }
+            </div>
         </div>
 
 

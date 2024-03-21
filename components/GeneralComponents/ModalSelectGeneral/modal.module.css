@@ -10,7 +10,7 @@
         justify-content: space-around;
         align-items: center;
         align-content: center;
-
+        z-index: 999;
     }
 }
 
@@ -23,8 +23,15 @@
         align-content: center;
         box-shadow: 1px 3px 30px #c2ccfd30, -8px -1px 2px #ffffffb8;
         border-radius: 5%;
-
+        position: relative;
     }
 
-  
+    .button{
+        padding: 1%;
+    }
+    .modal {
+        width: 50%;
+        z-index: 999;
+    }
+
 }

@@ -1,9 +1,22 @@
 import React, { useState } from 'react'
 import { Button, message, Space } from 'antd';
+import Spinner from '../spinner/Spinner';
 
-const Messages = () => {
+const Messages = (props: any) => {
+    // const { key, content, setContent } = props
+    const {
+        key,
+        content,
+        loadings
+    } = props
+
+
+    console.log("🚀 ~ Messages ~ key:", key)
     const [messageApi, contextHolder] = message.useMessage();
-    const [content, setContent] = useState<any>()
+
+
+
+
 
     const success = async () => {
         await messageApi.open({
@@ -27,13 +40,18 @@ const Messages = () => {
     };
 
 
+    if (key && key === 200) success()
+    if (key && key === 500 || key && key === 400) error()
+    if  (key && key !== 200||key && key !== 500 || key && key!== 400 && loadings) <Spinner/>
+    
+
 
     return (
         <div>
             {contextHolder}
-            <Button onClick={success}>Success</Button>
+            {/* <Button onClick={success}>Success</Button>
             <Button onClick={error}>Error</Button>
-            <Button onClick={warning}>Warning</Button>
+            <Button onClick={warning}>Warning</Button> */}
         </div>
     )
 }

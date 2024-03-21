@@ -15,7 +15,8 @@ import { TransitionProps } from '@mui/material/transitions';
 import { Search } from '@mui/icons-material'
 import style from './modals.module.css'
 import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
-
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 
 
 
@@ -37,7 +38,7 @@ const Modalnew = (props: any) => {
     const [data, setData] = useState<any | any[] | undefined>()
     const [todos, setTodos] = useState()
     const [open, setOpen] = useState(false);
-    
+
 
 
     const handleClickOpen = () => {
@@ -57,6 +58,10 @@ const Modalnew = (props: any) => {
             <div onClick={handleClickOpen}>
                 {title === "Show" && <VisibilityIcon />}
                 {title === "Update" && <PublishedWithChangesIcon />}
+                {title === "Add" && <AddRoundedIcon />}
+                {title === "Delete" && <RemoveRoundedIcon />}
+
+
             </div>
             <Dialog
                 fullScreen
@@ -75,6 +80,8 @@ const Modalnew = (props: any) => {
                         <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
                             {title === "Show" && <VisibilityIcon />}
                             {title === "Update" && <PublishedWithChangesIcon />}
+                            {title === "Add" && <AddRoundedIcon />}
+                            {title === "Delete" && <RemoveRoundedIcon />}
                         </Typography>
                         {/* <Button autoFocus color="inherit" onClick={handleClose}>
                             save

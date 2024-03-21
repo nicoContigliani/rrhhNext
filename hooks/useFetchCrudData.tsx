@@ -1,12 +1,14 @@
+"use client"
+
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchCrud } from '@/redux/features/CRUD/crudSlice';
 import isEqual from 'lodash/isEqual';
 
-const useFetchCrudData = (todoCRUD: any | any[] | undefined) => {
+const useFetchCrudData: any | any[] = (todoCRUD: any | any[] | undefined) => {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState<boolean>(false);
-    const [data, setData] = useState<any | any[]>([]);
+    const [datas, setDatas] = useState<any | any[] | undefined>([]);
     const [message, setMessage] = useState<string | null | undefined>('');
     const [httpStatus, setHttpStatus] = useState<any | any[]>(null);
 
@@ -21,7 +23,7 @@ const useFetchCrudData = (todoCRUD: any | any[] | undefined) => {
             try {
                 const actionResult = await dispatch(fetchCrud(memoizedTodoCRUD));
                 const responseData = actionResult.payload.data;
-                setData(responseData);
+                setDatas(responseData);
                 setMessage('Datos obtenidos con éxito');
                 setHttpStatus(null);
             } catch (error) {
@@ -41,7 +43,7 @@ const useFetchCrudData = (todoCRUD: any | any[] | undefined) => {
             try {
                 const actionResult = await dispatch(fetchCrud(todoCRUD));
                 const responseData = actionResult.payload.data;
-                setData(responseData);
+                setDatas(responseData);
                 setMessage('Datos actualizados con éxito');
                 setHttpStatus(null);
             } catch (error: any) {
@@ -53,9 +55,8 @@ const useFetchCrudData = (todoCRUD: any | any[] | undefined) => {
     };
 
 
-    console.log("🚀 ~ useFetchCrudData ~ data:", data)
 
-    return { loading, data, message, httpStatus,refetchData };
+    return { loading, datas, message, httpStatus, refetchData };
 };
 
 export default useFetchCrudData;

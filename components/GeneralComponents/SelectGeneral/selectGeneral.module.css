@@ -10,7 +10,6 @@
         justify-content: space-around;
         align-items: center;
         align-content: center;
-
     }
 }
 
@@ -23,8 +22,11 @@
         align-content: center;
         box-shadow: 1px 3px 30px #c2ccfd30, -8px -1px 2px #ffffffb8;
         border-radius: 5%;
+    }
+    .modal{
+        background-color: red;
+        z-index: 999;
 
     }
-
   
 }

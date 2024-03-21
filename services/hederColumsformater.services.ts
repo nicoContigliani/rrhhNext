@@ -4,8 +4,9 @@ export const hederColumsformater = (props: any) => {
             title: item, 
             dataIndex: item, 
             key: item, 
-            responsive: ['lg'],
-            disabled: false
+            // responsive: ['md'],
+            editable: true,
+            disabled: false,
 
         }
     })

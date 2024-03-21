@@ -1,7 +1,6 @@
 import React from 'react'
 import styles from './Presentation.module.css'
-import Messages from '../Messages/Messages'
-import { Button } from 'antd'
+
 
 const Presentation = () => {
 

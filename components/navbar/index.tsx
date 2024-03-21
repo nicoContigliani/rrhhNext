@@ -57,14 +57,14 @@ const todo = [
 
     {
         module: "RRHH",
-        label: "home",
+        label: "talents",
         urls: rrhh,
         actions: "",
         routesLink: "/talents"
     },
     {
         module: "RRHH",
-        label: "home",
+        label: "cv",
         urls: cv,
         actions: "",
         routesLink: "/curriculum"

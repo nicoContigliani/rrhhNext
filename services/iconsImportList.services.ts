@@ -14,7 +14,8 @@ import crud from '@/components/images/icons/crud.png'
 import serchperson from '@/components/images/icons/serchperson.png'
 import configuration from '@/components/images/icons/configuraciones.png'
 import compania from '@/components/images/icons/compania.png';
+import planing from '@/components/images/icons/planning.png'
 
-export { Home, Iconflama, certificado, cv, documentoLegal, rrhh, lupahuman, lupahumans, module, reporte, clienteS, panel,crud,serchperson,configuration,compania };
+export { Home, Iconflama, certificado, cv, documentoLegal, rrhh, lupahuman, lupahumans, module, reporte, clienteS, panel,crud,serchperson,configuration,compania,planing };
 
 

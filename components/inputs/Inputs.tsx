@@ -1,17 +1,53 @@
 import React from 'react'
 import { Input } from '@mui/material';
 import style from './Inputs.module.css'
+import { Switch } from 'antd';
 
-const Inputs = (props:  any) => {
-    const { data, setData } = props
-    const handlechange = (e: any) => {
+const Inputs = (props: any) => {
+    const { data, setData, type } = props
+    console.log("🚀 ~ Inputs ~ data:", data)
+
+    const handlechange = (event: any) => {
+        const trimmedValue = event.target.value.trim(); // Trim leading and trailing spaces
         setData({
             ...data,
-            [e.target.name]: e.target.value
-        })
-    }
+            [event.target.name]: trimmedValue,
+        });
+    };
+
+    const handleSwitchChange = (checked: boolean) => {
+        setData({
+            ...data,
+            [props.name]: checked, // Update data state with boolean value for switch
+        });
+    };
+
+
     return (
-        <Input {...props} className={`${props.className}`} onChange={handlechange} />
+        <div>
+
+            {(type === 'text' || type === 'number' || type === 'email') ?
+
+                <Input {...props}
+                    className={`${props.className}`}
+                    onChange={handlechange}
+                    type={type ? type : 'text'}
+                />
+                :
+                <div>
+                    <br />
+                    <Switch
+                        unCheckedChildren="Desactive"
+                        checkedChildren="Active"
+                        // defaultChecked
+                        onChange={handleSwitchChange} />
+                </div>
+
+            }
+
+
+
+        </div>
     )
 }
 
