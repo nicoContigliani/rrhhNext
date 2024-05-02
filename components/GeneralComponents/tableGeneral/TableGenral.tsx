@@ -58,16 +58,19 @@ const TableGenral = (props: any) => {
 
     return (
         <div>
-            {views === true ? (
-                <InputsSertchGeneral
-                    columnsS={columnsS}
-                    dataSourceS={dataSourceS}
-                    headerColumns={headerColumns}
-                    setDataFilter={setDataFilter}
-                />
-            ) : (
-                ""
-            )}
+            {
+                // views === true
+                true
+                    ? (
+                        <InputsSertchGeneral
+                            columnsS={columnsS}
+                            dataSourceS={dataSourceS}
+                            headerColumns={headerColumns}
+                            setDataFilter={setDataFilter}
+                        />
+                    ) : (
+                        ""
+                    )}
 
             {dataSourceS ? (
                 <div>

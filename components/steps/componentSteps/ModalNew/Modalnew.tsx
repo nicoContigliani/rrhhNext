@@ -17,6 +17,7 @@ import style from './modals.module.css'
 import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 
 
@@ -60,6 +61,7 @@ const Modalnew = (props: any) => {
                 {title === "Update" && <PublishedWithChangesIcon />}
                 {title === "Add" && <AddRoundedIcon />}
                 {title === "Delete" && <RemoveRoundedIcon />}
+                {title === "Setting" && <SettingsIcon />}
 
 
             </div>
@@ -82,6 +84,8 @@ const Modalnew = (props: any) => {
                             {title === "Update" && <PublishedWithChangesIcon />}
                             {title === "Add" && <AddRoundedIcon />}
                             {title === "Delete" && <RemoveRoundedIcon />}
+                            {title === "Setting" && <SettingsIcon />}
+
                         </Typography>
                         {/* <Button autoFocus color="inherit" onClick={handleClose}>
                             save

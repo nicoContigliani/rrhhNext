@@ -1,0 +1,25 @@
+.body {
+  font-weight: 700;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@media screen and (max-width: 991px) {
+  .siderbarup {
+    padding: 2%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;  }
+}
+
+@media screen and (min-width: 991px) {
+  .siderbarup {
+    padding: 1%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+  }
+}
