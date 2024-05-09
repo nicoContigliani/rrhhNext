@@ -206,7 +206,7 @@ export const crudSlice = createSlice({
             .addCase(fetchCrud.rejected, (state: any | any[], action: any | any[]) => {
                 state.loading = false;
                 state.message = "Error fetching crud";
-                state.httpStatus = action.payload.status;
+                state.httpStatus = action?.payload?.status;
             })
             .addCase(createCrud.pending, (state) => {
                 state.loading = true;

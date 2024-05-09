@@ -9,9 +9,26 @@ import { formaterDataArray } from '@/services/formaterDataArray'
 import { formatDataAllElementNotArray, formaterDataArrayAll } from '@/services/formaterDataArrayAll'
 import { Button, Table, Form, Input } from "antd";
 import type { CheckboxOptionType, TableColumnsType } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { createCrud, fetchCrud, updateCrud } from '@/redux/features/CRUD/crudSlice';
 
 import Modalnew from '@/components/steps/componentSteps/ModalNew/Modalnew'
 import ButonGeneralModal from '@/components/GeneralComponents/CRUDGeneral/ButonGeneralModal/ButonGeneralModal'
+import { RootState } from '@/redux/store'
+import Typeselectcrud from '@/components/GeneralComponents/TypeSelectCRUD/Typeselectcrud'
+
+
+
+export interface FetchCrudData {
+  urlGeneral: string | any;
+  methods: string;
+  body?: any | any[]; // Tipo específico para el cuerpo de la solicitud
+  idParams?: string;
+}
+
+
+
+
 
 const page = () => {
 
@@ -23,12 +40,15 @@ const page = () => {
   const [form] = Form.useForm();
 
 
-  const [data, setData] = useState<any | any[]>()
+  const [data, setData] = useState<any | any[] | undefined>()
   const [col1, setCol1] = useState<any | any[]>()
   const [data1, setData1] = useState<any | any[]>()
   const [checkedList, setCheckedList] = useState();
 
 
+  const [dataSelect1, setDataSelect1] = useState<any | any[]>()
+  const [interviewsData, setInterviewsData] = useState<any | any[] | undefined>()
+  const [vacanciesData, setVacanciesData] = useState<any | any[] | undefined>()
 
 
   //crud typeGeneral
@@ -42,12 +62,9 @@ const page = () => {
   // }
 
 
-
-
-
   // const { loading, datas, message, httpStatus, refetchData } = useFetchCrudData(todoCRUDGet); // Usa el hook personalizado
-  // const datakey = ['id', 'name_vacancy_type']
-  // useEffect(() => {
+  // const datakey = ['id', 'name_vacancy_ty{pe']
+  // useEffect(() => 
   //   const todo = () => {
   //     try {
   //       const dataResult: any | any[] | undefined = dataFormaterToSelect(datakey, datas)
@@ -68,7 +85,16 @@ const page = () => {
   // }, [datas])
 
 
-
+{/* <Typeselectcrud
+        placeholder="Select"
+        datas={datas}
+        sources={sources}
+        todo=""
+        MAX_COUNT={1}
+        datakey={datakey}
+        objectKeys={objectKeys}
+        nameReturn="TypeVacancyId"
+      />   */}
 
 
   const todoCRUDGetS: IFetchCrudData = {
@@ -241,11 +267,9 @@ const page = () => {
   }, [])
 
   useEffect(() => {
-    console.log(datas)
 
     const todo = async () => {
       const dataReturn = await formaterDataArrayAll(datas, fl2, fl1)
-      console.log("🚀 ~ todo ~ dataReturn:", dataReturn)
       const dataReturns = await formatDataAllElementNotArray(datas, fl2, fl1)
       setData1(dataReturns)
 
@@ -256,12 +280,93 @@ const page = () => {
 
   }, [datas])
 
+  const dispatch = useDispatch();
+
+
+
+
+
+
+  const todoData: any[] | any | undefined = []
+
+  const fetchData = async (url: string) => {
+    const todoCRUDGet: FetchCrudData = {
+      urlGeneral: url,
+      methods: 'GET',
+      body: '',
+      idParams: '',
+    };
+
+    try {
+      const response = await dispatch(fetchCrud(todoCRUDGet));
+      console.log("🚀 ~ fetchData ~ response:", response.payload)
+      return response?.payload?.data; // Suponiendo que el resultado deseado está en response.data
+    } catch (error) {
+      console.error('Error dispatching fetchCrud:', error);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    const fetchInterviewsAndVacancies = async () => {
+      const interviews = await fetchData('/Interview/Interview');
+      const vacancies = await fetchData('/Vacancy/Vacancy');
+
+      const updatedData: any[] = [];
+
+      if (interviews) {
+        // const dataKeyGeneralInterviewsData = Object.keys(interviewsData[0])
+        // console.log("🚀 ~ page ~ dataKeyGeneralInterviewsData:", dataKeyGeneralInterviewsData)
+
+        setInterviewsData(interviews)
+        // updatedData.push(interviews);
+      }
+
+      if (vacancies) {
+        // const dataKeyGeneralVacanciesData = Object.keys(vacanciesData[0])
+        // console.log("🚀 ~ page ~ dataKeyGeneralVacanciesData:", dataKeyGeneralVacanciesData)
+
+        setVacanciesData(vacancies)
+        // updatedData.push(vacancies);
+      }
+    };
+
+    fetchInterviewsAndVacancies();
+  }, [dispatch]);
+
+
+
+
+
+
+
+  const createDataStart = {
+    col: col1,
+    colIdPath: [
+      {
+        ids: "InterviewId",
+        paths: "/Interview/Interview",
+        datas: interviewsData,
+        datakey: ['id', 'interviewers']
+
+      },
+      {
+        ids: "VacancyId",
+        paths: "/Vacancy/Vacancy",
+        datas: vacanciesData,
+        datakey: ['id', 'title']
+      }
+    ]
+  }
+  console.log("🚀 ~ page ~ createDataStart:", createDataStart)
+
+
 
   return (
     <div>
 
-      {/* 
-      <Typeselectcrud
+      
+      {/* <Typeselectcrud
         placeholder="Select"
         datas={datas}
         sources={sources}
@@ -270,7 +375,7 @@ const page = () => {
         datakey={datakey}
         objectKeys={objectKeys}
         nameReturn="TypeVacancyId"
-      /> */}
+      />  */}
 
 
       <div >
@@ -278,21 +383,12 @@ const page = () => {
           todo={data1}
           ids="0"
           creates={true}
-          createData={{
-            col: col1,
-            colIdPath: [
-              {
-                ids: "InterviewId",
-                paths:"/"
-            }
-            ]
-
-
-          }}
+          createData={createDataStart}
           updates={false}
           deletes={false}
           shows={false}
           settings={true}
+          datas={data}
 
         ></ButonGeneralModal>
       </div>

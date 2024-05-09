@@ -1,0 +1,53 @@
+.body {
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+@media screen and (max-width: 991px) {
+    .body {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        align-content: center;
+    }
+}
+
+@media screen and (min-width: 991px) {
+    .body {
+        padding: 3%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        align-content: center;
+        box-shadow: 1px 3px 30px #c2ccfd30, -8px -1px 2px #ffffffb8;
+        border-radius: 5%;
+    
+        z-index: 9999; /* Valor alto de z-index para superponer sobre todo */
+
+    }
+    .selects{
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+        align-content: flex-start;
+        padding-right: 5%;
+        padding-left: 5%;
+        z-index: 999;
+
+    }
+    .bodyElements{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        align-content: flex-start;
+        padding-right: 5%;
+        padding-left: 5%;
+        z-index: 999;
+
+    }
+  
+}

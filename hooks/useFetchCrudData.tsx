@@ -7,7 +7,7 @@ import isEqual from 'lodash/isEqual';
 
 const useFetchCrudData: any | any[] = (todoCRUD: any | any[] | undefined) => {
     const dispatch = useDispatch();
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean|undefined>(false);
     const [datas, setDatas] = useState<any | any[] | undefined>([]);
     const [message, setMessage] = useState<string | null | undefined>('');
     const [httpStatus, setHttpStatus] = useState<any | any[]>(null);

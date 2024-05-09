@@ -1,3 +1,7 @@
-export const dataFormaterToSelect = (datakey: any, datas: any) => {
-    return datas?.map((item: any) => ({ value: item[datakey[0]], label: item[datakey[1]] }));
+export const dataFormaterToSelect =  (datakey: any, datas: any) => {
+
+    const value = datakey[0] !== undefined ? datakey[0] : '';
+    const label = datakey[1] !== undefined ? datakey[1] : '';
+    return { value, label };
+
 }
