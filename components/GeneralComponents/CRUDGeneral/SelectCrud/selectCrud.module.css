@@ -22,7 +22,7 @@
         align-items: center;
         align-content: center;
         border-radius: 5%;
-        box-shadow: 1px 3px 30px #c2ccfd30, -8px -1px 2px #ffffffb8;
+        box-shadow: 1px 3px 30px #c2ccfd1f, -8px -1px 2px #ffffff5d;
 
         z-index: 9999;
         /* Valor alto de z-index para superponer sobre todo */
@@ -30,7 +30,7 @@
     }
 
     .selects {
-        padding: 1%;
+        /* padding: 1%; */
         display: flex;
         flex-wrap: nowrap;
         justify-content: space-between;
@@ -45,11 +45,11 @@
     .custom_select {
         position: relative;
         display: inline-block;
-        width: 200px;
-        height: 29px;
-        padding: 8px 12px;
+        width: 220px;
+        height: 100%;
+        /* padding: 5px 8px; */
         border: 1px solid #ffffff58;
-        border-radius: 4px;
+        border-radius: 1px;
         background-color: #ffffff43;
         cursor: pointer;
         outline: none;
@@ -92,7 +92,9 @@
     }
 
     .custom_select:hover {
-        border-color: #c6c6c63c;
+        border-color: #c6c6c674;
+        border-radius: 5%;
+
     }
 
     .custom_select.focused {
@@ -116,7 +118,7 @@
     .custom_select:hover .select_arrow {
         transform: rotate(135deg);
     }
- 
+
 
     .custom_select.open {
         /* New style for open state */
@@ -124,13 +126,18 @@
         /* Background color for open state */
         border-color: #c6c6c6b4;
         /* Border color for open state */
+        border-radius: 5%;
+
     }
 
     .custom_select.open .option:hover {
         /* New style for hovered option */
-        background-color: #e6e6e6a1;
+        background-color: #e6e6e6cc;
         /* Background color for hovered option */
+        border-radius: 5%;
+
     }
+
     .custom_select option:checked {
         color: #605f5f;
         background-color: transparent !important;
@@ -139,14 +146,16 @@
 
     .inputs {
         width: 100%;
+        height: 100%;
         background-color: transparent;
         display: flex;
         flex-wrap: nowrap;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
         align-content: center;
         border-radius: 5%;
         color: #605f5f;
+        padding-bottom: 1%;
 
 
     }

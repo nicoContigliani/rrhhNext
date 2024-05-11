@@ -1,12 +1,40 @@
 .body {
-    font-weight: 700;
-    font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@media screen and (max-width: 991px) {
+  .body {
+    padding-top: 1%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    width: 100%;
+    height: 90vh;
+    /* overflow: auto; */
+    flex-direction: row;
   }
-  
-  @media screen and (max-width: 991px) {
+
+  .siderTop{
+   padding: 1%;
+   padding-top: 10%; 
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: flex-end;
+   align-items: flex-start;
+   align-content: flex-start;
+   z-index: 999;
+   
 
   }
-  
-  @media screen and (min-width: 991px) {
+  .tables{
+    padding: 2%;
+    overflow-x: auto;
+    box-shadow: 1px 3px 30px rgba(194, 204, 253, 0.949), -8px -1px 2px #ffffffde;
+    border-radius: 5%;  }
 
-  }
+}
+
+@media screen and (min-width: 991px) {}

@@ -1,46 +1,80 @@
+"use client"
+
+
 
 import React, { useEffect, useRef, useState } from 'react';
-import { PlusOutlined } from '@ant-design/icons';
-import { Button, Divider, Input, Space } from 'antd';
-import { Select } from 'antd';
-import type { InputRef } from 'antd';
+
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+
 import styles from './selectCrud.module.css'
 import Inputs from '@/components/inputs/Inputs';
 
-
+import Form from 'react-bootstrap/Form';
 
 const Selectcrud = (props: any) => {
+    const { todoSelect, data, setData } = props
 
 
+    // console.log("🚀 ~ onChange ~ todoSelect[0].ids:", todoSelect[0].ids)
 
+    const [age, setAge] = React.useState('');
 
-    const { todoSelect } = props
-    // console.log("🚀 ~ Selectcrud ~ todoSelect:", todoSelect)
-    const onChange = (value: string) => {
-        console.log(`selected ${value}`);
-    };
-
-    const [selectedValue, setSelectedValue] = useState('');
-    const [data, setData] = useState<any | any[] | undefined>()
-    const [dataArray, setDataArray] = useState<any | any[] | undefined>(todoSelect)
-    const [dataArrayFilter, setDataArrayFilter] = useState<any | any[] | undefined>(todoSelect)
-
-
-    const handleChange = (event: any) => {
+    const handleChanges = (event: SelectChangeEvent) => {
         setSelectedValue(event.target.value);
     };
 
+
+
+
+    // const [data, setData] = useState<any | any[] | undefined>()
+    const [dataArray, setDataArray] = useState<any | any[] | undefined>(todoSelect)
+    const [dataArrayFilter, setDataArrayFilter] = useState<any | any[] | undefined>(todoSelect)
+    const [dataFilterComponente, setDataFilterComponente] = useState<any | any[] | undefined>(todoSelect)
+    const [selectedValue, setSelectedValue] = useState<any | any[] | undefined>('');
+
+
     useEffect(() => {
-        if (data === undefined && data?.sertch === undefined) setDataArray(todoSelect)
+        // if (data === undefined && data?.sertch === undefined) setDataArray(todoSelect)
         if (data !== undefined && data?.sertch !== undefined) {
 
-            const todoReturn = () => {
-                const dataFilterReturn = dataArray?.filter((item: any) => (parseInt(data.sertch) === item.value || item.label.includes(data.sertch)))
-                if (dataFilterReturn.length > 0) setDataArrayFilter(dataFilterReturn)
+            const todoReturn = async () => {
+                const dataFilterReturn = dataArray?.filter((item: any) => (parseInt(data.sertch) === item.value || item.label.includes(data?.sertch)))
+                if (dataFilterReturn.length > 0) await setDataArrayFilter(dataFilterReturn)
             }
             todoReturn()
         }
     }, [data])
+
+
+    useEffect(() => {
+        setDataFilterComponente(dataArrayFilter?.length !== 0 ? dataArrayFilter : dataArray)
+    }, [dataArrayFilter, props])
+
+
+    useEffect(() => {
+
+    }, [dataArrayFilter.length === 1])
+
+
+
+    const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement | any>) => {
+        const value = e.target.value;
+        setSelectedValue(value);
+    };
+
+    useEffect(() => {
+        if (selectedValue !== undefined) {
+
+            setData({
+                ...data,
+                [dataFilterComponente[0].ids]: selectedValue,
+            });
+        }
+    }, [selectedValue])
 
 
     return (
@@ -62,18 +96,24 @@ const Selectcrud = (props: any) => {
                             />
                         </div>
                         <div>
-                            <div className={styles.custom_select}>
-                                <select value={selectedValue} onChange={handleChange}>
-                                    {(dataArrayFilter.length > 0 ? dataArrayFilter : dataArray)?.map((option: any) => (
-                                        <option key={option.value} value={option.value}>
-                                            {option.label}
-                                        </option>
-                                    ))}
-                                </select>
-                                <div className={styles.select_arrow}></div>
-                            </div>
-                        </div>
 
+                            <div className={styles.custom_select}>
+
+                                {dataFilterComponente.length !== 1 ? (
+                                    <Form.Select aria-label="Default select example" size="sm" onChange={handleSelectChange} value={selectedValue}>
+                                        {dataFilterComponente.map((option: any | any[]) => (
+                                            <option key={option.value} value={option.value}>
+                                                {option.label}
+                                            </option>
+                                        ))}
+                                    </Form.Select>
+                                ) : (
+                                    <div onClick={() => setSelectedValue(dataFilterComponente[0].value)}>{dataFilterComponente[0].label}</div>
+                                )}
+
+                            </div>
+
+                        </div>
                     </div>
                 }
             </div>

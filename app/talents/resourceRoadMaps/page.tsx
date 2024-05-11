@@ -2,6 +2,7 @@
 
 
 import React, { useEffect, useState } from 'react'
+import styles from "./page.module.css"
 
 import { IFetchCrudData } from '@/app/Interfaces/IFetchCrudData'
 import useFetchCrudData from '@/hooks/useFetchCrudData'
@@ -51,50 +52,6 @@ const page = () => {
   const [vacanciesData, setVacanciesData] = useState<any | any[] | undefined>()
 
 
-  //crud typeGeneral
-  //Get
-  //TODO require la url y la key para setear el value del select 
-  // const todoCRUDGet: IFetchCrudData = {
-  //   urlGeneral: "/TypeVacancy/TypeVacancy/",
-  //   methods: 'GET',
-  //   body: "",
-  //   idParams: "",
-  // }
-
-
-  // const { loading, datas, message, httpStatus, refetchData } = useFetchCrudData(todoCRUDGet); // Usa el hook personalizado
-  // const datakey = ['id', 'name_vacancy_ty{pe']
-  // useEffect(() => 
-  //   const todo = () => {
-  //     try {
-  //       const dataResult: any | any[] | undefined = dataFormaterToSelect(datakey, datas)
-  //       setSources(dataResult)
-  //     } catch (error) {
-  //     }
-
-  //     try {
-  //       const dataKeyGeneral = Object.keys(datas[0])
-  //       if (dataKeyGeneral !== undefined) setObjectKeys(dataKeyGeneral)
-  //     } catch (error) {
-
-  //     }
-
-
-  //   }
-  //   todo()
-  // }, [datas])
-
-
-{/* <Typeselectcrud
-        placeholder="Select"
-        datas={datas}
-        sources={sources}
-        todo=""
-        MAX_COUNT={1}
-        datakey={datakey}
-        objectKeys={objectKeys}
-        nameReturn="TypeVacancyId"
-      />   */}
 
 
   const todoCRUDGetS: IFetchCrudData = {
@@ -174,8 +131,6 @@ const page = () => {
     "updatedAt"]
 
 
-
-
   const fl33 = ['Responsibles']
   const fl331 = [
     "Score",
@@ -188,8 +143,6 @@ const page = () => {
     "phone",
     "status_user",
     "updatedAt"]
-
-
 
   const fl34 = ['Vacancies']
 
@@ -239,6 +192,8 @@ const page = () => {
       {
         title: 'Action',
         key: 'action',
+        fixed: 'right',
+        width: 100,
         render: (text: any, record: any) => (
           <div>
             <ButonGeneralModal
@@ -299,7 +254,6 @@ const page = () => {
 
     try {
       const response = await dispatch(fetchCrud(todoCRUDGet));
-      console.log("🚀 ~ fetchData ~ response:", response.payload)
       return response?.payload?.data; // Suponiendo que el resultado deseado está en response.data
     } catch (error) {
       console.error('Error dispatching fetchCrud:', error);
@@ -358,14 +312,13 @@ const page = () => {
       }
     ]
   }
-  console.log("🚀 ~ page ~ createDataStart:", createDataStart)
 
 
 
   return (
-    <div>
+    <div className={styles.body}>
 
-      
+
       {/* <Typeselectcrud
         placeholder="Select"
         datas={datas}
@@ -378,7 +331,7 @@ const page = () => {
       />  */}
 
 
-      <div >
+      <div className={styles.siderTop} >
         <ButonGeneralModal
           todo={data1}
           ids="0"
@@ -394,21 +347,25 @@ const page = () => {
       </div>
 
 
+      <div className={styles.tables}>
 
 
-      <Table
-        dataSource={data1}
-        columns={col1}
-        bordered
+        <Table
+          dataSource={data1}
+          columns={col1}
+          bordered
+          scroll={{ x: 'auto' }}
+          style={{ minWidth: '360px' }} // Establece un ancho mínimo para la tabla
 
-        expandable={{
-          rowExpandable: (record) => true,
-          expandedRowRender: (record) => {
-            return <div>{record.id}</div>
-          }
+          expandable={{
+            rowExpandable: (record) => true,
+            expandedRowRender: (record) => {
+              return <div>{record.id}</div>
+            }
 
-        }}
-      />;
+          }}
+        />;
+      </div>
 
 
 

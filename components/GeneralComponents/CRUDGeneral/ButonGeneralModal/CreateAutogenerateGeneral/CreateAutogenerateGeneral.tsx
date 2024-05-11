@@ -60,9 +60,9 @@ const CreateAutogenerateGeneral = (props: any) => {
 
     useEffect(() => {
         const fetchData = async () => {
+            const { createDatas: { col, colIdPath } } = await props;
             try {
 
-                const { createDatas: { col, colIdPath } } = await props;
 
                 await setGeneralElement(props);
                 await setColIdPaths(colIdPath);
@@ -70,11 +70,20 @@ const CreateAutogenerateGeneral = (props: any) => {
                 // Combine colIdPath filtering and col filtering into a single step:
                 const filteredTodos = col
                     .filter((item: any) => item.key !== "action") // Exclude "action" key
+                    .filter((item: any) => item.key !== "id")
                     .filter((item: any) => !colIdPath?.some((excluded: any) => excluded.ids.includes(item.dataIndex))); // Exclude data based on colIdPath
+                console.log("🚀 ~ fetchData ~ filteredTodos:", filteredTodos)
                 await setCols(filteredTodos);
+
+
+         
+
             } catch (error) {
 
             }
+
+           
+
 
         };
 
@@ -140,7 +149,6 @@ const CreateAutogenerateGeneral = (props: any) => {
             for (let index = 0; index < colIdPath.length; index++) {
                 const element = await colIdPath[index];
                 const { ids, paths, datas, datakey } = await element
-                console.log("🚀 ~ todo ~ datas:", datas)
 
                 const sources: any | any[] | undefined = dataFormaterToSelect(datakey, datas)
                 // setSources(dataResult)
@@ -151,46 +159,14 @@ const CreateAutogenerateGeneral = (props: any) => {
                 const dataSources = datas.map((item: any) => {
                     const value = (datakey[0] !== undefined && item !== undefined) ? item[datakey[0]] : '';
                     const label = (datakey[1] !== undefined && item !== undefined) ? item[datakey[1]] : '';
-                    return { value, label }
+                    return { value, label, ids }
                 })
-
-
-                const elementSelectt = {
-                    datas,
-                    datakey,
-                    sources,
-                    objectKeys,
-                    nameReturn: ids
-                }
-
 
                 todoData.push(dataSources)
             }
 
             setTodoSelect(todoData)
 
-
-
-            // if (!colIdPath !== undefined) {
-            //     const dataReturn = await colIdPath?.map((item: any) => {
-
-            //         //datakey= ['id', 'name_vacancy_ty{pe']  esto son las key que debo buscar en cada objeto general 
-            //         //sources -> datas -> fetchData
-            //         //objectKeys -> const dataKeyGeneral = Object.keys(datas[0])
-            //         const dataKeyGeneral = Object.keys(item.datas[0])
-
-            //         return {
-            //             ids: item.ids,
-            //             paths: item.paths,
-            //             datas: item.datas,
-            //             datakey: item.datakey,
-            //             objectKeys: dataKeyGeneral
-            //         }
-
-            //     })
-
-            // }
-            // setTodoSelect(todoData)
         }
         todo()
     }, [props])
@@ -206,6 +182,8 @@ const CreateAutogenerateGeneral = (props: any) => {
                 {
                     todoSelect?.map((item: any) =>
                         <Selectcrud
+                            data={data}
+                            setData={setData}
                             todoSelect={item}
                         />
                     )
@@ -216,18 +194,19 @@ const CreateAutogenerateGeneral = (props: any) => {
 
                 {cols?.map((item: any) => (
                     <div key={item.key || item.dataIndex}> {/* Use a unique key */}
-                        {/* Access and display item properties here */}
-                        {/* {item.key} - {item.title}-{item.dataIndex} */}
 
-                        <Inputs
-                            // className={styles.login_input}
-                            data={data}
-                            setData={setData}
-                            placeholder={item.title}
-                            name={item.title}
-                            type={'text'}
-                            minLength={''} autoFocus={false} color={''} defaultValue={undefined} disabled={false} fullWidth={false} id={''} inputComponent={undefined} multiline={false} label={''} rows={''} />
+                        {
+                            (item.title !== "id" && item.title !== "createdAt" && item.title !== "updatedAt") &&
+                            < Inputs
+                                className={styles.input}
+                                data={data}
+                                setData={setData}
+                                placeholder={item.title}
+                                name={item.title}
+                                type={'text'}
+                                minLength={''} autoFocus={false} color={''} defaultValue={undefined} disabled={false} fullWidth={false} id={''} inputComponent={undefined} multiline={false} label={''} rows={''} />
 
+                        }
 
 
 
