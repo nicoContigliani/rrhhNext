@@ -78,7 +78,7 @@ const Auths = () => {
                                         setData={setData}
                                         placeholder="email"
                                         name="email"
-                                        type={''}
+                                        type={'text'}
                                         minLength={''} autoFocus={false} color={''} defaultValue={undefined} disabled={false} fullWidth={false} id={''} inputComponent={undefined} multiline={false} label={''} rows={''} />
                                 </Popover>
                                 <Popover content="Fullname" >
@@ -190,7 +190,7 @@ const Auths = () => {
                                     setData={setData}
                                     placeholder="email"
                                     name="email"
-                                    type={''}
+                                    type={'email'}
                                     minLength={''} autoFocus={false} color={''} defaultValue={undefined} disabled={false} fullWidth={false} id={''} inputComponent={undefined} multiline={false} label={''} rows={''} />
 
                                 <Inputs

@@ -51,12 +51,12 @@ const ModalSelectGeneral = (props: any) => {
                                 (item === 'id' || item === 'createdAt' || item === 'updatedAt') ? "" :
 
                                     <Inputs
-                                        name={item}
-                                        placeholder={item}
-                                        className={props.className}
+                                        name={item || item?.title}
+                                        placeholder={item || item?.title}
+                                        className={props?.className}
                                         data={data}
                                         setData={setData}
-                                        type={item.includes("status") ? "bolean" : IType}
+                                        type={item?.includes("status") ? "bolean" : IType || item?.types}
                                         block
                                     />
                             }

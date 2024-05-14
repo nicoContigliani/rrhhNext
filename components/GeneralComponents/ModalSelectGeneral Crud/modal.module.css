@@ -1,0 +1,66 @@
+.body {
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+@media screen and (max-width: 991px) {
+    .body {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        align-content: center;
+        z-index: 9990;
+    }
+}
+
+@media screen and (min-width: 991px) {
+    .body {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        align-items: center;
+        align-content: center;
+        box-shadow: 1px 3px 30px #c2ccfd30, -8px -1px 2px #ffffffb8;
+        border-radius: 5%;
+        position: relative;
+        z-index: 2147483647;
+
+    }
+
+    .button {
+        padding: 1%;
+    }
+
+    .modal {
+        position: relative;
+        width: 50%;
+        z-index: 9999;     /* High z-index to ensure it's above most elements */
+    }
+    .modal2 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        align-content: center;
+        background-color: white;
+        /* box-shadow: 1px 3px 30px #c2ccfd30, -8px -1px 2px #ffffffb8; */
+        border-radius: 2%;
+        padding: 3%;
+        transition: box-shadow 1000ms;
+        overflow: auto;
+
+    }
+    .modal2:hover {
+        transition: box-shadow 500ms; 
+        box-shadow: 0 2px 15px #000000a1;
+        backdrop-filter: blur(55px); /* 5px blur strength */
+
+
+    }
+
+    .input {
+        box-sizing: border-box;
+        flex-grow: 1;  /* Allow inputs to grow equally */
+    }
+}

@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import useFetchCrudData from '@/hooks/useFetchCrudData';
 import { createCrud, fetchCrud, updateCrud } from '@/redux/features/CRUD/crudSlice';
 import { forEach } from 'lodash';
@@ -9,6 +9,8 @@ import { dataFormaterToSelect } from '@/services/dataFormaterToSelect.services';
 import Typeselectcrud from '@/components/GeneralComponents/TypeSelectCRUD/Typeselectcrud';
 import Selectcrud from '../../SelectCrud/Selectcrud';
 import styles from './createAutoGenerate.module.css'
+import { FilterHeadTableRules } from '@/services/FilterHeadTableRules.services';
+import ModalSelectGeneralCrud from '@/components/GeneralComponents/ModalSelectGeneral Crud/ModalSelectGeneralCrud';
 
 
 
@@ -18,11 +20,7 @@ export interface FetchCrudData {
     body?: any | any[]; // Tipo específico para el cuerpo de la solicitud
     idParams?: string;
 }
-//recibe -> col + [{id1:DataId,path1:"/route/"},{id2:DataId,path2:"/route/"}]
-// lee col y si hay ColId buscar ruta 
-// que debe crear
-// alguna de estas pose Element(Id) - si no esta se crea? 
-// debe crear cuantos elementos? 
+
 const CreateAutogenerateGeneral = (props: any) => {
     const dispatch = useDispatch();
 
@@ -39,26 +37,9 @@ const CreateAutogenerateGeneral = (props: any) => {
 
     const [objectKeys, setObjectKeys] = useState<any | any[]>()
     const [todoSelect, setTodoSelect] = useState<any | any[] | undefined>()
+    const [filteredTodostoCreatePlusArrays, SetFilteredTodostoCreatePlusArrays] = useState<any | any[] | undefined>()
 
-
-    //datakey= ['id', 'name_vacancy_ty{pe']  esto son las key que debo buscar en cada objeto general 
-    //sources -> datas -> fetchData
-    //objectKeys -> const dataKeyGeneral = Object.keys(datas[0])
-
-    {/* <Typeselectcrud
-        placeholder="Select"
-        datas={datas}
-        sources={sources}
-        todo=""
-        MAX_COUNT={1}
-        datakey={datakey}
-        objectKeys={objectKeys}
-        nameReturn="TypeVacancyId"
-      />  */}
-
-
-
-    useEffect(() => {
+    useMemo(() => {
         const fetchData = async () => {
             const { createDatas: { col, colIdPath } } = await props;
             try {
@@ -67,136 +48,85 @@ const CreateAutogenerateGeneral = (props: any) => {
                 await setGeneralElement(props);
                 await setColIdPaths(colIdPath);
 
-                // Combine colIdPath filtering and col filtering into a single step:
-                const filteredTodos = col
-                    .filter((item: any) => item.key !== "action") // Exclude "action" key
-                    .filter((item: any) => item.key !== "id")
-                    .filter((item: any) => !colIdPath?.some((excluded: any) => excluded.ids.includes(item.dataIndex))); // Exclude data based on colIdPath
-                console.log("🚀 ~ fetchData ~ filteredTodos:", filteredTodos)
+                const filteredTodos = FilterHeadTableRules(col, colIdPath)
                 await setCols(filteredTodos);
-
-
-         
-
             } catch (error) {
 
             }
-
-           
-
-
         };
 
         fetchData();
     }, [props]);
 
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-
-    //             const {
-    //                 createDatas: { col, colIdPath },
-    //                 datasGet
-
-    //             } = await props;
-
-    //             if (colIdPath.length !== 0) {
-    //                 SetKeyDataOrigin(colIdPath)
-    //                 const todoMap = await Promise.all(colIdPath.map(async (item: any) => {
-    //                     try {
-    //                         const formattedData = await dataFormaterToSelect(item.datakey, item.datas);
-    //                         return formattedData;
-    //                     } catch (error) {
-    //                         console.error("Error formatting data:", error);
-    //                         return null;
-    //                     }
-    //                 }));
-    //                 setSources(todoMap)
-    //             }
-    //             //       const dataKeyGeneral = Object.keys(datas[0])
-    //             try {
-    //                 const todoDataKey = props.dataGet
-    //                 const dataReturn = todoDataKey.map((item: any) => {
-    //                     return Object.keys(item)
-    //                 })
-    //                 setKeysSelect(dataReturn)
-
-
-
-    //             } catch (error) {
-
-    //             }
-
-
-    //         } catch (error) {
-
-    //         }
-
-    //     };
-
-    //     fetchData();
-    // }, [props]);
 
     useEffect(() => {
         const todoData: any[] = []
+        const FilteredTodostoCreatePlusA: any[] = []
         const todo = async () => {
             //objectKeys -> const dataKeyGeneral = Object.keys(datas[0])
             const {
                 createDatas: { col, colIdPath },
                 dataGet
             } = await props;
+            console.log("🚀 ~ todo ~ colIdPath:", colIdPath.length)
             for (let index = 0; index < colIdPath.length; index++) {
                 const element = await colIdPath[index];
-                const { ids, paths, datas, datakey } = await element
-
-                const sources: any | any[] | undefined = dataFormaterToSelect(datakey, datas)
-                // setSources(dataResult)
-
-
-                const objectKeys = Object.keys(datas[0])
-                // if (dataKeyGeneral !== undefined) setObjectKeys(dataKeyGeneral)
+                const { ids, paths, datas, datasKey, datakey } = await element
+                FilteredTodostoCreatePlusA.push(datasKey)
                 const dataSources = datas.map((item: any) => {
                     const value = (datakey[0] !== undefined && item !== undefined) ? item[datakey[0]] : '';
                     const label = (datakey[1] !== undefined && item !== undefined) ? item[datakey[1]] : '';
                     return { value, label, ids }
                 })
-
                 todoData.push(dataSources)
             }
-
+            SetFilteredTodostoCreatePlusArrays(FilteredTodostoCreatePlusA.length > 0 && FilteredTodostoCreatePlusA)
             setTodoSelect(todoData)
+
+            // SetFilteredTodostoCreatePlusArrays(dataArraKeyCol)
 
         }
         todo()
     }, [props])
-
-
-
-
 
     return (
         <div className={styles.body}>
             <div className={styles.selects}>
 
                 {
-                    todoSelect?.map((item: any) =>
-                        <Selectcrud
-                            data={data}
-                            setData={setData}
-                            todoSelect={item}
-                        />
+                    filteredTodostoCreatePlusArrays && filteredTodostoCreatePlusArrays?.map((item: any) =>
+                        <div key={item?.key || item?.dataIndex}>
+
+                            
+                                <ModalSelectGeneralCrud
+                                    objectKeys={item}
+                                    IType={""}
+                                />
+                        </div>
                     )
                 }
+                {
+                    todoSelect && todoSelect?.map((item: any) =>
+                        <div key={item?.key || item?.dataIndex}>
 
+
+                            <Selectcrud
+                                data={data}
+                                setData={setData}
+                                todoSelect={item}
+                            />
+                        </div>
+                    )
+                }
             </div>
             <div className={styles.bodyElements}>
 
-                {cols?.map((item: any) => (
-                    <div key={item.key || item.dataIndex}> {/* Use a unique key */}
+                {cols && cols?.map((item: any) => (
+                    <div key={item?.key || item?.dataIndex}>
 
                         {
-                            (item.title !== "id" && item.title !== "createdAt" && item.title !== "updatedAt") &&
+                            (item.title !== "key" && item.title !== "id" && item.title !== "createdAt" && item.title !== "updatedAt") &&
                             < Inputs
                                 className={styles.input}
                                 data={data}
@@ -207,9 +137,6 @@ const CreateAutogenerateGeneral = (props: any) => {
                                 minLength={''} autoFocus={false} color={''} defaultValue={undefined} disabled={false} fullWidth={false} id={''} inputComponent={undefined} multiline={false} label={''} rows={''} />
 
                         }
-
-
-
 
                     </div>
                 ))}

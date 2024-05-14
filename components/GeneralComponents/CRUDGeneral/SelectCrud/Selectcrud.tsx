@@ -4,11 +4,12 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
+
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+
+import ButonGeneralModal from '@/components/GeneralComponents/CRUDGeneral/ButonGeneralModal/ButonGeneralModal'
+
+
 
 import styles from './selectCrud.module.css'
 import Inputs from '@/components/inputs/Inputs';
@@ -27,15 +28,11 @@ const Selectcrud = (props: any) => {
         setSelectedValue(event.target.value);
     };
 
-
-
-
     // const [data, setData] = useState<any | any[] | undefined>()
     const [dataArray, setDataArray] = useState<any | any[] | undefined>(todoSelect)
     const [dataArrayFilter, setDataArrayFilter] = useState<any | any[] | undefined>(todoSelect)
     const [dataFilterComponente, setDataFilterComponente] = useState<any | any[] | undefined>(todoSelect)
     const [selectedValue, setSelectedValue] = useState<any | any[] | undefined>('');
-
 
     useEffect(() => {
         // if (data === undefined && data?.sertch === undefined) setDataArray(todoSelect)
@@ -80,6 +77,26 @@ const Selectcrud = (props: any) => {
     return (
         <div className={styles.body}>
             <div className={styles.selects}>
+
+
+
+                {/* <ButonGeneralModal
+                    todo={data1}
+                    ids="0"
+                    creates={true}
+                    createData={createDataStart}
+                    updates={false}
+                    deletes={false}
+                    shows={false}
+                    settings={true}
+                    datas={data}
+
+                ></ButonGeneralModal> */}
+
+
+
+
+
                 {
                     dataArray &&
                     <div className={styles.selects}>
@@ -103,7 +120,7 @@ const Selectcrud = (props: any) => {
                                     <Form.Select aria-label="Default select example" size="sm" onChange={handleSelectChange} value={selectedValue}>
                                         {dataFilterComponente.map((option: any | any[]) => (
                                             <option key={option.value} value={option.value}>
-                                                {option.label}
+                                                {option.value}  {option.label}
                                             </option>
                                         ))}
                                     </Form.Select>

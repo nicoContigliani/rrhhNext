@@ -13,11 +13,7 @@ import type { CheckboxOptionType, TableColumnsType } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCrud, fetchCrud, updateCrud } from '@/redux/features/CRUD/crudSlice';
 
-import Modalnew from '@/components/steps/componentSteps/ModalNew/Modalnew'
 import ButonGeneralModal from '@/components/GeneralComponents/CRUDGeneral/ButonGeneralModal/ButonGeneralModal'
-import { RootState } from '@/redux/store'
-import Typeselectcrud from '@/components/GeneralComponents/TypeSelectCRUD/Typeselectcrud'
-
 
 
 export interface FetchCrudData {
@@ -49,7 +45,9 @@ const page = () => {
 
   const [dataSelect1, setDataSelect1] = useState<any | any[]>()
   const [interviewsData, setInterviewsData] = useState<any | any[] | undefined>()
+  const [interviewsDataKey, setInterviewsDataKey] = useState<any | any[] | undefined>()
   const [vacanciesData, setVacanciesData] = useState<any | any[] | undefined>()
+  const [vacanciesDataKey, setVacanciesDataKey] = useState<any | any[] | undefined>()
 
 
 
@@ -106,6 +104,20 @@ const page = () => {
     "status_interview",
     "updatedAt",
   ]
+
+
+  const f130_interviewsArray: any = [
+    "Test",
+    "Vacancies"
+  ]
+  const f130_1_vacanciesArray: any = [
+    "Companies",
+    "Interviews",
+    "TypeVacancyId"
+  ]
+
+
+
   const fl31 = ['InterviewResponsible']
 
   const fl311 = ["InterviewId",
@@ -172,10 +184,6 @@ const page = () => {
     "updatedAt"]
 
 
-  const handleAction = (si: any) => {
-    console.log(si, "*****")
-  }
-
 
 
 
@@ -224,9 +232,19 @@ const page = () => {
   useEffect(() => {
 
     const todo = async () => {
-      const dataReturn = await formaterDataArrayAll(datas, fl2, fl1)
-      const dataReturns = await formatDataAllElementNotArray(datas, fl2, fl1)
-      setData1(dataReturns)
+      try {
+        const dataReturn = await formaterDataArrayAll(datas, fl2, fl1)
+
+      } catch (error) {
+
+      }
+      try {
+        const dataReturns = await formatDataAllElementNotArray(datas, fl2, fl1)
+        setData1(dataReturns)
+
+      } catch (error) {
+
+      }
 
       // setData1(dataReturn.todoElements)
     }
@@ -266,23 +284,32 @@ const page = () => {
       const interviews = await fetchData('/Interview/Interview');
       const vacancies = await fetchData('/Vacancy/Vacancy');
 
-      const updatedData: any[] = [];
-
       if (interviews) {
-        // const dataKeyGeneralInterviewsData = Object.keys(interviewsData[0])
-        // console.log("🚀 ~ page ~ dataKeyGeneralInterviewsData:", dataKeyGeneralInterviewsData)
-
-        setInterviewsData(interviews)
-        // updatedData.push(interviews);
+        try {
+          setInterviewsData(interviews)
+          // const dataReturns = await formatDataAllElementNotArray(interviews, f130_interviewsArray, fl1)
+          const interviewsKeys = Object.keys(interviews[0])
+          let formaterDataArrayInterViewsKeys = await formaterDataArray(interviewsKeys)
+          setInterviewsDataKey(formaterDataArrayInterViewsKeys)
+        } catch (error) {
+          console.log("🚀 ~ fetchInterviewsAndVacancies ~ error:", error)
+        }
       }
+   
 
       if (vacancies) {
-        // const dataKeyGeneralVacanciesData = Object.keys(vacanciesData[0])
-        // console.log("🚀 ~ page ~ dataKeyGeneralVacanciesData:", dataKeyGeneralVacanciesData)
+        try {
+          setVacanciesData(vacancies)
 
-        setVacanciesData(vacancies)
-        // updatedData.push(vacancies);
+          // const dataReturns = await formatDataAllElementNotArray(vacancies, f130_1_vacanciesArray, fl1)
+          const vacanciesKeys = Object.keys(vacancies[0])
+          let formaterDataArrayVacanciesKeys = await formaterDataArray(vacanciesKeys)
+          setVacanciesDataKey(formaterDataArrayVacanciesKeys)
+        } catch (error) {
+          console.log("🚀 ~ fetchInterviewsAndVacancies ~ error:", error)
+        }
       }
+   
     };
 
     fetchInterviewsAndVacancies();
@@ -301,6 +328,7 @@ const page = () => {
         ids: "InterviewId",
         paths: "/Interview/Interview",
         datas: interviewsData,
+        datasKey: interviewsDataKey,
         datakey: ['id', 'interviewers']
 
       },
@@ -308,6 +336,7 @@ const page = () => {
         ids: "VacancyId",
         paths: "/Vacancy/Vacancy",
         datas: vacanciesData,
+        datasKey: vacanciesDataKey,
         datakey: ['id', 'title']
       }
     ]
@@ -317,18 +346,6 @@ const page = () => {
 
   return (
     <div className={styles.body}>
-
-
-      {/* <Typeselectcrud
-        placeholder="Select"
-        datas={datas}
-        sources={sources}
-        todo=""
-        MAX_COUNT={1}
-        datakey={datakey}
-        objectKeys={objectKeys}
-        nameReturn="TypeVacancyId"
-      />  */}
 
 
       <div className={styles.siderTop} >

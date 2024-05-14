@@ -26,7 +26,7 @@ const Inputs = (props: any) => {
     return (
         <div>
 
-            {(type === 'text' || type === 'number' || type === 'email') ?
+            {(type === 'text' || type === 'number' || type === 'email'||type==='password' ||type==='date') ?
 
                 <Input {...props}
                     className={`${props.className}`}

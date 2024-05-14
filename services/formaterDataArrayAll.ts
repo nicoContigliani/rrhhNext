@@ -17,10 +17,13 @@ export const formaterDataArrayAll = async (all: any, arrayDelete: any, rules: an
 
     // return todo
 
-    const todo = all.map((item: any) => {
+    const todo = all?.map((item: any) => {
 
-        return arrayDelete.map((itemData: any) => {
-            return (item[itemData])
+        return arrayDelete?.map((itemData: any) => {
+            return {
+                id: item.id,
+                dataArray: item[itemData]
+            }
         })
 
 
