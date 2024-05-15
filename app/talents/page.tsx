@@ -20,7 +20,7 @@ import Menus from '@/components/images/menu.png'
 
 
 
-import { Home, Iconflama, certificado, cv, documentoLegal, rrhh, lupahuman, lupahumans, module, reporte, clienteS, panel, crud, compania,planing } from '../../services/iconsImportList.services'
+import { Home, Iconflama, certificado, cv, documentoLegal, rrhh, lupahuman, lupahumans, module, reporte, clienteS, panel, crud, compania, planing } from '../../services/iconsImportList.services'
 import Siderbox from '@/components/siderbarBox/Siderbox';
 import Icons from '@/components/Icons/Icons';
 
@@ -52,6 +52,13 @@ const Page = () => {
       actions: "",
       routesLink: "/talents/resourceManagement"
     },
+    {
+      module: "RRHH_TALENTS",
+      label: "Road Maps",
+      urls: planing,
+      actions: "",
+      routesLink: "/talents/resourceRoadMaps"
+    },
 
     {
       module: "RRHH_TALENTS",
@@ -82,13 +89,7 @@ const Page = () => {
       actions: "",
       routesLink: "/companies"
     },
-    {
-      module: "RRHH_TALENTS",
-      label: "Road Maps",
-      urls: planing,
-      actions: "",
-      routesLink: "/talents/resourceRoadMaps"
-    },
+
 
 
   ]

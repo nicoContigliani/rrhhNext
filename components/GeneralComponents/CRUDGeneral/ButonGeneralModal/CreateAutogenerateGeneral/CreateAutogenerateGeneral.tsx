@@ -5,8 +5,7 @@ import { createCrud, fetchCrud, updateCrud } from '@/redux/features/CRUD/crudSli
 import { forEach } from 'lodash';
 import { useDispatch } from 'react-redux';
 import Inputs from '@/components/inputs/Inputs';
-import { dataFormaterToSelect } from '@/services/dataFormaterToSelect.services';
-import Typeselectcrud from '@/components/GeneralComponents/TypeSelectCRUD/Typeselectcrud';
+
 import Selectcrud from '../../SelectCrud/Selectcrud';
 import styles from './createAutoGenerate.module.css'
 import { FilterHeadTableRules } from '@/services/FilterHeadTableRules.services';
@@ -43,11 +42,10 @@ const CreateAutogenerateGeneral = (props: any) => {
         const fetchData = async () => {
             const { createDatas: { col, colIdPath } } = await props;
             try {
-
-
                 await setGeneralElement(props);
                 await setColIdPaths(colIdPath);
 
+                ////This services is data sources. It's gives data a modal with auto generate inputs 
                 const filteredTodos = FilterHeadTableRules(col, colIdPath)
                 await setCols(filteredTodos);
             } catch (error) {
@@ -60,65 +58,84 @@ const CreateAutogenerateGeneral = (props: any) => {
 
 
 
+
+
     useEffect(() => {
-        const todoData: any[] = []
-        const FilteredTodostoCreatePlusA: any[] = []
         const todo = async () => {
-            //objectKeys -> const dataKeyGeneral = Object.keys(datas[0])
-            const {
-                createDatas: { col, colIdPath },
-                dataGet
-            } = await props;
-            console.log("🚀 ~ todo ~ colIdPath:", colIdPath.length)
-            for (let index = 0; index < colIdPath.length; index++) {
-                const element = await colIdPath[index];
-                const { ids, paths, datas, datasKey, datakey } = await element
-                FilteredTodostoCreatePlusA.push(datasKey)
-                const dataSources = datas.map((item: any) => {
-                    const value = (datakey[0] !== undefined && item !== undefined) ? item[datakey[0]] : '';
-                    const label = (datakey[1] !== undefined && item !== undefined) ? item[datakey[1]] : '';
-                    return { value, label, ids }
-                })
-                todoData.push(dataSources)
+            try {
+                const { createDatas, dataGet } = props;
+                const { col, colIdPath } = createDatas;
+
+                const promises = colIdPath.map(async (element: any) => {
+                    const { ids, paths, datas, datasKey, datakey, titleModal } = element;
+                    const dataSources = datas.map((item: any) => {
+                        const value = (datakey[0] !== undefined && item !== undefined) ? item[datakey[0]] : '';
+                        const label = (datakey[1] !== undefined && item !== undefined) ? item[datakey[1]] : '';
+                        return { value, label, ids, titleModal };
+                    });
+                    return dataSources;
+                });
+                //This promisse is data sources. It's gives data a select 
+                const todoData = await Promise.all(promises);
+                //This map is data sources. It's gives data a  modal Create 
+                const filteredTodostoCreatePlusA = colIdPath.map((element: any) => {
+                    return [element.datasKey, element.titleModal]
+                });
+
+                SetFilteredTodostoCreatePlusArrays(filteredTodostoCreatePlusA.length > 0 && filteredTodostoCreatePlusA);
+                setTodoSelect(todoData);
+            } catch (error) {
+                console.error("Error in todo:", error);
             }
-            SetFilteredTodostoCreatePlusArrays(FilteredTodostoCreatePlusA.length > 0 && FilteredTodostoCreatePlusA)
-            setTodoSelect(todoData)
+        };
 
-            // SetFilteredTodostoCreatePlusArrays(dataArraKeyCol)
+        todo();
+    }, [props]);
 
-        }
-        todo()
-    }, [props])
+
 
     return (
         <div className={styles.body}>
-            <div className={styles.selects}>
+            <div className={styles.selectsGeneral} >
+                <div className={styles.selects}>
+                    {
+                        todoSelect && todoSelect?.map((item: any) =>
+                            <div key={item?.key || item?.dataIndex}>
 
-                {
-                    filteredTodostoCreatePlusArrays && filteredTodostoCreatePlusArrays?.map((item: any) =>
-                        <div key={item?.key || item?.dataIndex}>
 
-                            
-                                <ModalSelectGeneralCrud
-                                    objectKeys={item}
-                                    IType={""}
+                                <Selectcrud
+                                    data={data}
+                                    setData={setData}
+                                    todoSelect={item}
                                 />
-                        </div>
-                    )
-                }
-                {
-                    todoSelect && todoSelect?.map((item: any) =>
-                        <div key={item?.key || item?.dataIndex}>
+                            </div>
+                        )
+                    }
+
+                </div>
 
 
-                            <Selectcrud
-                                data={data}
-                                setData={setData}
-                                todoSelect={item}
-                            />
-                        </div>
-                    )
-                }
+                {/* boton con el modalexpandible */}
+                <div className={styles.buttons}>
+                    {
+                        filteredTodostoCreatePlusArrays && filteredTodostoCreatePlusArrays?.map((item: any) =>
+                            <div
+                                key={item?.key || item?.dataIndex}
+                                className={styles.button}
+                            >
+
+
+                                <ModalSelectGeneralCrud
+                                    objectKeys={item[0]}
+                                    IType={""}
+                                    modalTitles={item[1]}
+
+                                />
+                            </div>
+                        )
+                    }
+
+                </div>
             </div>
             <div className={styles.bodyElements}>
 
@@ -141,6 +158,7 @@ const CreateAutogenerateGeneral = (props: any) => {
                     </div>
                 ))}
             </div>
+            <br /><hr />
         </div>
     )
 }

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 // import { Button, Input, Modal } from 'antd';
 
 // import { PlusOutlined } from '@ant-design/icons';
 // import Inputs from '@/components/inputs/Inputs';
 import styles from './modal.module.css'
+import Backdrop from '@mui/material/Backdrop';
 
 
 import { Button, Input } from 'antd';
@@ -26,9 +27,9 @@ const style = {
     borderRadius: '10px',
     boxShadow: 'inset 0 0 0 0px rgba(0, 0, 0, 0.3)', // Adjust colors and size as needed
     padding: '24px',
-    zIndex: 1000,
+    zIndex: 800,
     color: 'white',
-    fontFamily:'Arial, Helvetica, sans-serif'
+    fontFamily: 'Arial, Helvetica, sans-serif'
 };
 
 
@@ -36,12 +37,24 @@ const ModalSelectGeneralCrud = (props: any) => {
     const [open, setOpen] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const { objectKeys, IType } = props
-    console.log("🚀 ~ ModalSelectGeneralCrud ~ objectKeys:", objectKeys)
+    const { objectKeys, IType, modalTitles } = props
     const [data, setData] = useState<any | any[]>()
+    const [dataObjectKeys, setDataObjectKeys] = useState<any | any[] | undefined>()
+
+    useMemo(() => {
+        const todoAsync = async () => {
+            const dataReturnFilter = objectKeys?.filter((item: any) => item.title !== "key" && item.title !== "id" && item.title !== "createdAt" && item.title !== "updatedAt")
+            setDataObjectKeys(dataReturnFilter)
+        }
+        todoAsync()
+    }, [props])
+
+
+
+
+
 
     const handlechange = (value: any) => {
-        console.log("🚀 ~ handleChange ~ value:", value)
         // setData(value)
     }
 
@@ -59,84 +72,32 @@ const ModalSelectGeneralCrud = (props: any) => {
     objectKeys?.map((item: any, index: number) => console.log("🚀 ~ ModalSelectGeneralCrud ~ item: any, index: number:", item, index)
     )
     return (
-        // <div className={styles.body}>
-        //     <div className={styles.button}>
-        //         <Button
-        //             // type="primary" 
-        //             // onClick={() => setOpen(true)}
-        //             onClick={showModal}
-        //             icon={<PlusOutlined />}
-        //         >
-        //             Add item
-        //         </Button>
-        //     </div>
-        //     <Modal
-        //         className={styles.modal}
-        //         title="Add Items"
-        //         // centered
-        //         // open={open}
-        //         open={isModalOpen}
-        //         centered
-        //         // open={open} // Descomenta esta línea
-        //         footer={null}
-        //         onOk={() => setOpen(false)}
-        //         onCancel={() => setOpen(false)}
-        //     // width={1000}
-        //     >
-        //         {/* {props &&
-        //             objectKeys?.map((item: any, index: number) => ( // Agregar un índice único para cada elemento
-        //                 <div key={index}>
-        //                     {
-        //                         (item === 'id' || item === 'createdAt' || item === 'updatedAt') ? "" :
 
-        //                             <Inputs
-        //                                 name={item || item?.title}
-        //                                 placeholder={item || item?.title}
-        //                                 className={props?.className}
-        //                                 data={data}
-        //                                 setData={setData}
-        //                                 // type={item?.includes("status") ? "bolean" : IType || item?.types}
-        //                                 block
-        //                             />
-        //                     }
-
-
-
-        //                     <br />
-        //                 </div>
-        //             ))}
-        //         <br />
-        //         <Button
-        //             onClick={Send}
-        //             block
-        //             type='primary'
-        //         >
-        //             <PlusOutlined />
-        //         </Button> */}
-        //     </Modal>
-        // </div>
         <div className={styles.body}>
             <div className={styles.button}>
-                <Button onClick={handleOpen}>Open modal</Button>
+                <Button onClick={handleOpen}>Create Item {modalTitles}</Button>
             </div>
             <Modal
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
+
             >
                 <Box sx={style}>
+
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Text in a modal
+                        Create {modalTitles && modalTitles}
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         <div className={styles.modal2}>
-                     
+
                             {props &&
-                                objectKeys?.map((item: any, index: number) => (
+                                dataObjectKeys?.map((item: any, index: number) => (
                                     <div key={index} className={styles.input}>
                                         {
-                                            (item === 'id' || item === 'createdAt' || item === 'updatedAt') ? "" :
+
+                                            (item.title !== "key" && item.title !== "id" && item.title !== "createdAt" && item.title !== "updatedAt") ?
                                                 <Inputs
                                                     name={item && item?.title}
                                                     placeholder={item && item?.title}
@@ -145,22 +106,24 @@ const ModalSelectGeneralCrud = (props: any) => {
                                                     setData={setData}
                                                     type={item && item.types === "string" ? "text" : item.types}
                                                     block
-                                                />
+                                                /> : ""
                                         }
                                     </div>
                                 ))}
-                             <br />
-                             <br />
-                           <hr />
-                            <Button
-                                style={{ padding: '10px 20px' }}
-                                onClick={Send}
-                                block
-                                type='primary'
-                            >
-                                <PlusOutlined />
-                            </Button>
+
                         </div>
+                        <br />
+
+                        <Button
+                            className={styles.buttons}
+                            style={{ padding: '1px 20px' }}
+                            onClick={Send}
+                            block
+                            type='primary'
+                        >
+                            <PlusOutlined />
+                            <br />
+                        </Button>
                     </Typography>
                 </Box>
             </Modal>

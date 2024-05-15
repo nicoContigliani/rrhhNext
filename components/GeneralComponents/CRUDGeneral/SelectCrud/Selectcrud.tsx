@@ -18,6 +18,7 @@ import Form from 'react-bootstrap/Form';
 
 const Selectcrud = (props: any) => {
     const { todoSelect, data, setData } = props
+    console.log("🚀 ~ Selectcrud ~ todoSelect:", todoSelect)
 
 
     // console.log("🚀 ~ onChange ~ todoSelect[0].ids:", todoSelect[0].ids)
@@ -105,7 +106,7 @@ const Selectcrud = (props: any) => {
                                 className={styles.input}
                                 data={data}
                                 setData={setData}
-                                placeholder="sertch"
+                                placeholder={(dataFilterComponente[0] !== undefined) ? `Search ${dataFilterComponente[0]?.titleModal}` : "Serch"}
                                 name="sertch"
                                 type={"text"}
                                 autoFocus={true}

@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-export const formaterDataArray = async (datarule: any) => {
+export const formaterDataArray = async (datarule: any, dataTitle: string) => {
 
     let todo: any | any[] = await datarule?.map((item: any) => {
 
@@ -15,7 +15,8 @@ export const formaterDataArray = async (datarule: any) => {
             title: item,
             dataIndex: item,
             types: typeof (item),
-            
+            titlePlaceholder: dataTitle
+
 
         }
     })

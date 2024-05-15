@@ -23,21 +23,12 @@
         align-content: center;
         box-shadow: 1px 3px 30px #c2ccfd30, -8px -1px 2px #ffffffb8;
         border-radius: 5%;
-    
-        z-index: 9999; /* Valor alto de z-index para superponer sobre todo */
+
+        z-index: 9999;
+        /* Valor alto de z-index para superponer sobre todo */
 
     }
-    .selects{
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: space-between;
-        align-items: center;
-        align-content: flex-start;
-        padding-right: 5%;
-        padding-left: 5%;
-        z-index: 999;
 
-    }
     .bodyElements {
         display: flex;
         flex-wrap: wrap;
@@ -48,10 +39,54 @@
         padding: 0 0%;
         z-index: 999;
     }
-    .input{
+
+    .selectsGeneral {
+        padding: 3%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        align-content: center;
+    }
+
+    .selects {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        /* padding-right: 1%;
+        padding-left: 1%; */
+        z-index: 999;
+
+    }
+
+    .input {
         margin-left: 2%;
         margin-right: 2%;
     }
 
-  
+    .buttons {
+
+        display: flex;
+        flex-wrap: nowrap;
+        margin-left: 10%;
+        margin-right: 10%;
+        justify-content: space-around;
+        align-items: center;
+        align-content: center;
+        padding: 1%;
+        /* box-shadow: 1px 3px 30px #c2ccfd30, -8px -1px 2px #ffffffb8; */
+        border-radius: 5%;
+        /* padding-right: 1%;
+        padding-left: 1%; */
+    }
+
+    .button {
+        padding-left: 9%;
+        padding-right: 10%;
+        box-shadow: 1px 3px 30px #c2ccfd30, -8px -1px 2px #ffffffb8;
+    }
+
+
 }

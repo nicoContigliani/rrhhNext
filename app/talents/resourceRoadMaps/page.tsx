@@ -190,7 +190,7 @@ const page = () => {
   //formatea la columna principal
   useEffect(() => {
     const todo = async () => {
-      let todos = await formaterDataArray(fl1)
+      let todos = await formaterDataArray(fl1,"Roadmap")
 
 
 
@@ -289,7 +289,7 @@ const page = () => {
           setInterviewsData(interviews)
           // const dataReturns = await formatDataAllElementNotArray(interviews, f130_interviewsArray, fl1)
           const interviewsKeys = Object.keys(interviews[0])
-          let formaterDataArrayInterViewsKeys = await formaterDataArray(interviewsKeys)
+          let formaterDataArrayInterViewsKeys = await formaterDataArray(interviewsKeys,"Interviews")
           setInterviewsDataKey(formaterDataArrayInterViewsKeys)
         } catch (error) {
           console.log("🚀 ~ fetchInterviewsAndVacancies ~ error:", error)
@@ -303,7 +303,7 @@ const page = () => {
 
           // const dataReturns = await formatDataAllElementNotArray(vacancies, f130_1_vacanciesArray, fl1)
           const vacanciesKeys = Object.keys(vacancies[0])
-          let formaterDataArrayVacanciesKeys = await formaterDataArray(vacanciesKeys)
+          let formaterDataArrayVacanciesKeys = await formaterDataArray(vacanciesKeys,"Vacancies")
           setVacanciesDataKey(formaterDataArrayVacanciesKeys)
         } catch (error) {
           console.log("🚀 ~ fetchInterviewsAndVacancies ~ error:", error)
@@ -317,10 +317,6 @@ const page = () => {
 
 
 
-
-
-
-
   const createDataStart = {
     col: col1,
     colIdPath: [
@@ -329,7 +325,9 @@ const page = () => {
         paths: "/Interview/Interview",
         datas: interviewsData,
         datasKey: interviewsDataKey,
-        datakey: ['id', 'interviewers']
+        datakey: ['id', 'interviewers'],
+        titleModal:'Interview'
+
 
       },
       {
@@ -337,7 +335,8 @@ const page = () => {
         paths: "/Vacancy/Vacancy",
         datas: vacanciesData,
         datasKey: vacanciesDataKey,
-        datakey: ['id', 'title']
+        datakey: ['id', 'title'],
+        titleModal:'Vacancy'
       }
     ]
   }

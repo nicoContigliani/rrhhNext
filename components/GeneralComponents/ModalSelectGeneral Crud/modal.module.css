@@ -35,32 +35,75 @@
     .modal {
         position: relative;
         width: 50%;
-        z-index: 9999;     /* High z-index to ensure it's above most elements */
+        z-index: 9999;
+        /* High z-index to ensure it's above most elements */
     }
+
     .modal2 {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        align-items: center;
-        align-content: center;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        /* Dos columnas de igual tamaño */
+        gap: 15px;
+        /* Espacio entre las celdas */
         background-color: white;
-        /* box-shadow: 1px 3px 30px #c2ccfd30, -8px -1px 2px #ffffffb8; */
         border-radius: 2%;
-        padding: 3%;
+        padding: 5%;
+        margin: 1%;
         transition: box-shadow 1000ms;
         overflow: auto;
+        box-shadow: 0 2px 15px #00000043;
 
     }
+
     .modal2:hover {
-        transition: box-shadow 500ms; 
-        box-shadow: 0 2px 15px #000000a1;
-        backdrop-filter: blur(55px); /* 5px blur strength */
+        transition: box-shadow 500ms;
+        box-shadow: 0 2px 15px #0000005c;
+        backdrop-filter: blur(55px);
+        /* 5px blur strength */
 
 
     }
 
     .input {
         box-sizing: border-box;
-        flex-grow: 1;  /* Allow inputs to grow equally */
+        flex-grow: 1;
+        /* Allow inputs to grow equally */
+        align-self: stretch;
+        /* Align inputs to stretch vertically */
+        /* Añadir cualquier otro estilo necesario para los inputs */
+    }
+
+    .buttons {
+        font-family: Arial, Helvetica, sans-serif;
+
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        color: #1890ff;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        font-size: 14px;
+        font-weight: 500;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    }
+
+    .buttons:hover {
+        background-color: #e6f7ff;
+        /* border-color: #91d5ff; */
+        color: #1890ff;
+        box-shadow: 0 2px 15px #00000043;
+        transition: box-shadow 1000ms;
+
+
+    }
+
+    .buttons:active {
+        background-color: #bae7ff;
+        /* border-color: #1890ff; */
+        color: #096dd9;
     }
 }
