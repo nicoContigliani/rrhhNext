@@ -106,4 +106,19 @@
         /* border-color: #1890ff; */
         color: #096dd9;
     }
+
+    .textTitleInModal {
+        display: block;
+        /* Para asegurarse de que cada label esté en su propia línea */
+        margin-bottom: 1px; /* Reducir el espacio entre el label y el input */
+        /* Espacio entre el label y el input */
+        font-weight: bold;
+        /* Hace que el label sea más prominente */
+        color: #827d7d;
+        /* Color de texto */
+        padding-bottom: -1px;
+        font-family: Arial, Helvetica, sans-serif;
+
+    }
+
 }

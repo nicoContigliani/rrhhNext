@@ -79,7 +79,9 @@ const CreateAutogenerateGeneral = (props: any) => {
                 const todoData = await Promise.all(promises);
                 //This map is data sources. It's gives data a  modal Create 
                 const filteredTodostoCreatePlusA = colIdPath.map((element: any) => {
-                    return [element.datasKey, element.titleModal]
+
+                    
+                    return [element.datasKey, element.titleModal, element.paths]
                 });
 
                 SetFilteredTodostoCreatePlusArrays(filteredTodostoCreatePlusA.length > 0 && filteredTodostoCreatePlusA);
@@ -129,6 +131,7 @@ const CreateAutogenerateGeneral = (props: any) => {
                                     objectKeys={item[0]}
                                     IType={""}
                                     modalTitles={item[1]}
+                                    pathCrud={item[2]}
 
                                 />
                             </div>

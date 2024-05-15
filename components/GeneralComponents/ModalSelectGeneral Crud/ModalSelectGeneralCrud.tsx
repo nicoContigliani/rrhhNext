@@ -37,7 +37,7 @@ const ModalSelectGeneralCrud = (props: any) => {
     const [open, setOpen] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const { objectKeys, IType, modalTitles } = props
+    const { objectKeys, IType, modalTitles, pathCrud } = props
     const [data, setData] = useState<any | any[]>()
     const [dataObjectKeys, setDataObjectKeys] = useState<any | any[] | undefined>()
 
@@ -59,6 +59,7 @@ const ModalSelectGeneralCrud = (props: any) => {
     }
 
     const Send = () => {
+        alert("si")
 
     }
     const showModal = () => {
@@ -71,6 +72,37 @@ const ModalSelectGeneralCrud = (props: any) => {
 
     objectKeys?.map((item: any, index: number) => console.log("🚀 ~ ModalSelectGeneralCrud ~ item: any, index: number:", item, index)
     )
+
+    const rulesWordStartStatus = ((dataWord: string) => {
+
+        if (dataWord.toLowerCase().startsWith("status_")) {
+
+            return "checkbox";
+        }
+    })
+    const rulesType = (dataInputs: string) => {
+
+
+        switch (dataInputs) {
+            case "string":
+                return "text";
+            case "number":
+                return "number";
+            case "boolean":
+                return "checkbox";
+
+            case "boolean":
+                return "checkbox";
+
+
+            default:
+                return "text";
+        }
+    }
+
+
+
+
     return (
 
         <div className={styles.body}>
@@ -94,20 +126,39 @@ const ModalSelectGeneralCrud = (props: any) => {
 
                             {props &&
                                 dataObjectKeys?.map((item: any, index: number) => (
-                                    <div key={index} className={styles.input}>
-                                        {
 
-                                            (item.title !== "key" && item.title !== "id" && item.title !== "createdAt" && item.title !== "updatedAt") ?
-                                                <Inputs
-                                                    name={item && item?.title}
-                                                    placeholder={item && item?.title}
-                                                    className={props?.className}
-                                                    data={data}
-                                                    setData={setData}
-                                                    type={item && item.types === "string" ? "text" : item.types}
-                                                    block
-                                                /> : ""
-                                        }
+
+                                    <div>
+                                        <div className={styles.textTitleInModal}>
+                                            {rulesWordStartStatus(item.title) === "checkbox" && (
+                                                <label>{item.title}</label>
+                                            )}
+
+                                        </div>
+
+                                        <div key={index} className={styles.input}>
+                                            {
+
+
+
+
+
+                                                (item.title !== "key" && item.title !== "id" && item.title !== "createdAt" && item.title !== "updatedAt") ?
+
+                                                    <Inputs
+                                                        name={item && item?.title}
+                                                        placeholder={item && item?.title}
+                                                        className={props?.className}
+                                                        data={data}
+                                                        setData={setData}
+                                                        // type={item && item.types === "string" ? "text" : item.types}
+                                                        type={
+                                                            rulesWordStartStatus(item.title) ||
+                                                            rulesType(item.types)}
+                                                        block
+                                                    /> : ""
+                                            }
+                                        </div>
                                     </div>
                                 ))}
 
@@ -120,6 +171,7 @@ const ModalSelectGeneralCrud = (props: any) => {
                             onClick={Send}
                             block
                             type='primary'
+
                         >
                             <PlusOutlined />
                             <br />
