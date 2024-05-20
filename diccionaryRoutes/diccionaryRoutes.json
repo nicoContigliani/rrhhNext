@@ -1,0 +1,39 @@
+{
+    "InterviewResponsibleId": {
+        "synonyms": [
+            "InterviewResponsible"
+        ],
+        "routesPath": "/InterviewResponsible/InterviewResponsible"
+    },
+    "InterviewUserId": {
+        "synonyms": [
+            "InterviewUser"
+        ],
+        "routesPath": "/InterviewUser/InterviewUser"
+    },
+    "InterviewId": {
+        "synonyms": [
+            "Interview"
+        ],
+        "routesPath": "/Interview/Interview"
+    },
+    "UserId": {
+        "synonyms": [
+            "Interviewers",
+            "interviewers"
+        ],
+        "routesPath": "/User/User/"
+    },
+    "TypeVacancyId": {
+        "synonyms": [
+            "TypeVacancyId"
+        ],
+        "routesPath": "/TypeVacancy/TypeVacancy"
+    },
+    "TypeInterviewId": {
+        "synonyms": [
+            "TypeInterview"
+        ],
+        "routesPath": "/TypeInterview/TypeInterview"
+    }
+}
