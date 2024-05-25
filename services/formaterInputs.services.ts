@@ -3,8 +3,16 @@ export const rulesWordStartStatus = ((dataWord: string) => {
 
         return "checkbox";
     }
+    if (dataWord.includes("start_")) {
 
-    if (dataWord.trim().toLowerCase().includes("interviewdatetime") || dataWord.trim().toLowerCase().includes("start_vacancy") || dataWord.trim().toLowerCase().includes("finish_vacancy")) {
+        return "datetime-local";
+    }
+    if (dataWord.includes("finish")) {
+
+        return "datetime-local";
+    }
+    if (dataWord.includes("interviewDateTime")) {
+
         return "datetime-local";
     }
 })
@@ -18,8 +26,11 @@ export const rulesType = (dataInputs: string) => {
         case "boolean":
             return "checkbox";
 
-        case "date":
-            return "date";
+        case "boolean":
+            return "checkbox";
+
+        case "datetime-local":
+            return "datetime-local"    
 
 
         default:

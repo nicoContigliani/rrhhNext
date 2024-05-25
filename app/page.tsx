@@ -9,6 +9,7 @@ import dynamic from 'next/dynamic'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react'
 import { authAsync, selectAuth } from '@/redux/features/auth/authSlice'
+
 import { readLocalStorage } from '@/services/storage.services';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
@@ -18,6 +19,7 @@ import Main from '@/components/Main/Main';
 import Iconf from '@/components/images/flama.png'
 import Presentation from '@/components/Presentation/Presentation';
 import { selectModuleServices } from '@/redux/features/modulesServices/moduleServicesSlice';
+import { rootsAsync } from '@/redux/features/roots/rootsSlice';
 
 const Logo = dynamic(() => import('@/components/Logo/Logo'), { ssr: false })
 
@@ -100,6 +102,17 @@ export default function Home() {
     // alert("si")
     dispatch(authAsync(data))
   }
+
+
+  useEffect(() => {
+    dispatch(rootsAsync())
+
+  }, [])
+
+
+
+
+
 
   return (
     <main className={styles.main}>

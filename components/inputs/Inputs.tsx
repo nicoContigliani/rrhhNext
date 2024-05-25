@@ -1,5 +1,7 @@
 import React from 'react'
-import { Input } from '@mui/material';
+// import { Input } from '@mui/material';
+import TextField from '@mui/material/TextField';
+
 import style from './Inputs.module.css'
 import { Switch } from 'antd';
 
@@ -24,18 +26,32 @@ const Inputs = (props: any) => {
 
 
     return (
-        <div>
+        <div style={{width:'100%'}}>
+            {(type === 'text' || type === 'number' || type === 'email' || type === 'password' || type === 'date' || type === 'datetime-local') ?
 
-            {(type === 'text' || type === 'number' || type === 'email'||type==='password' ||type==='date') ?
+                <TextField {...props}
+                    variant="standard"
+                    size="small"
+                    fullWidth
 
-                <Input {...props}
                     className={`${props.className}`}
+                    label={props?.name}
                     onChange={handlechange}
                     type={type ? type : 'text'}
                 />
                 :
                 <div>
                     <br />
+                    <span style={{
+                        color:"grey",
+                        paddingRight:'5px',
+                        fontSize:'small',
+                        fontFamily:'Arial, Helvetica, sans-serif'
+                        }}>
+                            {props?.name}
+                        <small>
+                        </small>
+                    </span>
                     <Switch
                         unCheckedChildren="Desactive"
                         checkedChildren="Active"

@@ -15,7 +15,9 @@ export const formaterDataArray = async (datarule: any, dataTitle: string) => {
             title: item,
             dataIndex: item,
             types: typeof (item),
-            titlePlaceholder: dataTitle
+            titlePlaceholder: dataTitle,
+            value: item,
+            label: item
 
 
         }

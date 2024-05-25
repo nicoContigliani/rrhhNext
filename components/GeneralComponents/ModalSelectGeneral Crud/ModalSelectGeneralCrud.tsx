@@ -1,53 +1,86 @@
-import React, { useMemo, useState } from 'react';
-// import { Button, Input, Modal } from 'antd';
+import React, { useEffect, useMemo, useState } from 'react';
+import diccionaryRoutesAndComponents from '@/diccionaryDataKey/diccionaryRoutesAndComponents.json'
 
-// import { PlusOutlined } from '@ant-design/icons';
-// import Inputs from '@/components/inputs/Inputs';
+
+
+
+
+type DictionaryRoutesAndComponents = typeof diccionaryRoutesAndComponents;
+type DataTitle = keyof DictionaryRoutesAndComponents;
+
 import styles from './modal.module.css'
-import Backdrop from '@mui/material/Backdrop';
+const style = {
+    position: 'absolute' as 'absolute',
+    top: '47vh',
+    left: '50vw',
+    transform: 'translate(-50%, -50%)',
+    width: 'calc(58vw - 48px)', // Adjust for desired padding (24px * 2)
+    // Height:'calc(50vw - 48px)',
+    minWidth: '343px', // Set minimum width for smaller screens
+    backgroundColor: 'rgba(255, 255, 255, 0.001)',
+    borderRadius: '10px',
+    boxShadow: 'inset 0 0 0 0px rgba(0, 0, 0, 0.3)', // Adjust colors and size as needed
+    padding: '1px',
+    zIndex: 800,
+    color: 'white',
+    fontFamily: 'Arial, Helvetica, sans-serif'
+};
+import { useDispatch, useSelector } from 'react-redux';
 
 
 import { Button, Input } from 'antd';
-
-
 import Box from '@mui/material/Box';
 // import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Inputs from '@/components/inputs/Inputs';
-import { PlusOutlined } from '@ant-design/icons';
+import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
+import { rulesType, rulesWordStartStatus } from '@/services/formaterInputs.services';
+import { fetchCrud } from '@/redux/features/CRUD/crudSlice';
+import Selectcrud from '../CRUDGeneral/SelectCrud/Selectcrud';
+import { Height } from '@mui/icons-material';
+import dataFetchForSelectService from '@/services/dataFetchForSelect.service';
 
-const style = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 'auto',
-    backgroundColor: 'rgba(255, 255, 255, 0.01)', // Adjust opacity for desired transparency
-    borderRadius: '10px',
-    boxShadow: 'inset 0 0 0 0px rgba(0, 0, 0, 0.3)', // Adjust colors and size as needed
-    padding: '24px',
-    zIndex: 800,
-    color: 'white',
-    fontFamily: 'Arial, Helvetica, sans-serif'
-};
+
+
 
 
 const ModalSelectGeneralCrud = (props: any) => {
+
+    const dispatch = useDispatch();
+
+
     const [open, setOpen] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const { objectKeys, IType, modalTitles, pathCrud } = props
     const [data, setData] = useState<any | any[]>()
     const [dataObjectKeys, setDataObjectKeys] = useState<any | any[] | undefined>()
+    const [selectDataSources, setSelectDataSources] = useState<any | any[] | undefined>();
+    const [dataSelectSecondary, setDataSelectSecondary] = useState<any | any[] | undefined>()
 
-    useMemo(() => {
+
+
+    useEffect(() => {
         const todoAsync = async () => {
-            const dataReturnFilter = objectKeys?.filter((item: any) => item.title !== "key" && item.title !== "id" && item.title !== "createdAt" && item.title !== "updatedAt")
-            setDataObjectKeys(dataReturnFilter)
+            try {
+                const dataReturnFilter = objectKeys?.filter((item: any) => item.title !== "key" && item.title !== "id" && item.title !== "createdAt" && item.title !== "updatedAt")
+                setDataObjectKeys(dataReturnFilter)
+
+            } catch (error) {
+
+            }
+            try {
+                const dataWithIdForSelect = objectKeys?.filter((item: any) => item.title.includes("Id") && item.title !== "interviewTypeId");
+                setSelectDataSources(dataWithIdForSelect)
+            } catch (error) {
+
+            }
+
+
         }
         todoAsync()
-    }, [props])
+    }, [props?.objectKeys])
 
 
 
@@ -70,38 +103,31 @@ const ModalSelectGeneralCrud = (props: any) => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    objectKeys?.map((item: any, index: number) => console.log("🚀 ~ ModalSelectGeneralCrud ~ item: any, index: number:", item, index)
-    )
 
-    const rulesWordStartStatus = ((dataWord: string) => {
+    useEffect(() => {
 
-        if (dataWord.toLowerCase().startsWith("status_")) {
+    }, [])
 
-            return "checkbox";
+
+    const todoD: any[] = [];
+
+    const processDataSources = async () => {
+        if (selectDataSources) {
+
+            try {
+                const dataR = await dataFetchForSelectService({ selectDataSources, dispatch });
+                setDataSelectSecondary(dataR);
+                todoD.push(dataR);
+            } catch (error) {
+                console.error("Error fetching data for select:", error);
+            }
+
         }
-    })
-    const rulesType = (dataInputs: string) => {
+    };
 
-
-        switch (dataInputs) {
-            case "string":
-                return "text";
-            case "number":
-                return "number";
-            case "boolean":
-                return "checkbox";
-
-            case "boolean":
-                return "checkbox";
-
-
-            default:
-                return "text";
-        }
-    }
-
-
-
+    useEffect(() => {
+        processDataSources();
+    }, [selectDataSources]); // Runs only when selectDataSources changes
 
     return (
 
@@ -118,10 +144,16 @@ const ModalSelectGeneralCrud = (props: any) => {
             >
                 <Box sx={style}>
 
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                    {/* <Typography id="modal-modal-title" variant="h6" component="h2">
                         Create {modalTitles && modalTitles}
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                    </Typography> */}
+                    <Typography id="modal-modal-description" sx={{ mt: 0 }}>
+
+                        <div onClick={handleClose} className={styles.close}>
+                            <CloseOutlined />
+                        </div>
+
+                        Create {modalTitles && modalTitles}
                         <div className={styles.modal2}>
 
                             {props &&
@@ -130,40 +162,77 @@ const ModalSelectGeneralCrud = (props: any) => {
 
                                     <div>
                                         <div className={styles.textTitleInModal}>
-                                            {rulesWordStartStatus(item.title) === "checkbox" && (
-                                                <label>{item.title}</label>
-                                            )}
+                                            {/* {rulesWordStartStatus(item.title) === "checkbox" && (
+                                                    <label>{item.title}</label>
+                                                    {allShows(item?.title)}
+                                                    
+                                                )} */}
 
                                         </div>
+
 
                                         <div key={index} className={styles.input}>
+
                                             {
 
+                                                (item.title === "key" || item.title === "id" || item.title === "createdAt" || item.title === "updatedAt") ? null :
+
+                                                    (
+                                                        item.title !== "interviewTypeId"
+                                                        &&
+                                                        item.title.includes('Id')
+                                                    ) ?
+                                                        // `${item.title}`
+                                                        <div className={styles.selects}>
+
+                                                            {
+                                                                dataSelectSecondary && dataSelectSecondary?.map((item: any) =>
+                                                                    <div key={item?.key || item?.dataIndex}>
 
 
+                                                                        <Selectcrud
+                                                                            data={data}
+                                                                            setData={setData}
+                                                                            todoSelect={item}
+                                                                        />
+                                                                    </div>
+                                                                )
+                                                            }
+                                                        </div>
+                                                        :
+                                                        <div
+                                                            className={styles.inputs}
+                                                        >
+                                                            {/* {(rulesType(item.types) === "datetime-local" || rulesWordStartStatus(item.title) === "datetime-local") ?
+                                                                    <div 
+                                                                    >
+                                                                        {item.title}
+                                                                    </div>
+                                                                    : null} */}
 
+                                                            <Inputs
+                                                                name={item && item?.title}
+                                                                placeholder={item && item?.title}
+                                                                className={props?.className}
+                                                                data={data}
+                                                                setData={setData}
+                                                                fullWidth
+                                                                block
 
-                                                (item.title !== "key" && item.title !== "id" && item.title !== "createdAt" && item.title !== "updatedAt") ?
-
-                                                    <Inputs
-                                                        name={item && item?.title}
-                                                        placeholder={item && item?.title}
-                                                        className={props?.className}
-                                                        data={data}
-                                                        setData={setData}
-                                                        // type={item && item.types === "string" ? "text" : item.types}
-                                                        type={
-                                                            rulesWordStartStatus(item.title) ||
-                                                            rulesType(item.types)}
-                                                        block
-                                                    /> : ""
+                                                                // type={item && item.types === "string" ? "text" : item.types}
+                                                                type={
+                                                                    rulesWordStartStatus(item.title) ||
+                                                                    rulesType(item.types)}
+                                                            />
+                                                        </div>
                                             }
                                         </div>
+
+
                                     </div>
                                 ))}
 
                         </div>
-                        <br />
 
                         <Button
                             className={styles.buttons}
@@ -176,10 +245,11 @@ const ModalSelectGeneralCrud = (props: any) => {
                             <PlusOutlined />
                             <br />
                         </Button>
+
                     </Typography>
                 </Box>
             </Modal>
-        </div>
+        </div >
     )
 }
 

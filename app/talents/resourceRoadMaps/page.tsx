@@ -120,13 +120,15 @@ const page = () => {
 
   const fl31 = ['InterviewResponsible']
 
-  const fl311 = ["InterviewId",
+  const fl311 = [
+    "InterviewId",
     "RoadMapId",
     "UserId",
     "createdAt",
     "responsibilityDescription",
     "status_interview_responsible",
-    "updatedAt"]
+    "updatedAt"
+  ]
 
 
   const fl32 = ['Interviewees']
@@ -140,7 +142,8 @@ const page = () => {
     "password",
     "phone",
     "status_user",
-    "updatedAt"]
+    "updatedAt"
+  ]
 
 
   const fl33 = ['Responsibles']
@@ -154,11 +157,13 @@ const page = () => {
     "password",
     "phone",
     "status_user",
-    "updatedAt"]
+    "updatedAt"
+  ]
 
   const fl34 = ['Vacancies']
 
-  const fl341 = ["TypeVacancyId",
+  const fl341 = [
+    "TypeVacancyId",
     "createdAt",
     "description",
     "extra_data",
@@ -171,17 +176,20 @@ const page = () => {
     "status_vacancy",
     "status_vacancy_work",
     "title",
-    "updatedAt"]
+    "updatedAt"
+  ]
 
   const fl342 = ["InterviewVacance"]
-  const fl3421 = ["InterviewId",
+  const fl3421 = [
+    "InterviewId",
     "VacancyId",
     "comments",
     "createdAt",
     "interviewDateTime",
     "results",
     "status_interview_vacancy_",
-    "updatedAt"]
+    "updatedAt"
+  ]
 
 
 
@@ -190,7 +198,7 @@ const page = () => {
   //formatea la columna principal
   useEffect(() => {
     const todo = async () => {
-      let todos = await formaterDataArray(fl1,"Roadmap")
+      let todos = await formaterDataArray(fl1, "Roadmap")
 
 
 
@@ -289,13 +297,13 @@ const page = () => {
           setInterviewsData(interviews)
           // const dataReturns = await formatDataAllElementNotArray(interviews, f130_interviewsArray, fl1)
           const interviewsKeys = Object.keys(interviews[0])
-          let formaterDataArrayInterViewsKeys = await formaterDataArray(interviewsKeys,"Interviews")
+          let formaterDataArrayInterViewsKeys = await formaterDataArray(interviewsKeys, "Interviews")
           setInterviewsDataKey(formaterDataArrayInterViewsKeys)
         } catch (error) {
           console.log("🚀 ~ fetchInterviewsAndVacancies ~ error:", error)
         }
       }
-   
+
 
       if (vacancies) {
         try {
@@ -303,13 +311,13 @@ const page = () => {
 
           // const dataReturns = await formatDataAllElementNotArray(vacancies, f130_1_vacanciesArray, fl1)
           const vacanciesKeys = Object.keys(vacancies[0])
-          let formaterDataArrayVacanciesKeys = await formaterDataArray(vacanciesKeys,"Vacancies")
+          let formaterDataArrayVacanciesKeys = await formaterDataArray(vacanciesKeys, "Vacancies")
           setVacanciesDataKey(formaterDataArrayVacanciesKeys)
         } catch (error) {
           console.log("🚀 ~ fetchInterviewsAndVacancies ~ error:", error)
         }
       }
-   
+
     };
 
     fetchInterviewsAndVacancies();
@@ -326,7 +334,7 @@ const page = () => {
         datas: interviewsData,
         datasKey: interviewsDataKey,
         datakey: ['id', 'interviewers'],
-        titleModal:'Interview'
+        titleModal: 'Interview'
 
 
       },
@@ -336,10 +344,27 @@ const page = () => {
         datas: vacanciesData,
         datasKey: vacanciesDataKey,
         datakey: ['id', 'title'],
-        titleModal:'Vacancy'
+        titleModal: 'Vacancy'
       }
     ]
   }
+
+
+  // const { ids, paths, datas, datasKey, datakey, titleModal } = element;
+
+
+  const other = [{
+    ids: "VacancyId",
+    paths: "/Vacancy/Vacancy",
+    datas: vacanciesData,
+    datasKey: vacanciesDataKey,
+    datakey: ['id', 'name_type_test'],
+    titleModal: 'Vacancy'
+  }]
+
+
+
+
 
 
 

@@ -15,6 +15,7 @@ import personalDescriptionReducer from '@/redux/features/stepss/personalDescript
 import tittleCVReducer from '@/redux/features/stepss/tittleCV/tittleCVSlice';
 import moduleSevicesReducer from '@/redux/features/modulesServices/moduleServicesSlice';
 import crudReducer from '@/redux/features/CRUD/crudSlice';
+import rootsReducer from '@/redux/features/roots/rootsSlice'
 
 export const store = configureStore({
   reducer: {
@@ -32,6 +33,7 @@ export const store = configureStore({
     disponibility: disponibilityReducer,
     tittleCV: tittleCVReducer,
     crud: crudReducer,
+    roots: rootsReducer
     // moduleServices:moduleSevicesReducer
   },
   // middleware: (gDM:any) => gDM().concat(thunkMiddleware)

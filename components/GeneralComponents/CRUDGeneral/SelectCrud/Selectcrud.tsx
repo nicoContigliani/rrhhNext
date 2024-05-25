@@ -18,7 +18,6 @@ import Form from 'react-bootstrap/Form';
 
 const Selectcrud = (props: any) => {
     const { todoSelect, data, setData } = props
-    console.log("🚀 ~ Selectcrud ~ todoSelect:", todoSelect)
 
 
     // console.log("🚀 ~ onChange ~ todoSelect[0].ids:", todoSelect[0].ids)
@@ -77,26 +76,7 @@ const Selectcrud = (props: any) => {
 
     return (
         <div className={styles.body}>
-            <div className={styles.selects}>
-
-
-
-                {/* <ButonGeneralModal
-                    todo={data1}
-                    ids="0"
-                    creates={true}
-                    createData={createDataStart}
-                    updates={false}
-                    deletes={false}
-                    shows={false}
-                    settings={true}
-                    datas={data}
-
-                ></ButonGeneralModal> */}
-
-
-
-
+            {/* <div className={styles.selects}> */}
 
                 {
                     dataArray &&
@@ -110,10 +90,10 @@ const Selectcrud = (props: any) => {
                                 name="sertch"
                                 type={"text"}
                                 autoFocus={true}
+                                
                                 minLength={''} color={''} defaultValue={undefined} disabled={false} fullWidth={false} id={''} inputComponent={undefined} multiline={false} label={''} rows={''}
                             />
                         </div>
-                        <div>
 
                             <div className={styles.custom_select}>
 
@@ -131,10 +111,9 @@ const Selectcrud = (props: any) => {
 
                             </div>
 
-                        </div>
                     </div>
                 }
-            </div>
+            {/* </div> */}
         </div>
     );
 };

@@ -11,6 +11,30 @@
         align-items: center;
         align-content: center;
     }
+    .selects {
+        /* padding: 1%; */
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        box-shadow: 1px 3px 30px #c2ccfd30, -8px -1px 2px #ffffffb8;
+        border-radius: 5%;
+        z-index: 999;
+        width: 80%;
+    }
+
+    .inputs {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        align-content: center;
+        width: 80%;
+
+
+
+    }
 }
 
 @media screen and (min-width: 991px) {
@@ -33,19 +57,23 @@
         /* padding: 1%; */
         display: flex;
         flex-wrap: nowrap;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
         align-content: center;
         box-shadow: 1px 3px 30px #c2ccfd30, -8px -1px 2px #ffffffb8;
         border-radius: 5%;
         z-index: 999;
+        width: auto;
     }
-
+    .selects.flex-wrap-small {
+        flex-wrap: wrap;
+    }
+    
 
     .custom_select {
         position: relative;
         display: inline-block;
-        width: 220px;
+        width: 161px;
         height: 100%;
         /* padding: 5px 8px; */
         border: 1px solid #ffffff58;
@@ -92,8 +120,14 @@
     }
 
     .custom_select:hover {
-        border-color: #c6c6c674;
+        border-color: #c6c6c6b8;
         border-radius: 5%;
+        background-color: #605f5f18;
+        border-left: 2px solid #99999969;
+        border-top: 2px solid #9999995c;
+        border-radius: 5%;
+        box-shadow: 1px 3px 30px #c2ccfd30, -8px -1px 2px #ffffffb8;
+
 
     }
 
@@ -145,7 +179,7 @@
     }
 
     .inputs {
-        width: 100%;
+        width: 150px;
         height: 100%;
         background-color: transparent;
         display: flex;
@@ -158,5 +192,10 @@
         padding-bottom: 1%;
 
 
+    }
+}
+@media (max-width: 800px) {
+    .selects {
+        width: calc(100vw - 20px); /* Ancho de la ventana menos 20px de margen */
     }
 }

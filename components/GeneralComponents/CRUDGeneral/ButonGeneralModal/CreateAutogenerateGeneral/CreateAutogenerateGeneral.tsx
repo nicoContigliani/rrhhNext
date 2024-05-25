@@ -10,6 +10,10 @@ import Selectcrud from '../../SelectCrud/Selectcrud';
 import styles from './createAutoGenerate.module.css'
 import { FilterHeadTableRules } from '@/services/FilterHeadTableRules.services';
 import ModalSelectGeneralCrud from '@/components/GeneralComponents/ModalSelectGeneral Crud/ModalSelectGeneralCrud';
+import { rulesType, rulesWordStartStatus } from '@/services/formaterInputs.services';
+import { colDiccionary } from '@/services/colDiccionary.services';
+import { Button } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 
 
 
@@ -47,7 +51,8 @@ const CreateAutogenerateGeneral = (props: any) => {
 
                 ////This services is data sources. It's gives data a modal with auto generate inputs 
                 const filteredTodos = FilterHeadTableRules(col, colIdPath)
-                await setCols(filteredTodos);
+                const datafilterCol = filteredTodos?.filter((item: any) => item.dataIndex !== "id")
+                await setCols(datafilterCol);
             } catch (error) {
 
             }
@@ -55,10 +60,6 @@ const CreateAutogenerateGeneral = (props: any) => {
 
         fetchData();
     }, [props]);
-
-
-
-
 
     useEffect(() => {
         const todo = async () => {
@@ -68,6 +69,7 @@ const CreateAutogenerateGeneral = (props: any) => {
 
                 const promises = colIdPath.map(async (element: any) => {
                     const { ids, paths, datas, datasKey, datakey, titleModal } = element;
+
                     const dataSources = datas.map((item: any) => {
                         const value = (datakey[0] !== undefined && item !== undefined) ? item[datakey[0]] : '';
                         const label = (datakey[1] !== undefined && item !== undefined) ? item[datakey[1]] : '';
@@ -80,7 +82,7 @@ const CreateAutogenerateGeneral = (props: any) => {
                 //This map is data sources. It's gives data a  modal Create 
                 const filteredTodostoCreatePlusA = colIdPath.map((element: any) => {
 
-                    
+
                     return [element.datasKey, element.titleModal, element.paths]
                 });
 
@@ -94,10 +96,30 @@ const CreateAutogenerateGeneral = (props: any) => {
         todo();
     }, [props]);
 
+    useEffect(() => {
+        const getchDataCol = async () => {
+            const dataSearch: any[] = ["col_structure"]
+
+            const dataReturn = await colDiccionary(["col_structure"])
+            console.log("🚀 ~ getchDataCol ~ dataReturn:", await dataReturn)
+        }
+        getchDataCol()
+    }, [props])
+
+    const allShows = (dataTitle: any) => {
+        if (dataTitle.includes("order")) console.log("******poseeId*******", dataTitle, "***************")
 
 
+
+        return true
+    }
+
+    const Send = () => {
+
+    }
     return (
         <div className={styles.body}>
+
             <div className={styles.selectsGeneral} >
                 <div className={styles.selects}>
                     {
@@ -115,7 +137,6 @@ const CreateAutogenerateGeneral = (props: any) => {
                     }
 
                 </div>
-
 
                 {/* boton con el modalexpandible */}
                 <div className={styles.buttons}>
@@ -153,15 +174,37 @@ const CreateAutogenerateGeneral = (props: any) => {
                                 setData={setData}
                                 placeholder={item.title}
                                 name={item.title}
-                                type={'text'}
+                                type={
+                                    rulesWordStartStatus(item.title) ||
+                                    rulesType(item.title)
+                                }
+
                                 minLength={''} autoFocus={false} color={''} defaultValue={undefined} disabled={false} fullWidth={false} id={''} inputComponent={undefined} multiline={false} label={''} rows={''} />
 
                         }
+                        {allShows(item.title)}
 
                     </div>
                 ))}
             </div>
             <br /><hr />
+            <div
+                className={styles.buttonSend}
+            // style={{ width: '100%', textAlign: 'center',alignContent:'center',alignItems:'center' }}
+            >
+                <Button
+                    className={styles.buttons}
+                    // style={{ width: '100%' }}
+                    onClick={Send}
+                    block
+                    type='primary'
+
+                >
+
+                    <PlusOutlined />
+
+                </Button>
+            </div>
         </div>
     )
 }

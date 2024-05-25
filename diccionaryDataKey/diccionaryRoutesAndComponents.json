@@ -1,0 +1,73 @@
+{
+    "InterviewResponsibleId": {
+        "synonyms": [
+            "InterviewResponsible"
+        ],
+        "routesPath": "/InterviewResponsible/InterviewResponsible",
+        "datakey": [
+            "id",
+            "UserId"
+        ]
+    },
+    "InterviewUserId": {
+        "synonyms": [
+            "InterviewUser"
+        ],
+        "routesPath": "/InterviewUser/InterviewUser",
+        "datakey": [
+            "id",
+            "UserId"
+        ]
+    },
+    "InterviewId": {
+        "synonyms": [
+            "Interview"
+        ],
+        "routesPath": "/Interview/Interview",
+        "datakey": [
+            "id",
+            "interviewers"
+        ]
+    },
+    "UserId": {
+        "synonyms": [
+            "Interviewers",
+            "interviewers"
+        ],
+        "routesPath": "/User/User/",
+        "datakey": [
+            "id",
+            "fullname"
+        ]
+    },
+    "TypeVacancyId": {
+        "synonyms": [
+            "TypeVacancyId"
+        ],
+        "routesPath": "/TypeVacancy/TypeVacancy",
+        "datakey": [
+            "id",
+            "name_vacancy_type"
+        ]
+    },
+    "TypeInterviewId": {
+        "synonyms": [
+            "TypeInterview"
+        ],
+        "routesPath": "/TypeInterview/TypeInterview",
+        "datakey": [
+            "id",
+            "name_type_test"
+        ]
+    },
+    "VacancyId": {
+        "synonyms": [
+            "Vacancy"
+        ],
+        "routesPath": "/Vacancy/Vacancy",
+        "datakey": [
+            "id",
+            "title"
+        ]
+    }
+}

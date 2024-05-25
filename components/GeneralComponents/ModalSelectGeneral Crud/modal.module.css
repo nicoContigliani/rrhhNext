@@ -12,6 +12,111 @@
         align-content: center;
         z-index: 9990;
     }
+
+    .button {
+        padding: 1%;
+    }
+
+    .modal {
+        position: relative;
+        width: 50%;
+        z-index: 9999;
+        /* High z-index to ensure it's above most elements */
+    }
+
+    .modal2 {
+
+        /* display: grid;
+        grid-template-columns: repeat(2, 1fr); */
+
+
+
+        /* Dos columnas de igual tamaño */
+        /* gap: 1px; */
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        align-items: center;
+        align-content: center;
+
+        width: calc(100vw - 48px);
+        /* height: 552px; */
+        height: calc(180vw - 40px);
+        transition: box-shadow 1000ms;
+        background-color: #F5F5F5;
+        padding-left: 0%;
+        overflow: hidden;
+        overflow-y: auto;
+        margin-bottom: 1%;
+        border-radius: 5%;
+
+    }
+
+    .input {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        align-content: center;
+        color: black;
+        overflow: hidden;
+
+
+    }
+
+    .inputs {
+
+        display: flex;
+        flex-direction: column;
+        /* Apila elementos verticalmente */
+        align-items: center;
+        padding-left: 1%;
+        padding-right: 1%;
+        margin-left: 5%;
+        margin-right: 5%;
+
+        border-bottom: none;
+
+        font-size: 15px;
+        /* font-weight: 500; */
+        text-align: start;
+
+        text-decoration: none;
+        cursor: pointer;
+        /* transition: background-color 0.3s, border-color 0.3s, color 0.3s; */
+        width: calc(55vw - 45px);
+        border-radius: 1%;
+        overflow: hidden;
+    }
+
+
+
+    .buttons {
+        font-family: Arial, Helvetica, sans-serif;
+
+        display: inline-block;
+        padding: 8px 16px;
+        /* background-color: #fff; */
+        /* border: 1px solid #ccc; */
+        color: #ccc;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        font-size: 14px;
+        font-weight: 500;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+        width: calc(155vw - 48px);
+
+    }
+
+    .container {}
+
+    .close {
+        text-align: right;
+
+    }
 }
 
 @media screen and (min-width: 991px) {
@@ -78,17 +183,21 @@
 
         display: inline-block;
         padding: 8px 16px;
-        background-color: #fff;
+        /* background-color: #ffffff; */
         border: 1px solid #ccc;
-        color: #1890ff;
+        color: white;
         cursor: pointer;
         transition: background-color 0.3s ease;
-        font-size: 14px;
+        font-size: 20px;
         font-weight: 500;
         text-align: center;
         text-decoration: none;
         cursor: pointer;
         transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+        /* box-shadow: 1px 3px 30px #c2ccfd30, -8px -1px 2px #ffffffb8; */
+
+        border-radius: 5%;
+
     }
 
     .buttons:hover {
@@ -110,7 +219,8 @@
     .textTitleInModal {
         display: block;
         /* Para asegurarse de que cada label esté en su propia línea */
-        margin-bottom: 1px; /* Reducir el espacio entre el label y el input */
+        margin-bottom: 1px;
+        /* Reducir el espacio entre el label y el input */
         /* Espacio entre el label y el input */
         font-weight: bold;
         /* Hace que el label sea más prominente */
@@ -120,5 +230,32 @@
         font-family: Arial, Helvetica, sans-serif;
 
     }
+
+    .selectsGeneral {
+        padding: 3%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        align-items: center;
+        align-content: center;
+    }
+
+    .selects {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        /* padding-right: 1%;
+        padding-left: 1%; */
+        z-index: 999;
+
+    }
+
+    .close {
+        text-align: right;
+
+    }
+
 
 }
