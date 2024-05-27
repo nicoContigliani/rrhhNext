@@ -7,7 +7,7 @@ import styles from './page.module.css'
 import dynamic from 'next/dynamic'
 
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import { authAsync, selectAuth } from '@/redux/features/auth/authSlice'
 
 import { readLocalStorage } from '@/services/storage.services';
@@ -104,7 +104,7 @@ export default function Home() {
   }
 
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     dispatch(rootsAsync())
 
   }, [])

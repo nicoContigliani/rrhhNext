@@ -1,4 +1,4 @@
-"use client"
+'use client'
 import React, { useEffect, useMemo, useState } from 'react'
 import useFetchCrudData from '@/hooks/useFetchCrudData';
 import { createCrud, fetchCrud, updateCrud } from '@/redux/features/CRUD/crudSlice';
@@ -27,22 +27,15 @@ export interface FetchCrudData {
 const CreateAutogenerateGeneral = (props: any) => {
     const dispatch = useDispatch();
 
-    const [generalElement, setGeneralElement] = useState<any | any[] | undefined>()
-    const [cols, setCols] = useState<any | any[] | undefined>()
-    const [colsSelect, setColsSelect] = useState<any | any[] | undefined>()
+    const [generalElement, setGeneralElement] = useState<any>()
+    const [cols, setCols] = useState<any[]>()
     const [colIdPaths, setColIdPaths] = useState<any | any[] | undefined>()
     const [data, setData] = useState<any | any[] | undefined>()
 
+    const [elementSelect, setElementSelect] = useState<any[]>()
+    const [filteredTodostoCreatePlusArrays, SetFilteredTodostoCreatePlusArrays] = useState<any[]>()
 
-    const [sources, setSources] = useState<any | any[]>()
-    const [keysSelect, setKeysSelect] = useState<any | any[] | undefined>()
-    const [keyDataOrigin, SetKeyDataOrigin] = useState<any | any[] | undefined>()
-
-    const [objectKeys, setObjectKeys] = useState<any | any[]>()
-    const [todoSelect, setTodoSelect] = useState<any | any[] | undefined>()
-    const [filteredTodostoCreatePlusArrays, SetFilteredTodostoCreatePlusArrays] = useState<any | any[] | undefined>()
-
-    useMemo(() => {
+    useEffect(() => {
         const fetchData = async () => {
             const { createDatas: { col, colIdPath } } = await props;
             try {
@@ -62,12 +55,12 @@ const CreateAutogenerateGeneral = (props: any) => {
     }, [props]);
 
     useEffect(() => {
-        const todo = async () => {
+        const funtionAsync = async () => {
             try {
                 const { createDatas, dataGet } = props;
                 const { col, colIdPath } = createDatas;
 
-                const promises = colIdPath.map(async (element: any) => {
+                const promises = colIdPath.map(async (element: any|object) => {
                     const { ids, paths, datas, datasKey, datakey, titleModal } = element;
 
                     const dataSources = datas.map((item: any) => {
@@ -78,55 +71,46 @@ const CreateAutogenerateGeneral = (props: any) => {
                     return dataSources;
                 });
                 //This promisse is data sources. It's gives data a select 
-                const todoData = await Promise.all(promises);
+                const dataPromiseAffter = await Promise.all(promises);
                 //This map is data sources. It's gives data a  modal Create 
                 const filteredTodostoCreatePlusA = colIdPath.map((element: any) => {
-
-
                     return [element.datasKey, element.titleModal, element.paths]
                 });
 
                 SetFilteredTodostoCreatePlusArrays(filteredTodostoCreatePlusA.length > 0 && filteredTodostoCreatePlusA);
-                setTodoSelect(todoData);
+                setElementSelect(dataPromiseAffter);
             } catch (error) {
                 console.error("Error in todo:", error);
             }
         };
 
-        todo();
+        funtionAsync();
     }, [props]);
 
-    useEffect(() => {
-        const getchDataCol = async () => {
-            const dataSearch: any[] = ["col_structure"]
+    // useEffect(() => {
+    //     const getchDataCol = async () => {
+    //         const dataSearch: any[] = ["col_structure"]
+    //         const dataReturn = await colDiccionary(["col_structure"])
+    //     }
+    //     getchDataCol()
+    // }, [props])
 
-            const dataReturn = await colDiccionary(["col_structure"])
-            console.log("🚀 ~ getchDataCol ~ dataReturn:", await dataReturn)
-        }
-        getchDataCol()
-    }, [props])
-
-    const allShows = (dataTitle: any) => {
-        if (dataTitle.includes("order")) console.log("******poseeId*******", dataTitle, "***************")
-
-
-
-        return true
-    }
-
+    
     const Send = () => {
-
+    //hay que hacer un servicio que tenga crud ... 
     }
+
+
+
+
     return (
         <div className={styles.body}>
 
             <div className={styles.selectsGeneral} >
                 <div className={styles.selects}>
                     {
-                        todoSelect && todoSelect?.map((item: any) =>
+                        elementSelect && elementSelect?.map((item: any) =>
                             <div key={item?.key || item?.dataIndex}>
-
-
                                 <Selectcrud
                                     data={data}
                                     setData={setData}
@@ -138,7 +122,7 @@ const CreateAutogenerateGeneral = (props: any) => {
 
                 </div>
 
-                {/* boton con el modalexpandible */}
+                {/*  there is button with modal expandible */}
                 <div className={styles.buttons}>
                     {
                         filteredTodostoCreatePlusArrays && filteredTodostoCreatePlusArrays?.map((item: any) =>
@@ -146,8 +130,6 @@ const CreateAutogenerateGeneral = (props: any) => {
                                 key={item?.key || item?.dataIndex}
                                 className={styles.button}
                             >
-
-
                                 <ModalSelectGeneralCrud
                                     objectKeys={item[0]}
                                     IType={""}
@@ -158,7 +140,6 @@ const CreateAutogenerateGeneral = (props: any) => {
                             </div>
                         )
                     }
-
                 </div>
             </div>
             <div className={styles.bodyElements}>
@@ -178,12 +159,8 @@ const CreateAutogenerateGeneral = (props: any) => {
                                     rulesWordStartStatus(item.title) ||
                                     rulesType(item.title)
                                 }
-
                                 minLength={''} autoFocus={false} color={''} defaultValue={undefined} disabled={false} fullWidth={false} id={''} inputComponent={undefined} multiline={false} label={''} rows={''} />
-
                         }
-                        {allShows(item.title)}
-
                     </div>
                 ))}
             </div>
@@ -198,11 +175,8 @@ const CreateAutogenerateGeneral = (props: any) => {
                     onClick={Send}
                     block
                     type='primary'
-
                 >
-
                     <PlusOutlined />
-
                 </Button>
             </div>
         </div>

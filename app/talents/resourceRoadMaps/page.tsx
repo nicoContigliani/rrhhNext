@@ -1,17 +1,15 @@
 "use client"
 
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react'
 import styles from "./page.module.css"
 
 import { IFetchCrudData } from '@/app/Interfaces/IFetchCrudData'
 import useFetchCrudData from '@/hooks/useFetchCrudData'
 import { formaterDataArray } from '@/services/formaterDataArray'
-import { formatDataAllElementNotArray, formaterDataArrayAll } from '@/services/formaterDataArrayAll'
-import { Button, Table, Form, Input } from "antd";
-import type { CheckboxOptionType, TableColumnsType } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
-import { createCrud, fetchCrud, updateCrud } from '@/redux/features/CRUD/crudSlice';
+import { formatDataAllElementNotArray } from '@/services/formaterDataArrayAll'
+import { Table } from "antd";
+import { fetchCrud } from '@/redux/features/CRUD/crudSlice';
 
 import ButonGeneralModal from '@/components/GeneralComponents/CRUDGeneral/ButonGeneralModal/ButonGeneralModal'
 
@@ -24,23 +22,22 @@ export interface FetchCrudData {
 }
 
 
+import diccionaryRoutesAndComponents from '@/diccionaryDataKey/diccionaryRoutesAndComponents.json'
+import { rootsAsync, selectRoots } from '@/redux/features/roots/rootsSlice'
+import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 
+
+type DictionaryRoutesAndComponents = typeof diccionaryRoutesAndComponents;
 
 
 const page = () => {
 
-  const [sources, setSources] = useState<any | any[]>()
-  const [objectKeys, setObjectKeys] = useState<any | any[]>()
-
-  const [dataSource, setDataSource] = useState([]);
-  const [editingRow, setEditingRow] = useState(null);
-  const [form] = Form.useForm();
-
-
   const [data, setData] = useState<any | any[] | undefined>()
   const [col1, setCol1] = useState<any | any[]>()
   const [data1, setData1] = useState<any | any[]>()
-  const [checkedList, setCheckedList] = useState();
+
+
+  const [colStart, setColStart] = useState<any | any[]>()
 
 
   const [dataSelect1, setDataSelect1] = useState<any | any[]>()
@@ -49,6 +46,70 @@ const page = () => {
   const [vacanciesData, setVacanciesData] = useState<any | any[] | undefined>()
   const [vacanciesDataKey, setVacanciesDataKey] = useState<any | any[] | undefined>()
 
+  const dispatch = useAppDispatch();
+
+  useLayoutEffect(() => {
+    dispatch(rootsAsync());
+  }, [])
+
+  const roots = useAppSelector(selectRoots);
+  const { col_structure } = roots
+
+
+
+  useLayoutEffect(() => {
+    const todo = async () => {
+      if (Array.isArray(col_structure)) {
+
+        const tableStructure = col_structure.find(
+          (obj: any) => obj.table_fullname === "RoadMaps"
+        );
+
+        // Uso de encadenamiento opcional para evitar errores y obtener los nombres de las columnas
+        const columnNames = tableStructure?.table_columns.map((column: any) => column.column_name) ?? [];
+
+        setColStart(columnNames)
+
+        try {
+          let todos = await formaterDataArray(columnNames, "Roadmap")
+
+
+          const todosS = [...todos,
+          {
+            title: 'Action',
+            key: 'action',
+            fixed: 'right',
+            width: 100,
+            render: (text: any, record: any) => (
+              <div>
+                <ButonGeneralModal
+                  todo={record}
+                  ids={record.id}
+                  creates={false}
+                  updates={true}
+                  deletes={true}
+                  shows={true}
+                  settings={false}
+                >
+
+                </ButonGeneralModal>
+
+              </div>
+            ),
+          }
+          ]
+
+          await setCol1(todosS)
+
+        } catch (error) {
+          console.log("🚀 ~ todo ~ error:", error)
+        }
+
+      }
+
+    }
+    todo()
+  }, [col_structure]);
 
 
 
@@ -63,25 +124,37 @@ const page = () => {
 
 
   const fl1 =
-    ["id",
+    [
+
+      "id",
       "InterviewId",
       "VacancyId",
       "responsibilityDescription",
       "status_roadmap",
-      "order",
       "required",
       "description",
       "duration",
       "location",
       "scheduledDateTime",
+      "start_DateTime",
+      "finish_DateTime",
       "completionDateTime",
       "outcome",
-      "nextSteps",
+      "before_steps",
+      "after_steps",
       "nextActionDateTime",
       "image",
+      "all_Steps",
+      "order_Steps",
       "createdAt",
       "updatedAt"
     ]
+
+
+
+
+
+
 
   const fl2: any = [
     "Interviews"
@@ -195,59 +268,59 @@ const page = () => {
 
 
 
-  //formatea la columna principal
-  useEffect(() => {
+  // //formatea la columna principal
+  // useEffect(() => {
+  //   const todo = async () => {
+  //     let todos = await formaterDataArray(fl1, "Roadmap")
+
+
+
+
+
+  //     const todosS = [...todos,
+  //     {
+  //       title: 'Action',
+  //       key: 'action',
+  //       fixed: 'right',
+  //       width: 100,
+  //       render: (text: any, record: any) => (
+  //         <div>
+  //           <ButonGeneralModal
+  //             todo={record}
+  //             ids={record.id}
+  //             creates={false}
+  //             updates={true}
+  //             deletes={true}
+  //             shows={true}
+  //             settings={false}
+  //           >
+
+  //           </ButonGeneralModal>
+
+  //           {/* <Button onClick={() => handleAction(record.id)}>Action</Button>
+  //           <Button onClick={() => handleAction(record.id)}>Action</Button> */}
+  //         </div>
+  //       ),
+  //     }
+  //     ]
+
+  //     await setCol1(todosS)
+
+  //   }
+  //   todo()
+  // }, [])
+
+  useLayoutEffect(() => {
+
     const todo = async () => {
-      let todos = await formaterDataArray(fl1, "Roadmap")
+      // try {
+      //   const dataReturn = await formaterDataArrayAll(datas, fl2, fl1)
 
+      // } catch (error) {
 
-
-
-
-      const todosS = [...todos,
-      {
-        title: 'Action',
-        key: 'action',
-        fixed: 'right',
-        width: 100,
-        render: (text: any, record: any) => (
-          <div>
-            <ButonGeneralModal
-              todo={record}
-              ids={record.id}
-              creates={false}
-              updates={true}
-              deletes={true}
-              shows={true}
-              settings={false}
-            >
-
-            </ButonGeneralModal>
-
-            {/* <Button onClick={() => handleAction(record.id)}>Action</Button>
-            <Button onClick={() => handleAction(record.id)}>Action</Button> */}
-          </div>
-        ),
-      }
-      ]
-
-      await setCol1(todosS)
-
-    }
-    todo()
-  }, [])
-
-  useEffect(() => {
-
-    const todo = async () => {
+      // }
       try {
-        const dataReturn = await formaterDataArrayAll(datas, fl2, fl1)
-
-      } catch (error) {
-
-      }
-      try {
-        const dataReturns = await formatDataAllElementNotArray(datas, fl2, fl1)
+        const dataReturns = await formatDataAllElementNotArray(datas, fl2, colStart)
         setData1(dataReturns)
 
       } catch (error) {
@@ -261,7 +334,6 @@ const page = () => {
 
   }, [datas])
 
-  const dispatch = useDispatch();
 
 
 
@@ -350,23 +422,6 @@ const page = () => {
   }
 
 
-  // const { ids, paths, datas, datasKey, datakey, titleModal } = element;
-
-
-  const other = [{
-    ids: "VacancyId",
-    paths: "/Vacancy/Vacancy",
-    datas: vacanciesData,
-    datasKey: vacanciesDataKey,
-    datakey: ['id', 'name_type_test'],
-    titleModal: 'Vacancy'
-  }]
-
-
-
-
-
-
 
   return (
     <div className={styles.body}>
@@ -390,22 +445,25 @@ const page = () => {
 
       <div className={styles.tables}>
 
+        {
+          (col1 && data1) &&
+          <Table
+            dataSource={data1}
+            columns={col1}
+            bordered
+            scroll={{ x: 'auto' }}
+            style={{ minWidth: '360px' }} // Establece un ancho mínimo para la tabla
 
-        <Table
-          dataSource={data1}
-          columns={col1}
-          bordered
-          scroll={{ x: 'auto' }}
-          style={{ minWidth: '360px' }} // Establece un ancho mínimo para la tabla
+            expandable={{
+              rowExpandable: (record) => true,
+              expandedRowRender: (record) => {
+                return <div>{record.id}</div>
+              }
 
-          expandable={{
-            rowExpandable: (record) => true,
-            expandedRowRender: (record) => {
-              return <div>{record.id}</div>
-            }
+            }}
+          />
+        }
 
-          }}
-        />;
       </div>
 
 

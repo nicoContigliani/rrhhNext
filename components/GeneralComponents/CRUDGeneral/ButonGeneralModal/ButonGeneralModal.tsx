@@ -21,18 +21,16 @@ const ButonGeneralModal = (props: any) => {
   } = props
   useEffect(() => {
     const todo = async () => {
+
+      // props -> createDataStart -> [{ ids,paths,datas,datasKey,datakey,titleModal }]
       if (createData !== undefined) setCreateDatas(createData)
+      //get Data genera get of reducer ->  customerHooks
       if (datas !== undefined) setDataGet(datas)
 
     }
     todo()
 
   }, [props, props.datas])
-
-
-
-
-
 
 
 
@@ -75,7 +73,6 @@ const ButonGeneralModal = (props: any) => {
             title="Add"
           >
             <div>
-
               <CreateAutogenerateGeneral
                 createDatas={createDatas}
                 dataGet={dataGet}
