@@ -1,18 +1,28 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, message, Space } from 'antd';
 import Spinner from '../spinner/Spinner';
 
 const Messages = (props: any) => {
+    console.log("🚀 ~ Messages ~ props:", props)
     // const { key, content, setContent } = props
     const {
         key,
         content,
-        loadings
+        loadings,
+        resultProcess
     } = props
 
 
-    console.log("🚀 ~ Messages ~ key:", key)
     const [messageApi, contextHolder] = message.useMessage();
+    useEffect(() => {
+
+        if (key && key === 200 || resultProcess === "success") success()
+        if (key && key === 500 || key && key === 400 || resultProcess === "error") error()
+        if (key && key !== 200 || key && key !== 500 || key && key !== 400 && loadings) <Spinner />
+
+
+
+    }, [props])
 
 
 
@@ -22,6 +32,11 @@ const Messages = (props: any) => {
         await messageApi.open({
             type: 'success',
             content: content || 'This is a success message',
+            className: 'custom-class',
+            style: {
+                marginTop: '80vh',
+                width:"auto"
+            },
         });
     };
 
@@ -38,12 +53,6 @@ const Messages = (props: any) => {
             content: content || 'This is a warning message',
         });
     };
-
-
-    if (key && key === 200) success()
-    if (key && key === 500 || key && key === 400) error()
-    if  (key && key !== 200||key && key !== 500 || key && key!== 400 && loadings) <Spinner/>
-    
 
 
     return (

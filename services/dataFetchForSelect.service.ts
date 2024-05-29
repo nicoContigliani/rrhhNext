@@ -13,7 +13,7 @@ interface DataFetchForSelectServiceProps {
 }
 
 const dataFetchForSelectService = async ({ selectDataSources, dispatch }: DataFetchForSelectServiceProps) => {
-    const dataR = await Promise.all(selectDataSources.map(async (item: any) => {
+    const dataR = await Promise.all(selectDataSources?.map(async (item: any) => {
         const dataTitle: string = item.dataIndex;
         const replacedString: string = dataTitle.replace(/Id/g, "");
 

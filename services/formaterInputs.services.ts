@@ -15,14 +15,40 @@ export const rulesWordStartStatus = ((dataWord: string) => {
 
         return "datetime-local";
     }
+
+    if (dataWord.includes("all_Steps")) {
+
+        return "number";
+    }
+
+    if (dataWord.includes("duration")) {
+
+        return "number";
+    }
+
+    if (dataWord.includes("sequence")) {
+
+        return "number";
+    }
+
+    
 })
 
 export const rulesType = (dataInputs: string) => {
     switch (dataInputs) {
         case "string":
             return "text";
+
+        case "character varying":
+            return "text";
+
         case "number":
             return "number";
+
+        case "bigint":
+            return "number";
+
+
         case "boolean":
             return "checkbox";
 
@@ -30,7 +56,7 @@ export const rulesType = (dataInputs: string) => {
             return "checkbox";
 
         case "datetime-local":
-            return "datetime-local"    
+            return "datetime-local"
 
 
         default:

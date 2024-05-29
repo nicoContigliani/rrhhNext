@@ -6,6 +6,7 @@ import style from './Inputs.module.css'
 import { Switch } from 'antd';
 
 const Inputs = (props: any) => {
+    console.log("🚀 ~ Inputs ~ props:", props.type)
     const { data, setData, type } = props
     console.log("🚀 ~ Inputs ~ data:", data)
 
@@ -27,7 +28,7 @@ const Inputs = (props: any) => {
 
     return (
         <div style={{width:'100%'}}>
-            {(type === 'text' || type === 'number' || type === 'email' || type === 'password' || type === 'date' || type === 'datetime-local') ?
+            {(type === 'text' ||  type === 'bigint'|| type === 'number' || type === 'email' || type === 'password' || type === 'date' || type === 'datetime-local') ?
 
                 <TextField {...props}
                     variant="standard"
@@ -38,6 +39,7 @@ const Inputs = (props: any) => {
                     label={props?.name}
                     onChange={handlechange}
                     type={type ? type : 'text'}
+
                 />
                 :
                 <div>

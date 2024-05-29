@@ -1,19 +1,30 @@
 'use client'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react'
 import useFetchCrudData from '@/hooks/useFetchCrudData';
 import { createCrud, fetchCrud, updateCrud } from '@/redux/features/CRUD/crudSlice';
 import { forEach } from 'lodash';
 import { useDispatch } from 'react-redux';
-import Inputs from '@/components/inputs/Inputs';
+// import Inputs from '@/components/inputs/Inputs';
+// import ModalSelectGeneralCrud from '@/components/GeneralComponents/ModalSelectGeneral Crud/ModalSelectGeneralCrud';
+// import Selectcrud from '../../SelectCrud/Selectcrud';
 
-import Selectcrud from '../../SelectCrud/Selectcrud';
+const Inputs = dynamic(() => import('@/components/inputs/Inputs'), { ssr: false })
+const ModalSelectGeneralCrud = dynamic(() => import('@/components/GeneralComponents/ModalSelectGeneral Crud/ModalSelectGeneralCrud'), { ssr: false })
+const Selectcrud = dynamic(() => import('../../SelectCrud/Selectcrud'), { ssr: false })
+
+
+
+
 import styles from './createAutoGenerate.module.css'
 import { FilterHeadTableRules } from '@/services/FilterHeadTableRules.services';
-import ModalSelectGeneralCrud from '@/components/GeneralComponents/ModalSelectGeneral Crud/ModalSelectGeneralCrud';
 import { rulesType, rulesWordStartStatus } from '@/services/formaterInputs.services';
 import { colDiccionary } from '@/services/colDiccionary.services';
 import { Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import { selectRoots } from '@/redux/features/roots/rootsSlice';
+import { useAppSelector } from '@/redux/hooks';
+import dynamic from 'next/dynamic';
+import Messages from '@/components/Messages/Messages';
 
 
 
@@ -27,13 +38,62 @@ export interface FetchCrudData {
 const CreateAutogenerateGeneral = (props: any) => {
     const dispatch = useDispatch();
 
+    const { pathStarts, nameModelStarts } = props
+
+
     const [generalElement, setGeneralElement] = useState<any>()
     const [cols, setCols] = useState<any[]>()
     const [colIdPaths, setColIdPaths] = useState<any | any[] | undefined>()
     const [data, setData] = useState<any | any[] | undefined>()
+    const [colsAlternative, setColsAlternative] = useState<any[] | undefined>()
 
     const [elementSelect, setElementSelect] = useState<any[]>()
     const [filteredTodostoCreatePlusArrays, SetFilteredTodostoCreatePlusArrays] = useState<any[]>()
+
+    const [messageS, setMessageS] = useState<any | any[] | undefined>()
+
+    const roots = useAppSelector(selectRoots);
+    const { col_structure } = roots
+
+    // useCallback(() => {
+    //     const tableStructure = col_structure.find(
+    //         (obj: any) => obj.table_fullname === nameModelStarts
+    //     );
+
+    //     const { table_columns } = tableStructure
+
+    //     const dataSi = table_columns.filter((item: any) => {
+    //         return (
+    //             item?.column_name !== "id" &&
+    //             item?.column_name !== "updatedAt" &&
+    //             item?.column_name !== "createdAt" &&
+    //             item?.column_name !== "InterviewId" &&
+    //             item?.column_name !== "VacancyId" 
+
+
+    //         )
+
+    //     })
+    //     setColsAlternative(dataSi)
+
+    // }, [col_structure])
+
+    const tableStructure = useMemo(() => col_structure.find(
+        (obj: any) => obj.table_fullname === nameModelStarts
+    ), [col_structure, nameModelStarts]);
+
+    const filteredColumns = useMemo(() => tableStructure?.table_columns.filter((item: any) => (
+        item?.column_name !== "id" &&
+        item?.column_name !== "updatedAt" &&
+        item?.column_name !== "createdAt" &&
+        item?.column_name !== "InterviewId" &&
+        item?.column_name !== "VacancyId"
+    )), [tableStructure]);
+
+    useEffect(() => {
+        setColsAlternative(filteredColumns);
+    }, [filteredColumns]);
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -60,7 +120,7 @@ const CreateAutogenerateGeneral = (props: any) => {
                 const { createDatas, dataGet } = props;
                 const { col, colIdPath } = createDatas;
 
-                const promises = colIdPath.map(async (element: any|object) => {
+                const promises = colIdPath.map(async (element: any | object) => {
                     const { ids, paths, datas, datasKey, datakey, titleModal } = element;
 
                     const dataSources = datas.map((item: any) => {
@@ -87,21 +147,71 @@ const CreateAutogenerateGeneral = (props: any) => {
         funtionAsync();
     }, [props]);
 
-    // useEffect(() => {
-    //     const getchDataCol = async () => {
-    //         const dataSearch: any[] = ["col_structure"]
-    //         const dataReturn = await colDiccionary(["col_structure"])
-    //     }
-    //     getchDataCol()
-    // }, [props])
-
-    
-    const Send = () => {
-    //hay que hacer un servicio que tenga crud ... 
+    const mocks = {
+        InterviewId: 1,
+        VacancyId: "1",
+        after_steps: "Completed initial interview",
+        all_Steps: "34",
+        before_steps: "Scheduled phone screen",
+        description: "Follow-up interview for senior developer position",
+        duration: 90,
+        image: "https://example.com/interview.jpg",
+        location: "123 Main St, Office 456",
+        nextActionDateTime: "2024-06-01T10:00",
+        order_Steps: "2",
+        outcome: "Passed technical assessment",
+        required: "Yes",
+        responsibilityDescription: "Discuss project details and expectations",
+        scheduledDateTime: "2024-05-31T16:42",
+        start_DateTime: "2024-05-31T16:42",
+        finish_DateTime: "2024-07-31T16:42",
+        completionDateTime: "2024-07-31T16:42",
+        status_roadmap: true,
+        undefined: true
     }
+    const Send = async () => {
+        //hay que hacer un servicio que tenga crud ... 
+        //hay que eliminar serch cuando envia
 
+        const todoCRUDGet: FetchCrudData = {
+            urlGeneral: props?.pathStarts || '/RoadMap/RoadMap/',
+            methods: 'POST',
+            body: mocks,
+            idParams: '',
+        };
 
+        try {
+            const response = await dispatch(createCrud(todoCRUDGet));
+            const { payload: { status } } = response
+            if (status === 200) {
+                setMessageS(
+                    {
+                        keys: 200,
+                        content: "Succes, insert complete!",
+                        loadings: false,
+                        resultProcess: "success"
+                    }
+                )
+            }
+            if (status === 500 || status === 400) {
+                setMessageS(
+                    {
+                        keys: 500,
+                        content: "Error, insert incomplete!",
+                        loadings: false,
+                        resultProcess: "error"
+                    }
+                )
+            }
 
+            // return response?.payload?.data; // Suponiendo que el resultado deseado está en response.data
+        } catch (error) {
+
+            console.error('Error dispatching fetchCrud:', error);
+            return null;
+        }
+
+    }
 
     return (
         <div className={styles.body}>
@@ -135,7 +245,6 @@ const CreateAutogenerateGeneral = (props: any) => {
                                     IType={""}
                                     modalTitles={item[1]}
                                     pathCrud={item[2]}
-
                                 />
                             </div>
                         )
@@ -144,25 +253,53 @@ const CreateAutogenerateGeneral = (props: any) => {
             </div>
             <div className={styles.bodyElements}>
 
-                {cols && cols?.map((item: any) => (
-                    <div key={item?.key || item?.dataIndex}>
 
-                        {
-                            (item.title !== "key" && item.title !== "id" && item.title !== "createdAt" && item.title !== "updatedAt") &&
-                            < Inputs
-                                className={styles.input}
-                                data={data}
-                                setData={setData}
-                                placeholder={item.title}
-                                name={item.title}
-                                type={
-                                    rulesWordStartStatus(item.title) ||
-                                    rulesType(item.title)
+                {
+                    // colsAlternative ?
+                    false ?
+                        colsAlternative?.map((item: any) => (
+                            <div key={item?.column_name || item?.column_name}>
+
+                                {
+                                    (item.title !== "key" && item.column_name !== "id" && item.column_name !== "createdAt" && item.column_name !== "updatedAt") &&
+                                    < Inputs
+                                        className={styles.input}
+                                        data={data}
+                                        setData={setData}
+                                        placeholder={item.column_name}
+                                        name={item.title}
+
+                                        type={
+                                            rulesWordStartStatus(item.column_name) ||
+                                            rulesType(item.column_name)
+                                        }
+                                        minLength={''} autoFocus={false} color={''} defaultValue={undefined} disabled={false} fullWidth={false} id={''} inputComponent={undefined} multiline={false} label={''} rows={''} />
                                 }
-                                minLength={''} autoFocus={false} color={''} defaultValue={undefined} disabled={false} fullWidth={false} id={''} inputComponent={undefined} multiline={false} label={''} rows={''} />
-                        }
-                    </div>
-                ))}
+                            </div>
+                        ))
+                        :
+
+
+                        cols?.map((item: any) => (
+                            <div key={item?.key || item?.dataIndex}>
+
+                                {
+                                    (item.title !== "key" && item.title !== "id" && item.title !== "createdAt" && item.title !== "updatedAt") &&
+                                    < Inputs
+                                        className={styles.input}
+                                        data={data}
+                                        setData={setData}
+                                        placeholder={item.title}
+                                        name={item.title}
+                                        type={
+                                            rulesWordStartStatus(item.title) ||
+                                            rulesType(item.title)
+                                        }
+                                        minLength={''} autoFocus={false} color={''} defaultValue={undefined} disabled={false} fullWidth={false} id={''} inputComponent={undefined} multiline={false} label={''} rows={''} />
+                                }
+                            </div>
+                        ))
+                }
             </div>
             <br /><hr />
             <div
@@ -179,6 +316,15 @@ const CreateAutogenerateGeneral = (props: any) => {
                     <PlusOutlined />
                 </Button>
             </div>
+            {messageS?.key !== null && (
+                <Messages
+                    key={messageS?.key}
+                    content={messageS?.content}
+                    loadings={messageS?.loadings}
+                    resultProcess={messageS?.resultProcess}
+                />
+            )}
+
         </div>
     )
 }

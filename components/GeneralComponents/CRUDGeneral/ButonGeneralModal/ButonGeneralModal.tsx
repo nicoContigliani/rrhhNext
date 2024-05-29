@@ -8,6 +8,8 @@ import CreateAutogenerateGeneral from './CreateAutogenerateGeneral/CreateAutogen
 const ButonGeneralModal = (props: any) => {
   const [createDatas, setCreateDatas] = useState<any | any[] | undefined>()
   const [dataGet, setDataGet] = useState<any | any[] | undefined>()
+  const [pathStarts, setPathStarts] = useState<string | undefined | null>()
+  const [nameModelStarts, setNameModelStarts] = useState<string | undefined | null>()
   const {
     todo,
     ids,
@@ -17,7 +19,9 @@ const ButonGeneralModal = (props: any) => {
     deletes,
     shows,
     settings,
-    datas
+    datas,
+    pathStart,
+    nameModelStart
   } = props
   useEffect(() => {
     const todo = async () => {
@@ -26,6 +30,11 @@ const ButonGeneralModal = (props: any) => {
       if (createData !== undefined) setCreateDatas(createData)
       //get Data genera get of reducer ->  customerHooks
       if (datas !== undefined) setDataGet(datas)
+
+      if (pathStart) setPathStarts(pathStart)
+
+      if (nameModelStart) setNameModelStarts(nameModelStart)
+
 
     }
     todo()
@@ -37,6 +46,7 @@ const ButonGeneralModal = (props: any) => {
   const handleAction = (si: any) => {
     console.log(si, "*****")
   }
+
   return (
     <div className={styles.siderbarup}>
       {
@@ -76,6 +86,8 @@ const ButonGeneralModal = (props: any) => {
               <CreateAutogenerateGeneral
                 createDatas={createDatas}
                 dataGet={dataGet}
+                pathStarts={pathStarts}
+                nameModelStarts={nameModelStarts}
               />
             </div>
             {/* <Button onClick={() => handleAction(todo)}>Action</Button> */}

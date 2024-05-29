@@ -2,6 +2,8 @@
 
 
 import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react'
+import dynamic from 'next/dynamic'
+
 import styles from "./page.module.css"
 
 import { IFetchCrudData } from '@/app/Interfaces/IFetchCrudData'
@@ -11,7 +13,9 @@ import { formatDataAllElementNotArray } from '@/services/formaterDataArrayAll'
 import { Table } from "antd";
 import { fetchCrud } from '@/redux/features/CRUD/crudSlice';
 
-import ButonGeneralModal from '@/components/GeneralComponents/CRUDGeneral/ButonGeneralModal/ButonGeneralModal'
+// import ButonGeneralModal from '@/components/GeneralComponents/CRUDGeneral/ButonGeneralModal/ButonGeneralModal'
+
+const ButonGeneralModal = dynamic(() => import('@/components/GeneralComponents/CRUDGeneral/ButonGeneralModal/ButonGeneralModal'), { ssr: false })
 
 
 export interface FetchCrudData {
@@ -90,6 +94,9 @@ const page = () => {
                   deletes={true}
                   shows={true}
                   settings={false}
+                  pathStart="/RoadMap/RoadMap/"
+                  nameModelStart="RoadMaps"
+
                 >
 
                 </ButonGeneralModal>
@@ -354,6 +361,7 @@ const page = () => {
       const response = await dispatch(fetchCrud(todoCRUDGet));
       return response?.payload?.data; // Suponiendo que el resultado deseado está en response.data
     } catch (error) {
+
       console.error('Error dispatching fetchCrud:', error);
       return null;
     }
@@ -438,7 +446,8 @@ const page = () => {
           shows={false}
           settings={true}
           datas={data}
-
+          pathStart="/RoadMap/RoadMap/"
+          nameModelStart="RoadMaps"
         ></ButonGeneralModal>
       </div>
 
@@ -465,9 +474,6 @@ const page = () => {
         }
 
       </div>
-
-
-
 
     </div>
   )
