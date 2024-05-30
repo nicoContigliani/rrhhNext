@@ -58,7 +58,7 @@ const ModalSelectGeneralCrud = (props: any) => {
     const [dataObjectKeys, setDataObjectKeys] = useState<any | any[] | undefined>()
     const [selectDataSources, setSelectDataSources] = useState<any | any[] | undefined>();
     const [dataSelectSecondary, setDataSelectSecondary] = useState<any | any[] | undefined>()
-
+    
 
 
     useEffect(() => {
@@ -222,7 +222,7 @@ const ModalSelectGeneralCrud = (props: any) => {
                                                                 // type={item && item.types === "string" ? "text" : item.types}
                                                                 type={
                                                                     rulesWordStartStatus(item.title) ||
-                                                                    rulesType(item.types)}
+                                                                    rulesType(item)}
                                                             />
                                                         </div>
                                             }

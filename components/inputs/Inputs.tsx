@@ -1,14 +1,18 @@
 import React from 'react'
 // import { Input } from '@mui/material';
 import TextField from '@mui/material/TextField';
+import TextareaAutosize from '@mui/material/TextareaAutosize'; // Import TextareaAutosize
+
+import styles from './Inputs.module.css'
+
+import { styled } from '@mui/system';
+
 
 import style from './Inputs.module.css'
 import { Switch } from 'antd';
 
 const Inputs = (props: any) => {
-    console.log("🚀 ~ Inputs ~ props:", props.type)
     const { data, setData, type } = props
-    console.log("🚀 ~ Inputs ~ data:", data)
 
     const handlechange = (event: any) => {
         const trimmedValue = event.target.value.trim(); // Trim leading and trailing spaces
@@ -26,31 +30,60 @@ const Inputs = (props: any) => {
     };
 
 
+
+
+
+
+
+
+
+
+
+
+
     return (
-        <div style={{width:'100%'}}>
-            {(type === 'text' ||  type === 'bigint'|| type === 'number' || type === 'email' || type === 'password' || type === 'date' || type === 'datetime-local') ?
+        <div style={{ width: '100%' }}>
+            {(type === 'text' || type === 'bigint' || type === 'number' || type === 'email' || type === 'password' || type === 'date' || type === 'datetime-local' || type === 'description_steps') ?
 
-                <TextField {...props}
-                    variant="standard"
-                    size="small"
-                    fullWidth
+                (type === 'description_steps') ?
+                    <div
+                    >
+<br />
+                        <TextareaAutosize
+                            className={styles.textarea}
+                            label={props?.name}
+                            onChange={handlechange}
+                            autoFocus={true}
+                            {...props}
+                        />
 
-                    className={`${props.className}`}
-                    label={props?.name}
-                    onChange={handlechange}
-                    type={type ? type : 'text'}
+                    </div>
+                    :
 
-                />
+                    <TextField
+                        {...props}
+                        variant="standard"
+
+                        size="small"
+                        fullWidth
+
+                        className={`${props.className}`}
+                        label={props?.name}
+                        onChange={handlechange}
+                        type={type ? type : 'text'}
+                        autoFocus={true}
+
+                    />
                 :
                 <div>
                     <br />
                     <span style={{
-                        color:"grey",
-                        paddingRight:'5px',
-                        fontSize:'small',
-                        fontFamily:'Arial, Helvetica, sans-serif'
-                        }}>
-                            {props?.name}
+                        color: "grey",
+                        paddingRight: '5px',
+                        fontSize: 'small',
+                        fontFamily: 'Arial, Helvetica, sans-serif'
+                    }}>
+                        {props?.name}
                         <small>
                         </small>
                     </span>

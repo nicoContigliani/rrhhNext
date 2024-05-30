@@ -203,7 +203,12 @@ const CreateAutogenerateGeneral = (props: any) => {
                     }
                 )
             }
+            if (status !== null) {
 
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1100);
+            }
             // return response?.payload?.data; // Suponiendo que el resultado deseado está en response.data
         } catch (error) {
 

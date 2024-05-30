@@ -30,12 +30,18 @@ export const rulesWordStartStatus = ((dataWord: string) => {
 
         return "number";
     }
+    if (dataWord.includes("description_steps")) {
 
-    
+        return "description_steps";
+    }
+
 })
 
-export const rulesType = (dataInputs: string) => {
-    switch (dataInputs) {
+export const rulesType = (dataInputs: any) => {
+
+
+    
+    switch (dataInputs.types) {
         case "string":
             return "text";
 

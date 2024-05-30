@@ -58,6 +58,7 @@ const page = () => {
 
   const roots = useAppSelector(selectRoots);
   const { col_structure } = roots
+  console.log("🚀 ~ page ~ col_structure:", col_structure)
 
 
 
