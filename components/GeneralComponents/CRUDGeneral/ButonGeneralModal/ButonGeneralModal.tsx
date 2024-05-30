@@ -10,6 +10,7 @@ import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import { useDispatch } from 'react-redux';
 import { deleteCrud } from '@/redux/features/CRUD/crudSlice'
 import Messages from '@/components/Messages/Messages'
+import ShowAutoGenreateGeneral from './ShowAutoGenreateGeneral/ShowAutoGenreateGeneral'
 
 
 export interface FetchCrudData {
@@ -117,8 +118,10 @@ const ButonGeneralModal = (props: any) => {
         shows ?
           <Modalnew
             title="Show">
-            show
-            {/* <Button onClick={() => handleAction(todo)}>Action</Button> */}
+            <ShowAutoGenreateGeneral
+              todo={todo}
+            />
+            
           </Modalnew>
           : ""
       }
@@ -149,12 +152,12 @@ const ButonGeneralModal = (props: any) => {
               <RemoveRoundedIcon />
             </Button>
             {messageS?.key !== null && (
-                <Messages
-                    key={messageS?.key}
-                    content={messageS?.content}
-                    loadings={messageS?.loadings}
-                    resultProcess={messageS?.resultProcess}
-                />
+              <Messages
+                key={messageS?.key}
+                content={messageS?.content}
+                loadings={messageS?.loadings}
+                resultProcess={messageS?.resultProcess}
+              />
             )}
           </Modalnew>
           : ""

@@ -9,7 +9,7 @@ import styles from "./page.module.css"
 import { IFetchCrudData } from '@/app/Interfaces/IFetchCrudData'
 import useFetchCrudData from '@/hooks/useFetchCrudData'
 import { formaterDataArray } from '@/services/formaterDataArray'
-import { formatDataAllElementNotArray } from '@/services/formaterDataArrayAll'
+import { formatDataAllElementNotArray, formaterDataArrayAll} from '@/services/formaterDataArrayAll'
 import { Table } from "antd";
 import { fetchCrud } from '@/redux/features/CRUD/crudSlice';
 
@@ -58,7 +58,6 @@ const page = () => {
 
   const roots = useAppSelector(selectRoots);
   const { col_structure } = roots
-  console.log("🚀 ~ page ~ col_structure:", col_structure)
 
 
 
@@ -77,8 +76,6 @@ const page = () => {
 
         try {
           let todos = await formaterDataArray(columnNames, "Roadmap")
-
-
           const todosS = [...todos,
           {
             title: 'Action',
@@ -97,7 +94,6 @@ const page = () => {
                   settings={false}
                   pathStart="/RoadMap/RoadMap/"
                   nameModelStart="RoadMaps"
-
                 >
 
                 </ButonGeneralModal>
@@ -321,12 +317,12 @@ const page = () => {
   useLayoutEffect(() => {
 
     const todo = async () => {
-      // try {
-      //   const dataReturn = await formaterDataArrayAll(datas, fl2, fl1)
+       try {
+         const dataReturn = await formaterDataArrayAll(datas, fl2, fl1)
+         console.log("🚀 ~ todo ~ dataReturn:", dataReturn)
+      } catch (error) {
 
-      // } catch (error) {
-
-      // }
+       }
       try {
         const dataReturns = await formatDataAllElementNotArray(datas, fl2, colStart)
         setData1(dataReturns)
