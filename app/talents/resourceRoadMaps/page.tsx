@@ -9,7 +9,7 @@ import styles from "./page.module.css"
 import { IFetchCrudData } from '@/app/Interfaces/IFetchCrudData'
 import useFetchCrudData from '@/hooks/useFetchCrudData'
 import { formaterDataArray } from '@/services/formaterDataArray'
-import { formatDataAllElementNotArray, formaterDataArrayAll} from '@/services/formaterDataArrayAll'
+import { formatDataAllElementNotArray, formaterDataArrayAll } from '@/services/formaterDataArrayAll'
 import { Table } from "antd";
 import { fetchCrud } from '@/redux/features/CRUD/crudSlice';
 
@@ -49,6 +49,20 @@ const page = () => {
   const [interviewsDataKey, setInterviewsDataKey] = useState<any | any[] | undefined>()
   const [vacanciesData, setVacanciesData] = useState<any | any[] | undefined>()
   const [vacanciesDataKey, setVacanciesDataKey] = useState<any | any[] | undefined>()
+
+
+  
+
+  const [iterviewUsers, setInterviewUser] = useState<any | any[] | undefined>()
+  const [iterviewUsersKey, setInterviewUserKey] = useState<any | any[] | undefined>()
+
+  const [interviewResponsible, setInterviewResponsible] = useState<any | any[] | undefined>()
+  const [interviewResponsibleKey, setInterviewResponsibleKey] = useState<any | any[] | undefined>()
+
+  const [users, setUsers] = useState<any | any[] | undefined>()
+  const [userKey, setUserKey] = useState<any | any[] | undefined>()
+
+
 
   const dispatch = useAppDispatch();
 
@@ -155,11 +169,6 @@ const page = () => {
     ]
 
 
-
-
-
-
-
   const fl2: any = [
     "Interviews"
   ]
@@ -182,7 +191,6 @@ const page = () => {
     "updatedAt",
   ]
 
-
   const f130_interviewsArray: any = [
     "Test",
     "Vacancies"
@@ -192,8 +200,6 @@ const page = () => {
     "Interviews",
     "TypeVacancyId"
   ]
-
-
 
   const fl31 = ['InterviewResponsible']
 
@@ -317,12 +323,11 @@ const page = () => {
   useLayoutEffect(() => {
 
     const todo = async () => {
-       try {
-         const dataReturn = await formaterDataArrayAll(datas, fl2, fl1)
-         console.log("🚀 ~ todo ~ dataReturn:", dataReturn)
+      try {
+        const dataReturn = await formaterDataArrayAll(datas, fl2, fl1)
       } catch (error) {
 
-       }
+      }
       try {
         const dataReturns = await formatDataAllElementNotArray(datas, fl2, colStart)
         setData1(dataReturns)
@@ -337,10 +342,6 @@ const page = () => {
     setData(datas)
 
   }, [datas])
-
-
-
-
 
 
 
@@ -369,6 +370,12 @@ const page = () => {
       const interviews = await fetchData('/Interview/Interview');
       const vacancies = await fetchData('/Vacancy/Vacancy');
 
+      // const interviewUser = await fetchData('/InterviewUser/InterviewUser/');
+      // const interviewResponsible = await fetchData('/InterviewResponsible/InterviewResponsible/');
+      const usersGetAxios = await fetchData('/User/User/');
+  
+
+
       if (interviews) {
         try {
           setInterviewsData(interviews)
@@ -394,6 +401,47 @@ const page = () => {
           console.log("🚀 ~ fetchInterviewsAndVacancies ~ error:", error)
         }
       }
+
+      // if (interviewUser) {
+      //   try {
+      //     setInterviewUser(interviewUser)
+
+      //     // const dataReturns = await formatDataAllElementNotArray(vacancies, f130_1_vacanciesArray, fl1)
+      //     const iterviewUsersKey = Object.keys(interviewUser[0])
+      //     let formaterDataArrayInterviewUserKeys = await formaterDataArray(iterviewUsersKey, "interviewUser")//ojo no esta comprobado
+      //     setInterviewUserKey(formaterDataArrayInterviewUserKeys)
+      //   } catch (error) {
+      //     console.log("🚀 ~ fetchInterviewsAndVacancies ~ error:", error)
+      //   }
+      // }
+   
+      // if (interviewResponsible) {
+      //   try {
+      //     setInterviewResponsible(interviewUser)
+
+      //     // const dataReturns = await formatDataAllElementNotArray(vacancies, f130_1_vacanciesArray, fl1)
+      //     const iterviewUsersKey = Object.keys(interviewUser[0])
+      //     let formaterDataArrayInterviewResponsibleKeys = await formaterDataArray(interviewResponsibleKey, "interviewResponsible")//ojo no esta comprobado
+      //     setInterviewResponsibleKey(formaterDataArrayInterviewResponsibleKeys)
+      //   } catch (error) {
+      //     console.log("🚀 ~ fetchInterviewsAndVacancies ~ error:", error)
+      //   }
+      // }
+   
+      if (usersGetAxios) {
+        try {
+          setUsers(usersGetAxios)
+
+          // const dataReturns = await formatDataAllElementNotArray(vacancies, f130_1_vacanciesArray, fl1)
+          const usersKeyGetAxios = Object.keys(usersGetAxios[0])
+          let formaterDataArrayInterviewUserKeys = await formaterDataArray(usersKeyGetAxios, "Users")//ojo no esta comprobado
+          setInterviewUserKey(formaterDataArrayInterviewUserKeys)
+        } catch (error) {
+          console.log("🚀 ~ fetchInterviewsAndVacancies ~ error:", error)
+        }
+      }
+      
+
 
     };
 
@@ -422,7 +470,15 @@ const page = () => {
         datasKey: vacanciesDataKey,
         datakey: ['id', 'title'],
         titleModal: 'Vacancy'
-      }
+      },
+      {
+        ids: "UserId",
+        paths: "/User/User",
+        datas: users,
+        datasKey: userKey,
+        datakey: ['id', 'fullname'],
+        titleModal: 'User'
+      },
     ]
   }
 

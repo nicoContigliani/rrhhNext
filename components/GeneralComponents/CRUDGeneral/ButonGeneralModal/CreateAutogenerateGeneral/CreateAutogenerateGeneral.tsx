@@ -25,6 +25,8 @@ import { selectRoots } from '@/redux/features/roots/rootsSlice';
 import { useAppSelector } from '@/redux/hooks';
 import dynamic from 'next/dynamic';
 import Messages from '@/components/Messages/Messages';
+import ListTransferGeneral from '@/components/GeneralComponents/ListTransferGeneral/ListTransferGeneral';
+import SelectGeneralMaterial from '@/components/GeneralComponents/SelectGeneralMaterial/SelectGeneralMaterial';
 
 
 
@@ -139,6 +141,7 @@ const CreateAutogenerateGeneral = (props: any) => {
 
                 SetFilteredTodostoCreatePlusArrays(filteredTodostoCreatePlusA.length > 0 && filteredTodostoCreatePlusA);
                 setElementSelect(dataPromiseAffter);
+                console.log("🚀 ~ funtionAsync ~ dataPromiseAffter:", dataPromiseAffter)
             } catch (error) {
                 console.error("Error in todo:", error);
             }
@@ -221,11 +224,18 @@ const CreateAutogenerateGeneral = (props: any) => {
     return (
         <div className={styles.body}>
 
+
+
+
             <div className={styles.selectsGeneral} >
                 <div className={styles.selects}>
                     {
                         elementSelect && elementSelect?.map((item: any) =>
                             <div key={item?.key || item?.dataIndex}>
+                                <SelectGeneralMaterial
+                                    todoSelect={item}
+
+                                />
                                 <Selectcrud
                                     data={data}
                                     setData={setData}

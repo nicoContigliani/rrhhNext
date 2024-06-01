@@ -17,6 +17,7 @@ import Inputs from '@/components/inputs/Inputs';
 import Form from 'react-bootstrap/Form';
 
 const Selectcrud = (props: any) => {
+    console.log("🚀 ~ Selectcrud ~ props:", props)
     const { todoSelect, data, setData } = props
 
 
