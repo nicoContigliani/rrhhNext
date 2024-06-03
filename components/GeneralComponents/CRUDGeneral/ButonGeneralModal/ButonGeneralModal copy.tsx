@@ -23,28 +23,23 @@ export interface FetchCrudData {
 
 const ButonGeneralModal = (props: any) => {
   const [createDatas, setCreateDatas] = useState<any | any[] | undefined>()
-  const [createDatasSeconds, setCreateDatasSeconds] = useState<any | any[] | undefined>()
-
   const [dataGet, setDataGet] = useState<any | any[] | undefined>()
   const [pathStarts, setPathStarts] = useState<string | undefined | null>()
   const [nameModelStarts, setNameModelStarts] = useState<string | undefined | null>()
   const [messageS, setMessageS] = useState<any | any[] | undefined>()
-  const [componentsAll, setComponentsAll] = useState<any | any[] | undefined>()
 
   const {
     todo,
     ids,
     creates,
     createData,
-    createDataSeconds,
     updates,
     deletes,
     shows,
     settings,
     datas,
     pathStart,
-    nameModelStart,
-    componentForCreate
+    nameModelStart
   } = props
   const dispatch = useDispatch();
   useEffect(() => {
@@ -52,20 +47,12 @@ const ButonGeneralModal = (props: any) => {
 
       // props -> createDataStart -> [{ ids,paths,datas,datasKey,datakey,titleModal }]
       if (createData !== undefined) setCreateDatas(createData)
-
-      if (createDataSeconds !== undefined) setCreateDatasSeconds(createDataSeconds)
-
-
-
       //get Data genera get of reducer ->  customerHooks
       if (datas !== undefined) setDataGet(datas)
 
       if (pathStart) setPathStarts(pathStart)
 
       if (nameModelStart) setNameModelStarts(nameModelStart)
-
-
-      if (componentForCreate) setComponentsAll(componentForCreate)
 
 
     }
@@ -183,12 +170,9 @@ const ButonGeneralModal = (props: any) => {
             <div>
               <CreateAutogenerateGeneral
                 createDatas={createDatas}
-                createDatasSeconds={createDatasSeconds}
-
                 dataGet={dataGet}
                 pathStarts={pathStarts}
                 nameModelStarts={nameModelStarts}
-                
               >
                 si llegó
               </CreateAutogenerateGeneral>

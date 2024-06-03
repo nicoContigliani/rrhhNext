@@ -87,34 +87,25 @@
     }
 
     .buttonSend {
-        position: relative;
-        /* Contenedor relativo */
-        width: 100%;
-        /* Asegura que el botón ocupe el 100% del ancho disponible */
-        height: 25px;
-        /* Altura fija del botón */
-        color: white;
-        /* Color del texto */
-        border: none;
-        /* Sin bordes */
-        border-radius: 5px;
-        /* Bordes redondeados */
-        cursor: pointer;
-        /* Cursor tipo mano para indicar que es clickeable */
-        font-size: small;
-        /* Tamaño del texto */
-        text-align: center;
-        /* Asegura que el texto esté centrado */
+        position: relative; /* Contenedor relativo */
+        width: 100%; /* Asegura que el botón ocupe el 100% del ancho disponible */
+        height: 25px; /* Altura fija del botón */
+        color: white; /* Color del texto */
+        border: none; /* Sin bordes */
+        border-radius: 5px; /* Bordes redondeados */
+        cursor: pointer; /* Cursor tipo mano para indicar que es clickeable */
+        font-size: small; /* Tamaño del texto */
+        text-align: center; /* Asegura que el texto esté centrado */
         box-shadow: 1px 3px 30px #c2ccfd30, -8px -1px 2px #ffffffb8;
 
-    }
-
-    .buttonSend span {
+      }
+      
+      .buttonSend span {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-    }
+      }
 
 }
 
@@ -133,20 +124,18 @@
         /* Valor alto de z-index para superponer sobre todo */
 
     }
-
     .selectsGeneral {
-        padding: 1%;
-
+        padding: 3%;
+        
         /* display: flex;
         flex-wrap: wrap; */
         display: grid;
         grid-template-columns: repeat(1, 1fr);
-        grid-gap: 2px 1px;
+        grid-gap: 2px 5px;
 
         justify-content: space-around;
         align-items: center;
         align-content: center;
-        
     }
 
 
@@ -154,17 +143,14 @@
         display: grid;
         grid-template-columns: repeat(6, 1fr);
         /* Tres columnas de igual ancho */
-        grid-gap: 2px 15px;
+        grid-gap: 2px 10px;
         /* 2px de separación vertical y 3px de separación horizontal */
         justify-content: center;
         /* Centra el grid horizontalmente */
         align-content: center;
         /* Centra el grid verticalmente si el contenedor tiene altura fija */
-        padding: 1px;
+        padding: 10px;
         /* Añadir un poco de relleno alrededor del contenedor */
-        box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.2); /* Sombra suave para resaltar el card */
-        box-shadow: 1px 3px 30px #c2ccfdb0, -8px -1px 2px #ffffffb8;
-        background: linear-gradient(to bottom right, #ffffff, #f0f0f0); 
     }
 
     .bodyElements>div {
@@ -173,7 +159,6 @@
 
         align-items: center;
         /* Alineación vertical de los elementos en el centro */
-        
     }
 
     /* Opcional: estiliza los Inputs para adaptarse al diseño */
@@ -182,53 +167,20 @@
         /* Asegura que los inputs ocupen todo el ancho del grid */
     }
 
-    /* .selects {
+
+
+
+
+  
+    .selects {
         display: flex;
         flex-wrap: nowrap;
         justify-content: center;
         align-items: center;
         align-content: center;
+        /* padding-right: 1%;
+        padding-left: 1%; */
         z-index: 999;
-    } */
-
-    .selects {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(1000px, 1fr));
-        grid-gap: 10px;
-        /* Ajusta el espacio entre los elementos según sea necesario */
-        justify-content: center;
-        /* Centra el grid horizontalmente */
-        align-content: center;
-        width: 100%;
-        /* Asegura que el contenedor ocupe el 100% del ancho disponible */
-        
-    }
-
-    .selectsSecond {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
-        grid-gap: 10px;
-        /* Ajusta el espacio entre los elementos según sea necesario */
-        justify-content: center;
-        /* Centra el grid horizontalmente */
-        align-content: center;
-        /* width: 100%; */
-
-    }
-
-    .step {
-        width: auto; /* Ancho del card */
-        padding: 20px; /* Espaciado interno del card */
-        border-radius: 10px; /* Radio de borde para darle forma al card */
-        box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.2); /* Sombra suave para resaltar el card */
-        box-shadow: 1px 3px 30px #c2ccfdb0, -8px -1px 2px #ffffffb8;
-        background: linear-gradient(to bottom right, #ffffff, #f0f0f0); /* Gradiente de fondo */
-
-    }
-
-    .step:hover {
-        border-radius: 5%;
-        box-shadow: 1px 3px 30px #c2ccfdb0, -8px -1px 2px #ffffffb8;
 
     }
 
@@ -262,25 +214,15 @@
     .buttonSend {
         display: flex;
         flex-wrap: nowrap;
-        justify-content: space-around;
-        /* Centra horizontalmente */
-        align-items: center;
-        /* Centra verticalmente */
-        text-align: center;
-        /* Asegura que el texto esté centrado */
-        width: 100%;
-        /* Asegura que el botón ocupe el 100% del ancho disponible */
-        height: 50px;
-        /* Altura fija del botón */
-        color: white;
-        /* Color del texto */
-        border: none;
-        /* Sin bordes */
-        border-radius: 5px;
-        /* Bordes redondeados */
-        cursor: pointer;
-        /* Cursor tipo mano para indicar que es clickeable */
-        font-size: 16px;
-        /* Tamaño del texto */
+        justify-content: space-around; /* Centra horizontalmente */
+        align-items: center; /* Centra verticalmente */
+        text-align: center; /* Asegura que el texto esté centrado */
+        width: 100%; /* Asegura que el botón ocupe el 100% del ancho disponible */
+        height: 50px; /* Altura fija del botón */
+        color: white; /* Color del texto */
+        border: none; /* Sin bordes */
+        border-radius: 5px; /* Bordes redondeados */
+        cursor: pointer; /* Cursor tipo mano para indicar que es clickeable */
+        font-size: 16px; /* Tamaño del texto */
     }
 }

@@ -1,5 +1,5 @@
 'use client'
-import React, { Children, useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react'
 import useFetchCrudData from '@/hooks/useFetchCrudData';
 import { createCrud, fetchCrud, updateCrud } from '@/redux/features/CRUD/crudSlice';
 import { forEach } from 'lodash';
@@ -27,7 +27,6 @@ import dynamic from 'next/dynamic';
 import Messages from '@/components/Messages/Messages';
 import ListTransferGeneral from '@/components/GeneralComponents/ListTransferGeneral/ListTransferGeneral';
 import SelectGeneralMaterial from '@/components/GeneralComponents/SelectGeneralMaterial/SelectGeneralMaterial';
-import { OutlinedInput } from '@mui/material';
 
 
 
@@ -47,17 +46,12 @@ const CreateAutogenerateGeneral = (props: any) => {
 
     const [generalElement, setGeneralElement] = useState<any>()
     const [cols, setCols] = useState<any[]>()
-
     const [colIdPaths, setColIdPaths] = useState<any | any[] | undefined>()
     const [data, setData] = useState<any | any[] | undefined>()
     const [colsAlternative, setColsAlternative] = useState<any[] | undefined>()
 
     const [elementSelect, setElementSelect] = useState<any[]>()
     const [filteredTodostoCreatePlusArrays, SetFilteredTodostoCreatePlusArrays] = useState<any[]>()
-
-    const [elementSelectSeconds, setElementSelectSeconds] = useState<any[]>()
-    const [filteredTodostoCreatePlusArraysSecond, SetFilteredTodostoCreatePlusArraysSeconds] = useState<any[]>()
-
 
     const [messageS, setMessageS] = useState<any | any[] | undefined>()
 
@@ -157,45 +151,6 @@ const CreateAutogenerateGeneral = (props: any) => {
         funtionAsync();
     }, [props]);
 
-
-    useEffect(() => {
-        const funtionAsync = async () => {
-            try {
-                const { createDatasSeconds, dataGet } = props;
-                const { col, colIdPath } = createDatasSeconds;
-
-                const promises = colIdPath.map(async (element: any | object) => {
-                    const { ids, paths, datas, datasKey, datakey, titleModal } = element;
-
-                    const dataSources = datas.map((item: any) => {
-                        const value = (datakey[0] !== undefined && item !== undefined) ? item[datakey[0]] : '';
-                        const label = (datakey[1] !== undefined && item !== undefined) ? item[datakey[1]] : '';
-                        return { value, label, ids, titleModal };
-                    });
-                    return dataSources;
-                });
-                //This promisse is data sources. It's gives data a select 
-                const dataPromiseAffter = await Promise.all(promises);
-                //This map is data sources. It's gives data a  modal Create 
-                const filteredTodostoCreatePlusA = colIdPath.map((element: any) => {
-                    return [element.datasKey, element.titleModal, element.paths]
-                });
-
-                SetFilteredTodostoCreatePlusArraysSeconds(filteredTodostoCreatePlusA.length > 0 && filteredTodostoCreatePlusA);
-                setElementSelectSeconds(dataPromiseAffter);
-            } catch (error) {
-                console.error("Error in todo:", error);
-            }
-        };
-
-        funtionAsync();
-    }, [props]);
-
-
-
-
-
-
     const mocks = {
         InterviewId: 1,
         VacancyId: "1",
@@ -272,8 +227,8 @@ const CreateAutogenerateGeneral = (props: any) => {
 
 
 
+
             <div className={styles.selectsGeneral} >
-               //vacancies/si no existe tiene que darte el crear <br />
                 <div className={styles.selects}>
                     {
                         elementSelect && elementSelect?.map((item: any) =>
@@ -281,13 +236,11 @@ const CreateAutogenerateGeneral = (props: any) => {
                                 <SelectGeneralMaterial
                                     todoSelect={item}
 
-                                    size="small"
-                                    fullWidth
-                                    labelId="demo-multiple-chip-label"
-                                    id="demo-multiple-chip"
-                                    // multiple
-                                    input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-
+                                />
+                                <Selectcrud
+                                    data={data}
+                                    setData={setData}
+                                    todoSelect={item}
                                 />
                             </div>
                         )
@@ -314,12 +267,9 @@ const CreateAutogenerateGeneral = (props: any) => {
                     }
                 </div>
             </div>
-
-            <span>
-            </span>
-            <br />
-
             <div className={styles.bodyElements}>
+
+
                 {
                     // colsAlternative ?
                     false ?
@@ -348,6 +298,7 @@ const CreateAutogenerateGeneral = (props: any) => {
 
                         cols?.map((item: any) => (
                             <div key={item?.key || item?.dataIndex}>
+
                                 {
                                     (item.title !== "key" && item.title !== "id" && item.title !== "createdAt" && item.title !== "updatedAt") &&
                                     < Inputs
@@ -367,57 +318,28 @@ const CreateAutogenerateGeneral = (props: any) => {
                 }
             </div>
             <br /><hr />
-            {data?.all_Steps && Array.from({ length: Number(data.all_Steps) }).map((_, index) => (
-                <div className={styles.selectsSecond}>
-                    <div key={index} className={styles.step}>
-                        <h4>Step {index + 1}</h4>
-                        {/* Aquí puedes agregar los inputs específicos para cada paso */}
-                        {
-                            elementSelectSeconds && elementSelectSeconds?.map((item: any) =>
-                                <div key={item?.key || item?.dataIndex}>
-                                    <SelectGeneralMaterial
-                                        todoSelect={item}
-                                    // size="small"
-                                    // fullWidth
-                                    // labelId="demo-multiple-chip-label"
-                                    // id="demo-multiple-chip"
-                                    // multiple
-                                    // input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-
-                                    />
-
-                                </div>
-                            )
-                        }
-
-                    </div>
-                    <div className={styles.buttons}>
-                        {
-                            filteredTodostoCreatePlusArraysSecond && filteredTodostoCreatePlusArraysSecond?.map((item: any) =>
-                                <div
-                                    key={item?.key || item?.dataIndex}
-                                    className={styles.button}
-                                >
-                                    <ModalSelectGeneralCrud
-                                        objectKeys={item[0]}
-                                        IType={""}
-                                        modalTitles={item[1]}
-                                        pathCrud={item[2]}
-                                    />
-                                </div>
-                            )
-                        }
-                    </div>
-                </div>
-            ))}
-
-            <br />
-       // crear un acumulador
-       // interviews --- si no existe debe dar para crear + generados de multiples interviews<br />
-       // trae todos los user y con un select tiene que tener user para reclutador y para reclutador
-
-
-            {props.children}
+            <div
+                className={styles.buttonSend}
+            // style={{ width: '100%', textAlign: 'center',alignContent:'center',alignItems:'center' }}
+            >
+                <Button
+                    className={styles.buttons}
+                    // style={{ width: '100%' }}
+                    onClick={Send}
+                    block
+                    type='primary'
+                >
+                    <PlusOutlined />
+                </Button>
+            </div>
+            {messageS?.key !== null && (
+                <Messages
+                    key={messageS?.key}
+                    content={messageS?.content}
+                    loadings={messageS?.loadings}
+                    resultProcess={messageS?.resultProcess}
+                />
+            )}
 
         </div>
     )

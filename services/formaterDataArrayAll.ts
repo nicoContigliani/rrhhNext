@@ -45,5 +45,6 @@ export const formatDataAllElementNotArray = async (all: any[], arrayDelete: stri
         });
         return newItem;
     });
+    console.log("🚀 ~ todo ~ todo:", todo)
     return todo
 };

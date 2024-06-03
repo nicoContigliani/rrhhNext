@@ -29,7 +29,6 @@ export interface FetchCrudData {
 import diccionaryRoutesAndComponents from '@/diccionaryDataKey/diccionaryRoutesAndComponents.json'
 import { rootsAsync, selectRoots } from '@/redux/features/roots/rootsSlice'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
-import TestForCreate from '@/components/TestForCreate/TestForCreate'
 
 
 type DictionaryRoutesAndComponents = typeof diccionaryRoutesAndComponents;
@@ -451,38 +450,6 @@ const page = () => {
 
 
 
-  // const createDataStart = {
-  //   col: col1,
-  //   colIdPath: [
-  //     {
-  //       ids: "VacancyId",
-  //       paths: "/Vacancy/Vacancy",
-  //       datas: vacanciesData,
-  //       datasKey: vacanciesDataKey,
-  //       datakey: ['id', 'title'],
-  //       titleModal: 'Vacancy'
-  //     },
-  //     {
-  //       ids: "InterviewId",
-  //       paths: "/Interview/Interview",
-  //       datas: interviewsData,
-  //       datasKey: interviewsDataKey,
-  //       datakey: ['id', 'interviewers'],
-  //       titleModal: 'Interview'
-
-
-  //     },
-
-  //     {
-  //       ids: "UserId",
-  //       paths: "/User/User",
-  //       datas: users,
-  //       datasKey: userKey,
-  //       datakey: ['id', 'fullname'],
-  //       titleModal: 'User'
-  //     },
-  //   ]
-  // }
   const createDataStart = {
     col: col1,
     colIdPath: [
@@ -494,13 +461,6 @@ const page = () => {
         datakey: ['id', 'title'],
         titleModal: 'Vacancy'
       },
-
-    ]
-  }
-
-  const createDataSeconds = {
-    col: col1,
-    colIdPath: [
       {
         ids: "InterviewId",
         paths: "/Interview/Interview",
@@ -508,7 +468,10 @@ const page = () => {
         datasKey: interviewsDataKey,
         datakey: ['id', 'interviewers'],
         titleModal: 'Interview'
+
+
       },
+
       {
         ids: "UserId",
         paths: "/User/User",
@@ -522,8 +485,6 @@ const page = () => {
 
 
 
-
-
   return (
     <div className={styles.body}>
 
@@ -534,8 +495,6 @@ const page = () => {
           ids="0"
           creates={true}
           createData={createDataStart}
-          createDataSeconds={createDataSeconds}
-
           updates={false}
           deletes={false}
           shows={false}
@@ -543,9 +502,7 @@ const page = () => {
           datas={data}
           pathStart="/RoadMap/RoadMap/"
           nameModelStart="RoadMaps"
-        >
-
-        </ButonGeneralModal>
+        ></ButonGeneralModal>
       </div>
 
 

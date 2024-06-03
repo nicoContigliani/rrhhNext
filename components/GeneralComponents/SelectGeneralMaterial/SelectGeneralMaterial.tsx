@@ -216,20 +216,23 @@ const SelectGeneralMaterial = (props: any) => {
 
     return (
         <>
-            <FormControl sx={{ m: 1, width: '100%' }} size="small">
+            <FormControl sx={{ m: 1, width: '100%' }}
+                size="small"
+            >
                 <InputLabel id="demo-multiple-chip-label">{tittle}</InputLabel>
                 <Select
+                    // {...props}
                     size="small"
                     fullWidth
                     labelId="demo-multiple-chip-label"
                     id="demo-multiple-chip"
                     multiple
+                    input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
                     value={personName}
                     onChange={handleChange}
-                    input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-                    renderValue={(selected) => (
+                    renderValue={(selected: any[] | any) => (
                         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.9 }}>
-                            {selected.map((value) => (
+                            {selected?.map((value: any) => (
                                 <div key={value}>
                                     <UserOutlined />   -    {value}
                                 </div>
@@ -240,16 +243,16 @@ const SelectGeneralMaterial = (props: any) => {
                     MenuProps={MenuProps}
                 >
                     <MenuItem sx={{ display: 'flex', flexWrap: 'nowrap', gap: 0.9 }}>
-                        <SearchIcon
+                        {/* <SearchIcon
                             color="disabled"
-                        />
+                        /> */}
                         <TextField
                             size="small"
                             autoFocus
                             placeholder="Search..."
                             fullWidth
                             onChange={handleSearchChange}
-                            value={searchTerm}
+                            defaultValue={searchTerm}
                         />
                     </MenuItem>
                     {filteredNames?.map((name: any | undefined) => (
@@ -258,7 +261,7 @@ const SelectGeneralMaterial = (props: any) => {
                             value={name}
                             style={getStyles(name, personName, theme)}
                         >
-                            <div>
+                            <div style={{ color: "black" }}>
                                 <UserOutlined /> - {name}
                             </div>
                         </MenuItem>
@@ -270,3 +273,20 @@ const SelectGeneralMaterial = (props: any) => {
 };
 
 export default SelectGeneralMaterial;
+
+
+//DOCUMENTATION COMPONENTE
+{/* <SelectGeneralMaterial
+      size="small"
+      fullWidth
+      labelId="demo-multiple-chip-label"
+      id="demo-multiple-chip"
+      multiple
+      input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+
+
+/> */}
+
+
+
+
