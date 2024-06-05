@@ -42,7 +42,7 @@ const CreateAutogenerateGeneral = (props: any) => {
     console.log("🚀 ~ CreateAutogenerateGeneral ~ props:", props)
     const dispatch = useDispatch();
 
-    const { pathStarts, nameModelStarts } = props
+    const { pathStarts, nameModelStarts, rules_create } = props
 
 
     const [generalElement, setGeneralElement] = useState<any>()
@@ -53,39 +53,18 @@ const CreateAutogenerateGeneral = (props: any) => {
     const [colsAlternative, setColsAlternative] = useState<any[] | undefined>()
 
     const [elementSelect, setElementSelect] = useState<any[]>()
+    console.log("🚀 ~ CreateAutogenerateGeneral ~ elementSelect:", elementSelect)
     const [filteredTodostoCreatePlusArrays, SetFilteredTodostoCreatePlusArrays] = useState<any[]>()
 
     const [elementSelectSeconds, setElementSelectSeconds] = useState<any[]>()
     const [filteredTodostoCreatePlusArraysSecond, SetFilteredTodostoCreatePlusArraysSeconds] = useState<any[]>()
 
+    const [rules, setRules] = useState<any | undefined>(rules_create)
 
     const [messageS, setMessageS] = useState<any | any[] | undefined>()
 
     const roots = useAppSelector(selectRoots);
     const { col_structure } = roots
-
-    // useCallback(() => {
-    //     const tableStructure = col_structure.find(
-    //         (obj: any) => obj.table_fullname === nameModelStarts
-    //     );
-
-    //     const { table_columns } = tableStructure
-
-    //     const dataSi = table_columns.filter((item: any) => {
-    //         return (
-    //             item?.column_name !== "id" &&
-    //             item?.column_name !== "updatedAt" &&
-    //             item?.column_name !== "createdAt" &&
-    //             item?.column_name !== "InterviewId" &&
-    //             item?.column_name !== "VacancyId" 
-
-
-    //         )
-
-    //     })
-    //     setColsAlternative(dataSi)
-
-    // }, [col_structure])
 
     const tableStructure = useMemo(() => col_structure.find(
         (obj: any) => obj.table_fullname === nameModelStarts
@@ -123,6 +102,9 @@ const CreateAutogenerateGeneral = (props: any) => {
         fetchData();
     }, [props]);
 
+
+    //TODO, This is first colIPath
+
     useEffect(() => {
         const funtionAsync = async () => {
             try {
@@ -130,12 +112,12 @@ const CreateAutogenerateGeneral = (props: any) => {
                 const { col, colIdPath } = createDatas;
 
                 const promises = colIdPath.map(async (element: any | object) => {
-                    const { ids, paths, datas, datasKey, datakey, titleModal } = element;
+                    const { ids, paths, datas, datasKey, datakey, titleModal, isMultiple } = element;
 
                     const dataSources = datas.map((item: any) => {
                         const value = (datakey[0] !== undefined && item !== undefined) ? item[datakey[0]] : '';
                         const label = (datakey[1] !== undefined && item !== undefined) ? item[datakey[1]] : '';
-                        return { value, label, ids, titleModal };
+                        return { value, label, ids, titleModal, isMultiple };
                     });
                     return dataSources;
                 });
@@ -148,7 +130,6 @@ const CreateAutogenerateGeneral = (props: any) => {
 
                 SetFilteredTodostoCreatePlusArrays(filteredTodostoCreatePlusA.length > 0 && filteredTodostoCreatePlusA);
                 setElementSelect(dataPromiseAffter);
-                console.log("🚀 ~ funtionAsync ~ dataPromiseAffter:", dataPromiseAffter)
             } catch (error) {
                 console.error("Error in todo:", error);
             }
@@ -158,15 +139,26 @@ const CreateAutogenerateGeneral = (props: any) => {
     }, [props]);
 
 
+
+    //TODO, This is second colIPath
     useEffect(() => {
         const funtionAsync = async () => {
             try {
                 const { createDatasSeconds, dataGet } = props;
                 const { col, colIdPath } = createDatasSeconds;
 
-                const promises = colIdPath.map(async (element: any | object) => {
-                    const { ids, paths, datas, datasKey, datakey, titleModal } = element;
 
+                const promises = colIdPath.map(async (element: any | object) => {
+                    const {
+                        ids,
+                        paths,
+                        datas,
+                        datasKey,
+                        datakey,
+                        titleModal,
+                    } = element;
+
+                    //TODO hasta acá viene bien el is Multiple
                     const dataSources = datas.map((item: any) => {
                         const value = (datakey[0] !== undefined && item !== undefined) ? item[datakey[0]] : '';
                         const label = (datakey[1] !== undefined && item !== undefined) ? item[datakey[1]] : '';
@@ -267,6 +259,21 @@ const CreateAutogenerateGeneral = (props: any) => {
 
     }
 
+
+    const rulefunction = (dataItem: any) => {
+        let resultReturn = false
+        if (dataItem) {
+
+            const functionAsync =  () => {
+                const { titleModal } =  dataItem[0]
+                let formattedTitle = titleModal.includes(' ') ? titleModal.split(' ').join('_') : titleModal;
+                resultReturn = rules[formattedTitle]
+            }
+            functionAsync()
+        }
+        return resultReturn
+    }
+
     return (
         <div className={styles.body}>
 
@@ -285,8 +292,8 @@ const CreateAutogenerateGeneral = (props: any) => {
                                     fullWidth
                                     labelId="demo-multiple-chip-label"
                                     id="demo-multiple-chip"
-                                    // multiple
-                                    input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+
+                                    isMultiple={rulefunction(item)}
 
                                 />
                             </div>
@@ -377,12 +384,7 @@ const CreateAutogenerateGeneral = (props: any) => {
                                 <div key={item?.key || item?.dataIndex}>
                                     <SelectGeneralMaterial
                                         todoSelect={item}
-                                    // size="small"
-                                    // fullWidth
-                                    // labelId="demo-multiple-chip-label"
-                                    // id="demo-multiple-chip"
-                                    // multiple
-                                    // input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+                                        isMultiple={rulefunction(item)}
 
                                     />
 
@@ -393,11 +395,14 @@ const CreateAutogenerateGeneral = (props: any) => {
                     </div>
                     <div className={styles.buttons}>
                         {
-                            filteredTodostoCreatePlusArraysSecond && filteredTodostoCreatePlusArraysSecond?.map((item: any) =>
+                            filteredTodostoCreatePlusArraysSecond && filteredTodostoCreatePlusArraysSecond?.map(((item: any) =>
+
+                                (item[1] !== 'Interview Users' && item[1] !== 'Interview Responsibles') &&
                                 <div
                                     key={item?.key || item?.dataIndex}
                                     className={styles.button}
                                 >
+                                    {/* buton modal create item */}
                                     <ModalSelectGeneralCrud
                                         objectKeys={item[0]}
                                         IType={""}
@@ -405,19 +410,16 @@ const CreateAutogenerateGeneral = (props: any) => {
                                         pathCrud={item[2]}
                                     />
                                 </div>
-                            )
+                            ))
                         }
                     </div>
                 </div>
             ))}
 
             <br />
-       // crear un acumulador
-       // interviews --- si no existe debe dar para crear + generados de multiples interviews<br />
-       // trae todos los user y con un select tiene que tener user para reclutador y para reclutador
 
 
-            {props.children}
+            {/* {props.children} */}
 
         </div>
     )

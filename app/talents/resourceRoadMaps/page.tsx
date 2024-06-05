@@ -492,7 +492,10 @@ const page = () => {
         datas: vacanciesData,
         datasKey: vacanciesDataKey,
         datakey: ['id', 'title'],
-        titleModal: 'Vacancy'
+        titleModal: 'Vacancy',
+        rules: {
+          isMultiple: false
+        }
       },
 
     ]
@@ -507,7 +510,12 @@ const page = () => {
         datas: interviewsData,
         datasKey: interviewsDataKey,
         datakey: ['id', 'interviewers'],
-        titleModal: 'Interview'
+        titleModal: 'Interview',
+        rules: {
+          isMultiple: false
+        }
+
+
       },
       {
         ids: "UserId",
@@ -515,13 +523,32 @@ const page = () => {
         datas: users,
         datasKey: userKey,
         datakey: ['id', 'fullname'],
-        titleModal: 'User'
+        titleModal: 'Interview Users',
+        rules: {
+          isMultiple: true
+        }
+      },
+      {
+        ids: "UserId",
+        paths: "/User/User",
+        datas: users,
+        datasKey: userKey,
+        datakey: ['id', 'fullname'],
+        titleModal: 'Interview Responsibles',
+        rules: {
+          isMultiple: true
+        }
       },
     ]
   }
 
 
-
+  const rules_creates = {
+    Interview_Responsibles: true,
+    Interview_Users: true,
+    Vacancy: false,
+    Interview: false
+  }
 
 
   return (
@@ -535,6 +562,11 @@ const page = () => {
           creates={true}
           createData={createDataStart}
           createDataSeconds={createDataSeconds}
+          rules_create={rules_creates}
+
+
+
+
 
           updates={false}
           deletes={false}

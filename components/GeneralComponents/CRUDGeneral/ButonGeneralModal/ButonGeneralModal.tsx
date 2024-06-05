@@ -44,7 +44,8 @@ const ButonGeneralModal = (props: any) => {
     datas,
     pathStart,
     nameModelStart,
-    componentForCreate
+    componentForCreate,
+    rules_create
   } = props
   const dispatch = useDispatch();
   useEffect(() => {
@@ -184,6 +185,7 @@ const ButonGeneralModal = (props: any) => {
               <CreateAutogenerateGeneral
                 createDatas={createDatas}
                 createDatasSeconds={createDatasSeconds}
+                rules_create={rules_create}
 
                 dataGet={dataGet}
                 pathStarts={pathStarts}

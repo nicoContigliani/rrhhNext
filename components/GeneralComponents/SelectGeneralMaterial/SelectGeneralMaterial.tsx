@@ -165,14 +165,17 @@ function getStyles(name: string, personName: readonly string[], theme: Theme) {
     return {
         fontWeight:
             personName.indexOf(name) === -1
-                ? theme.typography.fontWeightRegular
-                : theme.typography.fontWeightMedium,
+                ? theme.typography?.fontWeightRegular
+                : theme.typography?.fontWeightMedium,
     };
 }
 
+
+
+
 const SelectGeneralMaterial = (props: any) => {
-    const { todoSelect, data, setData } = props
-    console.log("🚀 ~ SelectGeneralMaterial ~ todoSelect:", todoSelect)
+    console.log("🚀 ~ SelectGeneralMaterial ~ props:", props)
+    const { todoSelect, data, setData,isMultiple } = props
 
 
 
@@ -183,14 +186,18 @@ const SelectGeneralMaterial = (props: any) => {
     const [searchTerm, setSearchTerm] = React.useState<string>('');
     const [names, setNames] = React.useState<any | any[] | undefined>()
     const [tittle, setTittle] = React.useState<any | any[] | undefined>()
+    const [datas, setDatas] = React.useState<any | any[] | undefined>()
 
 
 
     React.useLayoutEffect(() => {
         const funtionAsync = async () => {
-            const si = await todoSelect?.map((item: any) => item.label)
+            // const si = await todoSelect?.map((item: any) => item.label)
+            const si = await todoSelect?.map((item: any) => `${item.value}-${item.label}`);
+
+
             await setNames(si)
-            await setTittle(todoSelect[0].ids)
+            await setTittle(todoSelect[0].titleModal)
         }
         funtionAsync()
     }, [])
@@ -204,6 +211,8 @@ const SelectGeneralMaterial = (props: any) => {
             // On autofill we get a stringified value.
             typeof value === 'string' ? value.split(',') : value,
         );
+        console.log('****************', { [tittle]: value }, '**********')
+
     };
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -222,11 +231,13 @@ const SelectGeneralMaterial = (props: any) => {
                 <InputLabel id="demo-multiple-chip-label">{tittle}</InputLabel>
                 <Select
                     // {...props}
+                    multiple={isMultiple || false}
+
                     size="small"
                     fullWidth
                     labelId="demo-multiple-chip-label"
                     id="demo-multiple-chip"
-                    multiple
+                    // multiple
                     input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
                     value={personName}
                     onChange={handleChange}
