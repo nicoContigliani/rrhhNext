@@ -20,6 +20,7 @@
     "@mui/x-date-pickers": "^6.19.0",
     "@reduxjs/toolkit": "^2.2.1",
     "@stitches/react": "^1.2.8",
+    "@types/moment": "^2.13.0",
     "@types/node": "20.10.4",
     "@types/react": "18.2.45",
     "@types/react-beautiful-dnd": "^13.1.8",

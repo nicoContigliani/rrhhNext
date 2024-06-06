@@ -175,7 +175,14 @@ function getStyles(name: string, personName: readonly string[], theme: Theme) {
 
 const SelectGeneralMaterial = (props: any) => {
     console.log("🚀 ~ SelectGeneralMaterial ~ props:", props)
-    const { todoSelect, data, setData,isMultiple } = props
+    const {
+        todoSelect,
+        data,
+        setData,
+        isMultiple,
+        keys,
+        setSelectedValues
+    } = props
 
 
 
@@ -211,7 +218,13 @@ const SelectGeneralMaterial = (props: any) => {
             // On autofill we get a stringified value.
             typeof value === 'string' ? value.split(',') : value,
         );
-        console.log('****************', { [tittle]: value }, '**********')
+        let formattedTitle = tittle.includes(' ') ? tittle.split(' ').join('_') : tittle;
+        console.log('****************', { [formattedTitle]: value }, '**********')
+
+        setSelectedValues((prevValues: any) => ({
+            ...prevValues,
+            [`${formattedTitle}-${keys}`]: value
+        }));
 
     };
 

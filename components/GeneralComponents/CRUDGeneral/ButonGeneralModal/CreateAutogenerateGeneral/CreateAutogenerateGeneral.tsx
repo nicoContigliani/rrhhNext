@@ -1,12 +1,13 @@
 'use client'
+
+import { v4 as uuidv4 } from 'uuid';
+import moment from 'moment';
+
+
 import React, { Children, useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react'
-import useFetchCrudData from '@/hooks/useFetchCrudData';
 import { createCrud, fetchCrud, updateCrud } from '@/redux/features/CRUD/crudSlice';
-import { forEach } from 'lodash';
 import { useDispatch } from 'react-redux';
-// import Inputs from '@/components/inputs/Inputs';
-// import ModalSelectGeneralCrud from '@/components/GeneralComponents/ModalSelectGeneral Crud/ModalSelectGeneralCrud';
-// import Selectcrud from '../../SelectCrud/Selectcrud';
+
 
 const Inputs = dynamic(() => import('@/components/inputs/Inputs'), { ssr: false })
 const ModalSelectGeneralCrud = dynamic(() => import('@/components/GeneralComponents/ModalSelectGeneral Crud/ModalSelectGeneralCrud'), { ssr: false })
@@ -18,16 +19,12 @@ const Selectcrud = dynamic(() => import('../../SelectCrud/Selectcrud'), { ssr: f
 import styles from './createAutoGenerate.module.css'
 import { FilterHeadTableRules } from '@/services/FilterHeadTableRules.services';
 import { rulesType, rulesWordStartStatus } from '@/services/formaterInputs.services';
-import { colDiccionary } from '@/services/colDiccionary.services';
-import { Button } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+
 import { selectRoots } from '@/redux/features/roots/rootsSlice';
 import { useAppSelector } from '@/redux/hooks';
 import dynamic from 'next/dynamic';
-import Messages from '@/components/Messages/Messages';
-import ListTransferGeneral from '@/components/GeneralComponents/ListTransferGeneral/ListTransferGeneral';
 import SelectGeneralMaterial from '@/components/GeneralComponents/SelectGeneralMaterial/SelectGeneralMaterial';
-import { OutlinedInput } from '@mui/material';
+import { promiseValueLabelCreateAutoGenerate } from '@/services/promiseVAlueLabelCreateAutoGenerate.services';
 
 
 
@@ -53,7 +50,6 @@ const CreateAutogenerateGeneral = (props: any) => {
     const [colsAlternative, setColsAlternative] = useState<any[] | undefined>()
 
     const [elementSelect, setElementSelect] = useState<any[]>()
-    console.log("🚀 ~ CreateAutogenerateGeneral ~ elementSelect:", elementSelect)
     const [filteredTodostoCreatePlusArrays, SetFilteredTodostoCreatePlusArrays] = useState<any[]>()
 
     const [elementSelectSeconds, setElementSelectSeconds] = useState<any[]>()
@@ -64,19 +60,25 @@ const CreateAutogenerateGeneral = (props: any) => {
     const [messageS, setMessageS] = useState<any | any[] | undefined>()
 
     const roots = useAppSelector(selectRoots);
+
+    const [selectedValues, setSelectedValues] = useState<any | any[] | undefined>();
+
+
+
+
     const { col_structure } = roots
 
     const tableStructure = useMemo(() => col_structure.find(
         (obj: any) => obj.table_fullname === nameModelStarts
     ), [col_structure, nameModelStarts]);
 
-    const filteredColumns = useMemo(() => tableStructure?.table_columns.filter((item: any) => (
-        item?.column_name !== "id" &&
-        item?.column_name !== "updatedAt" &&
-        item?.column_name !== "createdAt" &&
-        item?.column_name !== "InterviewId" &&
-        item?.column_name !== "VacancyId"
-    )), [tableStructure]);
+
+    const filteredColumns = useMemo(() => {
+        const table = col_structure.find((obj: any) => obj.table_fullname === nameModelStarts);
+        return table?.table_columns.filter((item: any) => (
+            !["id", "updatedAt", "createdAt", "InterviewId", "VacancyId"].includes(item.column_name)
+        ));
+    }, [col_structure, nameModelStarts]);
 
     useEffect(() => {
         setColsAlternative(filteredColumns);
@@ -84,106 +86,56 @@ const CreateAutogenerateGeneral = (props: any) => {
 
 
     useEffect(() => {
+        const { createDatas: { col, colIdPath } } = props;
+
+        setGeneralElement(props);
+        setColIdPaths(colIdPath);
+
+        const filteredTodos = FilterHeadTableRules(col, colIdPath);
+        const datafilterCol = filteredTodos?.filter((item: any) => item.dataIndex !== "id");
+        setCols(datafilterCol);
+    }, [props]);
+
+
+
+    // TODO, This is first colIPath
+
+    useEffect(() => {
         const fetchData = async () => {
-            const { createDatas: { col, colIdPath } } = await props;
             try {
-                await setGeneralElement(props);
-                await setColIdPaths(colIdPath);
+                const { createDatas: { colIdPath } } = props;
 
-                ////This services is data sources. It's gives data a modal with auto generate inputs 
-                const filteredTodos = FilterHeadTableRules(col, colIdPath)
-                const datafilterCol = filteredTodos?.filter((item: any) => item.dataIndex !== "id")
-                await setCols(datafilterCol);
+                const { dataSources, filteredTodos } = await promiseValueLabelCreateAutoGenerate(colIdPath)
+
+                SetFilteredTodostoCreatePlusArrays(filteredTodos.length > 0 ? filteredTodos : []);
+                setElementSelect(dataSources);
             } catch (error) {
+                console.error("Error in fetchData:", error);
+            }
+        };
 
+        fetchData();
+    }, [props])
+
+
+    //TODO, This is second colIPath
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const { createDatasSeconds: { colIdPath } } = props;
+
+                const { dataSources, filteredTodos } = await promiseValueLabelCreateAutoGenerate(colIdPath)
+
+                SetFilteredTodostoCreatePlusArraysSeconds(filteredTodos.length > 0 ? filteredTodos : []);
+                setElementSelectSeconds(dataSources);
+            } catch (error) {
+                console.error("Error in fetchData:", error);
             }
         };
 
         fetchData();
     }, [props]);
-
-
-    //TODO, This is first colIPath
-
-    useEffect(() => {
-        const funtionAsync = async () => {
-            try {
-                const { createDatas, dataGet } = props;
-                const { col, colIdPath } = createDatas;
-
-                const promises = colIdPath.map(async (element: any | object) => {
-                    const { ids, paths, datas, datasKey, datakey, titleModal, isMultiple } = element;
-
-                    const dataSources = datas.map((item: any) => {
-                        const value = (datakey[0] !== undefined && item !== undefined) ? item[datakey[0]] : '';
-                        const label = (datakey[1] !== undefined && item !== undefined) ? item[datakey[1]] : '';
-                        return { value, label, ids, titleModal, isMultiple };
-                    });
-                    return dataSources;
-                });
-                //This promisse is data sources. It's gives data a select 
-                const dataPromiseAffter = await Promise.all(promises);
-                //This map is data sources. It's gives data a  modal Create 
-                const filteredTodostoCreatePlusA = colIdPath.map((element: any) => {
-                    return [element.datasKey, element.titleModal, element.paths]
-                });
-
-                SetFilteredTodostoCreatePlusArrays(filteredTodostoCreatePlusA.length > 0 && filteredTodostoCreatePlusA);
-                setElementSelect(dataPromiseAffter);
-            } catch (error) {
-                console.error("Error in todo:", error);
-            }
-        };
-
-        funtionAsync();
-    }, [props]);
-
-
-
-    //TODO, This is second colIPath
-    useEffect(() => {
-        const funtionAsync = async () => {
-            try {
-                const { createDatasSeconds, dataGet } = props;
-                const { col, colIdPath } = createDatasSeconds;
-
-
-                const promises = colIdPath.map(async (element: any | object) => {
-                    const {
-                        ids,
-                        paths,
-                        datas,
-                        datasKey,
-                        datakey,
-                        titleModal,
-                    } = element;
-
-                    //TODO hasta acá viene bien el is Multiple
-                    const dataSources = datas.map((item: any) => {
-                        const value = (datakey[0] !== undefined && item !== undefined) ? item[datakey[0]] : '';
-                        const label = (datakey[1] !== undefined && item !== undefined) ? item[datakey[1]] : '';
-                        return { value, label, ids, titleModal };
-                    });
-                    return dataSources;
-                });
-                //This promisse is data sources. It's gives data a select 
-                const dataPromiseAffter = await Promise.all(promises);
-                //This map is data sources. It's gives data a  modal Create 
-                const filteredTodostoCreatePlusA = colIdPath.map((element: any) => {
-                    return [element.datasKey, element.titleModal, element.paths]
-                });
-
-                SetFilteredTodostoCreatePlusArraysSeconds(filteredTodostoCreatePlusA.length > 0 && filteredTodostoCreatePlusA);
-                setElementSelectSeconds(dataPromiseAffter);
-            } catch (error) {
-                console.error("Error in todo:", error);
-            }
-        };
-
-        funtionAsync();
-    }, [props]);
-
-
 
 
 
@@ -210,69 +162,55 @@ const CreateAutogenerateGeneral = (props: any) => {
         status_roadmap: true,
         undefined: true
     }
-    const Send = async () => {
-        //hay que hacer un servicio que tenga crud ... 
-        //hay que eliminar serch cuando envia
 
+
+    const Send = async () => {
         const todoCRUDGet: FetchCrudData = {
             urlGeneral: props?.pathStarts || '/RoadMap/RoadMap/',
             methods: 'POST',
             body: mocks,
-            idParams: '',
         };
 
         try {
-            const response = await dispatch(createCrud(todoCRUDGet));
-            const { payload: { status } } = response
-            if (status === 200) {
-                setMessageS(
-                    {
-                        keys: 200,
-                        content: "Succes, insert complete!",
-                        loadings: false,
-                        resultProcess: "success"
-                    }
-                )
-            }
-            if (status === 500 || status === 400) {
-                setMessageS(
-                    {
-                        keys: 500,
-                        content: "Error, insert incomplete!",
-                        loadings: false,
-                        resultProcess: "error"
-                    }
-                )
-            }
+            const { payload: { status } } = await dispatch(createCrud(todoCRUDGet));
+            const message = {
+                keys: status,
+                content: status === 200 ? "Success, insert complete!" : "Error, insert incomplete!",
+                loadings: false,
+                resultProcess: status === 200 ? "success" : "error",
+            };
+            setMessageS(message);
+
             if (status !== null) {
-
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1100);
+                setTimeout(() => window.location.reload(), 1100);
             }
-            // return response?.payload?.data; // Suponiendo que el resultado deseado está en response.data
         } catch (error) {
-
             console.error('Error dispatching fetchCrud:', error);
-            return null;
         }
-
-    }
+    };
 
 
     const rulefunction = (dataItem: any) => {
-        let resultReturn = false
-        if (dataItem) {
-
-            const functionAsync =  () => {
-                const { titleModal } =  dataItem[0]
-                let formattedTitle = titleModal.includes(' ') ? titleModal.split(' ').join('_') : titleModal;
-                resultReturn = rules[formattedTitle]
-            }
-            functionAsync()
-        }
-        return resultReturn
+ 
+        if (!dataItem) return false;
+        
+        const { titleModal } = dataItem[0];
+        const formattedTitle = titleModal.replace(/\s+/g, '_');
+        return rules[formattedTitle] || false;
     }
+
+
+    useEffect(() => {
+        const todo = [selectedValues]
+        console.log("🚀 ~ useEffect ~ todo:", todo)
+        console.log("🚀 ~ CreateAutogenerateGeneral ~ selectedValues:", selectedValues)
+
+    }, [selectedValues])
+
+    const today = moment();
+
+    const formattedDate = today.format('YYYY-MM-DD HH:mm:ss');
+    console.log("************", formattedDate, "******nicohora*********")
 
     return (
         <div className={styles.body}>
@@ -292,8 +230,9 @@ const CreateAutogenerateGeneral = (props: any) => {
                                     fullWidth
                                     labelId="demo-multiple-chip-label"
                                     id="demo-multiple-chip"
-
                                     isMultiple={rulefunction(item)}
+
+                                    setSelectedValues={setSelectedValues}
 
                                 />
                             </div>
@@ -385,6 +324,10 @@ const CreateAutogenerateGeneral = (props: any) => {
                                     <SelectGeneralMaterial
                                         todoSelect={item}
                                         isMultiple={rulefunction(item)}
+                                        keys={index + 1}
+                                        setSelectedValues={setSelectedValues}
+
+
 
                                     />
 
