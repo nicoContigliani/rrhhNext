@@ -5,29 +5,8 @@ import moment from 'moment';
 
 
 import React, { Children, useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react'
-import { createCrud, fetchCrud, updateCrud } from '@/redux/features/CRUD/crudSlice';
-import { useDispatch } from 'react-redux';
-
-
-const Inputs = dynamic(() => import('@/components/inputs/Inputs'), { ssr: false })
-const ModalSelectGeneralCrud = dynamic(() => import('@/components/GeneralComponents/ModalSelectGeneral Crud/ModalSelectGeneralCrud'), { ssr: false })
-const Selectcrud = dynamic(() => import('../../SelectCrud/Selectcrud'), { ssr: false })
-
-
-
-
-import styles from './createAutoGenerate.module.css'
-import { FilterHeadTableRules } from '@/services/FilterHeadTableRules.services';
-import { rulesType, rulesWordStartStatus } from '@/services/formaterInputs.services';
-
-import { selectRoots } from '@/redux/features/roots/rootsSlice';
-import { useAppSelector } from '@/redux/hooks';
 import dynamic from 'next/dynamic';
-import SelectGeneralMaterial from '@/components/GeneralComponents/SelectGeneralMaterial/SelectGeneralMaterial';
-import { promiseValueLabelCreateAutoGenerate } from '@/services/promiseVAlueLabelCreateAutoGenerate.services';
-
-
-
+import styles from './createAutoGenerate.module.css'
 export interface FetchCrudData {
     urlGeneral: string | any;
     methods: string;
@@ -35,8 +14,25 @@ export interface FetchCrudData {
     idParams?: string;
 }
 
+import { createCrud, fetchCrud, updateCrud } from '@/redux/features/CRUD/crudSlice';
+import { useDispatch } from 'react-redux';
+import { selectRoots } from '@/redux/features/roots/rootsSlice';
+import { useAppSelector } from '@/redux/hooks';
+
+const Inputs = dynamic(() => import('@/components/inputs/Inputs'), { ssr: false })
+const ModalSelectGeneralCrud = dynamic(() => import('@/components/GeneralComponents/ModalSelectGeneral Crud/ModalSelectGeneralCrud'), { ssr: false })
+const Selectcrud = dynamic(() => import('../../SelectCrud/Selectcrud'), { ssr: false })
+const SelectGeneralMaterial = dynamic(() => import('@/components/GeneralComponents/SelectGeneralMaterial/SelectGeneralMaterial'), { ssr: false })
+
+import { FilterHeadTableRules } from '@/services/FilterHeadTableRules.services';
+import { rulesType, rulesWordStartStatus } from '@/services/formaterInputs.services';
+import { promiseValueLabelCreateAutoGenerate } from '@/services/promiseVAlueLabelCreateAutoGenerate.services';
+import { intreviewUsersAndResponsibleFormater } from '@/services/intreviewUsersAndResponsibleFormater.services';
+
+
+
+
 const CreateAutogenerateGeneral = (props: any) => {
-    console.log("🚀 ~ CreateAutogenerateGeneral ~ props:", props)
     const dispatch = useDispatch();
 
     const { pathStarts, nameModelStarts, rules_create } = props
@@ -44,33 +40,27 @@ const CreateAutogenerateGeneral = (props: any) => {
 
     const [generalElement, setGeneralElement] = useState<any>()
     const [cols, setCols] = useState<any[]>()
-
     const [colIdPaths, setColIdPaths] = useState<any | any[] | undefined>()
     const [data, setData] = useState<any | any[] | undefined>()
     const [colsAlternative, setColsAlternative] = useState<any[] | undefined>()
-
     const [elementSelect, setElementSelect] = useState<any[]>()
     const [filteredTodostoCreatePlusArrays, SetFilteredTodostoCreatePlusArrays] = useState<any[]>()
-
     const [elementSelectSeconds, setElementSelectSeconds] = useState<any[]>()
     const [filteredTodostoCreatePlusArraysSecond, SetFilteredTodostoCreatePlusArraysSeconds] = useState<any[]>()
-
     const [rules, setRules] = useState<any | undefined>(rules_create)
-
     const [messageS, setMessageS] = useState<any | any[] | undefined>()
-
     const roots = useAppSelector(selectRoots);
-
     const [selectedValues, setSelectedValues] = useState<any | any[] | undefined>();
 
+    const [selectDataBeforeSend, setSelectDataBefore] = useState<any | any[] | undefined>()
 
 
 
     const { col_structure } = roots
 
-    const tableStructure = useMemo(() => col_structure.find(
-        (obj: any) => obj.table_fullname === nameModelStarts
-    ), [col_structure, nameModelStarts]);
+    // const tableStructure = useMemo(() => col_structure.find(
+    //     (obj: any) => obj.table_fullname === nameModelStarts
+    // ), [col_structure, nameModelStarts]);
 
 
     const filteredColumns = useMemo(() => {
@@ -81,19 +71,28 @@ const CreateAutogenerateGeneral = (props: any) => {
     }, [col_structure, nameModelStarts]);
 
     useEffect(() => {
-        setColsAlternative(filteredColumns);
+        try {
+            setColsAlternative(filteredColumns);
+        } catch (error) {
+            console.log("🚀 ~ useEffect ~ error:", error)
+        }
     }, [filteredColumns]);
 
 
     useEffect(() => {
-        const { createDatas: { col, colIdPath } } = props;
+        try {
+            const { createDatas: { col, colIdPath } } = props;
 
-        setGeneralElement(props);
-        setColIdPaths(colIdPath);
+            setGeneralElement(props);
+            setColIdPaths(colIdPath);
 
-        const filteredTodos = FilterHeadTableRules(col, colIdPath);
-        const datafilterCol = filteredTodos?.filter((item: any) => item.dataIndex !== "id");
-        setCols(datafilterCol);
+            const filteredTodos = FilterHeadTableRules(col, colIdPath);
+            const datafilterCol = filteredTodos?.filter((item: any) => item.dataIndex !== "id");
+            setCols(datafilterCol);
+        } catch (error) {
+            console.log("🚀 ~ useEffect ~ error:", error)
+
+        }
     }, [props]);
 
 
@@ -106,7 +105,6 @@ const CreateAutogenerateGeneral = (props: any) => {
                 const { createDatas: { colIdPath } } = props;
 
                 const { dataSources, filteredTodos } = await promiseValueLabelCreateAutoGenerate(colIdPath)
-
                 SetFilteredTodostoCreatePlusArrays(filteredTodos.length > 0 ? filteredTodos : []);
                 setElementSelect(dataSources);
             } catch (error) {
@@ -136,9 +134,6 @@ const CreateAutogenerateGeneral = (props: any) => {
 
         fetchData();
     }, [props]);
-
-
-
 
     const mocks = {
         InterviewId: 1,
@@ -191,21 +186,84 @@ const CreateAutogenerateGeneral = (props: any) => {
 
 
     const rulefunction = (dataItem: any) => {
- 
+
         if (!dataItem) return false;
-        
+
         const { titleModal } = dataItem[0];
         const formattedTitle = titleModal.replace(/\s+/g, '_');
         return rules[formattedTitle] || false;
     }
 
-
     useEffect(() => {
-        const todo = [selectedValues]
-        console.log("🚀 ~ useEffect ~ todo:", todo)
-        console.log("🚀 ~ CreateAutogenerateGeneral ~ selectedValues:", selectedValues)
+        if (selectedValues) {
+            const indexDataFilter = data?.all_Steps || 0;
+            const filterReturn: any[] | undefined = [];
+            const pattern = /-\d+$/; // regex pattern to match numbers at the end of keys
+
+            function filterByKeyNumber(obj: any, number: number) {
+                const filteredData: any = {};
+
+                for (const key in obj) {
+                    if (obj.hasOwnProperty(key) && pattern.test(key) && key.endsWith(`-${number}`)) {
+                        filteredData[key] = obj[key];
+                    }
+                }
+
+                return filteredData;
+            }
+
+            for (let index = 1; index <= indexDataFilter; index++) {
+                const filteredData = filterByKeyNumber(selectedValues, index);
+                filterReturn.push(filteredData);
+            }
+
+            setSelectDataBefore(filterReturn)
+        }
+
 
     }, [selectedValues])
+
+
+
+
+    useEffect(() => {
+        const dataArray = [
+            {
+                "Interview-1": "1-Alice Bob",
+                "Interview_Users-1": [
+                    "2-Nicolas Contigliani",
+                    "3-Macarena Contigliani"
+                ],
+                "Interview_Responsibles-1": [
+                    "1-Leonardo Contigliani",
+                    "5-Simon Contigliani",
+                    "4-Leonardo Contigliani"
+                ]
+            },
+            {
+                "Interview-2": "1-Alice Bob",
+                "Interview_Users-2": [
+                    "2-Nicolas Contigliani",
+                    "3-Macarena Contigliani",
+                    "5-Simon Contigliani"
+                ],
+                "Interview_Responsibles-2": [
+                    "4-Leonardo Contigliani",
+                    "5-Simon Contigliani",
+                    "3-Macarena Contigliani"
+                ]
+            }
+        ];
+        const {
+            Interview_Responsibles,
+            Interview_Users
+        } = intreviewUsersAndResponsibleFormater(selectDataBeforeSend)
+            console.log("🚀 ~ useEffect ~ Interview_Users:", Interview_Users)
+            console.log("🚀 ~ useEffect ~ Interview_Responsibles:", Interview_Responsibles)
+
+
+    }, [props, selectedValues]);
+
 
     const today = moment();
 
@@ -214,11 +272,8 @@ const CreateAutogenerateGeneral = (props: any) => {
 
     return (
         <div className={styles.body}>
-
-
-
             <div className={styles.selectsGeneral} >
-               //vacancies/si no existe tiene que darte el crear <br />
+         
                 <div className={styles.selects}>
                     {
                         elementSelect && elementSelect?.map((item: any) =>
@@ -290,8 +345,6 @@ const CreateAutogenerateGeneral = (props: any) => {
                             </div>
                         ))
                         :
-
-
                         cols?.map((item: any) => (
                             <div key={item?.key || item?.dataIndex}>
                                 {
@@ -313,7 +366,7 @@ const CreateAutogenerateGeneral = (props: any) => {
                 }
             </div>
             <br /><hr />
-            {data?.all_Steps && Array.from({ length: Number(data.all_Steps) }).map((_, index) => (
+            {data?.all_Steps && Array.from({ length: Number(data.all_Steps) })?.map((_, index) => (
                 <div className={styles.selectsSecond}>
                     <div key={index} className={styles.step}>
                         <h4>Step {index + 1}</h4>
@@ -326,9 +379,6 @@ const CreateAutogenerateGeneral = (props: any) => {
                                         isMultiple={rulefunction(item)}
                                         keys={index + 1}
                                         setSelectedValues={setSelectedValues}
-
-
-
                                     />
 
                                 </div>

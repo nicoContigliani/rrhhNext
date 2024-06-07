@@ -45,7 +45,8 @@ const ButonGeneralModal = (props: any) => {
     pathStart,
     nameModelStart,
     componentForCreate,
-    rules_create
+    rules_create,
+    createModelType
   } = props
   const dispatch = useDispatch();
   useEffect(() => {
@@ -53,19 +54,12 @@ const ButonGeneralModal = (props: any) => {
 
       // props -> createDataStart -> [{ ids,paths,datas,datasKey,datakey,titleModal }]
       if (createData !== undefined) setCreateDatas(createData)
-
       if (createDataSeconds !== undefined) setCreateDatasSeconds(createDataSeconds)
-
-
 
       //get Data genera get of reducer ->  customerHooks
       if (datas !== undefined) setDataGet(datas)
-
       if (pathStart) setPathStarts(pathStart)
-
       if (nameModelStart) setNameModelStarts(nameModelStart)
-
-
       if (componentForCreate) setComponentsAll(componentForCreate)
 
 
@@ -182,18 +176,25 @@ const ButonGeneralModal = (props: any) => {
             title="Add"
           >
             <div>
-              <CreateAutogenerateGeneral
-                createDatas={createDatas}
-                createDatasSeconds={createDatasSeconds}
-                rules_create={rules_create}
 
-                dataGet={dataGet}
-                pathStarts={pathStarts}
-                nameModelStarts={nameModelStarts}
-                
-              >
-                si llegó
-              </CreateAutogenerateGeneral>
+              {createModelType === "roadMap" &&
+                <CreateAutogenerateGeneral
+                  createDatas={createDatas}
+                  createDatasSeconds={createDatasSeconds}
+                  rules_create={rules_create}
+
+                  dataGet={dataGet}
+                  pathStarts={pathStarts}
+                  nameModelStarts={nameModelStarts}
+
+                >
+                  si llegó
+                </CreateAutogenerateGeneral>
+              }
+
+
+
+
             </div>
             {/* <Button onClick={() => handleAction(todo)}>Action</Button> */}
           </Modalnew>

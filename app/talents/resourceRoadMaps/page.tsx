@@ -109,6 +109,8 @@ const page = () => {
                   settings={false}
                   pathStart="/RoadMap/RoadMap/"
                   nameModelStart="RoadMaps"
+                  createModelType={"roadMap"}
+
                 >
 
                 </ButonGeneralModal>
@@ -575,6 +577,7 @@ const page = () => {
           datas={data}
           pathStart="/RoadMap/RoadMap/"
           nameModelStart="RoadMaps"
+          createModelType={"roadMap"}
         >
 
         </ButonGeneralModal>

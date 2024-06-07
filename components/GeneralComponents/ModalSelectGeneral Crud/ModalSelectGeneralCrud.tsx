@@ -1,10 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import diccionaryRoutesAndComponents from '@/diccionaryDataKey/diccionaryRoutesAndComponents.json'
 
-
-
-
-
 type DictionaryRoutesAndComponents = typeof diccionaryRoutesAndComponents;
 type DataTitle = keyof DictionaryRoutesAndComponents;
 
@@ -58,7 +54,7 @@ const ModalSelectGeneralCrud = (props: any) => {
     const [dataObjectKeys, setDataObjectKeys] = useState<any | any[] | undefined>()
     const [selectDataSources, setSelectDataSources] = useState<any | any[] | undefined>();
     const [dataSelectSecondary, setDataSelectSecondary] = useState<any | any[] | undefined>()
-    
+
 
 
     useEffect(() => {
@@ -144,9 +140,6 @@ const ModalSelectGeneralCrud = (props: any) => {
             >
                 <Box sx={style}>
 
-                    {/* <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Create {modalTitles && modalTitles}
-                    </Typography> */}
                     <Typography id="modal-modal-description" sx={{ mt: 0 }}>
 
                         <div onClick={handleClose} className={styles.close}>
@@ -158,21 +151,8 @@ const ModalSelectGeneralCrud = (props: any) => {
 
                             {props &&
                                 dataObjectKeys?.map((item: any, index: number) => (
-
-
                                     <div>
-                                        <div className={styles.textTitleInModal}>
-                                            {/* {rulesWordStartStatus(item.title) === "checkbox" && (
-                                                    <label>{item.title}</label>
-                                                    {allShows(item?.title)}
-                                                    
-                                                )} */}
-
-                                        </div>
-
-
                                         <div key={index} className={styles.input}>
-
                                             {
 
                                                 (item.title === "key" || item.title === "id" || item.title === "createdAt" || item.title === "updatedAt") ? null :
@@ -203,13 +183,6 @@ const ModalSelectGeneralCrud = (props: any) => {
                                                         <div
                                                             className={styles.inputs}
                                                         >
-                                                            {/* {(rulesType(item.types) === "datetime-local" || rulesWordStartStatus(item.title) === "datetime-local") ?
-                                                                    <div 
-                                                                    >
-                                                                        {item.title}
-                                                                    </div>
-                                                                    : null} */}
-
                                                             <Inputs
                                                                 name={item && item?.title}
                                                                 placeholder={item && item?.title}
