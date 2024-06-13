@@ -116,7 +116,8 @@ export const createCrud: any = createAsyncThunk(
             }
 
             const response = await useAxios(todo);
-            return { data: response.data, status: response.status }; // Returning custom payload
+            console.log("🚀 ~ response:", response)
+            return { data: response?.data, status: response.status }; // Returning custom payload
         } catch (error) {
             console.error("Error creating crud:", error);
             throw error;

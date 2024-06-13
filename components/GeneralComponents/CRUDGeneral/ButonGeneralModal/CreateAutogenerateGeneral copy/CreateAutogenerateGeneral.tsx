@@ -4,16 +4,10 @@ import useFetchCrudData from '@/hooks/useFetchCrudData';
 import { createCrud, fetchCrud, updateCrud } from '@/redux/features/CRUD/crudSlice';
 import { forEach } from 'lodash';
 import { useDispatch } from 'react-redux';
-// import Inputs from '@/components/inputs/Inputs';
-// import ModalSelectGeneralCrud from '@/components/GeneralComponents/ModalSelectGeneral Crud/ModalSelectGeneralCrud';
-// import Selectcrud from '../../SelectCrud/Selectcrud';
 
 const Inputs = dynamic(() => import('@/components/inputs/Inputs'), { ssr: false })
 const ModalSelectGeneralCrud = dynamic(() => import('@/components/GeneralComponents/ModalSelectGeneral Crud/ModalSelectGeneralCrud'), { ssr: false })
 const Selectcrud = dynamic(() => import('../../SelectCrud/Selectcrud'), { ssr: false })
-
-
-
 
 import styles from './createAutoGenerate.module.css'
 import { FilterHeadTableRules } from '@/services/FilterHeadTableRules.services';
@@ -58,28 +52,6 @@ const CreateAutogenerateGeneral = (props: any) => {
     const roots = useAppSelector(selectRoots);
     const { col_structure } = roots
 
-    // useCallback(() => {
-    //     const tableStructure = col_structure.find(
-    //         (obj: any) => obj.table_fullname === nameModelStarts
-    //     );
-
-    //     const { table_columns } = tableStructure
-
-    //     const dataSi = table_columns.filter((item: any) => {
-    //         return (
-    //             item?.column_name !== "id" &&
-    //             item?.column_name !== "updatedAt" &&
-    //             item?.column_name !== "createdAt" &&
-    //             item?.column_name !== "InterviewId" &&
-    //             item?.column_name !== "VacancyId" 
-
-
-    //         )
-
-    //     })
-    //     setColsAlternative(dataSi)
-
-    // }, [col_structure])
 
     const tableStructure = useMemo(() => col_structure.find(
         (obj: any) => obj.table_fullname === nameModelStarts
@@ -152,7 +124,7 @@ const CreateAutogenerateGeneral = (props: any) => {
     }, [props]);
 
     const mocks = {
-        InterviewId: 1,
+        // InterviewId: 1,
         VacancyId: "1",
         after_steps: "Completed initial interview",
         all_Steps: "34",

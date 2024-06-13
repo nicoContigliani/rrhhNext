@@ -14,12 +14,18 @@ import { readLocalStorage } from '@/services/storage.services';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
 import Auths from '@/components/Auth/Auth';
-import Icons from '@/components/Icons/Icons';
-import Main from '@/components/Main/Main';
+// import Icons from '@/components/Icons/Icons';
+// import Main from '@/components/Main/Main';
 import Iconf from '@/components/images/flama.png'
-import Presentation from '@/components/Presentation/Presentation';
+// import Presentation from '@/components/Presentation/Presentation';
 import { selectModuleServices } from '@/redux/features/modulesServices/moduleServicesSlice';
 import { rootsAsync } from '@/redux/features/roots/rootsSlice';
+
+
+const Presentation = dynamic(() => import('@/components/Presentation/Presentation'), { ssr: false })
+const Main = dynamic(() => import('@/components/Main/Main'), { ssr: false })
+const Icons = dynamic(() => import('@/components/Icons/Icons'), { ssr: false })
+
 
 const Logo = dynamic(() => import('@/components/Logo/Logo'), { ssr: false })
 

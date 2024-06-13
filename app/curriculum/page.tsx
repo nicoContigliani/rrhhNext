@@ -12,14 +12,23 @@ import { cleanColumns } from '@/services/cleanColumn.services';
 import useColumns from '@/hooks/useColumns';
 import useScreenSize from '@/hooks/useScreenSize';
 import dynamic from 'next/dynamic';
-import Tabletodo from '@/components/tableTodo/Tabletodo';
 import { Badge, Button, Dropdown, Space, Flex } from 'antd';
-import Stepss from '@/components/steps/Stepss';
+// import Stepss from '@/components/steps/Stepss';
 import Inputs from '@/components/inputs/Inputs';
-import InputsSertch from '@/components/Inputserch/InputsSertch';
+// import Tabletodo from '@/components/tableTodo/Tabletodo';
+// import InputsSertch from '@/components/Inputserch/InputsSertch';
 
 import AddIcon from '@mui/icons-material/Add';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+
+
+const InputsSertch = dynamic(() => import('@/components/Inputserch/InputsSertch'), { ssr: false })
+const Tabletodo = dynamic(() => import('@/components/tableTodo/Tabletodo'), { ssr: false })
+const Stepss = dynamic(() => import('@/components/steps/Stepss'), { ssr: false })
+
+
+// InputsSertch
+// Tabletodo
 
 const page = () => {
 

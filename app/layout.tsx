@@ -2,14 +2,18 @@
 "use client"
 import './globals.css'
 import type { Metadata } from 'next'
+import dynamic from 'next/dynamic'
 
+const ProtectedRoutes = dynamic(() => import('./ProtectedRoutes'), { ssr: false })
+const Navbars = dynamic(() => import('@/components/navbar'), { ssr: false })
 
 
 
 import { Inter } from 'next/font/google'
 import ReduxProvider from '@/redux/provider'
-import Navbars from '@/components/navbar'
-import ProtectedRoutes from './ProtectedRoutes'
+// import Navbars from '@/components/navbar'
+// import ProtectedRoutes from './ProtectedRoutes'
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
 
-  
+
   return (
     <html lang="es">
       <body className={inter.className}>

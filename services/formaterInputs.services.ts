@@ -34,6 +34,10 @@ export const rulesWordStartStatus = ((dataWord: string) => {
 
         return "description_steps";
     }
+    if (dataWord.includes("Id")) {
+
+        return "number";
+    }
 
 })
 

@@ -2,6 +2,7 @@
 
 import { v4 as uuidv4 } from 'uuid';
 import moment from 'moment';
+import { Button } from 'antd';
 
 
 import React, { Children, useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react'
@@ -28,6 +29,9 @@ import { FilterHeadTableRules } from '@/services/FilterHeadTableRules.services';
 import { rulesType, rulesWordStartStatus } from '@/services/formaterInputs.services';
 import { promiseValueLabelCreateAutoGenerate } from '@/services/promiseVAlueLabelCreateAutoGenerate.services';
 import { intreviewUsersAndResponsibleFormater } from '@/services/intreviewUsersAndResponsibleFormater.services';
+import { groupByInterview } from '@/services/groupByInterview.services';
+import { PlusOutlined } from '@ant-design/icons';
+import useFilteredColumns from '@/hooks/useFilteredColumns';
 
 
 
@@ -54,31 +58,36 @@ const CreateAutogenerateGeneral = (props: any) => {
 
     const [selectDataBeforeSend, setSelectDataBefore] = useState<any | any[] | undefined>()
 
-
+    //TODO send
+    const [interviewResponsibless, setInterviewResponsibless] = useState<any | any[] | undefined>()
+    const [interviewUserss, setInterviewUserss] = useState<any | any[] | undefined>()
 
     const { col_structure } = roots
+    //TODO ACA VA useFilteredColumns
+    // const filteredColumns = useMemo(() => {
+    //     const table = col_structure.find((obj: any) => obj.table_fullname === nameModelStarts);
+    //     return table?.table_columns.filter((item: any) => (
+    //         !["id", "updatedAt", "createdAt", "InterviewId", "VacancyId"].includes(item.column_name)
+    //     ));
+    // }, [col_structure, nameModelStarts]);
 
-    // const tableStructure = useMemo(() => col_structure.find(
-    //     (obj: any) => obj.table_fullname === nameModelStarts
-    // ), [col_structure, nameModelStarts]);
+    // useEffect(() => {
+    //     try {
+    //         setColsAlternative(filteredColumns);
+    //     } catch (error) {
+    //         console.log("🚀 ~ useEffect ~ error:", error)
+    //     }
+    // }, [filteredColumns]);
+    try {
+        const excludeColumns = ["id", "updatedAt", "createdAt", "InterviewId", "VacancyId"]
+        const dataReturn = useFilteredColumns(col_structure, nameModelStarts, excludeColumns, colsAlternative, setColsAlternative)
 
+    } catch (error) {
+        console.log("🚀 ~ CreateAutogenerateGeneral ~ error:", error)
 
-    const filteredColumns = useMemo(() => {
-        const table = col_structure.find((obj: any) => obj.table_fullname === nameModelStarts);
-        return table?.table_columns.filter((item: any) => (
-            !["id", "updatedAt", "createdAt", "InterviewId", "VacancyId"].includes(item.column_name)
-        ));
-    }, [col_structure, nameModelStarts]);
+    }
 
-    useEffect(() => {
-        try {
-            setColsAlternative(filteredColumns);
-        } catch (error) {
-            console.log("🚀 ~ useEffect ~ error:", error)
-        }
-    }, [filteredColumns]);
-
-
+    
     useEffect(() => {
         try {
             const { createDatas: { col, colIdPath } } = props;
@@ -135,11 +144,52 @@ const CreateAutogenerateGeneral = (props: any) => {
         fetchData();
     }, [props]);
 
+
+    const rulefunction = useCallback((dataItem: any) => {
+        if (!dataItem) return false;
+        const { titleModal } = dataItem[0];
+        const formattedTitle = titleModal.replace(/\s+/g, '_');
+        return rules[formattedTitle] || false;
+    }, [rules]);
+
+
+    //TODO WIts group interviews. If index is equal 1, then in the array there are  all 1
+    useEffect(() => {
+        if (selectedValues) {
+            const filterReturn = groupByInterview(selectedValues, data)
+            setSelectDataBefore(filterReturn)
+        }
+
+
+    }, [selectedValues])
+
+
+
+    //aca esta listo para enviar tiene que esperar el ciclo de crear roadmap y se inseta en todos y ya esta para las tablas nuevas 
+    useEffect(() => {
+
+        const {
+            Interview_Responsibles,
+            Interview_Users
+        } = intreviewUsersAndResponsibleFormater(selectDataBeforeSend)
+  
+
+        if (Interview_Responsibles) setInterviewResponsibless(Interview_Responsibles)
+        if (Interview_Users) setInterviewUserss(Interview_Users)
+
+    }, [selectDataBeforeSend]);
+
+
+    // const today = moment();
+
+    // const formattedDate = today.format('YYYY-MM-DD HH:mm:ss');
+    // console.log("************", formattedDate, "******nicohora*********")
+
     const mocks = {
-        InterviewId: 1,
-        VacancyId: "1",
+        // InterviewId: 1,
+        VacancyId: 1,
         after_steps: "Completed initial interview",
-        all_Steps: "34",
+        all_Steps: "3",
         before_steps: "Scheduled phone screen",
         description: "Follow-up interview for senior developer position",
         duration: 90,
@@ -155,10 +205,12 @@ const CreateAutogenerateGeneral = (props: any) => {
         finish_DateTime: "2024-07-31T16:42",
         completionDateTime: "2024-07-31T16:42",
         status_roadmap: true,
-        undefined: true
+        // array_interview_responsible_and_user: arrayInterviewResponsibleAndUser
     }
 
 
+
+    //debe enviar y esperar que retorne con el id, este id se agrega en el bloque de tablas intermedias
     const Send = async () => {
         const todoCRUDGet: FetchCrudData = {
             urlGeneral: props?.pathStarts || '/RoadMap/RoadMap/',
@@ -167,113 +219,107 @@ const CreateAutogenerateGeneral = (props: any) => {
         };
 
         try {
-            const { payload: { status } } = await dispatch(createCrud(todoCRUDGet));
-            const message = {
-                keys: status,
-                content: status === 200 ? "Success, insert complete!" : "Error, insert incomplete!",
-                loadings: false,
-                resultProcess: status === 200 ? "success" : "error",
-            };
-            setMessageS(message);
+            const { payload: { status }, payload: { data: dataReturn } } = await dispatch(createCrud(todoCRUDGet));
 
-            if (status !== null) {
-                setTimeout(() => window.location.reload(), 1100);
+            // const {
+            //     id,
+            //     description
+            // } = dataReturn
+
+
+
+            // const message = {
+            //     keys: status,
+            //     content: status === 200 ? "Success, insert complete!" : "Error, insert incomplete!",
+            //     loadings: false,
+            //     resultProcess: status === 200 ? "success" : "error",
+            // };
+
+
+
+            //     setMessageS(message);
+
+            //     if (status !== null) {
+            //         setTimeout(() => window.location.reload(), 1100);
+            //     }
+            const id = 1
+            try {
+                const updatedInterviewResponsibless = interviewResponsibless?.map((item: any) => ({
+                    ...item,
+                    RoadMapId: id
+                }));
+
+                const todoCRUDGet: FetchCrudData = {
+                    urlGeneral: '/InterviewResponsible/InterviewResponsible/',
+                    // props?.pathStarts || 
+                    methods: 'POST',
+                    body: updatedInterviewResponsibless,
+                };
+                const {
+                    payload: { status }, payload: { data: dataReturn }
+                } = await dispatch(createCrud(todoCRUDGet));
+                const message = {
+                    keys: status,
+                    content: status === 200 ? "Success, insert complete!" : "Error, insert incomplete!",
+                    loadings: false,
+                    resultProcess: status === 200 ? "success" : "error",
+                };
+
+
+
+                setMessageS(message);
+
+
+            } catch (error) {
+                console.log("🚀 ~ Send ~ error:", error)
+
             }
+            try {
+                // Actualizar interviewUserss
+                const updatedInterviewUserss = interviewUserss?.map((item: any) => ({
+                    ...item,
+                    RoadMapId: id
+                }));
+                const todoCRUDGet: FetchCrudData = {
+                    urlGeneral: '/InterviewUser/InterviewUser/',
+                    //  props?.pathStarts || '/InterviewUser/InterviewUser/',
+                    methods: 'POST',
+                    body: updatedInterviewUserss,
+                };
+                const {
+                    payload: { status }, payload: { data: dataReturn }
+                } = await dispatch(createCrud(todoCRUDGet));
+                const message = {
+                    keys: status,
+                    content: status === 200 ? "Success, insert complete!" : "Error, insert incomplete!",
+                    loadings: false,
+                    resultProcess: status === 200 ? "success" : "error",
+                };
+
+
+
+                setMessageS(message);
+
+                console.log("🚀 ~ updatedInterviewUserss ~ updatedInterviewUserss:", updatedInterviewUserss)
+            } catch (error) {
+                console.log("🚀 ~ Send ~ error:", error)
+
+            }
+
+
         } catch (error) {
             console.error('Error dispatching fetchCrud:', error);
         }
+
     };
 
 
-    const rulefunction = (dataItem: any) => {
 
-        if (!dataItem) return false;
-
-        const { titleModal } = dataItem[0];
-        const formattedTitle = titleModal.replace(/\s+/g, '_');
-        return rules[formattedTitle] || false;
-    }
-
-    useEffect(() => {
-        if (selectedValues) {
-            const indexDataFilter = data?.all_Steps || 0;
-            const filterReturn: any[] | undefined = [];
-            const pattern = /-\d+$/; // regex pattern to match numbers at the end of keys
-
-            function filterByKeyNumber(obj: any, number: number) {
-                const filteredData: any = {};
-
-                for (const key in obj) {
-                    if (obj.hasOwnProperty(key) && pattern.test(key) && key.endsWith(`-${number}`)) {
-                        filteredData[key] = obj[key];
-                    }
-                }
-
-                return filteredData;
-            }
-
-            for (let index = 1; index <= indexDataFilter; index++) {
-                const filteredData = filterByKeyNumber(selectedValues, index);
-                filterReturn.push(filteredData);
-            }
-
-            setSelectDataBefore(filterReturn)
-        }
-
-
-    }, [selectedValues])
-
-
-
-
-    useEffect(() => {
-        const dataArray = [
-            {
-                "Interview-1": "1-Alice Bob",
-                "Interview_Users-1": [
-                    "2-Nicolas Contigliani",
-                    "3-Macarena Contigliani"
-                ],
-                "Interview_Responsibles-1": [
-                    "1-Leonardo Contigliani",
-                    "5-Simon Contigliani",
-                    "4-Leonardo Contigliani"
-                ]
-            },
-            {
-                "Interview-2": "1-Alice Bob",
-                "Interview_Users-2": [
-                    "2-Nicolas Contigliani",
-                    "3-Macarena Contigliani",
-                    "5-Simon Contigliani"
-                ],
-                "Interview_Responsibles-2": [
-                    "4-Leonardo Contigliani",
-                    "5-Simon Contigliani",
-                    "3-Macarena Contigliani"
-                ]
-            }
-        ];
-        const {
-            Interview_Responsibles,
-            Interview_Users
-        } = intreviewUsersAndResponsibleFormater(selectDataBeforeSend)
-            console.log("🚀 ~ useEffect ~ Interview_Users:", Interview_Users)
-            console.log("🚀 ~ useEffect ~ Interview_Responsibles:", Interview_Responsibles)
-
-
-    }, [props, selectedValues]);
-
-
-    const today = moment();
-
-    const formattedDate = today.format('YYYY-MM-DD HH:mm:ss');
-    console.log("************", formattedDate, "******nicohora*********")
 
     return (
         <div className={styles.body}>
             <div className={styles.selectsGeneral} >
-         
+
                 <div className={styles.selects}>
                     {
                         elementSelect && elementSelect?.map((item: any) =>
@@ -409,8 +455,24 @@ const CreateAutogenerateGeneral = (props: any) => {
                 </div>
             ))}
 
-            <br />
+            <br /><br /><hr />
+            <Button
+                className={styles.buttons}
+                style={{
+                    padding: '1px 20px',
+                    textAlign: 'center',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}
+                onClick={Send}
+                block
+                type='primary'
 
+            >
+                <PlusOutlined />
+                <br />
+            </Button>
 
             {/* {props.children} */}
 

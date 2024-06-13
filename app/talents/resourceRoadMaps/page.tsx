@@ -11,7 +11,7 @@ import useFetchCrudData from '@/hooks/useFetchCrudData'
 import { formaterDataArray } from '@/services/formaterDataArray'
 import { formatDataAllElementNotArray, formaterDataArrayAll } from '@/services/formaterDataArrayAll'
 import { Table } from "antd";
-import { fetchCrud } from '@/redux/features/CRUD/crudSlice';
+import { createCrud, fetchCrud } from '@/redux/features/CRUD/crudSlice';
 
 // import ButonGeneralModal from '@/components/GeneralComponents/CRUDGeneral/ButonGeneralModal/ButonGeneralModal'
 
@@ -40,6 +40,7 @@ const page = () => {
   const [data, setData] = useState<any | any[] | undefined>()
   const [col1, setCol1] = useState<any | any[]>()
   const [data1, setData1] = useState<any | any[]>()
+  const [datas, setDatas] = useState<any | any[] | undefined>()
 
 
   const [colStart, setColStart] = useState<any | any[]>()
@@ -141,14 +142,32 @@ const page = () => {
     idParams: "",
   }
 
-  const { loading, datas, message, httpStatus, refetchData } = useFetchCrudData(todoCRUDGetS); // Usa el hook personalizado
+
+  const { loading, datas: dataCastomerHooks, message, httpStatus, refetchData } = useFetchCrudData(todoCRUDGetS); // Usa el hook personalizado
+  const sortedData = useMemo(() => {
+    if (dataCastomerHooks && Array.isArray(dataCastomerHooks)) {
+      return [...dataCastomerHooks].sort((a: any, b: any) => a.id - b.id);
+    }
+    return dataCastomerHooks;
+  }, [dataCastomerHooks]);
+
+  useLayoutEffect(() => {
+    try {
+      setDatas(sortedData);
+    } catch (error) {
+      console.log("🚀 ~ useEffect ~ error:", error);
+    }
+  }, [sortedData]);
+
+
+
 
 
   const fl1 =
     [
 
       "id",
-      "InterviewId",
+      // "InterviewId",
       "VacancyId",
       "responsibilityDescription",
       "status_roadmap",
@@ -368,13 +387,12 @@ const page = () => {
     }
   };
 
+
+  
   useEffect(() => {
     const fetchInterviewsAndVacancies = async () => {
       const interviews = await fetchData('/Interview/Interview');
       const vacancies = await fetchData('/Vacancy/Vacancy');
-
-      // const interviewUser = await fetchData('/InterviewUser/InterviewUser/');
-      // const interviewResponsible = await fetchData('/InterviewResponsible/InterviewResponsible/');
       const usersGetAxios = await fetchData('/User/User/');
 
 

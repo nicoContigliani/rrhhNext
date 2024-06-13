@@ -62,7 +62,7 @@ const ModalSelectGeneralCrud = (props: any) => {
             try {
                 const dataReturnFilter = objectKeys?.filter((item: any) => item.title !== "key" && item.title !== "id" && item.title !== "createdAt" && item.title !== "updatedAt")
                 setDataObjectKeys(dataReturnFilter)
-
+                
             } catch (error) {
 
             }
@@ -79,7 +79,8 @@ const ModalSelectGeneralCrud = (props: any) => {
     }, [props?.objectKeys])
 
 
-
+    console.log("🚀 ~ todoAsync ~ objectKeys:", objectKeys)
+    
 
 
 

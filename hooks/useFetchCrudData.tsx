@@ -35,7 +35,8 @@ const useFetchCrudData: any | any[] = (todoCRUD: any | any[] | undefined) => {
             }
         };
         fetchData();
-    }, [dispatch]); // Use memoizedTodoCRUD in dependency array
+    }, [dispatch]); 
+    // Use memoizedTodoCRUD in dependency array
 
     const refetchData = async () => {
         // Trigger a new fetch only if the component is mounted
