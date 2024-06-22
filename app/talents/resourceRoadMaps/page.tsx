@@ -67,7 +67,6 @@ const Page = () => {
   }, [col_structure, columnSelectElement])
 
 
-  //This is data by table
   const formatData = useCallback(async () => {
     try {
       if (dataGetRoadMap.length > 0 && colStart) {
@@ -110,6 +109,11 @@ const Page = () => {
                   settings={false}
                   pathStart="/RoadMap/RoadMap/"
                   nameModelStart="RoadMaps"
+
+
+
+
+                  
                 />
               </div>
             ),
@@ -142,6 +146,7 @@ const Page = () => {
           deletes={false}
           shows={false}
           settings={true}
+
           settingData={flatColumn}
           columnSelectElement={columnSelectElement}
           setColumnSelectElement={setColumnSelectElement}
@@ -150,7 +155,7 @@ const Page = () => {
           pathStart="/RoadMap/RoadMap/"
           nameModelStart="RoadMaps"
         >
-          si
+
         </ButonGeneralModal>
       </div>
 

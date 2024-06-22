@@ -87,7 +87,6 @@ const ButonGeneralModal = (props: any) => {
 
 
             </div>
-            {/* <Button onClick={() => handleAction(todo)}>Action</Button> */}
           </Modalnew>
           : ""
       }

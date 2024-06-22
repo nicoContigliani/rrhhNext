@@ -53,15 +53,18 @@ const SettingGeneral = (props: any) => {
     return (
         <>
             <div className={styles.body}>
+                <h3>{nameModelStart}</h3>
                 <div className={styles.checkall}>
                     <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}>
                         Check all
                     </Checkbox>
                 </div>
-                <div className={styles.bodyElements}>
-                        <CheckboxGroup options={plainOptions} value={checkedList} onChange={onChange} />
+                <div
+                // className={styles.bodyElements}
+                className={styles.checkElement}
+                >
+                    <CheckboxGroup className={styles.bodyElements} options={plainOptions} value={checkedList} onChange={onChange} />
                 </div>
-                {/* <Divider /> */}
             </div>
         </>
     );
