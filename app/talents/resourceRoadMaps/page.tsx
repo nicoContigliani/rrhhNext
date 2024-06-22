@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic'
 import styles from "./page.module.css"
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { rootsAsync, selectRoots } from '@/redux/features/roots/rootsSlice'
-import { preloadRoadMapsData, selectRoadMap } from '@/redux/features/RoadMaps/roadmapsSlice'
+import { preloadInterViewData, preloadRoadMapsData, preloadUserData, preloadVacancyData, selectRoadMap } from '@/redux/features/RoadMaps/roadmapsSlice'
 import { formatDataAllElementNotArray } from '@/services/formaterDataArrayAll'
 import { Table } from 'antd'
 import { formaterDataArray } from '@/services/formaterDataArray'
@@ -18,10 +18,32 @@ const Spinner = dynamic(() => import('@/components/spinner/Spinner'), { ssr: fal
 const Page = () => {
   const dispatch = useAppDispatch();
 
+  // useLayoutEffect(() => {
+  //   dispatch(rootsAsync());
+  //   dispatch(preloadRoadMapsData());
+  //   dispatch(preloadRoadMapsData())
+  //   dispatch(preloadInterViewData())
+  //   dispatch(preloadVacancyData())
+  //   dispatch(preloadUserData())
+  // }, [dispatch]);
+
   useLayoutEffect(() => {
-    dispatch(rootsAsync());
-    dispatch(preloadRoadMapsData());
+    const actions = [
+      rootsAsync,
+      preloadRoadMapsData,
+      preloadRoadMapsData,
+      preloadInterViewData,
+      preloadVacancyData,
+      preloadUserData
+    ];
+
+    actions.forEach(action => {
+      dispatch(action());
+    });
   }, [dispatch]);
+
+
+
 
   const roots = useAppSelector(selectRoots);
   const { col_structure } = roots;
@@ -113,7 +135,8 @@ const Page = () => {
 
 
 
-                  
+
+
                 />
               </div>
             ),

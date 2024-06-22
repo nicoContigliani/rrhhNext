@@ -1,101 +1,107 @@
 import Inputs from '@/components/inputs/Inputs';
-import { selectRoadMap } from '@/redux/features/RoadMaps/roadmapsSlice';
+import { roadMapsDataId, selectRoadMap } from '@/redux/features/RoadMaps/roadmapsSlice';
 import { selectRoots } from '@/redux/features/roots/rootsSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { col_structureFormaterWithReducer } from '@/services/col_structureFormaterWithReducer.services';
 import { rulesType, rulesWordStartStatus } from '@/services/formaterInputs.services';
 import { rulesWords } from '@/services/rulesInputs.sevices';
 
 import React, { useEffect, useState, useMemo } from 'react';
 
 const UpdateAutoGenerate = (props: any) => {
-    const { modulesName } = props;
-
     const dispatch = useAppDispatch();
+
     const roadMap = useAppSelector(selectRoadMap);
     const { col_structure } = useAppSelector(selectRoots);
 
     const {
         createDataStart,
         dataRoadMapIdData,
+        dataRoadMapIdDataKeys,
+        nameModelStart
     } = roadMap;
 
-    const [processedData, setProcessedData] = useState<any[]>([]);
 
-    // Preprocesar los datos de dataRoadMapIdData y almacenarlos en el estado
+
+    const { modulesName } = props;
     useEffect(() => {
-        if (dataRoadMapIdData) {
-            const newData = dataRoadMapIdData.map((item: any) => {
-                const processedItem = Object.keys(item).reduce((acc: any, key: string) => {
-                    acc[key] = {
-                        value: item[key],
-                        // type: getType(item[key])
-                        type: rulesWords(key)
-                    };
-                    return acc;
-                }, {});
-                return {
-                    ...item,
-                    processedItem
-                };
-            });
-            setProcessedData(newData);
+        dispatch(roadMapsDataId(1));
+    }, [dispatch]);
+
+
+    // Función de mapeo para convertir data_type a tipos de inputs HTML
+    const mapDataTypeToInputType = (dataType: string) => {
+        switch (dataType) {
+            case "integer":
+            case "bigint":
+                return "number";
+            case "boolean":
+                return "checkbox";
+            case "timestamp with time zone":
+            case "timestamp":
+                return "datetime-local";
+            case "text":
+            case "character varying":
+            default:
+                return "text";
         }
-    }, [dataRoadMapIdData]);
-
-    // Memorizar la estructura de datos procesados
-    const dataTodo = useMemo(() => {
-        if (modulesName && col_structure) {
-            return modulesName.map((item: any) =>
-            col_structure.find((obj: any) => obj.table_fullname === item)
-            );
-        }
-        return [];
-    }, [modulesName, col_structure]);
-    console.log("🚀 ~ dataTodo ~ dataTodo:", dataTodo)
-
-    const [data, setData] = useState<any | any[] | undefined>();
+    };
 
 
-// un map que plasma inputs
-//condición If (si el finlal de la key es Id) es un Select   ejemplo vacancyId  
-//busca en un arból de key:nameModule[array] require formato para select o tabla 
 
+    // useEffect(() => {
+    //     const dataReturn =  () => {
+
+    //         // Encuentra la estructura de la tabla RoadMaps
+    //         const tableStructure = col_structure.find((obj: any) => obj.table_fullname === "RoadMaps")?.table_columns;
+
+    //         if (!tableStructure) {
+    //             console.error("Table structure for 'RoadMaps' not found");
+    //             return;
+    //         }
+
+    //         // Crea un mapa para una búsqueda rápida de columnas
+    //         const columnMap = new Map(tableStructure.map((col: any) => [col.column_name, col]));
+
+    //         // Procesa los datos y genera el array de resultados
+    //         const resultArray = dataRoadMapIdData.reduce((acc: any[], roadMapObject: any) => {
+    //             Object.entries(roadMapObject).forEach(([key, value]) => {
+    //                 const columnInfo: any | undefined = columnMap.get(key);
+    //                 if (columnInfo) {
+    //                     acc.push({
+    //                         column_name: key,
+    //                         keyValue: value,
+    //                         character_maximum_length: columnInfo.character_maximum_length,
+    //                         input_type: mapDataTypeToInputType(columnInfo.data_type),
+    //                         table_name: columnInfo.table_name,
+    //                     });
+    //                 }
+    //             });
+    //             return acc;
+    //         }, []);
+
+    //         // Aquí puedes utilizar resultArray según sea necesario
+    //         console.log(resultArray, "resultArray");
+    //         return resultArray;
+
+    //     };
+    //     const result = dataReturn();
+    // }, [col_structure, dataRoadMapIdData]);
+
+    useEffect(() => {
+        const result = col_structureFormaterWithReducer(col_structure, dataRoadMapIdData, "RoadMaps");
+        console.log("🚀 ~ //dataReturn ~ result:", result);
+    }, [col_structure, dataRoadMapIdData]);
 
     return (
         <div>
             select value <br />
             inputs de roadMap <br />
-            {processedData && processedData.map((item: any) => (
-                <div key={item.id}>
-                    {item && Object.keys(item.processedItem)?.map((key: string) => (
-                        <div key={key}>
-                            <h5>{key}</h5>
-                            <Inputs
-                                defaultValue={item.processedItem[key].value}
-                                data={data}
-                                setData={setData}
-                                placeholder={item.processedItem[key].value}
-                                name={key}
-                                type={item.processedItem[key].type || 'text'}
-                                minLength={''}
-                                autoFocus={false}
-                                color={''}
-                                disabled={false}
-                                fullWidth={false}
-                                id={''}
-                                inputComponent={undefined}
-                                multiline={false}
-                                label={''}
-                                rows={''}
-                            />
-                            {item.processedItem[key].type}
-                        </div>
-                    ))}
-                </div>
-            ))}
-            interviews... map()<br />
+
         </div>
     );
 }
 
 export default UpdateAutoGenerate;
+
+

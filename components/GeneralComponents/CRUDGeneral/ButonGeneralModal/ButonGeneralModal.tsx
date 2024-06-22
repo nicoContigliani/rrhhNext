@@ -4,6 +4,7 @@ import Modalnew from '@/components/steps/componentSteps/ModalNew/Modalnew'
 import { Button } from 'antd'
 import styles from './buttonGeneral.module.css'
 import SettingGeneral from './SettingGeneral/SettingGeneral'
+import UpdateAutoGenerate from './UpdateAutoGenerate/UpdateAutoGenerate'
 
 
 
@@ -64,6 +65,10 @@ const ButonGeneralModal = (props: any) => {
           <Modalnew
 
             title="Update">
+            < UpdateAutoGenerate
+              nameModelStart={nameModelStart}
+
+            />
 
           </Modalnew>
           : ""
