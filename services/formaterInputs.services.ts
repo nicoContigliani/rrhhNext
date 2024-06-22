@@ -1,40 +1,40 @@
 export const rulesWordStartStatus = ((dataWord: string) => {
-    if (dataWord.toLowerCase().startsWith("status_")) {
+    if (dataWord?.toLowerCase()?.startsWith("status_")) {
 
         return "checkbox";
     }
-    if (dataWord.includes("start_")) {
+    if (dataWord?.includes("start_")) {
 
         return "datetime-local";
     }
-    if (dataWord.includes("finish")) {
+    if (dataWord?.includes("finish")) {
 
         return "datetime-local";
     }
-    if (dataWord.includes("interviewDateTime")) {
+    if (dataWord?.includes("interviewDateTime")) {
 
         return "datetime-local";
     }
 
-    if (dataWord.includes("all_Steps")) {
+    if (dataWord?.includes("all_Steps")) {
 
         return "number";
     }
 
-    if (dataWord.includes("duration")) {
+    if (dataWord?.includes("duration")) {
 
         return "number";
     }
 
-    if (dataWord.includes("sequence")) {
+    if (dataWord?.includes("sequence")) {
 
         return "number";
     }
-    if (dataWord.includes("description_steps")) {
+    if (dataWord?.includes("description_steps")) {
 
         return "description_steps";
     }
-    if (dataWord.includes("Id")) {
+    if (dataWord?.includes("Id")) {
 
         return "number";
     }
@@ -45,7 +45,7 @@ export const rulesType = (dataInputs: any) => {
 
 
     
-    switch (dataInputs.types) {
+    switch (dataInputs?.types) {
         case "string":
             return "text";
 

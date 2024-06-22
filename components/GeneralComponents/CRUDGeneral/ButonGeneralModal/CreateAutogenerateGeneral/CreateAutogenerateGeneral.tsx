@@ -39,7 +39,8 @@ import useFilteredColumns from '@/hooks/useFilteredColumns';
 const CreateAutogenerateGeneral = (props: any) => {
     const dispatch = useDispatch();
 
-    const { pathStarts, nameModelStarts, rules_create } = props
+    const { pathStarts, nameModelStarts, rules_create} = props
+
 
 
     const [generalElement, setGeneralElement] = useState<any>()
@@ -64,20 +65,7 @@ const CreateAutogenerateGeneral = (props: any) => {
 
     const { col_structure } = roots
     //TODO ACA VA useFilteredColumns
-    // const filteredColumns = useMemo(() => {
-    //     const table = col_structure.find((obj: any) => obj.table_fullname === nameModelStarts);
-    //     return table?.table_columns.filter((item: any) => (
-    //         !["id", "updatedAt", "createdAt", "InterviewId", "VacancyId"].includes(item.column_name)
-    //     ));
-    // }, [col_structure, nameModelStarts]);
 
-    // useEffect(() => {
-    //     try {
-    //         setColsAlternative(filteredColumns);
-    //     } catch (error) {
-    //         console.log("🚀 ~ useEffect ~ error:", error)
-    //     }
-    // }, [filteredColumns]);
     try {
         const excludeColumns = ["id", "updatedAt", "createdAt", "InterviewId", "VacancyId"]
         const dataReturn = useFilteredColumns(col_structure, nameModelStarts, excludeColumns, colsAlternative, setColsAlternative)
@@ -87,7 +75,7 @@ const CreateAutogenerateGeneral = (props: any) => {
 
     }
 
-    
+
     useEffect(() => {
         try {
             const { createDatas: { col, colIdPath } } = props;
@@ -172,7 +160,7 @@ const CreateAutogenerateGeneral = (props: any) => {
             Interview_Responsibles,
             Interview_Users
         } = intreviewUsersAndResponsibleFormater(selectDataBeforeSend)
-  
+
 
         if (Interview_Responsibles) setInterviewResponsibless(Interview_Responsibles)
         if (Interview_Users) setInterviewUserss(Interview_Users)
@@ -189,7 +177,7 @@ const CreateAutogenerateGeneral = (props: any) => {
         // InterviewId: 1,
         VacancyId: 1,
         after_steps: "Completed initial interview",
-        all_Steps: "3",
+        all_Steps: "2",
         before_steps: "Scheduled phone screen",
         description: "Follow-up interview for senior developer position",
         duration: 90,
@@ -242,7 +230,7 @@ const CreateAutogenerateGeneral = (props: any) => {
             //     if (status !== null) {
             //         setTimeout(() => window.location.reload(), 1100);
             //     }
-            const id = 1
+            const id = 4
             try {
                 const updatedInterviewResponsibless = interviewResponsibless?.map((item: any) => ({
                     ...item,
@@ -343,7 +331,7 @@ const CreateAutogenerateGeneral = (props: any) => {
                 </div>
 
                 {/*  there is button with modal expandible */}
-                <div className={styles.buttons}>
+                {/* <div className={styles.buttons}>
                     {
                         filteredTodostoCreatePlusArrays && filteredTodostoCreatePlusArrays?.map((item: any) =>
                             <div
@@ -355,11 +343,12 @@ const CreateAutogenerateGeneral = (props: any) => {
                                     IType={""}
                                     modalTitles={item[1]}
                                     pathCrud={item[2]}
+
                                 />
                             </div>
                         )
                     }
-                </div>
+                </div> */}
             </div>
 
             <span>
@@ -432,7 +421,7 @@ const CreateAutogenerateGeneral = (props: any) => {
                         }
 
                     </div>
-                    <div className={styles.buttons}>
+                    {/* <div className={styles.buttons}>
                         {
                             filteredTodostoCreatePlusArraysSecond && filteredTodostoCreatePlusArraysSecond?.map(((item: any) =>
 
@@ -441,7 +430,6 @@ const CreateAutogenerateGeneral = (props: any) => {
                                     key={item?.key || item?.dataIndex}
                                     className={styles.button}
                                 >
-                                    {/* buton modal create item */}
                                     <ModalSelectGeneralCrud
                                         objectKeys={item[0]}
                                         IType={""}
@@ -451,7 +439,7 @@ const CreateAutogenerateGeneral = (props: any) => {
                                 </div>
                             ))
                         }
-                    </div>
+                    </div> */}
                 </div>
             ))}
 

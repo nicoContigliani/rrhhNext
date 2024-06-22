@@ -16,6 +16,7 @@ import tittleCVReducer from '@/redux/features/stepss/tittleCV/tittleCVSlice';
 import moduleSevicesReducer from '@/redux/features/modulesServices/moduleServicesSlice';
 import crudReducer from '@/redux/features/CRUD/crudSlice';
 import rootsReducer from '@/redux/features/roots/rootsSlice'
+import roadMapReducer from '@/redux/features/RoadMaps/roadmapsSlice'
 
 export const store = configureStore({
   reducer: {
@@ -33,7 +34,8 @@ export const store = configureStore({
     disponibility: disponibilityReducer,
     tittleCV: tittleCVReducer,
     crud: crudReducer,
-    roots: rootsReducer
+    roots: rootsReducer,
+    roadMap: roadMapReducer
     // moduleServices:moduleSevicesReducer
   },
   // middleware: (gDM:any) => gDM().concat(thunkMiddleware)

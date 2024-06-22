@@ -38,7 +38,7 @@ const MenuProps = {
 function getStyles(name: string, personName: readonly string[], theme: Theme) {
     return {
         fontWeight:
-            personName.indexOf(name) === -1
+            personName?.indexOf(name) === -1
                 ? theme.typography?.fontWeightRegular
                 : theme.typography?.fontWeightMedium,
     };
@@ -78,7 +78,7 @@ const SelectGeneralMaterial = (props: any) => {
 
 
             await setNames(si)
-            await setTittle(todoSelect[0].titleModal)
+            await setTittle(todoSelect[0]?.titleModal)
         }
         funtionAsync()
     }, [])

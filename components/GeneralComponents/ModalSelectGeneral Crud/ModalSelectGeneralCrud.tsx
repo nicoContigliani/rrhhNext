@@ -32,12 +32,20 @@ import Modal from '@mui/material/Modal';
 import Inputs from '@/components/inputs/Inputs';
 import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 import { rulesType, rulesWordStartStatus } from '@/services/formaterInputs.services';
-import { fetchCrud } from '@/redux/features/CRUD/crudSlice';
+import { createCrud, fetchCrud } from '@/redux/features/CRUD/crudSlice';
 import Selectcrud from '../CRUDGeneral/SelectCrud/Selectcrud';
 import { Height } from '@mui/icons-material';
 import dataFetchForSelectService from '@/services/dataFetchForSelect.service';
+import { useAppSelector } from '@/redux/hooks';
+import { selectRoadMap } from '@/redux/features/RoadMaps/roadmapsSlice';
 
 
+export interface FetchCrudData {
+    urlGeneral: string | any;
+    methods: string;
+    body?: any | any[]; // Tipo específico para el cuerpo de la solicitud
+    idParams?: string;
+}
 
 
 
@@ -55,6 +63,7 @@ const ModalSelectGeneralCrud = (props: any) => {
     const [selectDataSources, setSelectDataSources] = useState<any | any[] | undefined>();
     const [dataSelectSecondary, setDataSelectSecondary] = useState<any | any[] | undefined>()
 
+    
 
 
     useEffect(() => {
@@ -62,7 +71,7 @@ const ModalSelectGeneralCrud = (props: any) => {
             try {
                 const dataReturnFilter = objectKeys?.filter((item: any) => item.title !== "key" && item.title !== "id" && item.title !== "createdAt" && item.title !== "updatedAt")
                 setDataObjectKeys(dataReturnFilter)
-                
+
             } catch (error) {
 
             }
@@ -80,18 +89,8 @@ const ModalSelectGeneralCrud = (props: any) => {
 
 
     console.log("🚀 ~ todoAsync ~ objectKeys:", objectKeys)
-    
 
 
-
-    const handlechange = (value: any) => {
-        // setData(value)
-    }
-
-    const Send = () => {
-        alert("si")
-
-    }
     const showModal = () => {
         setIsModalOpen(!isModalOpen);
     };
@@ -99,12 +98,6 @@ const ModalSelectGeneralCrud = (props: any) => {
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-
-
-    useEffect(() => {
-
-    }, [])
-
 
     const todoD: any[] = [];
 
@@ -125,6 +118,28 @@ const ModalSelectGeneralCrud = (props: any) => {
     useEffect(() => {
         processDataSources();
     }, [selectDataSources]); // Runs only when selectDataSources changes
+
+
+    const Send = async () => {
+
+        const todoCRUDGet: FetchCrudData = {
+            urlGeneral: `${pathCrud}`,
+            methods: 'POST',
+            body: data,
+        };
+        const {
+            payload: { status }, payload: { data: dataReturn }
+        } = await dispatch(createCrud(todoCRUDGet));
+        const message = {
+            keys: status,
+            content: status === 200 ? "Success, insert complete!" : "Error, insert incomplete!",
+            loadings: false,
+            resultProcess: status === 200 ? "success" : "error",
+        };
+        // if (status === 200) setOpen(false);
+
+    }
+
 
     return (
 
@@ -159,8 +174,8 @@ const ModalSelectGeneralCrud = (props: any) => {
                                                 (item.title === "key" || item.title === "id" || item.title === "createdAt" || item.title === "updatedAt") ? null :
 
                                                     (
-                                                        item.title !== "interviewTypeId"
-                                                        &&
+                                                        // item.title !== "interviewTypeId"
+                                                        // &&
                                                         item.title.includes('Id')
                                                     ) ?
                                                         // `${item.title}`
