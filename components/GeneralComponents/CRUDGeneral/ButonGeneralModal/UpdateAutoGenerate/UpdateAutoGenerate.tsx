@@ -1,14 +1,82 @@
 import Inputs from '@/components/inputs/Inputs';
-import { roadMapsDataId, selectRoadMap } from '@/redux/features/RoadMaps/roadmapsSlice';
-import { selectRoots } from '@/redux/features/roots/rootsSlice';
+import { roadMapsDataId } from '@/redux/features/RoadMaps/roadmapsSlice';
+import { rootsAsync, selectRoots } from '@/redux/features/roots/rootsSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { col_structureFormaterWithReducer } from '@/services/col_structureFormaterWithReducer.services';
 import { rulesType, rulesWordStartStatus } from '@/services/formaterInputs.services';
 import { rulesWords } from '@/services/rulesInputs.sevices';
 
+
+
+import { preloadInterViewData, preloadRoadMapsData, preloadUserData, preloadVacancyData, selectRoadMap } from '@/redux/features/RoadMaps/roadmapsSlice'
+
+
+
+
+
 import React, { useEffect, useState, useMemo } from 'react';
 
+
+const configTree: any = {
+    'RoadMaps': {
+        actionsDispatch: function (// actions: any[] | any | undefined
+        ) {
+            const dispatch = useAppDispatch();
+            const actions = [
+                rootsAsync,
+                preloadRoadMapsData,
+                preloadRoadMapsData,
+                preloadInterViewData,
+                preloadVacancyData,
+                preloadUserData
+            ];
+            actions.forEach((action: any | undefined) => {
+                dispatch(action());
+            });
+
+        },
+        filterBySuffixIfExists: function (sourcesArray: any[], suffix: any) {
+            if (sourcesArray.length === 0 || suffix === '') {
+                console.warn('Falta sourcesArray o suffix. Se retornará un array vacío.');
+                return [];
+            }
+            return sourcesArray?.filter((item) => typeof item.column_name === 'string' && item.column_name.endsWith(suffix));
+        },
+        filterBySuffixOrFallback: function (sourcesArray: any[], suffix: any) {
+            if (sourcesArray.length === 0 || suffix === '') {
+                console.warn('Falta sourcesArray o suffix. Se retornará un array vacío.');
+                return [];
+            }
+            return sourcesArray?.filter((item) => typeof item.column_name === 'string' && !item.column_name.endsWith(suffix) && !item.column_name.endsWith("Id"));
+        },
+
+
+
+    },
+
+    'Vacancies': {
+        filterBySuffixIfExists: function (sourcesArray: any[], suffix: any) {
+            if (sourcesArray.length === 0 || suffix === '') {
+                console.log("entro en vacancies ****************")
+                console.warn('Falta sourcesArray o suffix. Se retornará un array vacío.');
+                return [];
+            }
+            return sourcesArray?.filter((item) => typeof item.column_name === 'string' && item.column_name.endsWith(suffix));
+        },
+        filterBySuffixOrFallback: function (sourcesArray: any[], suffix: any) {
+            if (sourcesArray.length === 0 || suffix === '') {
+                console.warn('Falta sourcesArray o suffix. Se retornará un array vacío.');
+                return [];
+            }
+            return sourcesArray?.filter((item) => typeof item.column_name === 'string' && !item.column_name.endsWith(suffix) && !item.column_name.endsWith("Id"));
+        }
+    }
+
+};
+
+
 const UpdateAutoGenerate = (props: any) => {
+    const { nameModelStart } = props
     const dispatch = useAppDispatch();
 
     const roadMap = useAppSelector(selectRoadMap);
@@ -18,7 +86,13 @@ const UpdateAutoGenerate = (props: any) => {
         createDataStart,
         dataRoadMapIdData,
         dataRoadMapIdDataKeys,
-        nameModelStart
+
+
+
+
+
+
+
     } = roadMap;
 
 
@@ -29,69 +103,43 @@ const UpdateAutoGenerate = (props: any) => {
     }, [dispatch]);
 
 
-    // Función de mapeo para convertir data_type a tipos de inputs HTML
-    const mapDataTypeToInputType = (dataType: string) => {
-        switch (dataType) {
-            case "integer":
-            case "bigint":
-                return "number";
-            case "boolean":
-                return "checkbox";
-            case "timestamp with time zone":
-            case "timestamp":
-                return "datetime-local";
-            case "text":
-            case "character varying":
-            default:
-                return "text";
-        }
-    };
-
-
-
-    // useEffect(() => {
-    //     const dataReturn =  () => {
-
-    //         // Encuentra la estructura de la tabla RoadMaps
-    //         const tableStructure = col_structure.find((obj: any) => obj.table_fullname === "RoadMaps")?.table_columns;
-
-    //         if (!tableStructure) {
-    //             console.error("Table structure for 'RoadMaps' not found");
-    //             return;
-    //         }
-
-    //         // Crea un mapa para una búsqueda rápida de columnas
-    //         const columnMap = new Map(tableStructure.map((col: any) => [col.column_name, col]));
-
-    //         // Procesa los datos y genera el array de resultados
-    //         const resultArray = dataRoadMapIdData.reduce((acc: any[], roadMapObject: any) => {
-    //             Object.entries(roadMapObject).forEach(([key, value]) => {
-    //                 const columnInfo: any | undefined = columnMap.get(key);
-    //                 if (columnInfo) {
-    //                     acc.push({
-    //                         column_name: key,
-    //                         keyValue: value,
-    //                         character_maximum_length: columnInfo.character_maximum_length,
-    //                         input_type: mapDataTypeToInputType(columnInfo.data_type),
-    //                         table_name: columnInfo.table_name,
-    //                     });
-    //                 }
-    //             });
-    //             return acc;
-    //         }, []);
-
-    //         // Aquí puedes utilizar resultArray según sea necesario
-    //         console.log(resultArray, "resultArray");
-    //         return resultArray;
-
-    //     };
-    //     const result = dataReturn();
-    // }, [col_structure, dataRoadMapIdData]);
+    const memoizedResult = useMemo(() => {
+        return col_structureFormaterWithReducer(col_structure, dataRoadMapIdData, nameModelStart);
+    }, [col_structure, dataRoadMapIdData]);
 
     useEffect(() => {
-        const result = col_structureFormaterWithReducer(col_structure, dataRoadMapIdData, "RoadMaps");
-        console.log("🚀 ~ //dataReturn ~ result:", result);
-    }, [col_structure, dataRoadMapIdData]);
+        let modelName: any; // Puedes dejarlo como any por ahora, pero luego intenta definir un tipo más específico si es posible
+
+        const objectTree: any | undefined = configTree[nameModelStart]
+        const resultado = objectTree.filterBySuffixIfExists(memoizedResult, 'Id');
+
+
+        const resultados = objectTree.filterBySuffixOrFallback(memoizedResult, 'Id');
+        console.log("🚀 ~ useEffect ~ resultados:", resultados)
+
+
+    }, [memoizedResult])
+
+
+
+
+
+
+
+    useEffect(() => {
+        // console.log("🚀 ~ //dataReturn ~ result:", memoizedResult);
+        // setResult(memoizedResult);
+    }, [memoizedResult]);
+
+    // useEffect(() => {
+    //     if (result !== null) {
+    //         console.log("🚀 ~ //dataReturn ~ result:", result);
+    //         // Perform any other side effects with the result here
+    //     }
+    // }, [result]);
+
+
+
 
     return (
         <div>

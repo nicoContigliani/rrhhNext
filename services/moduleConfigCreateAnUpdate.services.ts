@@ -1,26 +1,86 @@
-import { selectRoadMap } from '@/redux/features/RoadMaps/roadmapsSlice';
-import { selectRoots } from '@/redux/features/roots/rootsSlice';
-const moduleConfig = {
-    // roadMaps: {
-    //     vacancyId: {
-    //         type: 'select',
-    //         optionsSelector: selectRoadMapVacancyOptions,
-    //         label: 'Vacancy ID'
-    //     },
-    //     all_steps: {
-    //         type: 'select',
-    //         optionsSelector: selectInterviewSteps,
-    //         label: 'All Steps'
-    //     },
-    //     responsibles: {
-    //         type: 'select',
-    //         optionsSelector: selectInterviewResponsibles,
-    //         label: 'Responsibles'
-    //     },
-    //     default: {
-    //         type: 'input'
-    //     }
-    // },
+import { preloadInterViewData, preloadRoadMapsData, preloadUserData, preloadVacancyData, selectRoadMap } from '@/redux/features/RoadMaps/roadmapsSlice'
+import { rootsAsync, selectRoots } from '@/redux/features/roots/rootsSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+
+const dispatch = useAppDispatch();
+
+
+//Tree
+export const moduleConfigData: any | undefined = {
+    'RoadMaps': {
+        actionsDispatch: function (// actions: any[] | any | undefined
+        ) {
+            const actions = [
+                rootsAsync,
+                preloadRoadMapsData,
+                preloadRoadMapsData,
+                preloadInterViewData,
+                preloadVacancyData,
+                preloadUserData
+            ];
+            actions.forEach((action: any | undefined) => {
+                dispatch(action());
+            });
+
+        },
+
+        filterBySuffixIfExists: function (sourcesArray: any[], suffix: any) {
+            if (sourcesArray.length === 0 || suffix === '') {
+                console.warn('Falta sourcesArray o suffix. Se retornará un array vacío.');
+                return [];
+            }
+            return sourcesArray?.filter((item) => typeof item.column_name === 'string' && item.column_name.endsWith(suffix));
+        },
+        filterBySuffixOrFallback: function (sourcesArray: any[], suffix: any) {
+            if (sourcesArray.length === 0 || suffix === '') {
+                console.warn('Falta sourcesArray o suffix. Se retornará un array vacío.');
+                return [];
+            }
+            return sourcesArray?.filter((item) => typeof item.column_name === 'string' && !item.column_name.endsWith(suffix) && !item.column_name.endsWith("Id"));
+        },
+
+
+    }
+}
+
+import { v4 as uuidv4 } from 'uuid';
+
+
+export const moduleConfig = {
+    roadMaps: {
+        vacancyId: {
+            type: 'selectMaterial',
+            forProps: {
+                isMultiple: false,
+                actions: ['roadMapsDataId']
+                // keys:,
+
+            }
+        }
+
+
+
+
+        //     vacancyId: {
+        //         type: 'select',
+        //         optionsSelector: selectRoadMapVacancyOptions,
+        //         label: 'Vacancy ID'
+        //     },
+        //     all_steps: {
+        //         type: 'select',
+        //         optionsSelector: selectInterviewSteps,
+        //         label: 'All Steps'
+        //     },
+        //     responsibles: {
+        //         type: 'select',
+        //         optionsSelector: selectInterviewResponsibles,
+        //         label: 'Responsibles'
+        //     },
+        //     default: {
+        //         type: 'input'
+        //     }
+    }
+    //,
     // anotherModule: {
     //     someField: {
     //         type: 'input',

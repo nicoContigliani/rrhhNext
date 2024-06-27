@@ -62,6 +62,53 @@ const Page = () => {
 
 
 
+
+  //dataNameComponentFilter ->data.filter((item:any)=>if(data.endsWith(Id)))
+  //                        -> en lugar de usar filter usa Object.Key(data)  
+
+
+
+  // configCarrierData->  
+  //selectMaterial  
+  //-------------------------
+  //todoSelect
+  //isMultiple
+  //keys
+  //setSelectedValues <--useState
+  //defaultValue
+  //---------------------
+
+  //->>> selectGeneralMaterial
+
+  //dataNameComponentFilter ->data.filter((item:any)=>if(!data.endsWith(Id)))
+  //->>>dataFor Inputs
+  //-----------------------
+  //data
+  //setData
+  //type
+  //defaultValue
+  //------------------------
+
+
+
+  // data del for -> roadMap -> formateo
+  //for if Select->VacancyId -> formateo
+  //selectMaterial  
+  //todoSelect
+  //isMultiple
+  //keys
+  //setSelectedValues <--useState
+  //defaultValue
+
+  //inputs
+  //data
+  //setData
+  //type
+  //defaultValue
+
+
+
+
   const columnsAfterFiltered = useMemo(() => {
     if (Array.isArray(col_structure)) {
       const tableStructure = col_structure.find((obj: any) => obj.table_fullname === "RoadMaps");

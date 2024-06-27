@@ -179,10 +179,7 @@ export const preloadInterViewData = createAsyncThunk(
                 idParams: null,
                 token: token
             }
-            console.log("🚀 ~ todo:", todo)
-
             const response = await useAxios(todo);
-            console.log("🚀 ~ response:", response)
             return response;
 
         } catch (error) {
@@ -206,10 +203,8 @@ export const preloadVacancyData = createAsyncThunk(
                 idParams: null,
                 token: token
             }
-            console.log("🚀 ~ todo:", todo)
 
             const response = await useAxios(todo);
-            console.log("🚀 ~ response:", response)
             return response;
 
         } catch (error) {
@@ -232,10 +227,7 @@ export const preloadUserData = createAsyncThunk(
                 idParams: null,
                 token: token
             }
-            console.log("🚀 ~ todo:", todo)
-
             const response = await useAxios(todo);
-            console.log("🚀 ~ response:", response)
             return response;
 
         } catch (error) {
@@ -260,7 +252,6 @@ export const roadMapsDataId = createAsyncThunk(
             }
 
             const response = await useAxios(todo);
-            console.log("🚀 ~ response:", response)
             return response;
 
         } catch (error) {
@@ -282,10 +273,8 @@ export const vacancyDataId = createAsyncThunk(
                 idParams: data,
                 token: token
             }
-            console.log("🚀 ~ todo:", todo)
 
             const response = await useAxios(todo);
-            console.log("🚀 ~ response:", response)
             return response;
 
         } catch (error) {
@@ -308,7 +297,6 @@ export const userDataId = createAsyncThunk(
                 token: token
             }
             const response = await useAxios(todo);
-            console.log("🚀 ~ response:", response)
             return response;
 
         } catch (error) {
@@ -331,7 +319,6 @@ export const userIntreviewDataId = createAsyncThunk(
                 token: token
             }
             const response = await useAxios(todo);
-            console.log("🚀 ~ response:", response)
             return response;
 
         } catch (error) {
@@ -354,7 +341,6 @@ export const userIntreviewResponsibleDataId = createAsyncThunk(
                 token: token
             }
             const response = await useAxios(todo);
-            console.log("🚀 ~ response:", response)
             return response;
 
         } catch (error) {
@@ -376,10 +362,7 @@ export const interViewDataId = createAsyncThunk(
                 idParams: data,
                 token: token
             }
-            console.log("🚀 ~ todo:", todo)
-
             const response = await useAxios(todo);
-            console.log("🚀 ~ response:", response)
             return response;
 
         } catch (error) {
@@ -395,7 +378,6 @@ export const interViewDataId = createAsyncThunk(
 export const cvIdAsync = createAsyncThunk(
     "CVId/Slice",
     async (id: any) => {
-        console.log("🚀 ~ id:", id)
         try {
             const { token } = await readLocalStorage(dataSearch);
 
@@ -433,10 +415,7 @@ export const cvNextAsync: any = createAsyncThunk(
 
             }
             const response = await useAxios(todo);
-            console.log("********************************************************")
-            console.log("🚀 ~ response:***cvNextAsync******************", response, "🚀 ~ response:***cvNextAsync******************")
-            console.log("********************************************************")
-
+  
             return response;
         } catch (error) {
             console.error("Error fetching CV ID data:", error);
@@ -460,7 +439,6 @@ export const cvNextAsyncDelete: any = createAsyncThunk(
 
             }
             const response = await useAxios(todo);
-            console.log("🚀 ~ response:******", response)
             return response;
             return true
         } catch (error) {
