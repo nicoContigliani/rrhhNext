@@ -75,15 +75,11 @@ const SelectGeneralMaterial = (props: any) => {
         if (setSelectedValues) {
             setSelectedValues(newValue);
         }
-        console.log("🚀 ~ handleChange ~ newValue:", newValue)
     };
 
     useEffect(() => {
         const funtionAsync = async () => {
-            // console.log("🚀 ~ funtionAsync ~ [defaultValueSelect[0]]:", await [defaultValueSelect[0]])
-            // console.log("🚀 ~ funtionAsync ~ defaultValueSelect[0]:", await defaultValueSelect[0])
-            // Set initial state with defaultValueSelect
-            await setSelectDataArray([names[0]]);
+            await setSelectDataArray(defaultValueSelect);
         }
         funtionAsync()
     }, [defaultValueSelect]);
@@ -93,12 +89,18 @@ const SelectGeneralMaterial = (props: any) => {
         setSearchTerm(event.target.value);
     };
 
-    const filteredNames = names?.filter((name: any) => name?.toLowerCase()?.includes(searchTerm.toLowerCase()));
+    // const filteredData = names?.filter((name: any) => name?.toLowerCase()?.includes(searchTerm.toLowerCase()));
+    const filteredData = todoSelect?.filter((name: any) => name?.toLowerCase()?.includes(searchTerm.toLowerCase()));
+
 
     return (
         <div>
+
+
+
             <FormControl sx={{ m: 1, width: '100%' }} size="small">
                 <Select
+                    label="Vacancy"
                     multiple={isMultiple || false}
                     size="small"
                     fullWidth
@@ -137,7 +139,7 @@ const SelectGeneralMaterial = (props: any) => {
                             }}
                         />
                     </MenuItem>
-                    {filteredNames?.map((name: any | undefined) => (
+                    {filteredData?.map((name: any | undefined) => (
                         <MenuItem
                             key={name}
                             value={name}

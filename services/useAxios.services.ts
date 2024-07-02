@@ -24,7 +24,7 @@ const useAxios: any | any[] | undefined = async (props: AxiosProps): Promise<any
       ? `${url}/${idParams}`
       : `${url}`;
 
-    const response:any|any[]|undefined = await axios({
+    const response: any | any[] | undefined = await axios({
       method: method, // Ensure method is of type Method from axios
       url: urls,
       data: body,
@@ -33,9 +33,13 @@ const useAxios: any | any[] | undefined = async (props: AxiosProps): Promise<any
 
     return dataReturn = response.data
 
-  } catch (error) {
-    // console.log("🚀 ~ file: useAxios.ts:27 ~ useAxios ~ error:", error);
-    throw error;
+  } catch (error: any) {
+    console.error("Error message:", error.message);
+    console.error("Error name:", error.name);
+    console.error("Error stack:", error.stack);
+
+    // Si hay propiedades adicionales en el error
+    console.error("Error details:", error);    // throw error;
   }
 };
 

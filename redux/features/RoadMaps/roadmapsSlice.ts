@@ -137,8 +137,19 @@ const initialState: any | undefined = {
     dataInterviewIdDataKeys: [] || undefined,
 
 
-}
+    interviewsDataNotArray: [] || undefined,
 
+    interviewResponsibleAll: [] || undefined,
+    iterviewUsersAll: [] || undefined,
+
+    //assistantGet
+    intervieewerAndResponsableAll: [] || undefined,
+    intervieewerAndResponsableIdAll: [] || undefined,
+
+
+}
+//TODO   interviews, intervieewers, responsible are AssistantGet -> 
+//If add id  params get [{interview,user,responsable}] bat if I add idparams with 0 more number, that return with all element of interviews 
 
 export const preloadRoadMapsData = createAsyncThunk(
     "RoadMap/preload",
@@ -157,12 +168,83 @@ export const preloadRoadMapsData = createAsyncThunk(
             const response = await useAxios(todo);
             return response;
 
-        } catch (error) {
-            console.error("Error fetching CV data:", error);
+        } catch (error: any) {
+            console.error("Error message:", error.message);
+            console.error("Error name:", error.name);
+            console.error("Error stack:", error.stack);
+
+            // Si hay propiedades adicionales en el error
+            console.error("Error details:", error);
             throw error;
         }
     }
 );
+
+
+export const preloadInterViewAssistantData = createAsyncThunk(
+    "InterviewAssistantGet/preload",
+    async () => {
+        try {
+            const { token } = await readLocalStorage(dataSearch);
+
+            const todo: any = await {
+                url: `${API_URL}/AssistantGet/AssistantGet/`,
+                method: 'GET',
+                body: "",
+                idParams: null,
+                token: token
+            }
+
+            const response = await useAxios(todo);
+            return response;
+
+
+        } catch (error: any) {
+            console.error("Error message:", error.message);
+            console.error("Error name:", error.name);
+            console.error("Error stack:", error.stack);
+
+            // Si hay propiedades adicionales en el error
+            console.error("Error details:", error);
+            throw error;
+        }
+    }
+);
+
+export const preloadInterViewAssistantIdData = createAsyncThunk(
+    "InterviewAssistantGet/id",
+    async (data: any) => {
+        try {
+            const { token } = await readLocalStorage(dataSearch);
+
+            const todo: any = await {
+                url: `${API_URL}/AssistantGet/AssistantGet/`,
+                method: 'GET',
+                body: "",
+                idParams: data,
+                token: token
+            }
+
+            const response = await useAxios(todo);
+            return response;
+
+
+        } catch (error: any) {
+            console.error("Error message:", error.message);
+            console.error("Error name:", error.name);
+            console.error("Error stack:", error.stack);
+
+            // Si hay propiedades adicionales en el error
+            console.error("Error details:", error);
+            throw error;
+        }
+    }
+);
+
+
+
+
+
 
 
 
@@ -182,8 +264,14 @@ export const preloadInterViewData = createAsyncThunk(
             const response = await useAxios(todo);
             return response;
 
-        } catch (error) {
-            console.error("Error fetching CV data:", error);
+
+        } catch (error: any) {
+            console.error("Error message:", error.message);
+            console.error("Error name:", error.name);
+            console.error("Error stack:", error.stack);
+
+            // Si hay propiedades adicionales en el error
+            console.error("Error details:", error);
             throw error;
         }
     }
@@ -207,8 +295,14 @@ export const preloadVacancyData = createAsyncThunk(
             const response = await useAxios(todo);
             return response;
 
-        } catch (error) {
-            console.error("Error fetching CV data:", error);
+
+        } catch (error: any) {
+            console.error("Error message:", error.message);
+            console.error("Error name:", error.name);
+            console.error("Error stack:", error.stack);
+
+            // Si hay propiedades adicionales en el error
+            console.error("Error details:", error);
             throw error;
         }
     }
@@ -230,8 +324,14 @@ export const preloadUserData = createAsyncThunk(
             const response = await useAxios(todo);
             return response;
 
-        } catch (error) {
-            console.error("Error fetching CV data:", error);
+
+        } catch (error: any) {
+            console.error("Error message:", error.message);
+            console.error("Error name:", error.name);
+            console.error("Error stack:", error.stack);
+
+            // Si hay propiedades adicionales en el error
+            console.error("Error details:", error);
             throw error;
         }
     }
@@ -254,12 +354,85 @@ export const roadMapsDataId = createAsyncThunk(
             const response = await useAxios(todo);
             return response;
 
-        } catch (error) {
-            console.error("Error fetching CV data:", error);
+
+        } catch (error: any) {
+            console.error("Error message:", error.message);
+            console.error("Error name:", error.name);
+            console.error("Error stack:", error.stack);
+
+            // Si hay propiedades adicionales en el error
+            console.error("Error details:", error);
             throw error;
         }
     }
 );
+
+//TODO
+export const preloadUserResponsibleAll = createAsyncThunk(
+    "UserResponsibleAll/All",
+    async () => {
+        try {
+            const { token } = await readLocalStorage(dataSearch);
+
+            const todo: any = await {
+                url: `${API_URL}/InterviewResponsible/InterviewResponsible/`,
+                method: 'GET',
+                body: "",
+                idParams: null,
+                token: token
+            }
+
+            const response = await useAxios(todo);
+            return response;
+
+
+        } catch (error: any) {
+            console.error("Error message:", error.message);
+            console.error("Error name:", error.name);
+            console.error("Error stack:", error.stack);
+
+            // Si hay propiedades adicionales en el error
+            console.error("Error details:", error);
+            throw error;
+        }
+    }
+);
+
+export const preloadUserInterviewAll = createAsyncThunk(
+    "InterviewUser/All",
+    async () => {
+        try {
+            const { token } = await readLocalStorage(dataSearch);
+
+            const todo: any = await {
+                url: `${API_URL}/InterviewUser/InterviewUser/`,
+                method: 'GET',
+                body: "",
+                idParams: null,
+                token: token
+            }
+
+            const response = await useAxios(todo);
+            return response;
+
+
+        } catch (error: any) {
+            console.error("Error message:", error.message);
+            console.error("Error name:", error.name);
+            console.error("Error stack:", error.stack);
+
+            // Si hay propiedades adicionales en el error
+            console.error("Error details:", error);
+            throw error;
+        }
+    }
+);
+
+
+
+
+
+
 export const vacancyDataId = createAsyncThunk(
     "Vacancy_Id/id",
     async (data: any) => {
@@ -277,8 +450,14 @@ export const vacancyDataId = createAsyncThunk(
             const response = await useAxios(todo);
             return response;
 
-        } catch (error) {
-            console.error("Error fetching CV data:", error);
+
+        } catch (error: any) {
+            console.error("Error message:", error.message);
+            console.error("Error name:", error.name);
+            console.error("Error stack:", error.stack);
+
+            // Si hay propiedades adicionales en el error
+            console.error("Error details:", error);
             throw error;
         }
     }
@@ -299,8 +478,14 @@ export const userDataId = createAsyncThunk(
             const response = await useAxios(todo);
             return response;
 
-        } catch (error) {
-            console.error("Error fetching CV data:", error);
+
+        } catch (error: any) {
+            console.error("Error message:", error.message);
+            console.error("Error name:", error.name);
+            console.error("Error stack:", error.stack);
+
+            // Si hay propiedades adicionales en el error
+            console.error("Error details:", error);
             throw error;
         }
     }
@@ -321,8 +506,14 @@ export const userIntreviewDataId = createAsyncThunk(
             const response = await useAxios(todo);
             return response;
 
-        } catch (error) {
-            console.error("Error fetching CV data:", error);
+
+        } catch (error: any) {
+            console.error("Error message:", error.message);
+            console.error("Error name:", error.name);
+            console.error("Error stack:", error.stack);
+
+            // Si hay propiedades adicionales en el error
+            console.error("Error details:", error);
             throw error;
         }
     }
@@ -343,8 +534,14 @@ export const userIntreviewResponsibleDataId = createAsyncThunk(
             const response = await useAxios(todo);
             return response;
 
-        } catch (error) {
-            console.error("Error fetching CV data:", error);
+
+        } catch (error: any) {
+            console.error("Error message:", error.message);
+            console.error("Error name:", error.name);
+            console.error("Error stack:", error.stack);
+
+            // Si hay propiedades adicionales en el error
+            console.error("Error details:", error);
             throw error;
         }
     }
@@ -365,8 +562,14 @@ export const interViewDataId = createAsyncThunk(
             const response = await useAxios(todo);
             return response;
 
-        } catch (error) {
-            console.error("Error fetching CV data:", error);
+
+        } catch (error: any) {
+            console.error("Error message:", error.message);
+            console.error("Error name:", error.name);
+            console.error("Error stack:", error.stack);
+
+            // Si hay propiedades adicionales en el error
+            console.error("Error details:", error);
             throw error;
         }
     }
@@ -392,8 +595,14 @@ export const cvIdAsync = createAsyncThunk(
             const response = await useAxios(todo);
             return response;
 
-        } catch (error) {
-            console.error("Error fetching CV ID data:", error);
+
+        } catch (error: any) {
+            console.error("Error message:", error.message);
+            console.error("Error name:", error.name);
+            console.error("Error stack:", error.stack);
+
+            // Si hay propiedades adicionales en el error
+            console.error("Error details:", error);
             throw error;
         }
     }
@@ -415,10 +624,16 @@ export const cvNextAsync: any = createAsyncThunk(
 
             }
             const response = await useAxios(todo);
-  
+
             return response;
-        } catch (error) {
-            console.error("Error fetching CV ID data:", error);
+
+        } catch (error: any) {
+            console.error("Error message:", error.message);
+            console.error("Error name:", error.name);
+            console.error("Error stack:", error.stack);
+
+            // Si hay propiedades adicionales en el error
+            console.error("Error details:", error);
             throw error;
         }
     }
@@ -441,8 +656,14 @@ export const cvNextAsyncDelete: any = createAsyncThunk(
             const response = await useAxios(todo);
             return response;
             return true
-        } catch (error) {
-            console.error("Error fetching CV ID data:", error);
+
+        } catch (error: any) {
+            console.error("Error message:", error.message);
+            console.error("Error name:", error.name);
+            console.error("Error stack:", error.stack);
+
+            // Si hay propiedades adicionales en el error
+            console.error("Error details:", error);
             throw error;
         }
     }
@@ -477,6 +698,14 @@ export const roadMapSlice = createSlice({
             // state.cvOneData = action.payload.data || {};
 
         },
+        getInterViewAssistant: (state, action: PayloadAction<any>) => {
+            state.intervieewerAndResponsableAll = action.payload.data || [];
+        },
+
+        getInterViewAssistantId: (state, action: PayloadAction<any>) => {
+            state.intervieewerAndResponsableIdAll = action.payload.data || [];
+        },
+
         updateColStart: (state, action: PayloadAction<string[]>) => {
             state.colStart = action?.payload;
         },
@@ -513,6 +742,17 @@ export const roadMapSlice = createSlice({
         updateDataSecond: (state, action: PayloadAction<any | undefined>) => {
             state.dataSeconds = action?.payload;
         },
+
+        getPreloadUserResponsibleAll: (state, action: PayloadAction<any>) => {
+            state.interviewResponsibleAll = action.payload.data || [];
+        },
+
+        getPreloadUserInterviewAll: (state, action: PayloadAction<any>) => {
+            state.iterviewUsersAll = action.payload.data || [];
+        },
+
+
+
     },
     extraReducers: (builder) => {
         builder
@@ -521,9 +761,35 @@ export const roadMapSlice = createSlice({
                 }
                 state.dataGetRoadMap = action.payload.data || {};
             })
+            .addCase(preloadInterViewAssistantData.fulfilled, (state, action) => {
+                state.intervieewerAndResponsableAll = action.payload || [];
+            })
+            .addCase(preloadInterViewAssistantIdData.fulfilled, (state, action) => {
+
+                state.intervieewerAndResponsableIdAll = action.payload || [];
+            })
+
+
             .addCase(preloadInterViewData.fulfilled, (state, action) => {
                 if (action.payload) {
                     state.interviewsData = action.payload.data || {};
+                    const dataR = action?.payload?.data
+
+                    const dataReturn: any | any[] | undefined = dataR?.map((item: any) => {
+                        const result: any = {};
+                        const arrays: any = {};
+
+                        for (const key in item) {
+                            if (Array.isArray(item[key])) {
+                                arrays[key] = item[key];
+                            } else {
+                                result[key] = item[key];
+                            }
+                        }
+                        return result
+                    })
+                    state.interviewsDataNotArray = dataReturn || [];
+
                 }
             })
             .addCase(preloadVacancyData.fulfilled, (state, action) => {
@@ -572,6 +838,26 @@ export const roadMapSlice = createSlice({
 
                 }
             })
+
+
+            //TODO 
+            .addCase(preloadUserResponsibleAll.fulfilled, (state, action) => {
+                if (action.payload) {
+                    state.interviewResponsibleAll = action.payload.data || [];
+
+
+                }
+            })
+            .addCase(preloadUserInterviewAll.fulfilled, (state, action) => {
+                state.iterviewUsersAll = action.payload.data || [];
+            })
+
+
+
+
+
+
+
             .addCase(vacancyDataId.fulfilled, (state, action) => {
                 if (action.payload) {
                     state.dataVacanciesId = action.payload.data || {};
@@ -790,7 +1076,11 @@ export const {
     updateCreateDataStart,
     updateCreateDataSeconds,
     updateCreateDataThirds,
-    updateDataSecond
+    updateDataSecond,
+    getPreloadUserResponsibleAll,
+    getPreloadUserInterviewAll,
+    getInterViewAssistant,
+    getInterViewAssistantId
 
 } = roadMapSlice.actions;
 

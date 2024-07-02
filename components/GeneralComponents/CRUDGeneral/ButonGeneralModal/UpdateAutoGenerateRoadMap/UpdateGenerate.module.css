@@ -87,25 +87,34 @@
     }
 
     .buttonSend {
-        position: relative; /* Contenedor relativo */
-        width: 100%; /* Asegura que el botón ocupe el 100% del ancho disponible */
-        height: 25px; /* Altura fija del botón */
-        color: white; /* Color del texto */
-        border: none; /* Sin bordes */
-        border-radius: 5px; /* Bordes redondeados */
-        cursor: pointer; /* Cursor tipo mano para indicar que es clickeable */
-        font-size: small; /* Tamaño del texto */
-        text-align: center; /* Asegura que el texto esté centrado */
+        position: relative;
+        /* Contenedor relativo */
+        width: 100%;
+        /* Asegura que el botón ocupe el 100% del ancho disponible */
+        height: 25px;
+        /* Altura fija del botón */
+        color: white;
+        /* Color del texto */
+        border: none;
+        /* Sin bordes */
+        border-radius: 5px;
+        /* Bordes redondeados */
+        cursor: pointer;
+        /* Cursor tipo mano para indicar que es clickeable */
+        font-size: small;
+        /* Tamaño del texto */
+        text-align: center;
+        /* Asegura que el texto esté centrado */
         box-shadow: 1px 3px 30px #c2ccfd30, -8px -1px 2px #ffffffb8;
 
-      }
-      
-      .buttonSend span {
+    }
+
+    .buttonSend span {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-      }
+    }
 
 }
 
@@ -124,9 +133,10 @@
         /* Valor alto de z-index para superponer sobre todo */
         flex-direction: column;
     }
+
     .selectsGeneral {
         padding: 3%;
-        
+
         /* display: flex;
         flex-wrap: wrap; */
         display: grid;
@@ -171,7 +181,7 @@
 
 
 
-  
+
     .selects {
         display: flex;
         flex-wrap: nowrap;
@@ -215,15 +225,62 @@
     .buttonSend {
         display: flex;
         flex-wrap: nowrap;
-        justify-content: space-around; /* Centra horizontalmente */
-        align-items: center; /* Centra verticalmente */
-        text-align: center; /* Asegura que el texto esté centrado */
-        width: 100%; /* Asegura que el botón ocupe el 100% del ancho disponible */
-        height: 50px; /* Altura fija del botón */
-        color: white; /* Color del texto */
-        border: none; /* Sin bordes */
-        border-radius: 5px; /* Bordes redondeados */
-        cursor: pointer; /* Cursor tipo mano para indicar que es clickeable */
-        font-size: 16px; /* Tamaño del texto */
+        justify-content: space-around;
+        /* Centra horizontalmente */
+        align-items: center;
+        /* Centra verticalmente */
+        text-align: center;
+        /* Asegura que el texto esté centrado */
+        width: 100%;
+        /* Asegura que el botón ocupe el 100% del ancho disponible */
+        height: 50px;
+        /* Altura fija del botón */
+        color: white;
+        /* Color del texto */
+        border: none;
+        /* Sin bordes */
+        border-radius: 5px;
+        /* Bordes redondeados */
+        cursor: pointer;
+        /* Cursor tipo mano para indicar que es clickeable */
+        font-size: 16px;
+        /* Tamaño del texto */
     }
+
+    .selectsSecond {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+        grid-gap: 2px;
+        /* Ajusta el espacio entre los elementos según sea necesario */
+        justify-content: center;
+        /* Centra el grid horizontalmente */
+        align-content: center;
+        /* width: 100%; */
+        border-radius: 5%;
+        width: auto;
+
+
+    }
+
+    .step {
+        width: auto;
+        /* Ancho del card */
+        padding: 2px;
+        /* Espaciado interno del card */
+        border-radius: 10px;
+        /* Radio de borde para darle forma al card */
+        box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.2);
+        /* Sombra suave para resaltar el card */
+        box-shadow: 1px 3px 30px #c2ccfdb0, -8px -1px 2px #ffffffb8;
+        background: linear-gradient(to bottom right, #ffffff, #f0f0f0);
+        /* Gradiente de fondo */
+
+    }
+
+    .selectGroup {
+        display: grid;
+        grid-template-columns: repeat(5, 6fr);
+    }
+
+
 }
