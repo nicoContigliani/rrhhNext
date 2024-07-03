@@ -195,25 +195,30 @@ const UpdateAutoGenerate = (props: any) => {
 
         const asyncFuntion = async () => {
 
-            //TODO
-            if (intervieewerAndResponsableIdAll !== undefined) {
-                const { data } = await intervieewerAndResponsableIdAll;
-                if (data && data.length > 0) {
-                    const inter = data[0]?.Interviews;
-                    console.log("🚀 ~ asyncFuntion ~ inter:", inter);
-                    if (inter) setIntervieewerAndResponsable(inter);
-                } else {
-                    console.log("Data is undefined or empty.");
+            try {
+                //TODO
+                if (intervieewerAndResponsableIdAll !== undefined) {
+                    const { data } = await intervieewerAndResponsableIdAll;
+                    if (data && data.length > 0) {
+                        const inter = data[0]?.Interviews;
+                        console.log("🚀 ~ asyncFuntion ~ inter:", inter);
+                        if (inter) setIntervieewerAndResponsable(inter);
+                    } else {
+                        console.log("Data is undefined or empty.");
+                    }
                 }
+
+                const datainterviewsDataNotArrayMap = await interviewsDataNotArray?.map((item: any) => `${item?.id}-${item?.summary.replace(/,/g, '')}`);
+                const datausersNotArrayMap = await users?.map((item: any) => `${item?.id}-${item?.fullname.replace(/,/g, '')}`);
+
+                //there are Interviews
+                if (datainterviewsDataNotArrayMap) setInterviewsData(datainterviewsDataNotArrayMap)
+                //there are Users
+                if (datausersNotArrayMap) setUserData(datausersNotArrayMap)
+            } catch (error) {
+                console.log("🚀 ~ asyncFuntion ~ error:", error)
+
             }
-
-            const datainterviewsDataNotArrayMap = await interviewsDataNotArray?.map((item: any) => `${item?.id}-${item?.summary.replace(/,/g, '')}`);
-            const datausersNotArrayMap = await users?.map((item: any) => `${item?.id}-${item?.fullname.replace(/,/g, '')}`);
-
-            //there are Interviews
-            if (datainterviewsDataNotArrayMap) setInterviewsData(datainterviewsDataNotArrayMap)
-            //there are Users
-            if (datausersNotArrayMap) setUserData(datausersNotArrayMap)
 
         }
         asyncFuntion()
@@ -237,7 +242,7 @@ const UpdateAutoGenerate = (props: any) => {
                     labelId="demo-multiple-chip-label"
                     id="demo-multiple-chip"
                     isMultiple={false}
-
+                    label="Vacancies"
                     setSelectedValues={setSelectedValues}
                 />
 
@@ -261,12 +266,13 @@ const UpdateAutoGenerate = (props: any) => {
                                 autoFocus={false}
                                 color={''}
                                 disabled={false}
-                                fullWidth={false}
+                                fullWidth={true}
                                 id={''}
                                 inputComponent={undefined}
                                 multiline={false}
                                 label={''}
                                 rows={''}
+                                block
                             />
                         </div>
 
@@ -306,15 +312,14 @@ const UpdateAutoGenerate = (props: any) => {
                     </div>
                 ))} */}
 
-<hr />
-                <div className={styles.selectGroup}>
+
+                {/* <div className={styles.selectGroup}>
 
                     {
                         intervieewerAndResponsable && intervieewerAndResponsable.map((item: any) => (
 
                             <div className={styles.step}>
                                 <div className={styles.selectsSecond}>
-                                    {/* // interview [] */}
                                     <SelectGeneralMaterial
                                         defaultValueSelect={[`${item.interview}`]}
 
@@ -325,7 +330,6 @@ const UpdateAutoGenerate = (props: any) => {
                                 </div>
 
                                 <div className={styles.selectsSecond}>
-                                    {/* // InterviewUsers */}
                                     <SelectGeneralMaterial
                                         defaultValueSelect={item.InterviewUsers}
 
@@ -335,7 +339,6 @@ const UpdateAutoGenerate = (props: any) => {
                                     />
                                 </div>
                                 <div className={styles.selectsSecond}>
-                                    {/* // InterviewResponsibles */}
                                     <SelectGeneralMaterial
                                         defaultValueSelect={item.InterviewResponsibles}
                                         todoSelect={userData}
@@ -348,20 +351,72 @@ const UpdateAutoGenerate = (props: any) => {
                         ))
                     }
 
+                </div> */}
+                <div className={styles.selectGroup}>
+                    {data?.all_Steps &&
+                        Array.from({ length: Number(data.all_Steps) }).map((_, index) => (
+                            <div className={styles.step}>
+
+                                <div key={index}>
+                                    Step {index + 1}
+                                    <div className={styles.input}>
+                                        {
+
+                                            < Inputs
+                                                className={styles.input}
+                                                data={data}
+                                                setData={setData}
+                                                placeholder={'order'}
+                                                name={'order'}
+                                                type={'number'}
+                                                minLength={''} autoFocus={false} color={''}
+                                                defaultValue={intervieewerAndResponsable[index]?.interviewOrder ?
+                                                    [`${intervieewerAndResponsable[index].interviewOrder}`] : [index + 1]}
+                                                disabled={false}
+                                                fullWidth={false}
+                                                id={''}
+                                                inputComponent={undefined} multiline={false} label={''} rows={''} />
+                                        }
+
+                                    </div>
+
+                                    <div className={styles.selectsSecond}>
+                                        <SelectGeneralMaterial
+                                            defaultValueSelect={intervieewerAndResponsable[index]?.interview ? [`${intervieewerAndResponsable[index].interview}`] : ['-']}
+
+                                            todoSelect={interviewsData}
+                                            isMultiple={false}
+                                            setSelectedValues={setSelectedValues}
+                                        />
+                                    </div>
+
+                                    <div className={styles.selectsSecond}>
+                                        <SelectGeneralMaterial
+                                            defaultValueSelect={intervieewerAndResponsable[index]?.InterviewUsers || ['']}
+
+                                            todoSelect={userData}
+                                            isMultiple={true}
+                                            setSelectedValues={setSelectedValues}
+                                        />
+                                    </div>
+                                    <div className={styles.selectsSecond}>
+                                        <SelectGeneralMaterial
+                                            defaultValueSelect={intervieewerAndResponsable[index]?.InterviewResponsibles || ['']}
+                                            todoSelect={userData}
+                                            isMultiple={true}
+                                            setSelectedValues={setSelectedValues}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                    }
                 </div>
 
 
+
+
             </div>
-
-
-
-
-
-
-
-
-
-
         </div>
     );
 }

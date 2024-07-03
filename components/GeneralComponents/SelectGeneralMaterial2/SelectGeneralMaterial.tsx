@@ -43,17 +43,19 @@ const names = [
 ];
 
 const SelectGeneralMaterial = (props: any) => {
+    console.log("🚀 ~ SelectGeneralMaterial ~ props:", props)
     const {
         isMultiple = true, // Set default to true for multiple selection
         todoSelect,
         size,
         isfullWidth,
-        defaultValueSelect = [], // Ensure defaultValueSelect is an array
+        defaultValueSelect = [] || undefined, // Ensure defaultValueSelect is an array
         setSelectedValues,
+        label
     } = props;
 
     const theme = useTheme();
-    const [selectDataArray, setSelectDataArray] = useState<string[]>([]);
+    const [selectDataArray, setSelectDataArray] = useState<string[] | any | undefined>([]);
     const [searchTerm, setSearchTerm] = React.useState<string>('');
 
 
@@ -61,19 +63,25 @@ const SelectGeneralMaterial = (props: any) => {
 
 
     const handleChange = (event: SelectChangeEvent<typeof selectDataArray>) => {
-        const {
-            target: { value },
-        } = event;
-        const newValue = typeof value === 'string' ? value.split(',') : value;
+        try {
+            const {
+                target: { value },
+            } = event;
+            const newValue = typeof value === 'string' ? value.split(',') : value;
 
-        // Prevent removing all selections when in multiple mode
-        if (isMultiple && newValue.length === 0) {
-            return;
-        }
+            // Prevent removing all selections when in multiple mode
+            if (isMultiple && newValue.length === 0) {
+                return;
+            }
 
-        setSelectDataArray(newValue);
-        if (setSelectedValues) {
-            setSelectedValues(newValue);
+            setSelectDataArray(newValue);
+            if (setSelectedValues) {
+                setSelectedValues(newValue);
+            }
+
+        } catch (error) {
+            console.log("🚀 ~ handleChange ~ error:", error)
+
         }
     };
 
@@ -98,7 +106,7 @@ const SelectGeneralMaterial = (props: any) => {
 
 
 
-            <FormControl sx={{ m: 1, width: '100%' }} size="small">
+            <FormControl sx={{ m: 1, width: '92%', color: 'black' }} size="small" >
                 <Select
                     label="Vacancy"
                     multiple={isMultiple || false}
