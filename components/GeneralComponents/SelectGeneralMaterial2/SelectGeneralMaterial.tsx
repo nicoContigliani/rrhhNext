@@ -29,38 +29,24 @@ const MenuProps = {
     },
 };
 
-const names = [
-    'Oliver Hansen',
-    'Van Henry',
-    'April Tucker',
-    'Ralph Hubbard',
-    'Omar Alexander',
-    'Carlos Abbott',
-    'Miriam Wagner',
-    'Bradley Wilkerson',
-    'Virginia Andrews',
-    'Kelly Snyder',
-];
-
 const SelectGeneralMaterial = (props: any) => {
     console.log("🚀 ~ SelectGeneralMaterial ~ props:", props)
     const {
-        isMultiple = true, // Set default to true for multiple selection
+        isMultiple = true,
         todoSelect,
         size,
         isfullWidth,
-        defaultValueSelect = [] || undefined, // Ensure defaultValueSelect is an array
+        defaultValueSelect = [] || undefined,
         setSelectedValues,
-        label
+        label,
+        selectedValues,
+        name
     } = props;
 
     const theme = useTheme();
     const [selectDataArray, setSelectDataArray] = useState<string[] | any | undefined>([]);
     const [searchTerm, setSearchTerm] = React.useState<string>('');
-
-
-
-
+    const [filteredDatas, setFilteredData] = useState<string[] | any | undefined>();
 
     const handleChange = (event: SelectChangeEvent<typeof selectDataArray>) => {
         try {
@@ -69,27 +55,28 @@ const SelectGeneralMaterial = (props: any) => {
             } = event;
             const newValue = typeof value === 'string' ? value.split(',') : value;
 
-            // Prevent removing all selections when in multiple mode
             if (isMultiple && newValue.length === 0) {
                 return;
             }
 
             setSelectDataArray(newValue);
-            if (setSelectedValues) {
-                setSelectedValues(newValue);
-            }
 
+            if (setSelectedValues) {
+                setSelectedValues({
+                    ...selectedValues,
+                    [name]: newValue,
+                });
+            }
         } catch (error) {
             console.log("🚀 ~ handleChange ~ error:", error)
-
         }
     };
 
     useEffect(() => {
-        const funtionAsync = async () => {
+        const functionAsync = async () => {
             await setSelectDataArray(defaultValueSelect);
         }
-        funtionAsync()
+        functionAsync()
     }, [defaultValueSelect]);
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -97,18 +84,16 @@ const SelectGeneralMaterial = (props: any) => {
         setSearchTerm(event.target.value);
     };
 
-    // const filteredData = names?.filter((name: any) => name?.toLowerCase()?.includes(searchTerm.toLowerCase()));
-    const filteredData = todoSelect?.filter((name: any) => name?.toLowerCase()?.includes(searchTerm.toLowerCase()));
-
+    useEffect(() => {
+        const filteredData = todoSelect?.filter((name: any) => name?.toLowerCase()?.includes(searchTerm.toLowerCase()));
+        setFilteredData(filteredData)
+    }, [todoSelect, searchTerm]);
 
     return (
         <div>
-
-
-
             <FormControl sx={{ m: 1, width: '92%', color: 'black' }} size="small" >
                 <Select
-                    label="Vacancy"
+                    label={label}
                     multiple={isMultiple || false}
                     size="small"
                     fullWidth
@@ -119,7 +104,7 @@ const SelectGeneralMaterial = (props: any) => {
                     onChange={handleChange}
                     renderValue={(selected: any[] | any) => (
                         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.9 }}>
-                            {selected?.map((value: any) => (
+                            {Array.isArray(selected) && selected.map((value: any) => (
                                 <div key={value}>
                                     <UserOutlined /> - {value}
                                 </div>
@@ -147,7 +132,7 @@ const SelectGeneralMaterial = (props: any) => {
                             }}
                         />
                     </MenuItem>
-                    {filteredData?.map((name: any | undefined) => (
+                    {filteredDatas?.map((name: any | undefined) => (
                         <MenuItem
                             key={name}
                             value={name}

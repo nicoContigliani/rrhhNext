@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useMemo, useLayoutEffect } from 'react';
+import React, { useEffect, useState, useMemo, useLayoutEffect, useCallback } from 'react';
 import dynamic from 'next/dynamic'
-// import Inputs from '@/components/inputs/Inputs';
-// import SelectGeneralMaterial from '@/components/GeneralComponents/SelectGeneralMaterial2/SelectGeneralMaterial';
+
+
 import { preloadInterViewAssistantIdData, preloadUserInterviewAll, preloadUserResponsibleAll, roadMapsDataId, vacancyDataId } from '@/redux/features/RoadMaps/roadmapsSlice';
-import { rootsAsync, selectRoots } from '@/redux/features/roots/rootsSlice';
+import { selectRoots } from '@/redux/features/roots/rootsSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { col_structureFormaterWithReducer } from '@/services/col_structureFormaterWithReducer.services';
 import { preloadInterViewData, preloadRoadMapsData, preloadUserData, preloadVacancyData, selectRoadMap } from '@/redux/features/RoadMaps/roadmapsSlice'
@@ -11,8 +11,11 @@ import { formaterNotArray } from '@/services/formaterNotArray.services';
 
 import styles from './UpdateGenerate.module.css'
 import { split } from 'lodash';
+import Spinner from '@/components/spinner/Spinner';
+import { formatDataWithKeys, formaterSelectTitle } from '@/Utils/formaterMapTitleForSelect.utils';
 const Inputs = dynamic(() => import('@/components/inputs/Inputs'), { ssr: false })
 const SelectGeneralMaterial = dynamic(() => import('@/components/GeneralComponents/SelectGeneralMaterial2/SelectGeneralMaterial'), { ssr: false })
+
 
 
 const UpdateAutoGenerate = (props: any) => {
@@ -30,49 +33,38 @@ const UpdateAutoGenerate = (props: any) => {
     const roadMap = useAppSelector(selectRoadMap);
     const { col_structure } = useAppSelector(selectRoots);
 
-    const [dataNotFilter, setDataNotFilter] = useState<any[] | any | undefined>([]);
+    const [dataNotFilter, setDataNotFilter] = useState<any[] | any | undefined>();
     const [dataFilter, setDataFilter] = useState<any[] | any | undefined>([]);
-    const [selectedValues, setSelectedValues] = useState<any[] | any | undefined>([]);
+    const [selectedValues, setSelectedValues] = useState<any[] | any | undefined>();
+
+    console.log("🚀 ~ UpdateAutoGenerate ~ selectedValues:", selectedValues)
     const [vacanciesUse, setVacanciesUse] = useState<any[] | any | undefined>([]);
     const [vacanciesUseId, setVacanciesUseId] = useState<any[] | any | undefined>([]);
     const [vacanciesIdToChange, setVacanciesIdToChange] = useState<any[] | any | undefined>([]);
     const [idsProps, setidsProps] = useState<any[] | any | undefined>([]);
 
     const [data, setData] = useState<any[] | any | undefined>([]);
+    console.log("🚀 ~ UpdateAutoGenerate ~ data:", data)
 
 
     const [interviewsData, setInterviewsData] = useState<any[] | any | undefined>([]);
     const [userData, setUserData] = useState<any[] | any | undefined>([]);
     const [intervieewerAndResponsable, setIntervieewerAndResponsable] = useState<any[] | any | undefined>([]);
 
+    useEffect(() => {
+        // Acciones que deben ejecutarse una vez al montar el componente
+        dispatch(preloadInterViewData());
+        dispatch(preloadVacancyData());
+        dispatch(preloadUserData());
+        dispatch(preloadUserResponsibleAll());
+        dispatch(preloadUserInterviewAll());
+        dispatch(preloadInterViewAssistantIdData(ids));
+    }, [dispatch, ids]);
 
-
-
-
-
-    //TODO esto genera un error 
-    useLayoutEffect(() => {
-        const actions = [
-            // preloadRoadMapsData,
-            preloadInterViewData,
-            preloadVacancyData,
-            preloadUserData
-        ];
-        actions.forEach((action: any | undefined) => {
-            dispatch(action());
-        });
-        dispatch(preloadUserResponsibleAll())
-        dispatch(preloadUserInterviewAll())
-        setidsProps(ids)
-        dispatch(preloadInterViewAssistantIdData(ids))
-    }, [])
-
-
-    useLayoutEffect(() => {
+    useEffect(() => {
+        // Acciones que deben ejecutarse cuando cambia 'ids' o cualquier otro cambio necesario
         dispatch(roadMapsDataId(ids));
-    }, [dispatch]);
-
-
+    }, [dispatch, ids]);
 
     const {
         createDataStart,
@@ -100,159 +92,172 @@ const UpdateAutoGenerate = (props: any) => {
 
     } = roadMap;
 
-    //TODO info del  select con vacancyId/////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////
-    // console.log("🚀 ~ UpdateAutoGenerate ~ iterviewUsersAll:", iterviewUsersAll)
-    // console.log("🚀 ~ UpdateAutoGenerate ~ interviewResponsibleAll:", interviewResponsibleAll)
 
-    // console.log("🚀 ~ UpdateAutoGenerate ~ vacanciesIdToChange:", vacanciesIdToChange, "<----***id vacanciesId |||| roadMapId --->", ids)
+    const fetchData = useCallback(async () => {
+        try {
+            const dataofCol_structure = await col_structureFormaterWithReducer(col_structure, dataRoadMapIdData, nameModelStart);
 
-    // //sin VacancyId
-    // const dataS= dataRetun?.filter((item:any) => typeof item.column_name === 'string' && !item.column_name.endsWith("Id") && !item.column_name.endsWith("Id"));
-    // console.log("🚀 ~ functionAsync ~ dataS:", dataS)
-    ////////////////////////////////////////////////////////////////
-
-    //warning -> Alwais layoutEffect because When Module start this Need data
-    useLayoutEffect(() => {
-        const functionAsync = async () => {
-            const dataRetun = await col_structureFormaterWithReducer(col_structure, dataRoadMapIdData, nameModelStart);
-
-            if (dataRetun) {
-                const foundItem = dataRetun?.find((item: any) => typeof item.column_name === 'string' && item.column_name.endsWith('Id'));
+            if (dataofCol_structure) {
+                const foundItem = dataofCol_structure.find((item: any) => typeof item.column_name === 'string' && item.column_name.endsWith('Id'));
                 if (foundItem) {
                     const { keyValue, column_name } = foundItem;
                     if (keyValue) {
                         await dispatch(vacancyDataId(keyValue));
                     }
                 }
-            }
 
-            if (dataRetun) {
-                const filterData = await dataRetun?.filter((item: any) => typeof item.column_name === 'string' && !item.column_name.endsWith('Id'));
+                const filterData = dataofCol_structure.filter((item: any) => typeof item.column_name === 'string' && !item.column_name.endsWith('Id'));
                 if (filterData) {
-                    setDataFilter(filterData)
-                    setData({ ...dataRoadMapIdData[0] })
+                    setDataFilter(filterData);
+                    setData({ ...dataRoadMapIdData[0] });
                 }
             }
+        } catch (error) {
+            console.error('Error:', error);
         }
-
-        functionAsync();
     }, [col_structure, dataRoadMapIdData, nameModelStart, dispatch]);
 
+    useEffect(() => {
+        fetchData();
+    }, [fetchData]);
 
     useLayoutEffect(() => {
         const functionAsync = async () => {
-            // const dataRetun = await col_structureFormaterWithReducer(col_structure, dataVacanciesIdData, "Vacancies")
-            const dataRetun = await col_structureFormaterWithReducer(col_structure, dataVacanciesId, "Vacancies")
+            try {
+                if (vacanciesData) {
+                    const [formattedVacanciesData, formattedVacanciesIdData] = await Promise.all([
+                        formaterNotArray(vacanciesData),
+                        formaterNotArray(dataVacanciesId)
+                    ]);
 
-            if (vacanciesData) {
-                try {
-                    try {
-                        const dataReturn = await formaterNotArray(vacanciesData);
+                    const dataReturnAfterMapVacancies = formattedVacanciesData?.map((item) => `${item?.id}-${item.title}`);
+                    const dataReturnAfterMapVacanciesId = formattedVacanciesIdData?.map((item) => `${item?.id}-${item.title}`);
 
-                        const dataReturnAfterMap = await dataReturn?.map((item) => `${item?.id}-${item.title}`);
-
-                        if (vacanciesData) await setVacanciesUse(dataReturnAfterMap);
-                    } catch (error) {
-                        console.error("Error:", error);
-                    }
-
-                    try {
-                        const dataReturn = await formaterNotArray(dataVacanciesId)
-
-                        const dataReturnAfterMap = await dataReturn?.map((item) => `${item?.id}-${item.title}`);
-
-                        if (dataVacanciesId) await setVacanciesUseId(dataReturnAfterMap)
-
-                    } catch (error) {
-
-                    }
-                } catch (error) {
-                    console.log("🚀 ~ functionAsync ~ error:", error)
+                    setVacanciesUse(dataReturnAfterMapVacancies);
+                    setVacanciesUseId(dataReturnAfterMapVacanciesId);
                 }
+            } catch (error) {
+                console.error("Error:", error);
             }
-            // if (dataVacanciesId) await setVacanciesUseId(dataVacanciesId)
-        }
-        functionAsync()
-    }, [col_structure, dataVacanciesIdData])
+        };
+
+        functionAsync();
+    }, [col_structure, dataVacanciesId, vacanciesData]);
+
+
+
+    const memoizedVacanciesUse = useMemo(() => {
+        const arrayKeys = ['id', 'tittle']
+        return formaterSelectTitle(vacanciesData, arrayKeys)
+    }, [vacanciesData]);
+
+    const memoizedVacanciesUseId = useMemo(() => {
+        const arrayKeys = ['id', 'tittle']
+        return formaterSelectTitle(dataVacanciesId, arrayKeys)
+    }, [dataVacanciesId]);
 
 
     useEffect(() => {
+        setVacanciesUse(memoizedVacanciesUse);
+        setVacanciesUseId(memoizedVacanciesUseId);
+    }, [memoizedVacanciesUse, memoizedVacanciesUseId]);
+
+    useEffect(() => {
         const functionAsync = async () => {
-            // let dataReturn: any | any[] | undefined = await formaterNotArray(dataVacanciesId)
-            // console.log("🚀 ~ functionAsync ~ dataReturn:", dataReturn)
-            const dataReturnAfterMap = await selectedValues?.map((item: any) => parseInt((item.split('-'))[0]));
-            setVacanciesIdToChange(dataReturnAfterMap)
+            if (Array.isArray(selectedValues)) {
+
+                const dataReturnAfterMap = selectedValues.map((item: any) => parseInt((item.split('-'))[0]));
+                setVacanciesIdToChange(dataReturnAfterMap);
+            }
         }
         functionAsync()
     }, [selectedValues])
 
+    const memoizedInterviewsDataNotArrayMap = useMemo(() => {
+        const arrayKeys = ['id', 'summary']
+
+        return formatDataWithKeys(interviewsDataNotArray, arrayKeys)
+    }, [interviewsDataNotArray]);
+
+    const memoizedUsersNotArrayMap = useMemo(() => {
+        const arrayKeys = ['id', 'fullname']
+        return formatDataWithKeys(users, arrayKeys)
+    }, [users]);
+
 
 
     useEffect(() => {
-
-
-
-        const asyncFuntion = async () => {
-
+        const fetchData = async () => {
             try {
-                //TODO
                 if (intervieewerAndResponsableIdAll !== undefined) {
-                    const { data } = await intervieewerAndResponsableIdAll;
+                    const { data } = await intervieewerAndResponsableIdAll; // Assuming this is an Axios response
                     if (data && data.length > 0) {
-                        const inter = data[0]?.Interviews;
-                        console.log("🚀 ~ asyncFuntion ~ inter:", inter);
-                        if (inter) setIntervieewerAndResponsable(inter);
-                    } else {
-                        console.log("Data is undefined or empty.");
+                        const inter = await data[0]?.Interviews;
+                        if (inter) {
+                            setIntervieewerAndResponsable(inter);
+                        } else {
+                            console.log("Data is undefined or empty.");
+                        }
                     }
                 }
 
-                const datainterviewsDataNotArrayMap = await interviewsDataNotArray?.map((item: any) => `${item?.id}-${item?.summary.replace(/,/g, '')}`);
-                const datausersNotArrayMap = await users?.map((item: any) => `${item?.id}-${item?.fullname.replace(/,/g, '')}`);
+                if (memoizedInterviewsDataNotArrayMap.length > 0) {
+                    setInterviewsData(memoizedInterviewsDataNotArrayMap);
+                }
 
-                //there are Interviews
-                if (datainterviewsDataNotArrayMap) setInterviewsData(datainterviewsDataNotArrayMap)
-                //there are Users
-                if (datausersNotArrayMap) setUserData(datausersNotArrayMap)
+                if (memoizedUsersNotArrayMap.length > 0) {
+                    setUserData(memoizedUsersNotArrayMap);
+                }
             } catch (error) {
-                console.log("🚀 ~ asyncFuntion ~ error:", error)
-
+                console.log("🚀 ~ fetchData ~ error:", error);
             }
+        };
 
-        }
-        asyncFuntion()
-    }, [data?.all_Steps])
+        fetchData();
+    }, [intervieewerAndResponsableIdAll, memoizedInterviewsDataNotArrayMap, memoizedUsersNotArrayMap]);
+
+    // Memoizing computed values
+    const memoizedInterviewsData = useMemo(() => {
+        // Compute memoizedInterviewsDataNotArrayMap
+        return memoizedInterviewsDataNotArrayMap;
+    }, [memoizedInterviewsDataNotArrayMap]);
+
+    const memoizedUsers = useMemo(() => {
+        // Compute memoizedUsersNotArrayMap
+        return memoizedUsersNotArrayMap;
+    }, [memoizedUsersNotArrayMap]);
+
 
     // map   
-
-
-
-
     return (
         <div className={styles.body}>
             <div className={styles.selects}>
+                {
 
-                <SelectGeneralMaterial
-                    todoSelect={vacanciesUse}
-                    defaultValueSelect={vacanciesUseId}
+                    vacanciesUse &&
+                    <SelectGeneralMaterial
+                        todoSelect={vacanciesUse}
+                        defaultValueSelect={vacanciesUseId}
 
-                    size="medium"
-                    isfullWidth={false}
-                    labelId="demo-multiple-chip-label"
-                    id="demo-multiple-chip"
-                    isMultiple={false}
-                    label="Vacancies"
-                    setSelectedValues={setSelectedValues}
-                />
-
-
+                        size="medium"
+                        isfullWidth={false}
+                        labelId="demo-multiple-chip-label"
+                        id="demo-multiple-chip"
+                        isMultiple={false}
+                        label="Vacancies"
+                        setSelectedValues={setSelectedValues}
+                        selectedValues={selectedValues}
+                        name={"vacancies"}
+                    />
+                }
             </div>
-
-
             <div className={styles.bodyElements}>
 
-                {dataFilter.length > 0 &&
+                {
+                    (dataFilter.length === 0 || dataFilter === undefined) ?? <Spinner />
+
+                }
+                {(dataFilter.length > 0 && dataFilter !== undefined) &&
                     dataFilter.map((item: any) => (
                         <div key={item.key}>
                             <Inputs
@@ -265,7 +270,7 @@ const UpdateAutoGenerate = (props: any) => {
                                 minLength={''}
                                 autoFocus={false}
                                 color={''}
-                                disabled={false}
+                                disabled={(item.column_name === 'id') ? true : false}
                                 fullWidth={true}
                                 id={''}
                                 inputComponent={undefined}
@@ -279,132 +284,61 @@ const UpdateAutoGenerate = (props: any) => {
                     ))}
             </div>
 
+
             <div>
-
-
-                {/* {data?.all_Steps && Array.from({ length: Number(data.all_Steps) })?.map((_, index) => (
-                    <div className={styles.selectsSecond}>
-                        <div key={index} className={styles.step}>
-                            <h4>Step {index + 1}</h4>
-                            {
-                                elementSelectSeconds && elementSelectSeconds?.map((item: any) =>
-                                    <div key={item?.key || item?.dataIndex}>
-                                        <SelectGeneralMaterial
-                                            todoSelect={item}
-                                            isMultiple={rulefunction(item)}
-                                            keys={index + 1}
-                                            setSelectedValues={setSelectedValues}
-                                        />
-
-                                    </div>
-                                )
-                            }
-
-                        </div>
-
-                    </div>
-                ))} */}
-
-                {/* {data?.all_Steps && Array.from({ length: Number(data.all_Steps) })?.map((_, index) => (
-                    <div>
-                        <h4>Step {index + 1}</h4>
-
-                    </div>
-                ))} */}
-
-
-                {/* <div className={styles.selectGroup}>
-
-                    {
-                        intervieewerAndResponsable && intervieewerAndResponsable.map((item: any) => (
-
-                            <div className={styles.step}>
-                                <div className={styles.selectsSecond}>
-                                    <SelectGeneralMaterial
-                                        defaultValueSelect={[`${item.interview}`]}
-
-                                        todoSelect={interviewsData}
-                                        isMultiple={false}
-                                        setSelectedValues={setSelectedValues}
-                                    />
-                                </div>
-
-                                <div className={styles.selectsSecond}>
-                                    <SelectGeneralMaterial
-                                        defaultValueSelect={item.InterviewUsers}
-
-                                        todoSelect={userData}
-                                        isMultiple={true}
-                                        setSelectedValues={setSelectedValues}
-                                    />
-                                </div>
-                                <div className={styles.selectsSecond}>
-                                    <SelectGeneralMaterial
-                                        defaultValueSelect={item.InterviewResponsibles}
-                                        todoSelect={userData}
-                                        isMultiple={true}
-                                        setSelectedValues={setSelectedValues}
-                                    />
-                                </div>
-
-                            </div>
-                        ))
-                    }
-
-                </div> */}
                 <div className={styles.selectGroup}>
-                    {data?.all_Steps &&
+                    {(
+                        data?.all_Steps &&
+                        intervieewerAndResponsable) &&
                         Array.from({ length: Number(data.all_Steps) }).map((_, index) => (
-                            <div className={styles.step}>
-
-                                <div key={index}>
+                            <div className={styles.step} key={index}>
+                                <div>
                                     Step {index + 1}
                                     <div className={styles.input}>
-                                        {
-
-                                            < Inputs
-                                                className={styles.input}
-                                                data={data}
-                                                setData={setData}
-                                                placeholder={'order'}
-                                                name={'order'}
-                                                type={'number'}
-                                                minLength={''} autoFocus={false} color={''}
-                                                defaultValue={intervieewerAndResponsable[index]?.interviewOrder ?
-                                                    [`${intervieewerAndResponsable[index].interviewOrder}`] : [index + 1]}
-                                                disabled={false}
-                                                fullWidth={false}
-                                                id={''}
-                                                inputComponent={undefined} multiline={false} label={''} rows={''} />
-                                        }
-
+                                        <Inputs
+                                            className={styles.input}
+                                            data={data}
+                                            setData={setData}
+                                            placeholder={'order'}
+                                            name={`${index}-order`}
+                                            type={'number'}
+                                            defaultValue={intervieewerAndResponsable[index]?.interviewOrder ?
+                                                [`${intervieewerAndResponsable[index].interviewOrder}`] : [index + 1]}
+                                            selectedValues={selectedValues}
+                                        />
                                     </div>
 
                                     <div className={styles.selectsSecond}>
                                         <SelectGeneralMaterial
-                                            defaultValueSelect={intervieewerAndResponsable[index]?.interview ? [`${intervieewerAndResponsable[index].interview}`] : ['-']}
-
+                                            defaultValueSelect={intervieewerAndResponsable[index]?.interview || intervieewerAndResponsable[0]?.interview}
                                             todoSelect={interviewsData}
                                             isMultiple={false}
                                             setSelectedValues={setSelectedValues}
+                                            name={`${index}-interview`}
+                                            selectedValues={selectedValues}
+                                        />
+                                    </div>
+
+
+                                    <div className={styles.selectsSecond}>
+                                        <SelectGeneralMaterial
+                                            defaultValueSelect={intervieewerAndResponsable[index]?.InterviewUsers || intervieewerAndResponsable[0]?.InterviewUsers}
+                                            todoSelect={userData}
+                                            isMultiple={true}
+                                            setSelectedValues={setSelectedValues}
+                                            name={`${index}-InterviewUsers`}
+                                            selectedValues={selectedValues}
                                         />
                                     </div>
 
                                     <div className={styles.selectsSecond}>
                                         <SelectGeneralMaterial
-                                            defaultValueSelect={intervieewerAndResponsable[index]?.InterviewUsers || ['']}
-
+                                            defaultValueSelect={intervieewerAndResponsable[index]?.InterviewResponsibles || intervieewerAndResponsable[0]?.InterviewResponsibles}
                                             todoSelect={userData}
                                             isMultiple={true}
                                             setSelectedValues={setSelectedValues}
-                                        />
-                                    </div>
-                                    <div className={styles.selectsSecond}>
-                                        <SelectGeneralMaterial
-                                            defaultValueSelect={intervieewerAndResponsable[index]?.InterviewResponsibles || ['']}
-                                            todoSelect={userData}
-                                            isMultiple={true}
-                                            setSelectedValues={setSelectedValues}
+                                            name={`${index}-InterviewResponsibles`}
+                                            selectedValues={selectedValues}
                                         />
                                     </div>
                                 </div>
@@ -413,10 +347,18 @@ const UpdateAutoGenerate = (props: any) => {
                     }
                 </div>
 
-
-
-
             </div>
+            {
+                (
+                    vacanciesUse &&
+                    data?.all_Steps &&
+                    dataFilter &&
+                    intervieewerAndResponsable
+                ) ? null :
+                    <Spinner />
+                    
+
+            }
         </div>
     );
 }

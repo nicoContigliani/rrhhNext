@@ -132,6 +132,7 @@
         z-index: 9999;
         /* Valor alto de z-index para superponer sobre todo */
         flex-direction: column;
+        width: 90;
     }
 
     .selectsGeneral {
@@ -151,19 +152,21 @@
 
     .bodyElements {
         display: grid;
-        grid-template-columns: repeat(5, 6fr);
+        grid-template-columns: repeat(5, 8fr);
         /* Tres columnas de igual ancho */
-        grid-gap: 1px 25px;
+        grid-gap: 1px 45px;
         /* 2px de separación vertical y 3px de separación horizontal */
         justify-content: center;
         /* Centra el grid horizontalmente */
         align-content: center;
         /* Centra el grid verticalmente si el contenedor tiene altura fija */
-        padding: 1px;
+        padding: 1%;
         /* Añadir un poco de relleno alrededor del contenedor */
 
-
-
+        padding-bottom: 2%;
+        box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.2), 1px 3px 30px #c2ccfdb0, -8px -1px 2px #ffffffb8; /* Sombra suave para resaltar el card */
+        background: linear-gradient(to bottom right, #ffffff, #f9d3d326); /* Gradiente de fondo */
+        margin-bottom: 3%;
         
     }
 
@@ -196,7 +199,7 @@
         padding-left: 1%; */
         width: 100%;
         z-index: 999;
-        padding-bottom: 2%;
+        padding-bottom: 3%;
     }
 
     .input {
@@ -257,41 +260,38 @@
         /* Tamaño del texto */
     }
 
-    .selectsSecond {
-        display: grid;
-        width: auto;
-        grid-template-columns: repeat(auto-fit, minmax(500px, 3fr));
-        grid-gap: 1px;
-        /* Ajusta el espacio entre los elementos según sea necesario */
-        justify-content: center;
-        /* Centra el grid horizontalmente */
-        align-content: center;
-        /* width: 100%; */
-        border-radius: 5%;
-
-
-    }
-
-    .step {
-        padding-left: 5%;
-        width: 90%;
-        /* Ancho del card */
-        /* Espaciado interno del card */
-        border-radius: 5%;
-        /* Radio de borde para darle forma al card */
-        box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.2);
-        /* Sombra suave para resaltar el card */
-        box-shadow: 1px 3px 30px #c2ccfdb0, -8px -1px 2px #ffffffb8;
-        background: linear-gradient(to bottom right, #ffffff, #f9d3d326);
-        /* Gradiente de fondo */
-
-    }
-
     .selectGroup {
+        padding-top: 20px;
         display: grid;
-        grid-template-columns: repeat(5, 6fr);
-        
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Asegura al menos 3 columnas */
+        grid-gap: 40px; /* Espacio entre los elementos del grid */
+        padding: 5px; /* Espaciado interno del grupo */
+        background: #ffffffb8;
+        justify-content: center;
+        align-content: center;
     }
+    
+    .step {
+        padding: 20px; /* Espaciado interno del card */
+        border-radius: 10px; /* Radio de borde para darle forma al card */
+        box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.2), 1px 3px 30px #c2ccfdb0, -8px -1px 2px #ffffffb8; /* Sombra suave para resaltar el card */
+        background: linear-gradient(to bottom right, #ffffff, #f9d3d326); /* Gradiente de fondo */
+    }
+    
+    .selectsSecond {
+        width: auto;
+        display: flex;
+        flex-direction: column; 
+        gap: 10px; /* Espacio entre los elementos dentro de selectsSecond */
+        justify-content: center;
+        align-content: center;
+    }
+    
+    .input {
+        margin-bottom: 10px; /* Espacio inferior para separar los inputs del resto */
+    }
+    
+   
 
 
 }
